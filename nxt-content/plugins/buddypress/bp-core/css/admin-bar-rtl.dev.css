@@ -1,0 +1,27 @@
+#nxtadminbar .quicklinks li#nxt-admin-bar-my-account ul,
+#nxtadminbar .quicklinks li#nxt-admin-bar-my-account-with-avatar ul {
+	left: auto;
+	right: 0;
+}
+#nxtadminbar .quicklinks li#nxt-admin-bar-user-admin-with-avatar > a img,
+#nxtadminbar .quicklinks li#nxt-admin-bar-group-admin-with-avatar > a img {
+	margin: -2px -5px 0 23px;
+}
+#nxtadminbar .quicklinks li#nxt-admin-bar-user-admin-with-avatar ul,
+#nxtadminbar .quicklinks li#nxt-admin-bar-group-admin-with-avatar ul {
+	left: auto;
+	right: 30px;
+}
+#nxtadminbar .quicklinks li#nxt-admin-bar-user-admin-with-avatar ul ul,
+#nxtadminbar .quicklinks li#nxt-admin-bar-group-admin-with-avatar ul ul {
+	left: auto;
+ 	right: 0;
+}
+#nxtadminbar .quicklinks li#nxt-admin-bar-group-admin-with-avatar ul {
+	left: auto;
+ 	right: 0;
+}
+#nxtadminbar .quicklinks li#nxt-admin-bar-group-admin-with-avatar ul ul {
+	left: auto;
+ 	right: 0;
+}

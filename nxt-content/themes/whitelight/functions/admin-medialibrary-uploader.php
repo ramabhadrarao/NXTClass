@@ -1,0 +1,336 @@
+<?php
+/*-----------------------------------------------------------------------------------*/
+/* lokThemes Media Library-driven AJAX File Uploader Module */
+/* 2010-11-05. */
+/*
+/* If we're on a lokThemes specific administration page, add Media Library Uploader
+/* specific actions for CSS, JavaScript and several other functionalities.
+/*-----------------------------------------------------------------------------------*/
+
+if ( is_admin() ) {
+	add_action( 'init', 'lokthemes_mlu_init' );
+	add_action( 'admin_print_scripts', 'lokthemes_mlu_insidepopup' );
+	add_filter( 'gettext', 'lokthemes_mlu_change_button_text', null, 2 );
+	
+	$is_posts_page = 0;
+
+	// Sanitize value.
+	$_current_url =  strtolower( strip_tags( trim( $_SERVER['REQUEST_URI'] ) ) );
+
+	if ( ( substr( basename( $_current_url ), 0, 8 ) == 'post.php' ) || substr( basename( $_current_url ), 0, 12 ) == 'post-new.php' ) {
+		$is_posts_page = 1;
+	}
+
+	$_page = '';
+
+	if ( ( isset( $_REQUEST['page'] ) ) ) {
+		// Sanitize value.
+		$_page = strtolower( strip_tags( trim( $_REQUEST['page'] ) ) );
+	}
+
+		if ( ( $_page != '' && substr( $_page, 0, 3 ) == 'lok' ) || $is_posts_page ) {
+			add_action( 'admin_print_styles', 'lokthemes_mlu_css', 0 );
+			add_action( 'admin_print_scripts', 'lokthemes_mlu_js', 0 );
+		}
+}
+
+/*-----------------------------------------------------------------------------------*/
+/* lokthemes_mlu_init */
+/*
+/* Global init() function for the lokThemes Media Library-driven AJAX File Uploader.
+/*-----------------------------------------------------------------------------------*/
+
+if ( ! function_exists( 'lokthemes_mlu_init' ) ) {
+	function lokthemes_mlu_init () {
+		register_post_type( 'lokframework', array(
+			'labels' => array(
+				'name' => __( 'lokFramework Internal Container', 'lokthemes' ),
+			),
+			'public' => true,
+			'show_ui' => false,
+			'capability_type' => 'post',
+			'hierarchical' => false,
+			'rewrite' => false,
+			'supports' => array( 'title', 'editor' ),
+			'query_var' => false,
+			'can_export' => true,
+			'show_in_nav_menus' => false
+		) );
+	} // End lokthemes_mlu_init()
+}
+
+/*-----------------------------------------------------------------------------------*/
+/* lokthemes_mlu_css */
+/*
+/* Add the Thickbox CSS file and specific loading and button images to the header
+/* on the pages where this function is called.
+/*-----------------------------------------------------------------------------------*/
+
+if ( ! function_exists( 'lokthemes_mlu_css' ) ) {
+	function lokthemes_mlu_css () {
+		$_html = '';
+		$_html .= '<link rel="stylesheet" href="' . includes_url() . 'js/thickbox/thickbox.css" type="text/css" media="screen" />' . "\n";
+		$_html .= '<script type="text/javascript">
+		var tb_pathToImage = "' . includes_url() . 'js/thickbox/loadingAnimation.gif";
+	    var tb_closeImage = "' . includes_url() . 'js/thickbox/tb-close.png";
+	    </script>' . "\n";
+	    
+	    echo $_html;
+	} // End lokthemes_mlu_css()
+}
+
+/*-----------------------------------------------------------------------------------*/
+/* lokthemes_mlu_js */
+/*
+/* Register and enqueue (load) the necessary JavaScript file for working with the
+/* Media Library-driven AJAX File Uploader Module.
+/*-----------------------------------------------------------------------------------*/
+
+if ( ! function_exists( 'lokthemes_mlu_js' ) ) {
+	function lokthemes_mlu_js () {
+		// Register custom scripts for the Media Library AJAX uploader.
+		nxt_register_script( 'lok-medialibrary-uploader', get_template_directory_uri() . '/functions/js/lok-medialibrary-uploader.js', array( 'jquery', 'thickbox' ) );
+		nxt_enqueue_script( 'lok-medialibrary-uploader' );
+		nxt_enqueue_script( 'media-upload' );
+	} // End lokthemes_mlu_js()
+}
+
+/*-----------------------------------------------------------------------------------*/
+/* lokthemes_medialibrary_uploader */
+/*
+/* lokThemes Uploader Using the NXTClass Media Library.
+/*
+/* Parameters:
+/* - string $_id - A token to identify this field (the name).
+/* - string $_value - The value of the field, if present.
+/* - string $_mode - The display mode of the field.
+/* - string $_desc - An optional description of the field.
+/* - int $_postid - An optional post id (used in the meta boxes).
+/*
+/* Dependencies:
+/* - lokthemes_mlu_get_silentpost()
+/*-----------------------------------------------------------------------------------*/
+
+if ( ! function_exists( 'lokthemes_medialibrary_uploader' ) ) {
+	function lokthemes_medialibrary_uploader ( $_id, $_value, $_mode = 'full', $_desc = '', $_postid = 0 ) {
+		$output = '';
+
+		$id = '';
+		$class = '';
+		$int = '';
+		$value = '';
+
+		$id = strip_tags( strtolower( $_id ) );
+
+		// If a post id is present, use it. Otherwise, search for one based on the $_id.
+		if ( $_postid != 0 ) {
+			$int = $_postid;
+		} else {
+			$int = lokthemes_mlu_get_silentpost( $id ); // Change for each field, using a "silent" post. If no post is present, one will be created.
+		}
+
+		// If we're on a post add/edit screen, call the post meta value.
+		if ( $_mode == 'postmeta' ) {
+			$value = get_post_meta( $_postid, $id, true );
+		} else {
+			$value = get_option( $id );
+		}
+
+		// If a value is passed and we don't have a stored value, use the value that's passed through.
+		if ( $_value != '' && $value == '' ) {
+			$value = $_value;
+		}
+
+		if ( $value ) { $class = ' has-file'; } // End IF Statement
+
+		// Hide the input field for "minimal" upload fields.
+		$field_type = 'text';
+		if ( $_mode == 'min' ) { $field_type = 'hidden'; }
+
+		$output .= '<input type="' . $field_type . '" name="' . $id . '" id="' . $id . '" value="' . esc_attr( $value ) . '" class="upload' . $class . '" />' . "\n";
+		$output .= '<input id="upload_' . $id . '" class="upload_button button" type="button" value="' . __( 'Upload', 'lokthemes' ) . '" rel="' . $int . '" />' . "\n";
+
+		if ( $_desc != '' ) {
+			$output .= '<span class="lok_metabox_desc">' . $_desc . '</span>' . "\n";
+		}
+		
+		$output .= '<div class="screenshot" id="' . $id . '_image">' . "\n";
+
+		if ( $value != '' ) {
+			$remove = '<a href="javascript:(void);" class="mlu_remove button">Remove</a>';
+
+			$image = preg_match( '/(^.*\.jpg|jpeg|png|gif|ico*)/i', $value );
+
+			if ( $image ) {
+				$output .= '<img src="' . esc_url( $value ) . '" alt="" />'.$remove.'';
+			} else {
+				$parts = explode( "/", $value );
+
+				for( $i = 0; $i < sizeof( $parts ); ++$i ) {
+					$title = $parts[$i];
+				} // End FOR Loop
+
+				// No output preview if it's not an image.
+				$output .= '';
+
+				// Standard generic output if it's not an image.
+				$title = __( 'View File', 'lokthemes' );
+
+				$output .= '<div class="no_image"><span class="file_link"><a href="' . esc_url( $value ) . '" target="_blank" rel="external">'.$title.'</a></span>' . $remove . '</div>';
+
+			} // End IF Statement
+		} // End IF Statement
+
+		$output .= '</div>' . "\n";
+
+		return $output;
+	} // End lokthemes_medialibrary_uploader()
+}
+
+/*-----------------------------------------------------------------------------------*/
+/* lokthemes_mlu_get_silentpost */
+/*
+/* Use "silent" posts in the database to store relationships for images.
+/* This also creates the facility to collect galleries of, for example, logo images.
+/*
+/* Return: $_postid.
+/*
+/* If no "silent" post is present, one will be created with the type "lokframework"
+/* and the post_name of "lok-wf-$_token".
+/*
+/* Example Usage:
+/* lokthemes_mlu_get_silentpost ( 'lok_logo' );
+/*-----------------------------------------------------------------------------------*/
+
+if ( ! function_exists( 'lokthemes_mlu_get_silentpost' ) ) {
+	function lokthemes_mlu_get_silentpost ( $_token ) {
+		global $nxtdb;
+
+		$_id = 0;
+
+		// Check if the token is valid against a whitelist.
+
+		// $_whitelist = array( 'lok_logo', 'lok_custom_favicon', 'lok_body_img', 'lok_ad_top_image' );
+
+		// Sanitise the token.
+
+		$_token = strtolower( str_replace( ' ', '_', $_token ) );
+
+		// if ( in_array( $_token, $_whitelist ) ) {
+
+		if ( $_token ) {
+			// Tell the function what to look for in a post.
+			$_args = array( 'post_parent' => '0', 'post_type' => 'lokframework', 'post_name' => 'lok-wf-' . $_token, 'post_status' => 'draft', 'comment_status' => 'closed', 'ping_status' => 'closed' );
+
+			// Look in the database for a "silent" post that meets our criteria.
+			$_posts = get_post( $_args );
+
+			// If we've got a post, loop through and get it's ID.
+			if ( count( $_posts ) ) {
+				$_id = $_posts->ID;
+			} else {
+				// If no post is present, insert one.
+				// Prepare some additional data to go with the post insertion.
+				$_words = explode( '_', $_token );
+				$_title = join( ' ', $_words );
+				$_title = ucwords( $_title );
+				$_post_data = array( 'post_title' => $_title );
+				$_post_data = array_merge( $_post_data, $_args );
+
+				$_id = nxt_insert_post( $_post_data );
+			} // End IF Statement
+		}
+
+		return $_id;
+	} // End lokthemes_mlu_get_silentpost()
+}
+
+/*-----------------------------------------------------------------------------------*/
+/* lokthemes_mlu_insidepopup */
+/*
+/* Trigger code inside the Media Library popup.
+/*-----------------------------------------------------------------------------------*/
+
+if ( ! function_exists( 'lokthemes_mlu_insidepopup' ) ) {
+	function lokthemes_mlu_insidepopup () {
+		if ( isset( $_REQUEST['is_lokthemes'] ) && $_REQUEST['is_lokthemes'] == 'yes' ) {
+			add_action( 'admin_head', 'lokthemes_mlu_js_popup' );
+			add_filter( 'media_upload_tabs', 'lokthemes_mlu_modify_tabs' );
+		}
+	} // End lokthemes_mlu_insidepopup()
+}
+
+if ( ! function_exists( 'lokthemes_mlu_js_popup' ) ) {
+	function lokthemes_mlu_js_popup () {
+		$_lok_title = 'file';
+
+		if ( isset( $_REQUEST['lok_title'] ) ) { $_lok_title = $_REQUEST['lok_title']; } // End IF Statement
+?>
+	<script type="text/javascript">
+	<!--
+	jQuery(function($) {
+		jQuery.noConflict();
+
+		// Change the title of each tab to use the custom title text instead of "Media File".
+		$( 'h3.media-title' ).each ( function () {
+			var current_title = $( this ).html();
+
+			var new_title = current_title.replace( 'media file', '<?php echo $_lok_title; ?>' );
+
+			$( this ).html( new_title )
+		} );
+
+		// Hide the "Insert Gallery" settings box on the "Gallery" tab.
+		$( 'div#gallery-settings' ).hide();
+
+		// Preserve the "is_lokthemes" parameter on the "delete" confirmation button.
+		$( '.savesend a.del-link' ).click ( function () {
+			var continueButton = $( this ).next( '.del-attachment' ).children( 'a.button[id*="del"]' );
+
+			var continueHref = continueButton.attr( 'href' );
+
+			continueHref = continueHref + '&is_lokthemes=yes';
+
+			continueButton.attr( 'href', continueHref );
+		} );
+	});
+	-->
+	</script>
+<?php
+
+	} // End lokthemes_mlu_js_popup()
+}
+
+/*-----------------------------------------------------------------------------------*/
+/* lokthemes_mlu_modify_tabs */
+/*
+/* Triggered inside the Media Library popup to modify the title of the "Gallery" tab.
+/*-----------------------------------------------------------------------------------*/
+
+if ( ! function_exists( 'lokthemes_mlu_modify_tabs' ) ) {
+	function lokthemes_mlu_modify_tabs ( $tabs ) {
+		if ( isset( $tabs['gallery'] ) ) { $tabs['gallery'] = str_replace( __( 'Gallery', 'lokthemes' ), __( 'Previously Uploaded', 'lokthemes' ), $tabs['gallery'] ); }
+		return $tabs;
+	} // End lokthemes_mlu_modify_tabs()
+} // End IF Statement
+
+/*-----------------------------------------------------------------------------------*/
+/* lokthemes_mlu_change_button_text */
+/*
+/* Change the "Insert Into Post" button text where appropriate.
+/*-----------------------------------------------------------------------------------*/
+
+if ( ! function_exists( 'lokthemes_mlu_change_button_text' ) ) {
+	function lokthemes_mlu_change_button_text( $translation, $original ) {
+		 // We don't pass "type" in our custom upload fields, yet NXTClass does, so ignore our function when NXTClass has triggered the upload popup.
+	    if ( isset( $_REQUEST['type'] ) ) { return $translation; }
+	    
+	    if( $original == 'Insert into Post' ) {
+	    	$translation = __( 'Use this Image', 'lokthemes' );
+			if ( isset( $_REQUEST['title'] ) && $_REQUEST['title'] != '' ) { $translation = sprintf( __( 'Use as %s', 'lokthemes' ), esc_attr( $_REQUEST['title'] ) ); }
+	    }
+	
+	    return $translation;
+	} // End lokthemes_mlu_change_button_text()
+}
+?>

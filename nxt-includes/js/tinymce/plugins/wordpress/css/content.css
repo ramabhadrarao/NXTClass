@@ -1,0 +1,29 @@
+
+.mcenxtnextpage, .mcenxtmore {
+	border: 0;
+	border-top: 1px dotted #cccccc;
+	display: block;
+	width: 95%;
+	height: 12px;
+	margin: 15px auto 0;
+}
+.mcenxtmore {
+	background: transparent url(../img/more_bug.gif) no-repeat right top;
+}
+.mcenxtnextpage {
+    background: transparent url(../img/page_bug.gif) no-repeat right top;
+}
+
+img.nxtGallery {
+	border: 1px dashed #888;
+	background: #f2f8ff url("../../nxtgallery/img/gallery.png") no-repeat scroll center center;
+	width: 99%;
+	height: 250px;
+}
+
+img.nxt-oembed {
+	border: 1px dashed #888;
+	background: #f7f5f2 url("../img/embedded.png") no-repeat scroll center center;
+	width: 300px;
+	height: 250px;
+}

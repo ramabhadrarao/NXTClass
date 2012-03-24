@@ -1,0 +1,55 @@
+*** Whitelight Changelog ***
+
+2012.02.14 - version 1.0.4
+ * style.css - Fixed opacity for normal width slider current slide on small screens. Fixed tag cloud spacing. Nav toggle styling.
+ * css/layout.css - Fixed opacity for normal width slider current slide on small screens. Nav toggle styling.
+ * header.php - Added nav toggle for small resolutions
+ * includes/js/general.js - jQuery script for nav toggle
+ * includes/theme-options.php - added portfolio area post order and custom URL for portfolio items
+ * loop-portfolio.php,
+   includes/homepage-portfolio-panel.php - posts order and custom URL
+ * page.php - remove breadcrumb if static front page set.
+ 
+
+2012.02.13 - version 1.0.3
+ * includes/theme-actions.php - Added filter:none, so that custom BG styling works for alt styles with vertical gradients.
+ * styles/dark-glossy.css - IE styling
+ * includes/homepage-features-panel.php - added option to change the order of features in the features panel
+ * includes/theme-options.php - added option to change the order of features in the features panel
+ * style.css - Fixed dropdown menus.
+ * css/layout.css - Fixed dropdown menus
+ * includes/js/general.js - Added script to fix iPad dropdowns.
+
+2012.02.09 - version 1.0.2
+ * includes/js/respond-IE.js,
+   includes/js/third-party.js,
+   includes/theme-actions.php,
+   includes/theme-js.php - moved IE specific responsive JS to output in footer so IE8 doesn't crash
+ * style.css - IE8 fixes, adjusted homepage portfolio responsive layout, slider z-index fix
+ * includes/homepage-portfolio-panel.php - Changed image dimensions
+ * layout.css - Adjusted homepage portfolio margins
+ * includes/theme-options.php,
+   includes/theme-functions.php - removed single portfolio gallery option (not used)
+ * single-portfolio.php - tweaked lightbox gallery functionality
+ * styles/dark-lokd.css,
+   dark-glossy.css - lokCommerce message font color.
+	
+2012.02.08 - version 1.0.1
+ * style.css - Portfolio page template sizes & margins
+ 						 - Fixed iPad horizontal scroll
+ 						 - added .last class styling
+ 						 - Fixed dropdowns for iPad
+ 						 - Removed slider navigation arrows from iPhone
+ 						 - Styled products on normal search result pages
+ * layout.css - Portfolio images sizes & margins
+ * includes/theme-actions.php - Removed user zoom limitation for touch devices
+ * loop-portfolio.php - Image sizes
+ * header.php - Removed vienxtort scaling tag here, as it is in theme-actions.php
+ * content-features.php - fixed timthumb image output issue
+ * loop-portfolio.php - fixed lighthouse duplicate image issue
+ * includes/theme-options.php,
+   includes/homepage-portfolio-panel.php,
+   includes/homepage-features-panel.php - Added option for custom URL for the features/portfolio module archives link 
+
+2012.02.07 - version 1.0
+ * First release!
