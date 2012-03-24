@@ -135,6 +135,7 @@ require( ABSPATH . nxtINC . '/script-loader.php' );
 require( ABSPATH . nxtINC . '/taxonomy.php' );
 require( ABSPATH . nxtINC . '/update.php' );
 require( ABSPATH . nxtINC . '/canonical.php' );
+require( ABSPATH . nxtINC . '/shortcodes.php' );
 require( ABSPATH . nxtINC . '/media.php' );
 require( ABSPATH . nxtINC . '/http.php' );
 require( ABSPATH . nxtINC . '/class-http.php' );

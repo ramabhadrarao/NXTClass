@@ -39,7 +39,7 @@ get_current_screen()->add_help_tab( array(
 'id'		=> 'overview',
 'title'		=> __('Overview'),
 'content'	=>
-	'<p>' . sprintf(__('Plugins hook into NXTClass to extend its functionality with custom features. Plugins are developed independently from the core NXTClass application by thousands of developers all over the world. All plugins in the official <a href="%s" target="_blank">NXTClass.org Plugin Directory</a> are compatible with the license NXTClass uses. You can find new plugins to install by searching or browsing the Directory right here in your own Plugins section.'), 'http://nxtclass.org/extend/plugins/') . '</p>'
+	'<p>' . sprintf(__('Plugins hook into NXTClass to extend its functionality with custom features. Plugins are developed independently from the core NXTClass application by thousands of developers all over the world. All plugins in the official <a href="%s" target="_blank">NXTClass.org Plugin Directory</a> are compatible with the license NXTClass uses. You can find new plugins to install by searching or browsing the Directory right here in your own Plugins section.'), 'http://wordpress.org/extend/plugins/') . '</p>'
 ) );
 get_current_screen()->add_help_tab( array(
 'id'		=> 'adding-plugins',
@@ -52,8 +52,8 @@ get_current_screen()->add_help_tab( array(
 
 get_current_screen()->set_help_sidebar(
 	'<p><strong>' . __('For more information:') . '</strong></p>' .
-	'<p>' . __('<a href="http://codex.nxtclass.org/Plugins_Add_New_Screen" target="_blank">Documentation on Installing Plugins</a>') . '</p>' .
-	'<p>' . __('<a href="http://nxtclass.org/support/" target="_blank">Support Forums</a>') . '</p>'
+	'<p>' . __('<a href="http://codex.wordpress.org/Plugins_Add_New_Screen" target="_blank">Documentation on Installing Plugins</a>') . '</p>' .
+	'<p>' . __('<a href="http://wordpress.org/support/" target="_blank">Support Forums</a>') . '</p>'
 );
 
 include(ABSPATH . 'nxt-admin/admin-header.php');

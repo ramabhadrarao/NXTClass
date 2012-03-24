@@ -69,6 +69,11 @@ $table_prefix  = 'nxt_';
  * de_DE.mo to nxt-content/languages and set nxtLANG to 'de_DE' to enable German
  * language support.
  */
+ 
+define ('nxtLANG', 'en');define('nxt_ALLOW_MULTISITE', false);
+
+define( 'BP_DISABLE_ADMIN_BAR', true );
+ 
 define('nxtLANG', '');
 
 /**
