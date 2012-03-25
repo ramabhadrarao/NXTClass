@@ -7,7 +7,7 @@ if (!function_exists( 'the_widgets_init')) {
 	    if ( !function_exists( 'register_sidebar') )
 	        return;
 		
-		register_sidebar(array( 'name' => __( 'Homepage', 'lokthemes' ),'id' => 'homepage', 'description' => __( 'Use the Component widget to add the sections you\'d like to display on your homepage in this widgetized area.', 'lokthemes' ), 'before_widget' => '<div id="%1$s" class="widget %2$s">','after_widget' => '</div>','before_title' => '<h3>','after_title' => '</h3>'));
+		register_sidebar(array( 'name' => __( 'Homepage', 'woothemes' ),'id' => 'homepage', 'description' => __( 'Use the Component widget to add the sections you\'d like to display on your homepage in this widgetized area.', 'woothemes' ), 'before_widget' => '<div id="%1$s" class="widget %2$s">','after_widget' => '</div>','before_title' => '<h3>','after_title' => '</h3>'));
 	    register_sidebar(array( 'name' => 'Primary','id' => 'primary','description' => "Normal full width sidebar", 'before_widget' => '<div id="%1$s" class="widget %2$s">','after_widget' => '</div>','before_title' => '<h3>','after_title' => '</h3>'));   
 	    register_sidebar(array( 'name' => 'Footer 1','id' => 'footer-1', 'description' => "Widetized footer", 'before_widget' => '<div id="%1$s" class="widget %2$s">','after_widget' => '</div>','before_title' => '<h3>','after_title' => '</h3>'));
 	    register_sidebar(array( 'name' => 'Footer 2','id' => 'footer-2', 'description' => "Widetized footer", 'before_widget' => '<div id="%1$s" class="widget %2$s">','after_widget' => '</div>','before_title' => '<h3>','after_title' => '</h3>'));

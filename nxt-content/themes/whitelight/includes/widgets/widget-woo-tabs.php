@@ -3,10 +3,10 @@
 
 CLASS INFORMATION
 
-Description: A custom lokThemes lokTabs widget.
+Description: A custom WooThemes WooTabs widget.
 Date Created: 2011.
 Last Modified: 2011-04-15.
-Author: lokThemes.
+Author: WooThemes.
 Since: 1.0.0
 
 
@@ -21,7 +21,7 @@ TABLE OF CONTENTS
 
 -----------------------------------------------------------------------------------*/
 
-class lok_Widget_lokTabs extends WP_Widget {
+class Woo_Widget_WooTabs extends nxt_Widget {
 	var $settings = array( 'number', 'thumb_size', 'order', 'pop', 'latest', 'comments', 'tags', 'days' );
 
 	/*----------------------------------------
@@ -31,45 +31,45 @@ class lok_Widget_lokTabs extends WP_Widget {
 	  * The constructor. Sets up the widget.
 	----------------------------------------*/
 
-	function lok_Widget_lokTabs () {
+	function Woo_Widget_WooTabs () {
 
 		/* Widget settings. */
-		$widget_ops = array( 'classname' => 'widget_lok_tabs', 'description' => __( 'This widget is the Tabs that classically goes into the sidebar. It contains the Popular posts, Latest Posts, Recent comments and a Tag cloud.', 'lokthemes' ) );
+		$widget_ops = array( 'classname' => 'widget_woo_tabs', 'description' => __( 'This widget is the Tabs that classically goes into the sidebar. It contains the Popular posts, Latest Posts, Recent comments and a Tag cloud.', 'woothemes' ) );
 
 		/* Widget control settings. */
-		$control_ops = array( 'width' => 250, 'height' => 350, 'id_base' => 'lok_tabs' );
+		$control_ops = array( 'width' => 250, 'height' => 350, 'id_base' => 'woo_tabs' );
 
 		/* Create the widget. */
-		$this->WP_Widget( 'lok_tabs', __('lok - Tabs', 'lokthemes' ), $widget_ops, $control_ops );
+		$this->nxt_Widget( 'woo_tabs', __('Woo - Tabs', 'woothemes' ), $widget_ops, $control_ops );
 
 	} // End Constructor
 
 	function widget($args, $instance) {
 		extract( $args, EXTR_SKIP );
-		$instance = $this->lok_enforce_defaults( $instance );
+		$instance = $this->woo_enforce_defaults( $instance );
 		extract( $instance, EXTR_SKIP );
 		echo $before_widget;
 		?>
 
 <div id="tabs">
 
-    <ul class="lokTabs">
+    <ul class="wooTabs">
     
     <?php if ( $order == "latest" && !$latest == "on") { ?>
-    	<li class="latest"><a href="#tab-latest"><?php _e( 'Latest', 'lokthemes' ); ?></a></li>
+    	<li class="latest"><a href="#tab-latest"><?php _e( 'Latest', 'woothemes' ); ?></a></li>
     <?php } elseif ( $order == "comments" && !$comments == "on") { ?>
-    	<li class="comments"><a href="#tab-comm"><?php _e( 'Comments', 'lokthemes' ); ?></a></li>
+    	<li class="comments"><a href="#tab-comm"><?php _e( 'Comments', 'woothemes' ); ?></a></li>
     <?php } elseif ( $order == "tags" && !$tags == "on") { ?>
-    	<li class="tags"><a href="#tab-tags"><?php _e( 'Tags', 'lokthemes' ); ?></a></li>
+    	<li class="tags"><a href="#tab-tags"><?php _e( 'Tags', 'woothemes' ); ?></a></li>
     <?php } ?>
     <?php if (!$pop == "on") { ?>
-    	<li class="popular"><a href="#tab-pop"><?php _e( 'Popular', 'lokthemes' ); ?></a></li><?php } ?>
+    	<li class="popular"><a href="#tab-pop"><?php _e( 'Popular', 'woothemes' ); ?></a></li><?php } ?>
     <?php if ($order <> "latest" && !$latest == "on") { ?>
-    	<li class="latest"><a href="#tab-latest"><?php _e( 'Latest', 'lokthemes' ); ?></a></li><?php } ?>
+    	<li class="latest"><a href="#tab-latest"><?php _e( 'Latest', 'woothemes' ); ?></a></li><?php } ?>
     <?php if ($order <> "comments" && !$comments == "on") { ?>
-    	<li class="comments"><a href="#tab-comm"><?php _e( 'Comments', 'lokthemes' ); ?></a></li><?php } ?>
+    	<li class="comments"><a href="#tab-comm"><?php _e( 'Comments', 'woothemes' ); ?></a></li><?php } ?>
     <?php if ($order <> "tags" && !$tags == "on") { ?>
-    	<li class="tags"><a href="#tab-tags"><?php _e( 'Tags', 'lokthemes' ); ?></a></li>
+    	<li class="tags"><a href="#tab-tags"><?php _e( 'Tags', 'woothemes' ); ?></a></li>
     <?php } ?>
     
     </ul>
@@ -80,11 +80,11 @@ class lok_Widget_lokTabs extends WP_Widget {
 
         <?php if ( $order == "latest" && !$latest == "on") { ?>
         <ul id="tab-latest" class="list">
-            <?php if ( function_exists( 'lok_widget_tabs_latest') ) lok_widget_tabs_latest($number, $thumb_size); ?>
+            <?php if ( function_exists( 'woo_widget_tabs_latest') ) woo_widget_tabs_latest($number, $thumb_size); ?>
         </ul>
         <?php } elseif ( $order == "comments" && !$comments == "on") { ?>
 		<ul id="tab-comm" class="list">
-            <?php if ( function_exists( 'lok_widget_tabs_comments') ) lok_widget_tabs_comments($number, $thumb_size); ?>
+            <?php if ( function_exists( 'woo_widget_tabs_comments') ) woo_widget_tabs_comments($number, $thumb_size); ?>
         </ul>
         <?php } elseif ( $order == "tags" && !$tags == "on") { ?>
         <div id="tab-tags" class="list">
@@ -94,17 +94,17 @@ class lok_Widget_lokTabs extends WP_Widget {
 
         <?php if (!$pop == "on") { ?>
         <ul id="tab-pop" class="list">
-            <?php if ( function_exists( 'lok_widget_tabs_popular') ) lok_widget_tabs_popular($number, $thumb_size, $days); ?>
+            <?php if ( function_exists( 'woo_widget_tabs_popular') ) woo_widget_tabs_popular($number, $thumb_size, $days); ?>
         </ul>
         <?php } ?>
         <?php if ($order <> "latest" && !$latest == "on") { ?>
         <ul id="tab-latest" class="list">
-            <?php if ( function_exists( 'lok_widget_tabs_latest') ) lok_widget_tabs_latest($number, $thumb_size); ?>
+            <?php if ( function_exists( 'woo_widget_tabs_latest') ) woo_widget_tabs_latest($number, $thumb_size); ?>
         </ul>
         <?php } ?>
         <?php if ($order <> "comments" && !$comments == "on") { ?>
 		<ul id="tab-comm" class="list">
-            <?php if ( function_exists( 'lok_widget_tabs_comments') ) lok_widget_tabs_comments($number, $thumb_size); ?>
+            <?php if ( function_exists( 'woo_widget_tabs_comments') ) woo_widget_tabs_comments($number, $thumb_size); ?>
         </ul>
         <?php } ?>
         <?php if ($order <> "tags" && !$tags == "on") { ?>
@@ -115,7 +115,7 @@ class lok_Widget_lokTabs extends WP_Widget {
 
     </div><!-- /.boxes -->
 
-</div><!-- /lokTabs -->
+</div><!-- /wooTabs -->
 
          <?php
          echo $after_widget;
@@ -134,12 +134,12 @@ class lok_Widget_lokTabs extends WP_Widget {
 	----------------------------------------*/
 
 	function update ( $new_instance, $old_instance ) {
-		$new_instance = $this->lok_enforce_defaults( $new_instance );
+		$new_instance = $this->woo_enforce_defaults( $new_instance );
 		return $new_instance;
 	} // End update()
 
-	function lok_enforce_defaults( $instance ) {
-		$defaults = $this->lok_get_settings();
+	function woo_enforce_defaults( $instance ) {
+		$defaults = $this->woo_get_settings();
 		$instance = nxt_parse_args( $instance, $defaults );
 		$instance['number'] = intval( $instance['number'] );
 		if ( $instance['number'] < 1 )
@@ -152,9 +152,9 @@ class lok_Widget_lokTabs extends WP_Widget {
 
 	/**
 	 * Provides an array of the settings with the setting name as the key and the default value as the value
-	 * This cannot be called get_settings() or it will override WP_Widget::get_settings()
+	 * This cannot be called get_settings() or it will override nxt_Widget::get_settings()
 	 */
-	function lok_get_settings() {
+	function woo_get_settings() {
 		// Set the default to a blank string
 		$settings = array_fill_keys( $this->settings, '' );
 		// Now set the more specific defaults
@@ -180,45 +180,45 @@ class lok_Widget_lokTabs extends WP_Widget {
 	----------------------------------------*/
 
    function form( $instance ) {
-		$instance = $this->lok_enforce_defaults( $instance );
+		$instance = $this->woo_enforce_defaults( $instance );
 		extract( $instance, EXTR_SKIP );
 ?>
        <p>
-	       <label for="<?php echo $this->get_field_id( 'number' ); ?>"><?php _e( 'Number of posts:', 'lokthemes' ); ?>
+	       <label for="<?php echo $this->get_field_id( 'number' ); ?>"><?php _e( 'Number of posts:', 'woothemes' ); ?>
 	       <input class="widefat" id="<?php echo $this->get_field_id( 'number' ); ?>" name="<?php echo $this->get_field_name( 'number' ); ?>" type="text" value="<?php echo esc_attr( $instance['number'] ); ?>" />
 	       </label>
        </p>
        <p>
-	       <label for="<?php echo $this->get_field_id( 'thumb_size' ); ?>"><?php _e( 'Thumbnail Size (0=disable):', 'lokthemes' ); ?>
+	       <label for="<?php echo $this->get_field_id( 'thumb_size' ); ?>"><?php _e( 'Thumbnail Size (0=disable):', 'woothemes' ); ?>
 	       <input class="widefat" id="<?php echo $this->get_field_id( 'thumb_size' ); ?>" name="<?php echo $this->get_field_name( 'thumb_size' ); ?>" type="text" value="<?php echo esc_attr( $instance['thumb_size'] ); ?>" />
 	       </label>
        </p>
        <p>
-	       <label for="<?php echo $this->get_field_id( 'days' ); ?>"><?php _e( 'Popular limit (days):', 'lokthemes' ); ?>
+	       <label for="<?php echo $this->get_field_id( 'days' ); ?>"><?php _e( 'Popular limit (days):', 'woothemes' ); ?>
 	       <input class="widefat" id="<?php echo $this->get_field_id( 'days' ); ?>" name="<?php echo $this->get_field_name( 'days' ); ?>" type="text" value="<?php echo esc_attr( $instance['days'] ); ?>" />
 	       </label>
        </p>
         <p>
-            <label for="<?php echo $this->get_field_id( 'order' ); ?>"><?php _e( 'First Visible Tab:', 'lokthemes' ); ?></label>
+            <label for="<?php echo $this->get_field_id( 'order' ); ?>"><?php _e( 'First Visible Tab:', 'woothemes' ); ?></label>
             <select name="<?php echo $this->get_field_name( 'order' ); ?>" class="widefat" id="<?php echo $this->get_field_id( 'order' ); ?>">
-                <option value="pop" <?php selected( $instance['order'], 'pop' ); ?>><?php _e( 'Popular', 'lokthemes' ); ?></option>
-                <option value="latest" <?php selected( $instance['order'], 'latest' ); ?>><?php _e( 'Latest', 'lokthemes' ); ?></option>
-                <option value="comments" <?php selected( $instance['order'], 'comments' ); ?>><?php _e( 'Comments', 'lokthemes' ); ?></option>
-                <option value="tags" <?php selected( $instance['order'], 'tags' ); ?>><?php _e( 'Tags', 'lokthemes' ); ?></option>
+                <option value="pop" <?php selected( $instance['order'], 'pop' ); ?>><?php _e( 'Popular', 'woothemes' ); ?></option>
+                <option value="latest" <?php selected( $instance['order'], 'latest' ); ?>><?php _e( 'Latest', 'woothemes' ); ?></option>
+                <option value="comments" <?php selected( $instance['order'], 'comments' ); ?>><?php _e( 'Comments', 'woothemes' ); ?></option>
+                <option value="tags" <?php selected( $instance['order'], 'tags' ); ?>><?php _e( 'Tags', 'woothemes' ); ?></option>
             </select>
         </p>
-       <p><strong><?php _e( 'Hide Tabs:', 'lokthemes' ); ?></strong></p>
+       <p><strong><?php _e( 'Hide Tabs:', 'woothemes' ); ?></strong></p>
        <p>
-        <input id="<?php echo $this->get_field_id( 'pop' ); ?>" name="<?php echo $this->get_field_name( 'pop' ); ?>" type="checkbox" <?php checked( $instance['pop'], 'on' ); ?>><?php _e( 'Popular', 'lokthemes' ); ?></input>
+        <input id="<?php echo $this->get_field_id( 'pop' ); ?>" name="<?php echo $this->get_field_name( 'pop' ); ?>" type="checkbox" <?php checked( $instance['pop'], 'on' ); ?>><?php _e( 'Popular', 'woothemes' ); ?></input>
 	   </p>
 	   <p>
-	       <input id="<?php echo $this->get_field_id( 'latest' ); ?>" name="<?php echo $this->get_field_name( 'latest' ); ?>" type="checkbox" <?php checked( $instance['latest'], 'on' ); ?>><?php _e( 'Latest', 'lokthemes' ); ?></input>
+	       <input id="<?php echo $this->get_field_id( 'latest' ); ?>" name="<?php echo $this->get_field_name( 'latest' ); ?>" type="checkbox" <?php checked( $instance['latest'], 'on' ); ?>><?php _e( 'Latest', 'woothemes' ); ?></input>
 	   </p>
 	   <p>
-	       <input id="<?php echo $this->get_field_id( 'comments' ); ?>" name="<?php echo $this->get_field_name( 'comments' ); ?>" type="checkbox" <?php checked( $instance['comments'], 'on' ); ?>><?php _e( 'Comments', 'lokthemes' ); ?></input>
+	       <input id="<?php echo $this->get_field_id( 'comments' ); ?>" name="<?php echo $this->get_field_name( 'comments' ); ?>" type="checkbox" <?php checked( $instance['comments'], 'on' ); ?>><?php _e( 'Comments', 'woothemes' ); ?></input>
 	   </p>
 	   <p>
-	       <input id="<?php echo $this->get_field_id( 'tags' ); ?>" name="<?php echo $this->get_field_name( 'tags' ); ?>" type="checkbox" <?php checked( $instance['tags'], 'on' ); ?>><?php _e( 'Tags', 'lokthemes' ); ?></input>
+	       <input id="<?php echo $this->get_field_id( 'tags' ); ?>" name="<?php echo $this->get_field_name( 'tags' ); ?>" type="checkbox" <?php checked( $instance['tags'], 'on' ); ?>><?php _e( 'Tags', 'woothemes' ); ?></input>
        </p>
 <?php
 	} // End form()
@@ -232,31 +232,31 @@ class lok_Widget_lokTabs extends WP_Widget {
   * Registers this widget.
 ----------------------------------------*/
 
-add_action( 'widgets_init', create_function( '', 'return register_widget("lok_Widget_lokTabs");' ), 1 );
+add_action( 'widgets_init', create_function( '', 'return register_widget("Woo_Widget_WooTabs");' ), 1 );
 ?>
 <?php
 /*-----------------------------------------------------------------------------------*/
-/* lokTabs - Javascript */
+/* WooTabs - Javascript */
 /*-----------------------------------------------------------------------------------*/
 // Add Javascript
-if(is_active_widget( null,null,'lok_tabs' ) == true) {
-	add_action( 'nxt_footer','lok_widget_tabs_js' );
+if(is_active_widget( null,null,'woo_tabs' ) == true) {
+	add_action( 'nxt_footer','woo_widget_tabs_js' );
 }
 
-function lok_widget_tabs_js(){
+function woo_widget_tabs_js(){
 ?>
 
-<!-- lok Tabs Widget -->
-<script type="text/javascript">jQuery(document).ready(function(){var a="#tagcloud";var b=jQuery("#tagcloud").height();jQuery(".inside ul li:last-child").css("border-bottom","0px");jQuery(".lokTabs").each(function(){jQuery(this).children("li").children("a:first").addClass("selected")});jQuery(".inside > *").hide();jQuery(".inside > *:first-child").show();jQuery(".lokTabs li a").click(function(a){var b=jQuery(this).attr("href");jQuery(this).parent().parent().children("li").children("a").removeClass("selected");jQuery(this).addClass("selected");jQuery(this).parent().parent().parent().children(".inside").children("*").hide();jQuery(".inside "+b).fadeIn(500);a.preventDefault()})})</script>
+<!-- Woo Tabs Widget -->
+<script type="text/javascript">jQuery(document).ready(function(){var a="#tagcloud";var b=jQuery("#tagcloud").height();jQuery(".inside ul li:last-child").css("border-bottom","0px");jQuery(".wooTabs").each(function(){jQuery(this).children("li").children("a:first").addClass("selected")});jQuery(".inside > *").hide();jQuery(".inside > *:first-child").show();jQuery(".wooTabs li a").click(function(a){var b=jQuery(this).attr("href");jQuery(this).parent().parent().children("li").children("a").removeClass("selected");jQuery(this).addClass("selected");jQuery(this).parent().parent().parent().children(".inside").children("*").hide();jQuery(".inside "+b).fadeIn(500);a.preventDefault()})})</script>
 
 <?php
 }
 
 /*-----------------------------------------------------------------------------------*/
-/* lokTabs - Popular Posts */
+/* WooTabs - Popular Posts */
 /*-----------------------------------------------------------------------------------*/
-if (!function_exists( 'lok_widget_tabs_popular')) {
-	function lok_widget_tabs_popular( $posts = 5, $size = 45, $days = null ) {
+if (!function_exists( 'woo_widget_tabs_popular')) {
+	function woo_widget_tabs_popular( $posts = 5, $size = 45, $days = null ) {
 		global $post;
 
 		if ( $days ) {
@@ -272,7 +272,7 @@ if (!function_exists( 'lok_widget_tabs_popular')) {
 			setup_postdata($post);
 	?>
 	<li class="fix">
-		<?php if ($size <> 0) lok_image( 'height='.$size.'&width='.$size.'&class=thumbnail&single=true' ); ?>
+		<?php if ($size <> 0) woo_image( 'height='.$size.'&width='.$size.'&class=thumbnail&single=true' ); ?>
 		<a title="<?php the_title(); ?>" href="<?php the_permalink() ?>"><?php the_title(); ?></a>
 		<span class="meta"><?php the_time( get_option( 'date_format' ) ); ?></span>
 	</li>
@@ -289,17 +289,17 @@ function filter_where($where = '') {
 }
 
 /*-----------------------------------------------------------------------------------*/
-/* lokTabs - Latest Posts */
+/* WooTabs - Latest Posts */
 /*-----------------------------------------------------------------------------------*/
-if (!function_exists( 'lok_widget_tabs_latest')) {
-	function lok_widget_tabs_latest( $posts = 5, $size = 45 ) {
+if (!function_exists( 'woo_widget_tabs_latest')) {
+	function woo_widget_tabs_latest( $posts = 5, $size = 45 ) {
 		global $post;
 		$latest = get_posts( 'ignore_sticky_posts=1&numberposts='. $posts .'&orderby=post_date&order=desc' );
 		foreach($latest as $post) :
 			setup_postdata($post);
 	?>
 	<li class="fix">
-		<?php if ($size <> 0) lok_image( 'height='.$size.'&width='.$size.'&class=thumbnail&single=true' ); ?>
+		<?php if ($size <> 0) woo_image( 'height='.$size.'&width='.$size.'&class=thumbnail&single=true' ); ?>
 		<a title="<?php the_title(); ?>" href="<?php the_permalink() ?>"><?php the_title(); ?></a>
 		<span class="meta"><?php the_time( get_option( 'date_format' ) ); ?></span>
 	</li>
@@ -310,10 +310,10 @@ if (!function_exists( 'lok_widget_tabs_latest')) {
 
 
 /*-----------------------------------------------------------------------------------*/
-/* lokTabs - Latest Comments */
+/* WooTabs - Latest Comments */
 /*-----------------------------------------------------------------------------------*/
-if (!function_exists( 'lok_widget_tabs_comments')) {
-	function lok_widget_tabs_comments( $posts = 5, $size = 35 ) {
+if (!function_exists( 'woo_widget_tabs_comments')) {
+	function woo_widget_tabs_comments( $posts = 5, $size = 35 ) {
 		global $nxtdb;
 
 		$comments = get_comments( array( 'number' => $posts, 'status' => 'approve' ) );
@@ -323,7 +323,7 @@ if (!function_exists( 'lok_widget_tabs_comments')) {
 			?>
 				<li class="recentcomments fix">
 					<?php if ( $size > 0 ) echo get_avatar( $comment, $size ); ?>
-					<a href="<?php echo get_comment_link($comment->comment_ID); ?>" title="<?php echo nxt_filter_nohtml_kses($comment->comment_author); ?> <?php _e( 'on', 'lokthemes' ); ?> <?php echo $post->post_title; ?>"><?php echo nxt_filter_nohtml_kses($comment->comment_author); ?>: <?php echo stripslashes( substr( nxt_filter_nohtml_kses( $comment->comment_content ), 0, 50 ) ); ?>...</a>
+					<a href="<?php echo get_comment_link($comment->comment_ID); ?>" title="<?php echo nxt_filter_nohtml_kses($comment->comment_author); ?> <?php _e( 'on', 'woothemes' ); ?> <?php echo $post->post_title; ?>"><?php echo nxt_filter_nohtml_kses($comment->comment_author); ?>: <?php echo stripslashes( substr( nxt_filter_nohtml_kses( $comment->comment_content ), 0, 50 ) ); ?>...</a>
 				</li>
 			<?php
 			}

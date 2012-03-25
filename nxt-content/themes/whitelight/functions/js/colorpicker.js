@@ -205,13 +205,13 @@
 				var cal = $( '#' + $(this).data( 'colorpickerId'));
 				cal.data( 'colorpicker').onBeforeShow.apply(this, [cal.get(0)]);
 				var pos = $(this).offset();
-				var viewPort = getVienxtort();
+				var vienxtort = getVienxtort();
 				var top = pos.top + this.offsetHeight;
 				var left = pos.left;
-				if (top + 176 > viewPort.t + viewPort.h) {
+				if (top + 176 > vienxtort.t + vienxtort.h) {
 					top -= this.offsetHeight + 176;
 				}
-				if (left + 356 > viewPort.l + viewPort.w) {
+				if (left + 356 > vienxtort.l + vienxtort.w) {
 					left -= 356;
 				}
 				cal.css({left: left + 'px', top: top + 'px'});
@@ -434,7 +434,7 @@
 					}
 				});
 			},
-			showPicker: function() {
+			shonxticker: function() {
 				return this.each( function () {
 					if ($(this).data( 'colorpickerId')) {
 						show.apply(this);
@@ -478,7 +478,7 @@
 	$.fn.extend({
 		ColorPicker: ColorPicker.init,
 		ColorPickerHide: ColorPicker.hidePicker,
-		ColorPickerShow: ColorPicker.showPicker,
+		ColorPickerShow: ColorPicker.shonxticker,
 		ColorPickerSetColor: ColorPicker.setColor
 	});
 })(jQuery)

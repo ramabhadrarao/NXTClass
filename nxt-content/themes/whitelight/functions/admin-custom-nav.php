@@ -4,47 +4,47 @@
 
 TABLE OF CONTENTS
 
-- lokthemes Custom Navigation Setup
--- lokthemes Custom Navigation Setup
--- lokthemes Custom Navigation Menu Item
--- lokthemes Custom Navigation Scripts
-- lokthemes Custom Navigation Interface
-- lokthemes Custom Navigation Functions
--- lok_custom_navigation_output()
--- lok_custom_navigation_sub_items()
--- lok_child_is_current()
--- lok_get_pages()
--- lok_get_categories()
--- lok_custom_navigation_default_sub_items()
+- Woothemes Custom Navigation Setup
+-- Woothemes Custom Navigation Setup
+-- Woothemes Custom Navigation Menu Item
+-- Woothemes Custom Navigation Scripts
+- Woothemes Custom Navigation Interface
+- Woothemes Custom Navigation Functions
+-- woo_custom_navigation_output()
+-- woo_custom_navigation_sub_items()
+-- woo_child_is_current()
+-- woo_get_pages()
+-- woo_get_categories()
+-- woo_custom_navigation_default_sub_items()
 - Recursive Get Child Items Function
-- lokthemes Custom Navigation Menu Widget
+- Woothemes Custom Navigation Menu Widget
 
 -----------------------------------------------------------------------------------*/
 
 
 /*-----------------------------------------------------------------------------------*/
-/* lokthemes Custom Navigation Menu Setup
+/* Woothemes Custom Navigation Menu Setup
 /* Setup of the Menu
 /* Add Menu Item to the theme
 /* Scripts - JS and CSS
 /*-----------------------------------------------------------------------------------*/
 
 
-function lok_custom_navigation_setup() {
+function woo_custom_navigation_setup() {
 
 	$nav_version = '1.0.21';
 	//Custom Navigation Menu Setup
 
 	//Check for Upgrades
-	if (get_option( 'lok_settings_custom_nav_version') <> '') {
-		$nav_version_in_db = get_option( 'lok_settings_custom_nav_version' );
+	if (get_option( 'woo_settings_custom_nav_version') <> '') {
+		$nav_version_in_db = get_option( 'woo_settings_custom_nav_version' );
 	}
 	else {
 		$nav_version_in_db = '0';
 	}
 
 	//Override for menu descriptions
-	update_option( 'lok_settings_custom_nav_advanced_options','yes' );
+	update_option( 'woo_settings_custom_nav_advanced_options','yes' );
 
 	if (isset($_GET['page'])) {
 		$page_var = $_GET['page'];
@@ -58,7 +58,7 @@ function lok_custom_navigation_setup() {
 
 		//CREATE Custom Menu tables
 		global $nxtdb;
-		$table_name = $nxtdb->prefix . "lok_custom_nav_records";
+		$table_name = $nxtdb->prefix . "woo_custom_nav_records";
 		$charset_collate = '';
 		if ( ! empty($nxtdb->charset) ) {
 			$charset_collate = "DEFAULT CHARACTER SET $nxtdb->charset";
@@ -89,11 +89,11 @@ function lok_custom_navigation_setup() {
 			require_once(ABSPATH . 'nxt-admin/includes/upgrade.php' );
 			dbDelta($sql);
 
-			update_option( 'lok_settings_custom_nav_version',$nav_version);
+			update_option( 'woo_settings_custom_nav_version',$nav_version);
 
 		}
 
-		$table_name_menus = $nxtdb->prefix . "lok_custom_nav_menus";
+		$table_name_menus = $nxtdb->prefix . "woo_custom_nav_menus";
 
 		if(($nxtdb->get_var( "show tables like '$table_name_menus'") != $table_name_menus) || ($nav_version_in_db <> $nav_version))
 		{
@@ -115,12 +115,12 @@ function lok_custom_navigation_setup() {
 			if ($data_insert) {
 
 				//POPULATE with first menu
-				$insert = "INSERT INTO ".$table_name_menus." (menu_name) "."VALUES ( 'lok Menu 1')";
+				$insert = "INSERT INTO ".$table_name_menus." (menu_name) "."VALUES ( 'Woo Menu 1')";
   				$results = $nxtdb->query( $insert );
 
   				//POPULATE with first menu content
   				//Pages
-  				$table_name = $nxtdb->prefix . "lok_custom_nav_records";
+  				$table_name = $nxtdb->prefix . "woo_custom_nav_records";
 
   				//GET all current pages
   				$pages_args = array(
@@ -148,11 +148,11 @@ function lok_custom_navigation_setup() {
 					if ($post->post_parent == 0)
 					{
 						//CHECK for existing page records
-						$table_name_parent = $nxtdb->prefix . "lok_custom_nav_records";
-						$lok_result = $nxtdb->get_results( "SELECT id FROM ".$table_name_parent." WHERE post_id='".$post->post_parent."' AND link_type='page' AND menu_id='1'" );
+						$table_name_parent = $nxtdb->prefix . "woo_custom_nav_records";
+						$woo_result = $nxtdb->get_results( "SELECT id FROM ".$table_name_parent." WHERE post_id='".$post->post_parent."' AND link_type='page' AND menu_id='1'" );
 
-						if ($lok_result > 0 && isset($lok_result[0]->id)) {
-								$parent_id = $lok_result[0]->id;
+						if ($woo_result > 0 && isset($woo_result[0]->id)) {
+								$parent_id = $woo_result[0]->id;
 						}
 						else {
 							$parent_id = 0;
@@ -198,7 +198,7 @@ function lok_custom_navigation_setup() {
 				$categories_array = get_categories($category_args);
 
   				//POPULATE with second menu
-				$insert = "INSERT INTO ".$table_name_menus." (menu_name) "."VALUES ( 'lok Menu 2')";
+				$insert = "INSERT INTO ".$table_name_menus." (menu_name) "."VALUES ( 'Woo Menu 2')";
   				$results = $nxtdb->query( $insert );
 
 				//POPULATE with second menu content
@@ -215,11 +215,11 @@ function lok_custom_navigation_setup() {
 					if ($cat_item->parent == 0)
 					{
 						//CHECK for existing category records
-						$table_name_parent = $nxtdb->prefix . "lok_custom_nav_records";
-						$lok_result = $nxtdb->get_results( "SELECT id FROM ".$table_name_parent." WHERE post_id='".$cat_item->parent."' AND link_type='category' AND menu_id='2'" );
+						$table_name_parent = $nxtdb->prefix . "woo_custom_nav_records";
+						$woo_result = $nxtdb->get_results( "SELECT id FROM ".$table_name_parent." WHERE post_id='".$cat_item->parent."' AND link_type='category' AND menu_id='2'" );
 
-						if ($lok_result > 0 && isset($lok_result[0]->id)) {
-							$parent_id = $lok_result[0]->id;
+						if ($woo_result > 0 && isset($woo_result[0]->id)) {
+							$parent_id = $woo_result[0]->id;
 						}
 						else {
 							$parent_id = 0;
@@ -255,34 +255,34 @@ function lok_custom_navigation_setup() {
 
 }
 
-function lok_custom_nav_reset() {
+function woo_custom_nav_reset() {
 
 	global $nxtdb;
 
-	$table_name = $nxtdb->prefix . "lok_custom_nav_records";
+	$table_name = $nxtdb->prefix . "woo_custom_nav_records";
 	//DROP existing tables
 	$nxtdb->query( "DROP TABLE ".$table_name);
 
-	$table_name_menus = $nxtdb->prefix . "lok_custom_nav_menus";
+	$table_name_menus = $nxtdb->prefix . "woo_custom_nav_menus";
 	//DELETE existing menus
 	$nxtdb->query( "DROP TABLE ".$table_name_menus);
 
-	lok_custom_navigation_setup();
+	woo_custom_navigation_setup();
 
 	return true;
 
 }
 
-function lok_custom_navigation_menu() {
+function woo_custom_navigation_menu() {
 
-	//lokthemes Custom Navigation Menu
-	$lokpage = add_submenu_page( 'lokthemes', 'Custom Navigation', 'Custom Navigation', 8, 'custom_navigation', 'lok_custom_navigation' );
+	//Woothemes Custom Navigation Menu
+	$woopage = add_submenu_page( 'woothemes', 'Custom Navigation', 'Custom Navigation', 8, 'custom_navigation', 'woo_custom_navigation' );
 
-	add_action( "admin_print_scripts-$lokpage", 'lok_custom_nav_scripts' );
+	add_action( "admin_print_scripts-$woopage", 'woo_custom_nav_scripts' );
 
 }
 
-function lok_custom_nav_scripts() {
+function woo_custom_nav_scripts() {
 
 	//STYLES AND JAVASCRIPT
 	nxt_enqueue_script( 'jquery' );
@@ -291,12 +291,12 @@ function lok_custom_nav_scripts() {
 	nxt_enqueue_script( 'jquery-ui-droppable' );
 	nxt_enqueue_script( 'jquery-ui-sortable' );
 	nxt_enqueue_script( 'jquery-ui-dialog' );
-	nxt_register_script( 'lok-nav-dynamic', get_template_directory_uri() . '/functions/js/custom_menu_dynamic_items.js', array( 'jquery-ui-dialog' ));
-	nxt_enqueue_script( 'lok-nav-dynamic' );
-	nxt_register_script( 'lok-nav-initial', get_template_directory_uri() . '/functions/js/custom_menu_initial_items.js', array( 'jquery-ui-dialog' ));
-	nxt_enqueue_script( 'lok-nav-initial' );
-	nxt_register_script( 'lok-nav-autocomplete', get_template_directory_uri() . '/functions/js/jquery.autocomplete.js', array( 'jquery' ));
-	nxt_enqueue_script( 'lok-nav-autocomplete' );
+	nxt_register_script( 'woo-nav-dynamic', get_template_directory_uri() . '/functions/js/custom_menu_dynamic_items.js', array( 'jquery-ui-dialog' ));
+	nxt_enqueue_script( 'woo-nav-dynamic' );
+	nxt_register_script( 'woo-nav-initial', get_template_directory_uri() . '/functions/js/custom_menu_initial_items.js', array( 'jquery-ui-dialog' ));
+	nxt_enqueue_script( 'woo-nav-initial' );
+	nxt_register_script( 'woo-nav-autocomplete', get_template_directory_uri() . '/functions/js/jquery.autocomplete.js', array( 'jquery' ));
+	nxt_enqueue_script( 'woo-nav-autocomplete' );
 	//Default Style
 	echo '<link rel="stylesheet" href="' . get_template_directory_uri() . '/functions/css/custom_menu.css" type="text/css" media="all" />';
 
@@ -305,12 +305,12 @@ function lok_custom_nav_scripts() {
 
 
 /*-----------------------------------------------------------------------------------*/
-/* lokthemes Custom Navigation Menu Interface
-/* lok_custom_navigation() is the main function for the Custom Navigation
+/* Woothemes Custom Navigation Menu Interface
+/* woo_custom_navigation() is the main function for the Custom Navigation
 /* See functions in admin-functions.php
 /*-----------------------------------------------------------------------------------*/
 
-function lok_custom_navigation() {
+function woo_custom_navigation() {
 	global $nxtdb;
 	?>
 
@@ -322,13 +322,13 @@ function lok_custom_navigation() {
 	    $menu_id_in_edit = 0;
 
 	    //Get the theme name
-	    $themename =  get_option( 'lok_themename' );
+	    $themename =  get_option( 'woo_themename' );
 
 	    //Default Menu to show
-	    $table_name_menus = $nxtdb->prefix . "lok_custom_nav_menus";
-		$lok_result = $nxtdb->get_results( "SELECT id FROM ".$table_name_menus." ORDER BY id ASC LIMIT 1" );
- 		if ($lok_result > 0 && isset($lok_result[0]->id)) {
-			$menu_selected_id = $lok_result[0]->id;
+	    $table_name_menus = $nxtdb->prefix . "woo_custom_nav_menus";
+		$woo_result = $nxtdb->get_results( "SELECT id FROM ".$table_name_menus." ORDER BY id ASC LIMIT 1" );
+ 		if ($woo_result > 0 && isset($woo_result[0]->id)) {
+			$menu_selected_id = $woo_result[0]->id;
 		}
 		else {
 			$menu_selected_id = 1;
@@ -348,15 +348,15 @@ function lok_custom_navigation() {
 		}
 
 
-	    if (isset($_POST['set_lok_menu']))
+	    if (isset($_POST['set_woo_menu']))
 	    {
-	    	update_option( 'lok_custom_nav_menu', $_POST['enable_lok_menu']);
+	    	update_option( 'woo_custom_nav_menu', $_POST['enable_woo_menu']);
 	    	$messagesdiv = '<div id="message" class="updated fade below-h2"><p>'.$themename.'\'s Custom Menu has been updated!</p></div>';
 	    }
 
 
-	    //CHECK for existing lok custom menu
-	 	$table_name = $nxtdb->prefix . "lok_custom_nav_records";
+	    //CHECK for existing woo custom menu
+	 	$table_name = $nxtdb->prefix . "woo_custom_nav_records";
 	 	$custom_nav_exists = $nxtdb->query( "SELECT id FROM ".$table_name." WHERE menu_id='".$menu_selected_id."'" );
 
 	    if (isset($_POST['licount'])) {
@@ -368,10 +368,10 @@ function lok_custom_navigation() {
 
 		if (isset($_POST['add_menu'])) {
 
-			$table_name_custom_menu = $nxtdb->prefix . "lok_custom_nav_menus";
+			$table_name_custom_menu = $nxtdb->prefix . "woo_custom_nav_menus";
 	 		$insert_menu_name = $_POST['add_menu_name'];
 
-	 		//CHECK for existing lok custom menu
+	 		//CHECK for existing woo custom menu
 	 		$existing_records = $nxtdb->query( "SELECT id FROM ".$table_name_custom_menu." WHERE menu_name='".$insert_menu_name."'" );
 
 	 		if ($insert_menu_name <> '') {
@@ -379,10 +379,10 @@ function lok_custom_navigation() {
 	 			{
 	 				$messagesdiv = '<div id="message" class="error fade below-h2"><p>'.$insert_menu_name.' Menu has already created - please try another name</p></div>';
 	 				//GET reset menu id
- 					$table_name_menus = $nxtdb->prefix . "lok_custom_nav_menus";
-					$lok_result = $nxtdb->get_results( "SELECT id FROM ".$table_name_menus." ORDER BY id ASC LIMIT 1" );
- 					if ($lok_result > 0) {
-						$menu_selected_id = $lok_result[0]->id;
+ 					$table_name_menus = $nxtdb->prefix . "woo_custom_nav_menus";
+					$woo_result = $nxtdb->get_results( "SELECT id FROM ".$table_name_menus." ORDER BY id ASC LIMIT 1" );
+ 					if ($woo_result > 0) {
+						$menu_selected_id = $woo_result[0]->id;
 						$menu_id_in_edit = $menu_selected_id;
 					}
 					else {
@@ -418,16 +418,16 @@ function lok_custom_navigation() {
 			elseif (isset($_POST['add_menu'])) {
 
 			}
-			elseif (isset($_POST['reset_lok_menu'])) {
-	    		$success = lok_custom_nav_reset();
+			elseif (isset($_POST['reset_woo_menu'])) {
+	    		$success = woo_custom_nav_reset();
 	    		if ($success) {
 	    			//DISPLAY SUCCESS MESSAGE IF Menu Reset Correctly
  					$messagesdiv = '<div id="message" class="updated fade below-h2"><p>'.$themename.'\'s Custom Menu has been RESET!</p></div>';
  					//GET reset menu id
- 					$table_name_menus = $nxtdb->prefix . "lok_custom_nav_menus";
-					$lok_result = $nxtdb->get_results( "SELECT id FROM ".$table_name_menus." ORDER BY id ASC LIMIT 1" );
- 					if ($lok_result > 0 && isset($lok_result[0]->id)) {
-						$menu_selected_id = $lok_result[0]->id;
+ 					$table_name_menus = $nxtdb->prefix . "woo_custom_nav_menus";
+					$woo_result = $nxtdb->get_results( "SELECT id FROM ".$table_name_menus." ORDER BY id ASC LIMIT 1" );
+ 					if ($woo_result > 0 && isset($woo_result[0]->id)) {
+						$menu_selected_id = $woo_result[0]->id;
 					}
 					else {
 						$menu_selected_id = 0;
@@ -499,16 +499,16 @@ function lok_custom_navigation() {
  			}
 		}
 		else {
-			if (isset($_POST['reset_lok_menu'])) {
-	    		$success = lok_custom_nav_reset();
+			if (isset($_POST['reset_woo_menu'])) {
+	    		$success = woo_custom_nav_reset();
 	    		if ($success) {
 	    			//DISPLAY SUCCESS MESSAGE IF Menu Reset Correctly
  					$messagesdiv = '<div id="message" class="updated fade below-h2"><p>'.$themename.'\'s Custom Menu has been RESET!</p></div>';
  					//GET reset menu id
- 					$table_name_menus = $nxtdb->prefix . "lok_custom_nav_menus";
-					$lok_result = $nxtdb->get_results( "SELECT id FROM ".$table_name_menus." ORDER BY id ASC LIMIT 1" );
- 					if ($lok_result > 0 && isset($lok_result[0]->id)) {
-						$menu_selected_id = $lok_result[0]->id;
+ 					$table_name_menus = $nxtdb->prefix . "woo_custom_nav_menus";
+					$woo_result = $nxtdb->get_results( "SELECT id FROM ".$table_name_menus." ORDER BY id ASC LIMIT 1" );
+ 					if ($woo_result > 0 && isset($woo_result[0]->id)) {
+						$menu_selected_id = $woo_result[0]->id;
 					}
 					else {
 						$menu_selected_id = 0;
@@ -525,11 +525,11 @@ function lok_custom_navigation() {
  		?>
 		<div id="pages-left">
 			<div class="inside">
-			<h2 class="maintitle"><img class="logo" src="<?php echo get_template_directory_uri(); ?>/functions/images/logo.png" alt="lokthemes" />Custom Navigation</h2>
+			<h2 class="maintitle"><img class="logo" src="<?php echo get_template_directory_uri(); ?>/functions/images/logo.png" alt="Woothemes" />Custom Navigation</h2>
 			<?php
 
 				//CHECK if custom menu has been enabled
-				$enabled_menu = get_option( 'lok_custom_nav_menu' );
+				$enabled_menu = get_option( 'woo_custom_nav_menu' );
 			    $checked = strtolower($enabled_menu);
 
 				if ($checked == 'true') {
@@ -555,8 +555,8 @@ function lok_custom_navigation() {
 				</div>
 				<?php
 
-				//CHECK for existing lok custom menu
-	 			$table_name_menus = $nxtdb->prefix . "lok_custom_nav_menus";
+				//CHECK for existing woo custom menu
+	 			$table_name_menus = $nxtdb->prefix . "woo_custom_nav_menus";
 	 			if ($menu_id_in_edit > 0)
 	 			{
 	 				$custom_menu_name = $nxtdb->get_results( "SELECT menu_name FROM ".$table_name_menus." WHERE id='".$menu_id_in_edit."'" );
@@ -597,12 +597,12 @@ function lok_custom_navigation() {
 							if ($menu_id_in_edit > 0)
 							{
 								//MAIN OUTPUT FUNCTION
-								lok_custom_navigation_output( 'type='.$output_type.'&name='.$menu_name.'&id='.$menu_id_in_edit);
+								woo_custom_navigation_output( 'type='.$output_type.'&name='.$menu_name.'&id='.$menu_id_in_edit);
 							}
 							else
 							{
 								//MAIN OUTPUT FUNCTION
-								lok_custom_navigation_output( 'type='.$output_type.'&name='.$menu_name.'&id='.$menu_selected_id);
+								woo_custom_navigation_output( 'type='.$output_type.'&name='.$menu_name.'&id='.$menu_selected_id);
 							}
 
 						}
@@ -610,9 +610,9 @@ function lok_custom_navigation() {
 						else
 						{
 							//Outputs default Pages
-							$intCounter = lok_get_pages(1,'menu' );
+							$intCounter = woo_get_pages(1,'menu' );
 							//Outputs default Categories
-							$intCounter = lok_get_categories($intCounter,'menu' );
+							$intCounter = woo_get_categories($intCounter,'menu' );
 						}
 					?>
 
@@ -642,24 +642,24 @@ function lok_custom_navigation() {
 
 					<?php
 
-			    	//SETUP lok Custom Menu
+			    	//SETUP Woo Custom Menu
 
-					$enabled_menu = get_option( 'lok_custom_nav_menu' );
+					$enabled_menu = get_option( 'woo_custom_nav_menu' );
 
 			    	$checked = strtolower($enabled_menu);
 
 			    	?>
 
 			    	<span >
-			    		<label>Enable</label><input type="radio" name="enable_lok_menu" value="true" <?php if ($checked=='true') { echo 'checked="checked"'; } ?> />
-			    		<label>Disable</label><input type="radio" name="enable_lok_menu" value="false" <?php if ($checked=='true') { } else { echo 'checked="checked"'; } ?> />
+			    		<label>Enable</label><input type="radio" name="enable_woo_menu" value="true" <?php if ($checked=='true') { echo 'checked="checked"'; } ?> />
+			    		<label>Disable</label><input type="radio" name="enable_woo_menu" value="false" <?php if ($checked=='true') { } else { echo 'checked="checked"'; } ?> />
 					</span><!-- /.checkboxes -->
 
-					<input id="set_lok_menu" type="submit" value="Set Menu" name="set_lok_menu" class="button" /><br />
+					<input id="set_woo_menu" type="submit" value="Set Menu" name="set_woo_menu" class="button" /><br />
 
 					<span>
 						<label>Reset Menu to Default</label>
-						<input id="reset_lok_menu" type="submit" value="Reset" name="reset_lok_menu" class="button" onclick="return confirm( 'Are you sure you want to RESET the Custom Navigation Menu to its Default Settings?' );" />
+						<input id="reset_woo_menu" type="submit" value="Reset" name="reset_woo_menu" class="button" onclick="return confirm( 'Are you sure you want to RESET the Custom Navigation Menu to its Default Settings?' );" />
 					</span>
 
 					<div class="fix"></div>
@@ -676,7 +676,7 @@ function lok_custom_navigation() {
 					<?php
 
 					//Get Menu Items for SELECT OPTIONS
-					$table_name_custom_menus = $nxtdb->prefix . "lok_custom_nav_menus";
+					$table_name_custom_menus = $nxtdb->prefix . "woo_custom_nav_menus";
 	 				$custom_menu_records = $nxtdb->get_results( "SELECT id,menu_name FROM ".$table_name_custom_menus);
 
 	    			?>
@@ -708,7 +708,7 @@ function lok_custom_navigation() {
 					<div class="fix"></div>
 				</div>
 			</div><!-- /.widgets-holder-wrap -->
-			<?php $advanced_option_descriptions = get_option( 'lok_settings_custom_nav_advanced_options' ); ?>
+			<?php $advanced_option_descriptions = get_option( 'woo_settings_custom_nav_advanced_options' ); ?>
 			<div class="widgets-holder-wrap" style="display:none;">
 				<div class="sidebar-name">
 					<div class="sidebar-name-arrow"></div>
@@ -728,17 +728,17 @@ function lok_custom_navigation() {
 						}
 						else {
 							$menu_options_to_edit = $_POST['menu_id_in_edit'];
-			    			update_option( 'lok_settings_custom_nav_'.$menu_options_to_edit.'_descriptions',$_POST['menu-descriptions']);
+			    			update_option( 'woo_settings_custom_nav_'.$menu_options_to_edit.'_descriptions',$_POST['menu-descriptions']);
 						}
 
 			    	}
 
 			    	if ($menu_id_in_edit > 0)
 					{
-						$checkedraw = get_option( 'lok_settings_custom_nav_'.$menu_id_in_edit.'_descriptions' );
+						$checkedraw = get_option( 'woo_settings_custom_nav_'.$menu_id_in_edit.'_descriptions' );
 					}
 					else {
-						$checkedraw = get_option( 'lok_settings_custom_nav_'.$menu_selected_id.'_descriptions' );
+						$checkedraw = get_option( 'woo_settings_custom_nav_'.$menu_selected_id.'_descriptions' );
 					}
 
 			    	$checked = strtolower($checkedraw);
@@ -792,7 +792,7 @@ function lok_custom_navigation() {
 						foreach ($pages_array as $post)
 						{
 							//Convert string to UTF-8
-							$str_converted = lok_encoding_convert($post->post_title);
+							$str_converted = woo_encoding_convert($post->post_title);
 							//Add page name to
 							$page_name .= htmlspecialchars($str_converted, ENT_QUOTES, 'UTF-8').'|';
 						}
@@ -842,7 +842,7 @@ function lok_custom_navigation() {
 						<?php
 							$intCounter = 0;
 							//Get default Pages
-							$intCounter = lok_get_pages($intCounter,'default' );
+							$intCounter = woo_get_pages($intCounter,'default' );
 						?>
 					</ul>
 
@@ -882,7 +882,7 @@ function lok_custom_navigation() {
 							if (isset($category_names[0]->name))
 							{
 								//Convert string to UTF-8
-								$str_converted = lok_encoding_convert($category_names[0]->name);
+								$str_converted = woo_encoding_convert($category_names[0]->name);
 								//Add category name to data string
 								$cat_name .= htmlspecialchars($str_converted, ENT_QUOTES, 'UTF-8').'|';
 							}
@@ -933,7 +933,7 @@ function lok_custom_navigation() {
 					<ul id="existing-categories" class="list">
             			<?php
 						 	//Get default Categories
-            				$intCounter = lok_get_categories($intCounter,'default' );
+            				$intCounter = woo_get_categories($intCounter,'default' );
 						?>
        				</ul>
 
@@ -989,12 +989,12 @@ function lok_custom_navigation() {
 
 
 /*-----------------------------------------------------------------------------------*/
-/* lokThemes Custom Navigation Functions */
-/* lok_custom_navigation_output() displays the menu in the back/frontend
-/* lok_custom_navigation_sub_items() is a recursive sub menu item function
-/* lok_get_pages()
-/* lok_get_categories()
-/* lok_custom_navigation_default_sub_items() is a recursive sub menu item function
+/* WooThemes Custom Navigation Functions */
+/* woo_custom_navigation_output() displays the menu in the back/frontend
+/* woo_custom_navigation_sub_items() is a recursive sub menu item function
+/* woo_get_pages()
+/* woo_get_categories()
+/* woo_custom_navigation_default_sub_items() is a recursive sub menu item function
 /*-----------------------------------------------------------------------------------*/
 
 /*-----------------------------------------------------------------------------------*/
@@ -1007,11 +1007,11 @@ function lok_custom_navigation() {
 /* before_title - html before title is outputted in <a> tag
 /* after_title - html after title is outputted in <a> tag
 /*-----------------------------------------------------------------------------------*/
-function lok_custom_navigation_output($args = array()) {
+function woo_custom_navigation_output($args = array()) {
 
 		//DEFAULT ARGS
 		$type = 'frontend';
-		$name = 'lok Menu 1';
+		$name = 'Woo Menu 1';
 		$id = 0;
 		$desc = 2;
 		$before_title = '';
@@ -1028,11 +1028,11 @@ function lok_custom_navigation_output($args = array()) {
 		}
 
 		global $nxtdb;
-		$lok_custom_nav_menu_id = 0;
-		$table_name = $nxtdb->prefix . "lok_custom_nav_records";
+		$woo_custom_nav_menu_id = 0;
+		$table_name = $nxtdb->prefix . "woo_custom_nav_records";
 
 		//Override for menu descriptions
-		$advanced_option_descriptions = get_option( 'lok_settings_custom_nav_advanced_options' );
+		$advanced_option_descriptions = get_option( 'woo_settings_custom_nav_advanced_options' );
 		if ($advanced_option_descriptions == 'no')
 		{
 			$desc = 2;
@@ -1042,20 +1042,20 @@ function lok_custom_navigation_output($args = array()) {
 		//FRONTEND
 		if ($type == "frontend")
 		{
-			$table_name_menus = $nxtdb->prefix . "lok_custom_nav_menus";
+			$table_name_menus = $nxtdb->prefix . "woo_custom_nav_menus";
 			if ($id > 0) {
-				$lok_custom_nav_menu_id = $id;
+				$woo_custom_nav_menu_id = $id;
 			}
 			else {
-				$lok_result = $nxtdb->get_results( "SELECT id FROM ".$table_name_menus." WHERE menu_name='".$name."'" );
-				$lok_custom_nav_menu_id = $lok_result[0]->id;
+				$woo_result = $nxtdb->get_results( "SELECT id FROM ".$table_name_menus." WHERE menu_name='".$name."'" );
+				$woo_custom_nav_menu_id = $woo_result[0]->id;
 			}
 
-			$lok_custom_nav_menu = $nxtdb->get_results( "SELECT id,post_id,parent_id,position,custom_title,custom_link,custom_description,menu_icon,link_type,custom_anchor_title,new_window FROM ".$table_name." WHERE parent_id = '0' AND menu_id='".$lok_custom_nav_menu_id."' ORDER BY position ASC" );
+			$woo_custom_nav_menu = $nxtdb->get_results( "SELECT id,post_id,parent_id,position,custom_title,custom_link,custom_description,menu_icon,link_type,custom_anchor_title,new_window FROM ".$table_name." WHERE parent_id = '0' AND menu_id='".$woo_custom_nav_menu_id."' ORDER BY position ASC" );
 		}
 		//BACKEND
 		else {
-			$lok_custom_nav_menu = $nxtdb->get_results( "SELECT id,post_id,parent_id,position,custom_title,custom_link,custom_description,menu_icon,link_type,custom_anchor_title,new_window FROM ".$table_name." WHERE parent_id = '0' AND menu_id='".$id."' ORDER BY position ASC" );
+			$woo_custom_nav_menu = $nxtdb->get_results( "SELECT id,post_id,parent_id,position,custom_title,custom_link,custom_description,menu_icon,link_type,custom_anchor_title,new_window FROM ".$table_name." WHERE parent_id = '0' AND menu_id='".$id."' ORDER BY position ASC" );
 		}
 		$queried_id = 0;
 		$type_settings = 'custom';
@@ -1071,73 +1071,73 @@ function lok_custom_navigation_output($args = array()) {
 	    else {
 	    }
 	    //DISPLAY Loop
-		foreach ($lok_custom_nav_menu as $lok_custom_nav_menu_items) {
+		foreach ($woo_custom_nav_menu as $woo_custom_nav_menu_items) {
 
 			//PREPARE Menu Data
 			//Page Menu Item
-			if ($lok_custom_nav_menu_items->link_type == 'page')
+			if ($woo_custom_nav_menu_items->link_type == 'page')
 			{
-				if ($lok_custom_nav_menu_items->custom_link == '') {
-					$link = get_permalink($lok_custom_nav_menu_items->post_id);
+				if ($woo_custom_nav_menu_items->custom_link == '') {
+					$link = get_permalink($woo_custom_nav_menu_items->post_id);
 				}
 				else {
-					$link = $lok_custom_nav_menu_items->custom_link;
+					$link = $woo_custom_nav_menu_items->custom_link;
 				}
 
-				if ($lok_custom_nav_menu_items->custom_title == '') {
+				if ($woo_custom_nav_menu_items->custom_title == '') {
 					//Convert string to UTF-8
-					$str_converted = lok_encoding_convert(get_the_title($lok_custom_nav_menu_items->post_id));
+					$str_converted = woo_encoding_convert(get_the_title($woo_custom_nav_menu_items->post_id));
 					$title = htmlspecialchars($str_converted, ENT_QUOTES, 'UTF-8' );
 				}
 				else {
 					//Convert string to UTF-8
-					$str_converted = lok_encoding_convert($lok_custom_nav_menu_items->custom_title);
+					$str_converted = woo_encoding_convert($woo_custom_nav_menu_items->custom_title);
 					$title = htmlspecialchars($str_converted, ENT_QUOTES, 'UTF-8' );
 				}
 
-				if ($lok_custom_nav_menu_items->custom_description == '') {
+				if ($woo_custom_nav_menu_items->custom_description == '') {
 					//Convert string to UTF-8
-					$str_converted = lok_encoding_convert(get_post_meta($lok_custom_nav_menu_items->post_id, 'page-description', true));
+					$str_converted = woo_encoding_convert(get_post_meta($woo_custom_nav_menu_items->post_id, 'page-description', true));
 					$description = htmlspecialchars(trim($str_converted), ENT_QUOTES, 'UTF-8' );
 				}
 				else {
 					//Convert string to UTF-8
-					$str_converted = lok_encoding_convert($lok_custom_nav_menu_items->custom_description);
+					$str_converted = woo_encoding_convert($woo_custom_nav_menu_items->custom_description);
 					$description = htmlspecialchars(trim($str_converted), ENT_QUOTES, 'UTF-8' );
 				}
 				$target = '';
 			}
 			//Category Menu Item
-			elseif ($lok_custom_nav_menu_items->link_type == 'category')
+			elseif ($woo_custom_nav_menu_items->link_type == 'category')
 			{
 
-				if ($lok_custom_nav_menu_items->custom_link == '') {
-					$link = get_category_link($lok_custom_nav_menu_items->post_id);
+				if ($woo_custom_nav_menu_items->custom_link == '') {
+					$link = get_category_link($woo_custom_nav_menu_items->post_id);
 				}
 				else {
-					$link = $lok_custom_nav_menu_items->custom_link;
+					$link = $woo_custom_nav_menu_items->custom_link;
 				}
 
-				if ($lok_custom_nav_menu_items->custom_title == '') {
-					$title_raw = get_categories( 'include='.$lok_custom_nav_menu_items->post_id);
+				if ($woo_custom_nav_menu_items->custom_title == '') {
+					$title_raw = get_categories( 'include='.$woo_custom_nav_menu_items->post_id);
 					//Convert string to UTF-8
-					$str_converted = lok_encoding_convert($title_raw[0]->cat_name);
+					$str_converted = woo_encoding_convert($title_raw[0]->cat_name);
 					$title =  htmlspecialchars($str_converted, ENT_QUOTES, 'UTF-8' );
 				}
 				else {
 					//Convert string to UTF-8
-					$str_converted = lok_encoding_convert($lok_custom_nav_menu_items->custom_title);
+					$str_converted = woo_encoding_convert($woo_custom_nav_menu_items->custom_title);
 					$title = htmlspecialchars($str_converted, ENT_QUOTES, 'UTF-8' );
 				}
 
-				if ($lok_custom_nav_menu_items->custom_description == '') {
+				if ($woo_custom_nav_menu_items->custom_description == '') {
 					//Convert string to UTF-8
-					$str_converted = lok_encoding_convert(category_description($lok_custom_nav_menu_items->post_id));
+					$str_converted = woo_encoding_convert(category_description($woo_custom_nav_menu_items->post_id));
 					$description = htmlspecialchars(strip_tags(trim($str_converted)), ENT_QUOTES, 'UTF-8' );
 				}
 				else {
 					//Convert string to UTF-8
-					$str_converted = lok_encoding_convert($lok_custom_nav_menu_items->custom_description);
+					$str_converted = woo_encoding_convert($woo_custom_nav_menu_items->custom_description);
 					$description = htmlspecialchars(trim($str_converted), ENT_QUOTES, 'UTF-8' );
 				}
 				$target = '';
@@ -1146,20 +1146,20 @@ function lok_custom_navigation_output($args = array()) {
 			//Custom Menu Item
 			else
 			{
-				$link = $lok_custom_nav_menu_items->custom_link;
+				$link = $woo_custom_nav_menu_items->custom_link;
 				//Convert string to UTF-8
-				$str_converted = lok_encoding_convert($lok_custom_nav_menu_items->custom_title);
+				$str_converted = woo_encoding_convert($woo_custom_nav_menu_items->custom_title);
 				$title =  htmlspecialchars($str_converted, ENT_QUOTES, 'UTF-8' );
 				//Convert string to UTF-8
-				$str_converted = lok_encoding_convert($lok_custom_nav_menu_items->custom_description);
+				$str_converted = woo_encoding_convert($woo_custom_nav_menu_items->custom_description);
 				$description = htmlspecialchars(trim($str_converted), ENT_QUOTES, 'UTF-8' );
 				$target = 'target="_blank"';
 			}
 
 			//SET anchor title
-			if (isset($lok_custom_nav_menu_items->custom_anchor_title)) {
+			if (isset($woo_custom_nav_menu_items->custom_anchor_title)) {
 				//Convert string to UTF-8
-				$str_converted = lok_encoding_convert($lok_custom_nav_menu_items->custom_anchor_title);
+				$str_converted = woo_encoding_convert($woo_custom_nav_menu_items->custom_anchor_title);
 				$anchor_title = htmlspecialchars($str_converted, ENT_QUOTES, 'UTF-8' );
 			}
 			else {
@@ -1180,21 +1180,21 @@ function lok_custom_navigation_output($args = array()) {
 			}
 			$full_web_address = $protocol.'://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 
-			if (($queried_id == $lok_custom_nav_menu_items->post_id) && ($queried_id != 0) && ($type_settings == $lok_custom_nav_menu_items->link_type) ) {
+			if (($queried_id == $woo_custom_nav_menu_items->post_id) && ($queried_id != 0) && ($type_settings == $woo_custom_nav_menu_items->link_type) ) {
 				$li_class = 'class="current_page_item"';
 			}
-			else if (($lok_custom_nav_menu_items->custom_link == $full_web_address) && ($queried_id == 0) && ($type_settings == $lok_custom_nav_menu_items->link_type) ) {
+			else if (($woo_custom_nav_menu_items->custom_link == $full_web_address) && ($queried_id == 0) && ($type_settings == $woo_custom_nav_menu_items->link_type) ) {
 				$li_class = 'class="current_page_item"';
 			}
-			else if (lok_child_is_current($lok_custom_nav_menu_items->id, $lok_custom_nav_menu_id, $table_name, $queried_id, $type_settings, $full_web_address)) {
+			else if (woo_child_is_current($woo_custom_nav_menu_items->id, $woo_custom_nav_menu_id, $table_name, $queried_id, $type_settings, $full_web_address)) {
                 $li_class = 'class="current_page_parent"';
             }
 			else {
 				$li_class = '';
 			}
 
-			if (isset($lok_custom_nav_menu_items->new_window)) {
-				if ($lok_custom_nav_menu_items->new_window > 0) {
+			if (isset($woo_custom_nav_menu_items->new_window)) {
+				if ($woo_custom_nav_menu_items->new_window > 0) {
 					$target = 'target="_blank"';
 				}
 				else {
@@ -1245,51 +1245,51 @@ function lok_custom_navigation_output($args = array()) {
 					elseif ($type == "backend")
 					{
 						?>
-						<li id="menu-<?php echo $lok_custom_nav_menu_items->position; ?>" value="<?php echo esc_attr( $lok_custom_nav_menu_items->position ); ?>" <?php echo $li_class; ?>>
+						<li id="menu-<?php echo $woo_custom_nav_menu_items->position; ?>" value="<?php echo esc_attr( $woo_custom_nav_menu_items->position ); ?>" <?php echo $li_class; ?>>
 						<dl>
 							<dt>
 								<span class="title"><?php echo $title; ?></span>
 								<span class="controls">
-								<span class="type"><?php echo $lok_custom_nav_menu_items->link_type; ?></span>
-								<a id="edit<?php echo $lok_custom_nav_menu_items->position; ?>" onclick="edititem(<?php echo $lok_custom_nav_menu_items->position; ?>)" value="<?php echo esc_attr( $lok_custom_nav_menu_items->position ); ?>"><img class="edit" alt="Edit Menu Item" title="Edit Menu Item" src="<?php echo get_template_directory_uri(); ?>/functions/images/ico-edit.png" /></a>
-								<a id="remove<?php echo $lok_custom_nav_menu_items->position; ?>" onclick="removeitem(<?php echo $lok_custom_nav_menu_items->position; ?>)" value="<?php echo esc_attr( $lok_custom_nav_menu_items->position ); ?>"><img class="remove" alt="Remove from Custom Menu" title="Remove from Custom Menu" src="<?php echo get_template_directory_uri(); ?>/functions/images/ico-close.png" /></a>
-								<a id="view<?php echo $lok_custom_nav_menu_items->position; ?>" target="_blank" href="<?php echo $link; ?>"><img alt="View Page" title="View Page" src="<?php echo get_template_directory_uri(); ?>/functions/images/ico-vienxtage.png" /></a>
+								<span class="type"><?php echo $woo_custom_nav_menu_items->link_type; ?></span>
+								<a id="edit<?php echo $woo_custom_nav_menu_items->position; ?>" onclick="edititem(<?php echo $woo_custom_nav_menu_items->position; ?>)" value="<?php echo esc_attr( $woo_custom_nav_menu_items->position ); ?>"><img class="edit" alt="Edit Menu Item" title="Edit Menu Item" src="<?php echo get_template_directory_uri(); ?>/functions/images/ico-edit.png" /></a>
+								<a id="remove<?php echo $woo_custom_nav_menu_items->position; ?>" onclick="removeitem(<?php echo $woo_custom_nav_menu_items->position; ?>)" value="<?php echo esc_attr( $woo_custom_nav_menu_items->position ); ?>"><img class="remove" alt="Remove from Custom Menu" title="Remove from Custom Menu" src="<?php echo get_template_directory_uri(); ?>/functions/images/ico-close.png" /></a>
+								<a id="view<?php echo $woo_custom_nav_menu_items->position; ?>" target="_blank" href="<?php echo $link; ?>"><img alt="View Page" title="View Page" src="<?php echo get_template_directory_uri(); ?>/functions/images/ico-vienxtage.png" /></a>
 								</span>
 							</dt>
 						</dl>
 
 						<a><span class=""></span></a>
-						<input type="hidden" name="dbid<?php echo $lok_custom_nav_menu_items->position; ?>" id="dbid<?php echo $lok_custom_nav_menu_items->position; ?>" value="<?php echo esc_attr( $lok_custom_nav_menu_items->id ); ?>" />
-						<input type="hidden" name="postmenu<?php echo $lok_custom_nav_menu_items->position; ?>" id="postmenu<?php echo $lok_custom_nav_menu_items->position; ?>" value="<?php echo esc_attr( $lok_custom_nav_menu_items->post_id ); ?>" />
-						<input type="hidden" name="parent<?php echo $lok_custom_nav_menu_items->position; ?>" id="parent<?php echo $lok_custom_nav_menu_items->position; ?>" value="0" />
-						<input type="hidden" name="title<?php echo $lok_custom_nav_menu_items->position; ?>" id="title<?php echo $lok_custom_nav_menu_items->position; ?>" value="<?php echo esc_attr( $title ); ?>" />
-						<input type="hidden" name="linkurl<?php echo $lok_custom_nav_menu_items->position; ?>" id="linkurl<?php echo $lok_custom_nav_menu_items->position; ?>" value="<?php echo esc_attr( $link ); ?>" />
-						<input type="hidden" name="description<?php echo $lok_custom_nav_menu_items->position; ?>" id="description<?php echo $lok_custom_nav_menu_items->position; ?>" value="<?php echo esc_attr( $description ); ?>" />
-						<input type="hidden" name="icon<?php echo $lok_custom_nav_menu_items->position; ?>" id="icon<?php echo $lok_custom_nav_menu_items->position; ?>" value="0" />
-						<input type="hidden" name="position<?php echo $lok_custom_nav_menu_items->position; ?>" id="position<?php echo $lok_custom_nav_menu_items->position; ?>" value="<?php echo esc_attr( $lok_custom_nav_menu_items->position ); ?>" />
-						<input type="hidden" name="linktype<?php echo $lok_custom_nav_menu_items->position; ?>" id="linktype<?php echo $lok_custom_nav_menu_items->position; ?>" value="<?php echo esc_attr( $lok_custom_nav_menu_items->link_type ); ?>" />
-						<input type="hidden" name="anchortitle<?php echo $lok_custom_nav_menu_items->position; ?>" id="anchortitle<?php echo $lok_custom_nav_menu_items->position; ?>" value="<?php echo esc_attr( $anchor_title ); ?>" />
-						<input type="hidden" name="newwindow<?php echo $lok_custom_nav_menu_items->position; ?>" id="newwindow<?php echo $lok_custom_nav_menu_items->position; ?>" value="<?php echo esc_attr( $lok_custom_nav_menu_items->new_window ); ?>" />
+						<input type="hidden" name="dbid<?php echo $woo_custom_nav_menu_items->position; ?>" id="dbid<?php echo $woo_custom_nav_menu_items->position; ?>" value="<?php echo esc_attr( $woo_custom_nav_menu_items->id ); ?>" />
+						<input type="hidden" name="postmenu<?php echo $woo_custom_nav_menu_items->position; ?>" id="postmenu<?php echo $woo_custom_nav_menu_items->position; ?>" value="<?php echo esc_attr( $woo_custom_nav_menu_items->post_id ); ?>" />
+						<input type="hidden" name="parent<?php echo $woo_custom_nav_menu_items->position; ?>" id="parent<?php echo $woo_custom_nav_menu_items->position; ?>" value="0" />
+						<input type="hidden" name="title<?php echo $woo_custom_nav_menu_items->position; ?>" id="title<?php echo $woo_custom_nav_menu_items->position; ?>" value="<?php echo esc_attr( $title ); ?>" />
+						<input type="hidden" name="linkurl<?php echo $woo_custom_nav_menu_items->position; ?>" id="linkurl<?php echo $woo_custom_nav_menu_items->position; ?>" value="<?php echo esc_attr( $link ); ?>" />
+						<input type="hidden" name="description<?php echo $woo_custom_nav_menu_items->position; ?>" id="description<?php echo $woo_custom_nav_menu_items->position; ?>" value="<?php echo esc_attr( $description ); ?>" />
+						<input type="hidden" name="icon<?php echo $woo_custom_nav_menu_items->position; ?>" id="icon<?php echo $woo_custom_nav_menu_items->position; ?>" value="0" />
+						<input type="hidden" name="position<?php echo $woo_custom_nav_menu_items->position; ?>" id="position<?php echo $woo_custom_nav_menu_items->position; ?>" value="<?php echo esc_attr( $woo_custom_nav_menu_items->position ); ?>" />
+						<input type="hidden" name="linktype<?php echo $woo_custom_nav_menu_items->position; ?>" id="linktype<?php echo $woo_custom_nav_menu_items->position; ?>" value="<?php echo esc_attr( $woo_custom_nav_menu_items->link_type ); ?>" />
+						<input type="hidden" name="anchortitle<?php echo $woo_custom_nav_menu_items->position; ?>" id="anchortitle<?php echo $woo_custom_nav_menu_items->position; ?>" value="<?php echo esc_attr( $anchor_title ); ?>" />
+						<input type="hidden" name="newwindow<?php echo $woo_custom_nav_menu_items->position; ?>" id="newwindow<?php echo $woo_custom_nav_menu_items->position; ?>" value="<?php echo esc_attr( $woo_custom_nav_menu_items->new_window ); ?>" />
 
 						<?php
 					}
 
 					//DISPLAY menu sub items
-					if ($lok_custom_nav_menu_items->parent_id == 0)
+					if ($woo_custom_nav_menu_items->parent_id == 0)
 					{
 						//FRONTEND
 						if ($type == 'frontend')
 						{
 							//Recursive function
 							if ( ($depth == 0) || ($depth > 1) ) {
-								$intj = lok_custom_navigation_sub_items($lok_custom_nav_menu_items->id,$lok_custom_nav_menu_items->link_type,$table_name,$type,$lok_custom_nav_menu_id, $depth, 1);
+								$intj = woo_custom_navigation_sub_items($woo_custom_nav_menu_items->id,$woo_custom_nav_menu_items->link_type,$table_name,$type,$woo_custom_nav_menu_id, $depth, 1);
 							}
 						}
 						//BACKEND
 						else
 						{
 							//Recursive function
-							$intj = lok_custom_navigation_sub_items($lok_custom_nav_menu_items->id,$lok_custom_nav_menu_items->link_type,$table_name,$type,$id);
+							$intj = woo_custom_navigation_sub_items($woo_custom_nav_menu_items->id,$woo_custom_nav_menu_items->link_type,$table_name,$type,$id);
 						}
 					}
 					else
@@ -1302,16 +1302,16 @@ function lok_custom_navigation_output($args = array()) {
 }
 
 //RECURSIVE Sub Menu Items
-function lok_custom_navigation_sub_items($post_id,$type,$table_name,$output_type,$menu_id = 0,$depth = 0,$depth_counter = 0) {
+function woo_custom_navigation_sub_items($post_id,$type,$table_name,$output_type,$menu_id = 0,$depth = 0,$depth_counter = 0) {
 
 	$depth_counter = $depth_counter + 1;
 	$parent_id = 0;
 	global $nxtdb;
 
 	//GET sub menu items
-	$lok_custom_nav_menu = $nxtdb->get_results( "SELECT id,post_id,parent_id,position,custom_title,custom_link,custom_description,menu_icon,link_type,custom_anchor_title,new_window FROM ".$table_name." WHERE parent_id = '".$post_id."' AND menu_id='".$menu_id."' ORDER BY position ASC" );
+	$woo_custom_nav_menu = $nxtdb->get_results( "SELECT id,post_id,parent_id,position,custom_title,custom_link,custom_description,menu_icon,link_type,custom_anchor_title,new_window FROM ".$table_name." WHERE parent_id = '".$post_id."' AND menu_id='".$menu_id."' ORDER BY position ASC" );
 
-	if (empty($lok_custom_nav_menu))
+	if (empty($woo_custom_nav_menu))
 	{
 
 	}
@@ -1334,7 +1334,7 @@ function lok_custom_navigation_sub_items($post_id,$type,$table_name,$output_type
 
 	    }
 	    //DISPLAY Loop
-		foreach ($lok_custom_nav_menu as $sub_item)
+		foreach ($woo_custom_nav_menu as $sub_item)
 		{
 			//Figure out where the menu item sits
 			$counter=$sub_item->position;
@@ -1357,12 +1357,12 @@ function lok_custom_navigation_sub_items($post_id,$type,$table_name,$output_type
 				if ($sub_item->custom_title == '') {
 					$title_raw = get_categories( 'include='.$sub_item->post_id);
 					//Convert string to UTF-8
-					$str_converted = lok_encoding_convert($title_raw[0]->cat_name);
+					$str_converted = woo_encoding_convert($title_raw[0]->cat_name);
 					$title =  htmlspecialchars($str_converted, ENT_QUOTES, 'UTF-8' );
 				}
 				else {
 					//Convert string to UTF-8
-					$str_converted = lok_encoding_convert($sub_item->custom_title);
+					$str_converted = woo_encoding_convert($sub_item->custom_title);
 					$title = htmlspecialchars($str_converted, ENT_QUOTES, 'UTF-8' );
 				}
 
@@ -1390,12 +1390,12 @@ function lok_custom_navigation_sub_items($post_id,$type,$table_name,$output_type
 
 				if ($sub_item->custom_title == '') {
 					//Convert string to UTF-8
-					$str_converted = lok_encoding_convert(get_the_title($sub_item->post_id));
+					$str_converted = woo_encoding_convert(get_the_title($sub_item->post_id));
 					$title = htmlspecialchars($str_converted, ENT_QUOTES, 'UTF-8' );
 				}
 				else {
 					//Convert string to UTF-8
-					$str_converted = lok_encoding_convert($sub_item->custom_title);
+					$str_converted = woo_encoding_convert($sub_item->custom_title);
 					$title = htmlspecialchars($str_converted, ENT_QUOTES, 'UTF-8' );
 				}
 
@@ -1413,7 +1413,7 @@ function lok_custom_navigation_sub_items($post_id,$type,$table_name,$output_type
 			{
 				$link = $sub_item->custom_link;
 				//Convert string to UTF-8
-				$str_converted = lok_encoding_convert($sub_item->custom_title);
+				$str_converted = woo_encoding_convert($sub_item->custom_title);
 				$title = htmlspecialchars($str_converted, ENT_QUOTES, 'UTF-8' );
 				$parent_id = $sub_item->parent_id;
 				$post_id = $sub_item->post_id;
@@ -1441,7 +1441,7 @@ function lok_custom_navigation_sub_items($post_id,$type,$table_name,$output_type
 			else if (($sub_item->custom_link == $full_web_address) && ($queried_id == 0) && ($type_settings == $sub_item->link_type) ) {
 				$li_class = 'class="current_page_item"';
 			}
-			else if (lok_child_is_current($sub_item->id, $menu_id, $table_name, $queried_id, $type_settings, $full_web_address)) {
+			else if (woo_child_is_current($sub_item->id, $menu_id, $table_name, $queried_id, $type_settings, $full_web_address)) {
                 $li_class = 'class="current_page_parent"';
 		    }
 			else {
@@ -1451,7 +1451,7 @@ function lok_custom_navigation_sub_items($post_id,$type,$table_name,$output_type
 			//SET anchor title
 			if (isset($sub_item->custom_anchor_title)) {
 				//Convert string to UTF-8
-				$str_converted = lok_encoding_convert($sub_item->custom_anchor_title);
+				$str_converted = woo_encoding_convert($sub_item->custom_anchor_title);
 				$anchor_title = htmlspecialchars($str_converted, ENT_QUOTES, 'UTF-8' );
 			}
 			else {
@@ -1507,7 +1507,7 @@ function lok_custom_navigation_sub_items($post_id,$type,$table_name,$output_type
 
 						//Do recursion
 						if ( ($depth_counter < $depth) || ($depth == 0) ) {
-							lok_custom_navigation_sub_items($sub_item->id,$sub_item->link_type,$table_name,$output_type,$menu_id, $depth, $depth_counter);
+							woo_custom_navigation_sub_items($sub_item->id,$sub_item->link_type,$table_name,$output_type,$menu_id, $depth, $depth_counter);
 						}
 			?></li>
 			<?php
@@ -1524,7 +1524,7 @@ function lok_custom_navigation_sub_items($post_id,$type,$table_name,$output_type
 }
 
 //Checks if any of parent menu items children are the current page
-function lok_child_is_current($parent_id, $menu_id, $table_name, $queried_id, $type_settings, $full_web_address) {
+function woo_child_is_current($parent_id, $menu_id, $table_name, $queried_id, $type_settings, $full_web_address) {
 
     $success = false;
 
@@ -1532,23 +1532,23 @@ function lok_child_is_current($parent_id, $menu_id, $table_name, $queried_id, $t
     global $nxtdb;
 
     //GET sub menu items
-    $lok_parent_children = $nxtdb->get_results( "SELECT id,post_id,parent_id,position,custom_title,custom_link,custom_description,menu_icon,link_type,custom_anchor_title,new_window FROM ".$table_name." WHERE parent_id = '".$parent_id."' AND menu_id='".$menu_id."' ORDER BY position ASC" );
+    $woo_parent_children = $nxtdb->get_results( "SELECT id,post_id,parent_id,position,custom_title,custom_link,custom_description,menu_icon,link_type,custom_anchor_title,new_window FROM ".$table_name." WHERE parent_id = '".$parent_id."' AND menu_id='".$menu_id."' ORDER BY position ASC" );
 
     //If more than 0 child elements
-    if (empty($lok_parent_children))
+    if (empty($woo_parent_children))
     {
 
     }
     else
     {
        //Children Loop
-        foreach ($lok_parent_children as $lok_parent_child)
+        foreach ($woo_parent_children as $woo_parent_child)
         {
             //Check if meets criteria
-            if (($queried_id == $lok_parent_child->post_id) && ($queried_id != 0) && ($type_settings == $lok_parent_child->link_type) ) {
+            if (($queried_id == $woo_parent_child->post_id) && ($queried_id != 0) && ($type_settings == $woo_parent_child->link_type) ) {
                 $success = true;
             }
-            else if (($lok_parent_child->custom_link == $full_web_address) && ($queried_id == 0) && ($type_settings == $lok_parent_child->link_type) ) {
+            else if (($woo_parent_child->custom_link == $full_web_address) && ($queried_id == 0) && ($type_settings == $woo_parent_child->link_type) ) {
                 $success = true;
             }
         }
@@ -1559,7 +1559,7 @@ function lok_child_is_current($parent_id, $menu_id, $table_name, $queried_id, $t
 }
 
 //Outputs All Pages and Sub Items
-function lok_get_pages($counter,$type) {
+function woo_get_pages($counter,$type) {
 
 	$pages_args = array(
 		    'child_of' => 0,
@@ -1618,14 +1618,14 @@ function lok_get_pages($counter,$type) {
 		    	    	</a>
 		    	    	<input type="hidden" name="postmenu<?php echo $intCounter; ?>" id="postmenu<?php echo $intCounter; ?>" value="<?php echo intval( $post->ID ); ?>" />
 						<input type="hidden" name="parent<?php echo $intCounter; ?>" id="parent<?php echo $intCounter; ?>" value="0" />
-						<?php $str_converted = lok_encoding_convert($post->post_title);?>
+						<?php $str_converted = woo_encoding_convert($post->post_title);?>
 						<input type="hidden" name="title<?php echo esc_attr( $intCounter ); ?>" id="title<?php echo esc_attr( $intCounter ); ?>" value="<?php echo esc_attr( $str_converted ); ?>" />
 						<input type="hidden" name="linkurl<?php echo $intCounter; ?>" id="linkurl<?php echo $intCounter; ?>" value="<?php echo get_permalink($post->ID); ?>" />
 						<input type="hidden" name="description<?php echo $intCounter; ?>" id="description<?php echo $intCounter; ?>" value="<?php echo esc_attr( $description ); ?>" />
 						<input type="hidden" name="icon<?php echo $intCounter; ?>" id="icon<?php echo $intCounter; ?>" value="0" />
 						<input type="hidden" name="position<?php echo $intCounter; ?>" id="position<?php echo $intCounter; ?>" value="<?php echo $intCounter; ?>" />
 						<input type="hidden" name="linktype<?php echo $intCounter; ?>" id="linktype<?php echo $intCounter; ?>" value="page" />
-						<?php $str_converted = lok_encoding_convert($post->post_title);?>
+						<?php $str_converted = woo_encoding_convert($post->post_title);?>
 						<input type="hidden" name="anchortitle<?php echo $intCounter; ?>" id="anchortitle<?php echo $intCounter; ?>" value="<?php echo esc_attr( $str_converted ); ?>" />
 						<input type="hidden" name="newwindow<?php echo $intCounter; ?>" id="newwindow<?php echo $intCounter; ?>" value="0" />
 
@@ -1634,7 +1634,7 @@ function lok_get_pages($counter,$type) {
 						<?php
 
 							//Recursive function
-							$intCounter = lok_custom_navigation_default_sub_items($post->ID, $intCounter, $parentli, 'pages', 'menu' );
+							$intCounter = woo_custom_navigation_default_sub_items($post->ID, $intCounter, $parentli, 'pages', 'menu' );
 
 						?>
 
@@ -1653,13 +1653,13 @@ function lok_get_pages($counter,$type) {
 				        <dt>
 				        <?php
 				        	//Convert string to UTF-8
-							$str_converted = lok_encoding_convert($post->post_title);
+							$str_converted = woo_encoding_convert($post->post_title);
 				        	$post_text = htmlspecialchars($str_converted, ENT_QUOTES, 'UTF-8' );
 				        	$post_url = get_permalink($post->ID);
 				        	$post_id = $post->ID;
 				        	$post_parent_id = $post->post_parent;
 				        	//Convert string to UTF-8
-							$str_converted = lok_encoding_convert(get_post_meta($post_id, 'page-description', true));
+							$str_converted = woo_encoding_convert(get_post_meta($post_id, 'page-description', true));
 							$description = htmlspecialchars(trim($str_converted), ENT_QUOTES, 'UTF-8' );
 
 				        ?>
@@ -1672,7 +1672,7 @@ function lok_get_pages($counter,$type) {
 				        <?php
 
 							//Recursive function
-							$intCounter = lok_custom_navigation_default_sub_items($post_id, $intCounter, $parentli, 'pages', 'default' );
+							$intCounter = woo_custom_navigation_default_sub_items($post_id, $intCounter, $parentli, 'pages', 'default' );
 
 						 ?>
 
@@ -1697,7 +1697,7 @@ function lok_get_pages($counter,$type) {
 }
 
 //Outputs All Categories and Sub Items
-function lok_get_categories($counter, $type) {
+function woo_get_categories($counter, $type) {
 
 	$category_args = array(
 			'type'                     => 'post',
@@ -1751,7 +1751,7 @@ function lok_get_categories($counter, $type) {
 			            </dl>
 			            <a class="hide" href="<?php echo get_category_link($cat_item->cat_ID); ?>"><span class="title"><?php echo $cat_item->cat_name; ?></span>
 			            <?php
-			            $use_cats_raw = get_option( 'lok_settings_custom_nav_descriptions' );
+			            $use_cats_raw = get_option( 'woo_settings_custom_nav_descriptions' );
 			   			$use_cats = strtolower($use_cats_raw);
 			   			if ($use_cats == 'yes') { ?>
 			            <br/> <span><?php echo esc_html( trim($cat_item->category_description) ); ?></span>
@@ -1759,15 +1759,15 @@ function lok_get_categories($counter, $type) {
 			                    	</a>
 			            <input type="hidden" name="postmenu<?php echo $intCounter; ?>" id="postmenu<?php echo $intCounter; ?>" value="<?php echo intval( $cat_item->cat_ID ); ?>" />
 			            <input type="hidden" name="parent<?php echo $intCounter; ?>" id="parent<?php echo $intCounter; ?>" value="0" />
-			            <?php $str_converted = lok_encoding_convert($cat_item->cat_name);?>
+			            <?php $str_converted = woo_encoding_convert($cat_item->cat_name);?>
 			            <input type="hidden" name="title<?php echo $intCounter; ?>" id="title<?php echo $intCounter; ?>" value="<?php echo esc_attr( $str_converted ); ?>" />
 						<input type="hidden" name="linkurl<?php echo $intCounter; ?>" id="linkurl<?php echo $intCounter; ?>" value="<?php echo get_category_link($cat_item->cat_ID); ?>" />
-						<?php $str_converted = lok_encoding_convert($cat_item->category_description);?>
+						<?php $str_converted = woo_encoding_convert($cat_item->category_description);?>
 						<input type="hidden" name="description<?php echo $intCounter; ?>" id="description<?php echo $intCounter; ?>" value="<?php echo esc_attr( trim($str_converted) ); ?>" />
 						<input type="hidden" name="icon<?php echo $intCounter; ?>" id="icon<?php echo $intCounter; ?>" value="0" />
 						<input type="hidden" name="position<?php echo $intCounter; ?>" id="position<?php echo $intCounter; ?>" value="<?php echo $intCounter; ?>" />
 						<input type="hidden" name="linktype<?php echo $intCounter; ?>" id="linktype<?php echo $intCounter; ?>" value="category" />
-						<?php $str_converted = lok_encoding_convert($cat_item->cat_name);?>
+						<?php $str_converted = woo_encoding_convert($cat_item->cat_name);?>
 						<input type="hidden" name="anchortitle<?php echo $intCounter; ?>" id="anchortitle<?php echo $intCounter; ?>" value="<?php echo esc_attr( $str_converted ); ?>" />
 						<input type="hidden" name="newwindow<?php echo $intCounter; ?>" id="newwindow<?php echo $intCounter; ?>" value="0" />
 
@@ -1776,7 +1776,7 @@ function lok_get_categories($counter, $type) {
 			           	<?php
 
 							//Recursive function
-							$intCounter = lok_custom_navigation_default_sub_items($cat_item->cat_ID, $intCounter, $parentli, 'categories','menu' );
+							$intCounter = woo_custom_navigation_default_sub_items($cat_item->cat_ID, $intCounter, $parentli, 'categories','menu' );
 
 						?>
 
@@ -1793,13 +1793,13 @@ function lok_get_categories($counter, $type) {
 						<dt>
 						<?php
 						//Convert string to UTF-8
-						$str_converted = lok_encoding_convert($cat_item->cat_name);
+						$str_converted = woo_encoding_convert($cat_item->cat_name);
 	        			$post_text = htmlspecialchars(addslashes($str_converted), ENT_QUOTES, 'UTF-8' );
 	        			$post_url = get_category_link($cat_item->cat_ID);
 	        			$post_id = $cat_item->cat_ID;
 	        			$post_parent_id = $cat_item->parent;
 	        			//Convert string to UTF-8
-						$str_converted = lok_encoding_convert($cat_item->description);
+						$str_converted = woo_encoding_convert($cat_item->description);
 	        			$description = htmlspecialchars(addslashes(strip_tags(trim($str_converted))), ENT_QUOTES, 'UTF-8' );
 	        			?>
 	        			<?php $templatedir = get_template_directory_uri(); ?>
@@ -1809,7 +1809,7 @@ function lok_get_categories($counter, $type) {
 			            <?php $intCounter++; ?>
 						<?php
 							//Recursive function
-							$intCounter = lok_custom_navigation_default_sub_items($cat_item->cat_ID, $intCounter, $parentli, 'categories','default' );
+							$intCounter = woo_custom_navigation_default_sub_items($cat_item->cat_ID, $intCounter, $parentli, 'categories','default' );
 						?>
 
 					</li>
@@ -1828,7 +1828,7 @@ function lok_get_categories($counter, $type) {
 }
 
 //RECURSIVE Sub Menu Items of default categories and pages
-function lok_custom_navigation_default_sub_items($childof, $intCounter, $parentli, $type, $output_type) {
+function woo_custom_navigation_default_sub_items($childof, $intCounter, $parentli, $type, $output_type) {
 
 	$counter = $intCounter;
 
@@ -1881,7 +1881,7 @@ function lok_custom_navigation_default_sub_items($childof, $intCounter, $parentl
 			{
 				$link = get_category_link($sub_item->cat_ID);
 				//Convert string to UTF-8
-				$str_converted = lok_encoding_convert($sub_item->cat_name);
+				$str_converted = woo_encoding_convert($sub_item->cat_name);
 				//$title = htmlspecialchars($str_converted, ENT_QUOTES, 'UTF-8' );
 				$title = htmlspecialchars(addslashes($str_converted), ENT_QUOTES, 'UTF-8' );
 				$parent_id = $sub_item->cat_ID;
@@ -1889,7 +1889,7 @@ function lok_custom_navigation_default_sub_items($childof, $intCounter, $parentl
 				$linktype = 'category';
 				$appendtype = 'Category';
 				//Convert string to UTF-8
-				$str_converted = lok_encoding_convert($sub_item->description);
+				$str_converted = woo_encoding_convert($sub_item->description);
 				//$description = htmlspecialchars(strip_tags(trim($str_converted)), ENT_QUOTES, 'UTF-8' );
 				$description = htmlspecialchars(addslashes(strip_tags(trim($str_converted))), ENT_QUOTES, 'UTF-8' );
 			}
@@ -1898,7 +1898,7 @@ function lok_custom_navigation_default_sub_items($childof, $intCounter, $parentl
 			{
 				$link = get_permalink($sub_item->ID);
 				//Convert string to UTF-8
-				$str_converted = lok_encoding_convert($sub_item->post_title);
+				$str_converted = woo_encoding_convert($sub_item->post_title);
 				//$title = htmlspecialchars($str_converted, ENT_QUOTES, 'UTF-8' );
 				$title = htmlspecialchars(addslashes($str_converted), ENT_QUOTES, 'UTF-8' );
 				$parent_id = $sub_item->ID;
@@ -1906,7 +1906,7 @@ function lok_custom_navigation_default_sub_items($childof, $intCounter, $parentl
 				$itemid = $sub_item->ID;
 				$appendtype = 'Page';
 				//Convert string to UTF-8
-				$str_converted = lok_encoding_convert(get_post_meta($itemid, 'page-description', true));
+				$str_converted = woo_encoding_convert(get_post_meta($itemid, 'page-description', true));
 				//$description = htmlspecialchars(trim($str_converted), ENT_QUOTES, 'UTF-8' );
 				$description = htmlspecialchars(addslashes(strip_tags(trim($str_converted))), ENT_QUOTES, 'UTF-8' );
 			}
@@ -1956,7 +1956,7 @@ function lok_custom_navigation_default_sub_items($childof, $intCounter, $parentl
 					<?php
 
 						//Do recursion
-						$counter = lok_custom_navigation_default_sub_items($parent_id, $counter, $parent_id, $type, 'menu' );
+						$counter = woo_custom_navigation_default_sub_items($parent_id, $counter, $parent_id, $type, 'menu' );
 
 					?>
 
@@ -1978,7 +1978,7 @@ function lok_custom_navigation_default_sub_items($childof, $intCounter, $parentl
 					<?php
 
 						//Do recursion
-						$counter = lok_custom_navigation_default_sub_items($itemid, $counter, $parent_id, $type, 'default' );
+						$counter = woo_custom_navigation_default_sub_items($itemid, $counter, $parent_id, $type, 'default' );
 
 					?>
 				</li>
@@ -2055,7 +2055,7 @@ function get_children_menu_elements($childof, $intCounter, $parentli, $type, $me
 				{
 					$link = get_category_link($sub_item->cat_ID);
 					//Convert string to UTF-8
-					//$str_converted = lok_encoding_convert($sub_item->cat_name);
+					//$str_converted = woo_encoding_convert($sub_item->cat_name);
 					//$title = htmlspecialchars($str_converted, ENT_QUOTES, 'UTF-8' );
 					$title = $sub_item->cat_name;
 					$parent_id = $sub_item->category_parent;
@@ -2068,7 +2068,7 @@ function get_children_menu_elements($childof, $intCounter, $parentli, $type, $me
 				{
 					$link = get_permalink($sub_item->ID);
 					//Convert string to UTF-8
-					//$str_converted = lok_encoding_convert($sub_item->post_title);
+					//$str_converted = woo_encoding_convert($sub_item->post_title);
 					//$title = htmlspecialchars($str_converted, ENT_QUOTES, 'UTF-8' );
 					$title = $sub_item->post_title;
 					$parent_id = $sub_item->post_parent;
@@ -2086,9 +2086,9 @@ function get_children_menu_elements($childof, $intCounter, $parentli, $type, $me
 
 				//CHECK for existing parent records
 				//echo $parent_id;
-				$lok_result = $nxtdb->get_results( "SELECT id FROM ".$table_name." WHERE post_id='".$parent_id."' AND link_type='".$linktype."' AND menu_id='".$menu_id."'" );
-				if ($lok_result > 0 && isset($lok_result[0]->id)) {
-					$parent_id = $lok_result[0]->id;
+				$woo_result = $nxtdb->get_results( "SELECT id FROM ".$table_name." WHERE post_id='".$parent_id."' AND link_type='".$linktype."' AND menu_id='".$menu_id."'" );
+				if ($woo_result > 0 && isset($woo_result[0]->id)) {
+					$parent_id = $woo_result[0]->id;
 				}
 				else {
 					//$parent_id = 0;
@@ -2115,14 +2115,14 @@ function get_children_menu_elements($childof, $intCounter, $parentli, $type, $me
 }
 
 /*---------------------------------------------------------------------------------*/
-/* lokthemes Custom Navigation Menu Widget */
+/* Woothemes Custom Navigation Menu Widget */
 /*---------------------------------------------------------------------------------*/
 
-class lok_NavWidget extends WP_Widget {
+class Woo_NavWidget extends nxt_Widget {
 
-	function lok_NavWidget() {
-		$widget_ops = array( 'description' => 'Use this widget to add one of your lok Custom Navigation Menus as a widget.' );
-		parent::WP_Widget(false, __( 'lok - Custom Nav Menu', 'lokthemes' ),$widget_ops);
+	function Woo_NavWidget() {
+		$widget_ops = array( 'description' => 'Use this widget to add one of your Woo Custom Navigation Menus as a widget.' );
+		parent::nxt_Widget(false, __( 'Woo - Custom Nav Menu', 'woothemes' ),$widget_ops);
 	}
 
 	function widget($args, $instance) {
@@ -2140,9 +2140,9 @@ class lok_NavWidget extends WP_Widget {
 		//GET menu name
 		if ($navmenu > 0)
 		{
-			$table_name_menus = $nxtdb->prefix . "lok_custom_nav_menus";
-			$lok_result = $nxtdb->get_results( "SELECT menu_name FROM ".$table_name_menus." WHERE id='".$navmenu."'" );
-			$lok_custom_nav_menu_name = $lok_result[0]->menu_name;
+			$table_name_menus = $nxtdb->prefix . "woo_custom_nav_menus";
+			$woo_result = $nxtdb->get_results( "SELECT menu_name FROM ".$table_name_menus." WHERE id='".$navmenu."'" );
+			$woo_custom_nav_menu_name = $woo_result[0]->menu_name;
 			$menuexists = true;
 		}
 		//Do nothing
@@ -2216,8 +2216,8 @@ class lok_NavWidget extends WP_Widget {
 
 						<?php
 							//DISPLAY custom navigation menu
-							if (get_option( 'lok_custom_nav_menu') == 'true') {
-        						lok_custom_navigation_output( 'name='.$lok_custom_nav_menu_name.'&desc='.$navwidgetdescription);
+							if (get_option( 'woo_custom_nav_menu') == 'true') {
+        						woo_custom_navigation_output( 'name='.$woo_custom_nav_menu_name.'&desc='.$navwidgetdescription);
         					}
 						?>
 
@@ -2301,7 +2301,7 @@ class lok_NavWidget extends WP_Widget {
 		global $nxtdb;
 
 		//GET Menu Items for SELECT OPTIONS
-		$table_name_custom_menus = $nxtdb->prefix . "lok_custom_nav_menus";
+		$table_name_custom_menus = $nxtdb->prefix . "woo_custom_nav_menus";
 		$custom_menu_records = $nxtdb->get_results( "SELECT id,menu_name FROM ".$table_name_custom_menus);
 
 		//CHECK if menus exist
@@ -2311,7 +2311,7 @@ class lok_NavWidget extends WP_Widget {
 			?>
 
 			 <p>
-	            <label for="<?php echo $this->get_field_id( 'navmenu' ); ?>"><?php _e( 'Select Menu:', 'lokthemes' ); ?></label>
+	            <label for="<?php echo $this->get_field_id( 'navmenu' ); ?>"><?php _e( 'Select Menu:', 'woothemes' ); ?></label>
 
 				<select id="<?php echo $this->get_field_id( 'navmenu' ); ?>" name="<?php echo $this->get_field_name( 'navmenu' ); ?>">
 					<?php
@@ -2337,7 +2337,7 @@ class lok_NavWidget extends WP_Widget {
 
 			<p>
 
-		        <label for="<?php echo $this->get_field_id( 'navtitle' ); ?>"><?php _e( 'Title:', 'lokthemes' ); ?></label>
+		        <label for="<?php echo $this->get_field_id( 'navtitle' ); ?>"><?php _e( 'Title:', 'woothemes' ); ?></label>
 		    	<input type="text" name="<?php echo $this->get_field_name( 'navtitle' ); ?>" value="<?php echo $navtitle; ?>" class="widefat" id="<?php echo $this->get_field_id( 'navtitle' ); ?>" />
 		    </p>
 
@@ -2346,7 +2346,7 @@ class lok_NavWidget extends WP_Widget {
 			    $checked = strtolower($navdeveloper);
 			?>
 
-			<label for="<?php echo $this->get_field_id( 'navdeveloper' ); ?>"><?php _e( 'Advanced Options:', 'lokthemes' ); ?></label><br />
+			<label for="<?php echo $this->get_field_id( 'navdeveloper' ); ?>"><?php _e( 'Advanced Options:', 'woothemes' ); ?></label><br />
 			<span class="checkboxes">
 			   	<label>Yes</label><input type="radio" id="<?php echo $this->get_field_name( 'navdeveloper' ); ?>" name="<?php echo $this->get_field_name( 'navdeveloper' ); ?>" value="yes" <?php if ($checked=='yes') { echo 'checked="checked"'; } ?> />
 			    <label>No</label><input type="radio" id="<?php echo $this->get_field_name( 'navdeveloper' ); ?>" name="<?php echo $this->get_field_name( 'navdeveloper' ); ?>" value="no" <?php if ($checked=='yes') { } else { echo 'checked="checked"'; } ?> />
@@ -2366,7 +2366,7 @@ class lok_NavWidget extends WP_Widget {
 				    $checked = strtolower($navdiv);
 				?>
 
-				<label for="<?php echo $this->get_field_id( 'navdiv' ); ?>"><?php _e( 'Wrap in container DIV:', 'lokthemes' ); ?></label><br />
+				<label for="<?php echo $this->get_field_id( 'navdiv' ); ?>"><?php _e( 'Wrap in container DIV:', 'woothemes' ); ?></label><br />
 				<span class="checkboxes">
 				   	<label>Yes</label><input type="radio" id="<?php echo $this->get_field_name( 'navdiv' ); ?>" name="<?php echo $this->get_field_name( 'navdiv' ); ?>" value="yes" <?php if ($checked=='yes') { echo 'checked="checked"'; } ?> />
 				    <label>No</label><input type="radio" id="<?php echo $this->get_field_name( 'navdiv' ); ?>" name="<?php echo $this->get_field_name( 'navdiv' ); ?>" value="no" <?php if ($checked=='yes') { } else { echo 'checked="checked"'; } ?> />
@@ -2379,7 +2379,7 @@ class lok_NavWidget extends WP_Widget {
 				    $checked = strtolower($navul);
 				?>
 
-				<label for="<?php echo $this->get_field_id( 'navul' ); ?>"><?php _e( 'Wrap in container UL:', 'lokthemes' ); ?></label><br />
+				<label for="<?php echo $this->get_field_id( 'navul' ); ?>"><?php _e( 'Wrap in container UL:', 'woothemes' ); ?></label><br />
 				<span class="checkboxes">
 				   	<label>Yes</label><input type="radio" id="<?php echo $this->get_field_name( 'navul' ); ?>" name="<?php echo $this->get_field_name( 'navul' ); ?>" value="yes" <?php if ($checked=='yes') { echo 'checked="checked"'; } ?> />
 				    <label>No</label><input type="radio" id="<?php echo $this->get_field_name( 'navul' ); ?>" name="<?php echo $this->get_field_name( 'navul' ); ?>" value="no" <?php if ($checked=='yes') { } else { echo 'checked="checked"'; } ?> />
@@ -2387,14 +2387,14 @@ class lok_NavWidget extends WP_Widget {
 
 			</p>
 
-			<?php $advanced_option_descriptions = get_option( 'lok_settings_custom_nav_advanced_options' ); ?>
+			<?php $advanced_option_descriptions = get_option( 'woo_settings_custom_nav_advanced_options' ); ?>
 			<p <?php if ($advanced_option_descriptions == 'no') { ?>style="display:none;"<?php } ?>>
 
 	           <?php
 				    $checked = strtolower($navwidgetdescription);
 				?>
 
-				<label for="<?php echo $this->get_field_id( 'navwidgetdescription' ); ?>"><?php _e( 'Show Top Level Descriptions:', 'lokthemes' ); ?></label><br />
+				<label for="<?php echo $this->get_field_id( 'navwidgetdescription' ); ?>"><?php _e( 'Show Top Level Descriptions:', 'woothemes' ); ?></label><br />
 				<span class="checkboxes">
 				   	<label>Yes</label><input type="radio" id="<?php echo $this->get_field_name( 'navwidgetdescription' ); ?>" name="<?php echo $this->get_field_name( 'navwidgetdescription' ); ?>" value="1" <?php if ($checked=='1') { echo 'checked="checked"'; } ?> />
 				    <label>No</label><input type="radio" id="<?php echo $this->get_field_name( 'navwidgetdescription' ); ?>" name="<?php echo $this->get_field_name( 'navwidgetdescription' ); ?>" value="2" <?php if ($checked=='1') { } else { echo 'checked="checked"'; } ?> />
@@ -2414,7 +2414,7 @@ class lok_NavWidget extends WP_Widget {
 		{
 			?>
 			<p>
-		    	<label><?php _e( 'The Custom Menu has not been configured correctly.  Please check your theme settings before adding this widget.', 'lokthemes' ); ?></label>
+		    	<label><?php _e( 'The Custom Menu has not been configured correctly.  Please check your theme settings before adding this widget.', 'woothemes' ); ?></label>
 			</p>
 			<?php
 		}
@@ -2423,9 +2423,9 @@ class lok_NavWidget extends WP_Widget {
 }
 
 //CHECK if Custom Nav Menu is Enabled
-if (get_option( 'lok_custom_nav_menu') == 'true')
+if (get_option( 'woo_custom_nav_menu') == 'true')
 {
-	register_widget( 'lok_NavWidget' );
+	register_widget( 'Woo_NavWidget' );
 }
 
 ?>

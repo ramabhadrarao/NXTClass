@@ -1,4 +1,4 @@
-lokShortcodeMeta={
+wooShortcodeMeta={
 	attributes:[
 			{
 				label:"Default 'Open' Title Text",

@@ -4,11 +4,11 @@
  *
  * Here we setup all logic and XHTML that is required for the header section of all screens.
  *
- * @package lokFramework
+ * @package WooFramework
  * @subpackage Template
  */
  
- global $lok_options;
+ global $woo_options;
  
 ?><!DOCTYPE html>
 <html <?php language_attributes(); ?>>
@@ -16,18 +16,18 @@
 
 <meta charset="<?php bloginfo( 'charset' ); ?>" />
 
-<title><?php lok_title(); ?></title>
-<?php lok_meta(); ?>
+<title><?php woo_title(); ?></title>
+<?php woo_meta(); ?>
 <link rel="stylesheet" type="text/css" href="<?php bloginfo( 'stylesheet_url' ); ?>" media="screen" />
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 <?php
 	nxt_head();
-	lok_head();
+	woo_head();
 ?>
 </head>
 
 <body <?php body_class(); ?>>
-<?php lok_top(); ?>
+<?php woo_top(); ?>
 
 <div id="wrapper">
 
@@ -47,9 +47,9 @@
 		
 		<?php
 		    $logo = get_template_directory_uri() . '/images/logo.png';
-		    if ( isset( $lok_options['lok_logo'] ) && $lok_options['lok_logo'] != '' ) { $logo = $lok_options['lok_logo']; }
+		    if ( isset( $woo_options['woo_logo'] ) && $woo_options['woo_logo'] != '' ) { $logo = $woo_options['woo_logo']; }
 		?>
-		<?php if ( ! isset( $lok_options['lok_texttitle'] ) || $lok_options['lok_texttitle'] != 'true' ) { ?>
+		<?php if ( ! isset( $woo_options['woo_texttitle'] ) || $woo_options['woo_texttitle'] != 'true' ) { ?>
 		    <a id="logo" href="<?php bloginfo( 'url' ); ?>" title="<?php bloginfo( 'description' ); ?>">
 		    	<img src="<?php echo $logo; ?>" alt="<?php bloginfo( 'name' ); ?>" />
 		    </a>
@@ -59,19 +59,19 @@
 	        
 			<h1 class="site-title"><a href="<?php bloginfo( 'url' ); ?>"><?php bloginfo( 'name' ); ?></a></h1>
 			<h2 class="site-description"><?php bloginfo( 'description' ); ?></h2>
-			<h3 class="nav-toggle"><a href="#navigation"><?php _e('Navigation', 'lokthemes'); ?></a></h3>
+			<h3 class="nav-toggle"><a href="#navigation"><?php _e('Navigation', 'woothemes'); ?></a></h3>
 		      	
 		</hgroup>
 
-		<?php if ( isset( $lok_options['lok_ad_top'] ) && $lok_options['lok_ad_top'] == 'true' ) { ?>
+		<?php if ( isset( $woo_options['woo_ad_top'] ) && $woo_options['woo_ad_top'] == 'true' ) { ?>
         <div id="topad">
 			<?php
-				if ( isset( $lok_options['lok_ad_top_adsense'] ) && $lok_options['lok_ad_top_adsense'] != '' ) {
-					echo stripslashes( $lok_options['lok_ad_top_adsense'] );
+				if ( isset( $woo_options['woo_ad_top_adsense'] ) && $woo_options['woo_ad_top_adsense'] != '' ) {
+					echo stripslashes( $woo_options['woo_ad_top_adsense'] );
 				} else {
-					if ( isset( $lok_options['lok_ad_top_url'] ) && isset( $lok_options['lok_ad_top_image'] ) )
+					if ( isset( $woo_options['woo_ad_top_url'] ) && isset( $woo_options['woo_ad_top_image'] ) )
 			?>
-				<a href="<?php echo $lok_options['lok_ad_top_url']; ?>"><img src="<?php echo $lok_options['lok_ad_top_image']; ?>" width="468" height="60" alt="advert" /></a>
+				<a href="<?php echo $woo_options['woo_ad_top_url']; ?>"><img src="<?php echo $woo_options['woo_ad_top_image']; ?>" width="468" height="60" alt="advert" /></a>
 			<?php } ?>
 		</div><!-- /#topad -->
         <?php } ?>
@@ -84,17 +84,17 @@
 			?>
     	    <ul id="main-nav" class="nav fl">
 				<?php if ( is_page() ) $highlight = 'page_item'; else $highlight = 'page_item current_page_item'; ?>
-				<li class="<?php echo $highlight; ?>"><a href="<?php echo home_url( '/' ); ?>"><?php _e( 'Home', 'lokthemes' ); ?></a></li>
+				<li class="<?php echo $highlight; ?>"><a href="<?php echo home_url( '/' ); ?>"><?php _e( 'Home', 'woothemes' ); ?></a></li>
 				<?php nxt_list_pages( 'sort_column=menu_order&depth=6&title_li=&exclude=' ); ?>
 			</ul><!-- /#nav -->
     	    <?php } ?>
     	    		
 		</nav><!-- /#navigation -->
 		
-		<?php if ( isset( $lok_options['lok_header_search'] ) && $lok_options['lok_header_search'] == 'true' ) { ?>
+		<?php if ( isset( $woo_options['woo_header_search'] ) && $woo_options['woo_header_search'] == 'true' ) { ?>
 		<div class="search_main fix">
 		    <form method="get" class="searchform" action="<?php echo home_url( '/' ); ?>" >
-		        <input type="text" class="field s" name="s" value="<?php esc_attr_e( 'Search…', 'lokthemes' ); ?>" onfocus="if ( this.value == '<?php esc_attr_e( 'Search…', 'lokthemes' ); ?>' ) { this.value = ''; }" onblur="if ( this.value == '' ) { this.value = '<?php esc_attr_e( 'Search…', 'lokthemes' ); ?>'; }" />
+		        <input type="text" class="field s" name="s" value="<?php esc_attr_e( 'Search…', 'woothemes' ); ?>" onfocus="if ( this.value == '<?php esc_attr_e( 'Search…', 'woothemes' ); ?>' ) { this.value = ''; }" onblur="if ( this.value == '' ) { this.value = '<?php esc_attr_e( 'Search…', 'woothemes' ); ?>'; }" />
 		        <input type="image" src="<?php echo get_template_directory_uri(); ?>/images/ico-search.png" class="search-submit" name="submit" alt="Submit" />
 		    </form>    
 		</div><!--/.search_main-->
@@ -106,6 +106,7 @@
 	
 	<?php 
 		// Featured Slider
-		if ( ( is_home() || is_front_page() ) && !$paged && isset( $lok_options['lok_featured'] ) && $lok_options['lok_featured'] == 'true' ) 
+		if ( ( is_home() || is_front_page() ) && !$paged && isset( $woo_options['woo_featured'] ) && $woo_options['woo_featured'] == 'true' ) 
 			get_template_part ( 'includes/featured' ); 
 	?>	
+	<div id="primary">

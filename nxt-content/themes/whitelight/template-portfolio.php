@@ -5,19 +5,19 @@
  * The portfolio page template displays your portfolio items with
  * a switcher to quickly filter between the various portfolio galleries. 
  *
- * @package lokFramework
+ * @package WooFramework
  * @subpackage Template
  */
 
  get_header();
- global $lok_options; 
+ global $woo_options; 
 ?>
     <div id="content">
     	<div class="page col-full">
     		
-    		<?php if ( isset( $lok_options['lok_breadcrumbs_show'] ) && $lok_options['lok_breadcrumbs_show'] == 'true' ) { ?>
+    		<?php if ( isset( $woo_options['woo_breadcrumbs_show'] ) && $woo_options['woo_breadcrumbs_show'] == 'true' ) { ?>
 				<section id="breadcrumbs">
-					<?php lok_breadcrumbs(); ?>
+					<?php woo_breadcrumbs(); ?>
 				</section><!--/#breadcrumbs -->
 			<?php } ?>  
     	
@@ -28,13 +28,13 @@
 					
 					<?php get_template_part( 'loop', 'portfolio' ); ?>
 			
-					<?php edit_post_link( __( '{ Edit }', 'lokthemes' ), '<span class="small">', '</span>' ); ?>
+					<?php edit_post_link( __( '{ Edit }', 'woothemes' ), '<span class="small">', '</span>' ); ?>
         	        
         	    </article><!-- /.post -->
         	    
         	<?php else : ?>
 				<article <?php post_class(); ?>>
-        	    	<p><?php _e( 'Sorry, no posts matched your criteria.', 'lokthemes' ); ?></p>
+        	    	<p><?php _e( 'Sorry, no posts matched your criteria.', 'woothemes' ); ?></p>
         	    </article><!-- /.post -->
         	<?php endif; ?>  
         	

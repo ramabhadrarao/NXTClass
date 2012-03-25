@@ -13,9 +13,9 @@
 	
 	$path_bits = explode( 'nxt-content', dirname(__FILE__) );
 	
-	$lok_framework_path = trailingslashit( '../nxt-content' . substr( $path_bits[1], 0, -3 ) );
+	$woo_framework_path = trailingslashit( '../nxt-content' . substr( $path_bits[1], 0, -3 ) );
 	
-	$lok_framework_url = get_template_directory_uri() . '/functions/';
+	$woo_framework_url = get_template_directory_uri() . '/functions/';
 	
 	// Check if this is a Windows server or not.
 	$_is_windows = false;
@@ -30,10 +30,10 @@
 	
 	} // End IF Statement
 	
-	$lok_framework_functions_path = str_replace( 'js' . $delimiter . 'shortcode-generator' . $delimiter . 'js', '', dirname( __FILE__ ) );
+	$woo_framework_functions_path = str_replace( 'js' . $delimiter . 'shortcode-generator' . $delimiter . 'js', '', dirname( __FILE__ ) );
 
 	// Require admin functions.
-	require_once( $lok_framework_functions_path . $delimiter . 'admin-functions.php' );
+	require_once( $woo_framework_functions_path . $delimiter . 'admin-functions.php' );
 
 	global $google_fonts;
 
@@ -85,21 +85,21 @@
 
 var framework_url = '<?php echo dirname( __FILE__ ); ?>';
 
-var shortcode_generator_path = '<?php echo $lok_framework_path; ?>';
-var shortcode_generator_url = '<?php echo $lok_framework_url; ?>' + 'js/shortcode-generator/';
+var shortcode_generator_path = '<?php echo $woo_framework_path; ?>';
+var shortcode_generator_url = '<?php echo $woo_framework_url; ?>' + 'js/shortcode-generator/';
 
-var lokDialogHelper = {
+var wooDialogHelper = {
 
     needsPreview: false,
     setUpButtons: function () {
         var a = this;
-        jQuery( "#lok-btn-cancel").click(function () {
+        jQuery( "#woo-btn-cancel").click(function () {
             a.closeDialog()
         });
-        jQuery( "#lok-btn-insert").click(function () {
+        jQuery( "#woo-btn-insert").click(function () {
             a.insertAction()
         });
-        jQuery( "#lok-btn-preview").click(function () {
+        jQuery( "#woo-btn-preview").click(function () {
             a.previewAction()
         })
     },
@@ -108,7 +108,7 @@ var lokDialogHelper = {
 
 		var startingColour = '000000';
 
-    	jQuery( '.lok-marker-colourpicker-control div.colorSelector').each ( function () {
+    	jQuery( '.woo-marker-colourpicker-control div.colorSelector').each ( function () {
     	
     		var colourPicker = jQuery(this).ColorPicker({
     	
@@ -120,7 +120,7 @@ var lokDialogHelper = {
 			onHide: function (colpkr) {
 				jQuery(colpkr).fadeOut(500);
 				
-				lokDialogHelper.previewAction();
+				wooDialogHelper.previewAction();
 				
 				return false;
 			},
@@ -142,14 +142,14 @@ var lokDialogHelper = {
     }, 
 
     loadShortcodeDetails: function () {
-        if (lokSelectedShortcodeType) {
+        if (wooSelectedShortcodeType) {
 
             var a = this;
-            jQuery.getScript(shortcode_generator_url + "shortcodes/" + lokSelectedShortcodeType + ".js", function () {
+            jQuery.getScript(shortcode_generator_url + "shortcodes/" + wooSelectedShortcodeType + ".js", function () {
                 a.initializeDialog();
                 
                 // Set the default content to the highlighted text, for certain shortcode types.
-                switch ( lokSelectedShortcodeType ) {
+                switch ( wooSelectedShortcodeType ) {
 				
 					case 'box':
 					case 'ilink':
@@ -160,11 +160,11 @@ var lokDialogHelper = {
 					case 'ordered_list':
 					case 'typography':
 					
-						jQuery( 'input#lok-value-content').val( selectedText );
+						jQuery( 'input#woo-value-content').val( selectedText );
 						
 					case 'toggle':
 					
-						jQuery( 'textarea#lok-value-content').val( selectedText );
+						jQuery( 'textarea#woo-value-content').val( selectedText );
 					
 					break;
 				
@@ -179,19 +179,19 @@ var lokDialogHelper = {
     },
     initializeDialog: function () {
 
-        if (typeof lokShortcodeMeta == "undefined") {
-            jQuery( "#lok-options").append( "<p>Error loading details for shortcode: " + lokSelectedShortcodeType + "</p>" );
+        if (typeof wooShortcodeMeta == "undefined") {
+            jQuery( "#woo-options").append( "<p>Error loading details for shortcode: " + wooSelectedShortcodeType + "</p>" );
         } else {
-            if (lokShortcodeMeta.disablePreview) {
-                jQuery( "#lok-preview").remove();
-                jQuery( "#lok-btn-preview").remove()
+            if (wooShortcodeMeta.disablePreview) {
+                jQuery( "#woo-preview").remove();
+                jQuery( "#woo-btn-preview").remove()
             }
-            var a = lokShortcodeMeta.attributes,
-                b = jQuery( "#lok-options-table" );
+            var a = wooShortcodeMeta.attributes,
+                b = jQuery( "#woo-options-table" );
 
             for (var c in a) {
-                var f = "lok-value-" + a[c].id,
-                    d = a[c].isRequired ? "lok-required" : "",
+                var f = "woo-value-" + a[c].id,
+                    d = a[c].isRequired ? "woo-required" : "",
                     g = jQuery( '<th valign="top" scope="row"></th>' );
 
                 var requiredSpan = '<span class="optional"></span>';
@@ -263,13 +263,13 @@ var lokDialogHelper = {
 
                 jQuery( "<tr/>").append(g).append(f).appendTo(b)
             }
-            jQuery( ".lok-focus-here:first").focus()
+            jQuery( ".woo-focus-here:first").focus()
 
 			// Add additional wrappers, etc, to each select box.
 			
-			jQuery( '#lok-options select').wrap( '<div class="select_wrapper"></div>' ).before( '<span></span>' );
+			jQuery( '#woo-options select').wrap( '<div class="select_wrapper"></div>' ).before( '<span></span>' );
 			
-			jQuery( '#lok-options select option:selected').each( function () {
+			jQuery( '#woo-options select option:selected').each( function () {
 			
 				jQuery(this).parents( '.select_wrapper').find( 'span').text( jQuery(this).text() );
 			
@@ -284,34 +284,34 @@ var lokDialogHelper = {
     /* Column Generator Element */
 
     createColumnControl: function (a, b, c) {
-        new lokColumnMaker(b, 6, c ? "lok-focus-here" : null);
-        b.addClass( "lok-marker-column-control")
+        new wooColumnMaker(b, 6, c ? "woo-focus-here" : null);
+        b.addClass( "woo-marker-column-control")
     },
     
      /* Tab Generator Element */
 
     createTabControl: function (a, b, c) {
-        new lokTabMaker(b, 10, c ? "lok-focus-here" : null);
-        b.addClass( "lok-marker-tab-control")
+        new wooTabMaker(b, 10, c ? "woo-focus-here" : null);
+        b.addClass( "woo-marker-tab-control")
     },
 
 	/* Colour Picker Element */
 
     createColourPickerControl: function (a, b, c) {
 
-        var f = a.validateLink ? "lok-validation-marker" : "",
-            d = a.isRequired ? "lok-required" : "",
-            g = "lok-value-" + a.id;
+        var f = a.validateLink ? "woo-validation-marker" : "",
+            d = a.isRequired ? "woo-required" : "",
+            g = "woo-value-" + a.id;
 
-		b.attr( 'id', 'lok-marker-colourpicker-control').addClass( "lok-marker-colourpicker-control" );
+		b.attr( 'id', 'woo-marker-colourpicker-control').addClass( "woo-marker-colourpicker-control" );
 
 		jQuery( '<div class="colorSelector"><div></div></div>').appendTo(b);
 
-        jQuery( '<input type="text">').attr( "id", g).attr( "name", g).addClass(f).addClass(d).addClass( 'txt input-text input-colourpicker').addClass(c ? "lok-focus-here" : "").appendTo(b);
+        jQuery( '<input type="text">').attr( "id", g).attr( "name", g).addClass(f).addClass(d).addClass( 'txt input-text input-colourpicker').addClass(c ? "woo-focus-here" : "").appendTo(b);
 
         if (a = a.help) {
             jQuery( "<br/>").appendTo(b);
-            jQuery( "<span/>").addClass( "lok-input-help").html(a).appendTo(b)
+            jQuery( "<span/>").addClass( "woo-input-help").html(a).appendTo(b)
         }
 
         var h = this;
@@ -329,16 +329,16 @@ var lokDialogHelper = {
 
     createTextControl: function (a, b, c) {
 
-        var f = a.validateLink ? "lok-validation-marker" : "",
-            d = a.isRequired ? "lok-required" : "",
-            g = "lok-value-" + a.id, 
+        var f = a.validateLink ? "woo-validation-marker" : "",
+            d = a.isRequired ? "woo-required" : "",
+            g = "woo-value-" + a.id, 
             defaultValue = a.defaultValue ? a.defaultValue : "";
 
-        jQuery( '<input type="text">').attr( "id", g).attr( "name", g).attr( 'value', defaultValue ).addClass(f).addClass(d).addClass( 'txt input-text').addClass(c ? "lok-focus-here" : "").appendTo(b);
+        jQuery( '<input type="text">').attr( "id", g).attr( "name", g).attr( 'value', defaultValue ).addClass(f).addClass(d).addClass( 'txt input-text').addClass(c ? "woo-focus-here" : "").appendTo(b);
 
         if (a = a.help) {
             jQuery( "<br/>").appendTo(b);
-            jQuery( "<span/>").addClass( "lok-input-help").html(a).appendTo(b)
+            jQuery( "<span/>").addClass( "woo-input-help").html(a).appendTo(b)
         }
 
         var h = this;
@@ -356,16 +356,16 @@ var lokDialogHelper = {
 
     createTextAreaControl: function (a, b, c) {
 
-        var f = a.validateLink ? "lok-validation-marker" : "",
-            d = a.isRequired ? "lok-required" : "",
-            g = "lok-value-" + a.id;
+        var f = a.validateLink ? "woo-validation-marker" : "",
+            d = a.isRequired ? "woo-required" : "",
+            g = "woo-value-" + a.id;
 
-        jQuery( '<textarea>').attr( "id", g).attr( "name", g).attr( "rows", 10).attr( "cols", 30).addClass(f).addClass(d).addClass( 'txt input-textarea').addClass(c ? "lok-focus-here" : "").appendTo(b);
-        b.addClass( "lok-marker-textarea-control" );
+        jQuery( '<textarea>').attr( "id", g).attr( "name", g).attr( "rows", 10).attr( "cols", 30).addClass(f).addClass(d).addClass( 'txt input-textarea').addClass(c ? "woo-focus-here" : "").appendTo(b);
+        b.addClass( "woo-marker-textarea-control" );
 
         if (a = a.help) {
             jQuery( "<br/>").appendTo(b);
-            jQuery( "<span/>").addClass( "lok-input-help").html(a).appendTo(b)
+            jQuery( "<span/>").addClass( "woo-input-help").html(a).appendTo(b)
         }
 
         var h = this;
@@ -383,13 +383,13 @@ var lokDialogHelper = {
 
     createSelectControl: function (a, b, c) {
 
-        var f = a.validateLink ? "lok-validation-marker" : "",
-            d = a.isRequired ? "lok-required" : "",
-            g = "lok-value-" + a.id;
+        var f = a.validateLink ? "woo-validation-marker" : "",
+            d = a.isRequired ? "woo-required" : "",
+            g = "woo-value-" + a.id;
 
-        var selectNode = jQuery( '<select>').attr( "id", g).attr( "name", g).addClass(f).addClass(d).addClass( 'select input-select').addClass(c ? "lok-focus-here" : "" );
+        var selectNode = jQuery( '<select>').attr( "id", g).attr( "name", g).addClass(f).addClass(d).addClass( 'select input-select').addClass(c ? "woo-focus-here" : "" );
 
-        b.addClass( 'lok-marker-select-control' );
+        b.addClass( 'woo-marker-select-control' );
 
         var selectBoxValues = a.selectValues;
         
@@ -426,7 +426,7 @@ var lokDialogHelper = {
 
         if (a = a.help) {
             jQuery( "<br/>").appendTo(b);
-            jQuery( "<span/>").addClass( "lok-input-help").html(a).appendTo(b)
+            jQuery( "<span/>").addClass( "woo-input-help").html(a).appendTo(b)
         }
 
         var h = this;
@@ -458,13 +458,13 @@ var lokDialogHelper = {
 
     createRangeControl: function (a, b, c) {
 
-        var f = a.validateLink ? "lok-validation-marker" : "",
-            d = a.isRequired ? "lok-required" : "",
-            g = "lok-value-" + a.id;
+        var f = a.validateLink ? "woo-validation-marker" : "",
+            d = a.isRequired ? "woo-required" : "",
+            g = "woo-value-" + a.id;
 
-        var selectNode = jQuery( '<select>').attr( "id", g).attr( "name", g).addClass(f).addClass(d).addClass( 'select input-select input-select-range').addClass(c ? "lok-focus-here" : "" );
+        var selectNode = jQuery( '<select>').attr( "id", g).attr( "name", g).addClass(f).addClass(d).addClass( 'select input-select input-select-range').addClass(c ? "woo-focus-here" : "" );
 
-        b.addClass( 'lok-marker-select-control' );
+        b.addClass( 'woo-marker-select-control' );
 
         // var selectBoxValues = a.selectValues;
         
@@ -491,7 +491,7 @@ var lokDialogHelper = {
 
         if (a = a.help) {
             jQuery( "<br/>").appendTo(b);
-            jQuery( "<span/>").addClass( "lok-input-help").html(a).appendTo(b)
+            jQuery( "<span/>").addClass( "woo-input-help").html(a).appendTo(b)
         }
 
         var h = this;
@@ -523,13 +523,13 @@ var lokDialogHelper = {
 
     createFontControl: function (a, b, c) {
 
-        var f = a.validateLink ? "lok-validation-marker" : "",
-            d = a.isRequired ? "lok-required" : "",
-            g = "lok-value-" + a.id;
+        var f = a.validateLink ? "woo-validation-marker" : "",
+            d = a.isRequired ? "woo-required" : "",
+            g = "woo-value-" + a.id;
 
-        var selectNode = jQuery( '<select>').attr( "id", g).attr( "name", g).addClass(f).addClass(d).addClass( 'select input-select input-select-font').addClass(c ? "lok-focus-here" : "" );
+        var selectNode = jQuery( '<select>').attr( "id", g).attr( "name", g).addClass(f).addClass(d).addClass( 'select input-select input-select-font').addClass(c ? "woo-focus-here" : "" );
 
-        b.addClass( 'lok-marker-select-control').addClass( 'lok-marker-font-control' );
+        b.addClass( 'woo-marker-select-control').addClass( 'woo-marker-font-control' );
 
         var selectBoxValues = '<?php echo $fonts; ?>';
         selectBoxValues = selectBoxValues.split( '|' );
@@ -565,7 +565,7 @@ var lokDialogHelper = {
 
         if (a = a.help) {
             jQuery( "<br/>").appendTo(b);
-            jQuery( "<span/>").addClass( "lok-input-help").html(a).appendTo(b)
+            jQuery( "<span/>").addClass( "woo-input-help").html(a).appendTo(b)
         }
 
         var h = this;
@@ -620,7 +620,7 @@ var lokDialogHelper = {
     },
 
     getColumnKeyValue: function (a) {
-        var b = a.find( "#lok-column-text").text();
+        var b = a.find( "#woo-column-text").text();
         if (a = Number(a.find( "select option:selected").val())) return {
             key: "data",
             value: {
@@ -631,7 +631,7 @@ var lokDialogHelper = {
     },
     
     getTabKeyValue: function (a) {
-        var b = a.find( "#lok-tab-text").text();
+        var b = a.find( "#woo-tab-text").text();
         if (a = Number(a.find( "select option:selected").val())) return {
             key: "data",
             value: {
@@ -646,20 +646,20 @@ var lokDialogHelper = {
         var a = {},
             b = this;
 
-        jQuery( "#lok-options-table td").each(function () {
+        jQuery( "#woo-options-table td").each(function () {
 
             var h = jQuery(this),
                 e = null;
 
-            if (e = h.hasClass( "lok-marker-column-control") ? b.getColumnKeyValue(h) : b.getTextKeyValue(h)) a[e.key] = e.value
-            if (e = h.hasClass( "lok-marker-select-control") ? b.getSelectKeyValue(h) : b.getTextKeyValue(h)) a[e.key] = e.value
-            if (e = h.hasClass( "lok-marker-tab-control") ? b.getTabKeyValue(h) : b.getTextKeyValue(h)) a[e.key] = e.value
-            if (e = h.hasClass( "lok-marker-textarea-control") ? b.getTextAreaKeyValue(h) : b.getTextKeyValue(h)) a[e.key] = e.value
+            if (e = h.hasClass( "woo-marker-column-control") ? b.getColumnKeyValue(h) : b.getTextKeyValue(h)) a[e.key] = e.value
+            if (e = h.hasClass( "woo-marker-select-control") ? b.getSelectKeyValue(h) : b.getTextKeyValue(h)) a[e.key] = e.value
+            if (e = h.hasClass( "woo-marker-tab-control") ? b.getTabKeyValue(h) : b.getTextKeyValue(h)) a[e.key] = e.value
+            if (e = h.hasClass( "woo-marker-textarea-control") ? b.getTextAreaKeyValue(h) : b.getTextKeyValue(h)) a[e.key] = e.value
 
         });
 
-        if (lokShortcodeMeta.customMakeShortcode) return lokShortcodeMeta.customMakeShortcode(a);
-        var c = a.content ? a.content : lokShortcodeMeta.defaultContent,
+        if (wooShortcodeMeta.customMakeShortcode) return wooShortcodeMeta.customMakeShortcode(a);
+        var c = a.content ? a.content : wooShortcodeMeta.defaultContent,
             f = "";
         for (var d in a) {
             var g = a[d];
@@ -668,17 +668,17 @@ var lokDialogHelper = {
         
         // Customise the shortcode output for various shortcode types.
         
-        switch ( lokShortcodeMeta.shortcodeType ) {
+        switch ( wooShortcodeMeta.shortcodeType ) {
         
         	case 'text-replace':
         	
-        		var shortcode = "[" + lokShortcodeMeta.shortcode + f + "]" + (c ? c + "[/" + lokShortcodeMeta.shortcode + "]" : " ")
+        		var shortcode = "[" + wooShortcodeMeta.shortcode + f + "]" + (c ? c + "[/" + wooShortcodeMeta.shortcode + "]" : " ")
         	
         	break;
         	
         	default:
         	
-        		var shortcode = "[" + lokShortcodeMeta.shortcode + f + "]" + (c ? c + "[/" + lokShortcodeMeta.shortcode + "] " : " ")
+        		var shortcode = "[" + wooShortcodeMeta.shortcode + f + "]" + (c ? c + "[/" + wooShortcodeMeta.shortcode + "] " : " ")
         	
         	break;
         
@@ -699,7 +699,7 @@ var lokDialogHelper = {
     },
 
     insertAction: function () {
-        if (typeof lokShortcodeMeta != "undefined") {
+        if (typeof wooShortcodeMeta != "undefined") {
             var a = this.makeShortcode();
             tinyMCE.activeEditor.execCommand( "mceInsertContent", false, a);
             this.closeDialog()
@@ -709,43 +709,43 @@ var lokDialogHelper = {
     closeDialog: function () {
         this.needsPreview = false;
         tb_remove();
-        jQuery( "#lok-dialog").remove()
+        jQuery( "#woo-dialog").remove()
     },
 
     previewAction: function (a) {
     
     	var fontValue = '';
     	
-    	jQuery( '#lok-options-table').find( 'select.input-select-font').each ( function () {
+    	jQuery( '#woo-options-table').find( 'select.input-select-font').each ( function () {
     	
     		fontValue = jQuery(this).val();
     	
     	});
     
-        jQuery(a).hasClass( "lok-validation-marker") && this.validateLinkFor(a);
-        jQuery( "#lok-preview h3:first").addClass( "lok-loading" );
-        jQuery( "#lok-preview-iframe").attr( "src", shortcode_generator_url + "preview-shortcode-external.php?shortcode=" + encodeURIComponent(this.makeShortcode()) + "&font=" + fontValue )
+        jQuery(a).hasClass( "woo-validation-marker") && this.validateLinkFor(a);
+        jQuery( "#woo-preview h3:first").addClass( "woo-loading" );
+        jQuery( "#woo-preview-iframe").attr( "src", shortcode_generator_url + "preview-shortcode-external.php?shortcode=" + encodeURIComponent(this.makeShortcode()) + "&font=" + fontValue )
     },
 
     validateLinkFor: function (a) {
         var b = jQuery(a);
-        b.removeClass( "lok-validation-error" );
-        b.removeClass( "lok-validated" );
+        b.removeClass( "woo-validation-error" );
+        b.removeClass( "woo-validated" );
         if (a = b.val()) {
-            b.addClass( "lok-validating" );
+            b.addClass( "woo-validating" );
             jQuery.ajax({
                 url: ajaxurl,
                 dataType: "json",
                 data: {
-                    action: "lok_check_url_action",
+                    action: "woo_check_url_action",
                     url: a
                 },
                 error: function () {
-                    b.removeClass( "lok-validating")
+                    b.removeClass( "woo-validating")
                 },
                 success: function (c) {
-                    b.removeClass( "lok-validating" );
-                    c.error || b.addClass(c.exists ? "lok-validated" : "lok-validation-error")
+                    b.removeClass( "woo-validating" );
+                    c.error || b.addClass(c.exists ? "woo-validated" : "woo-validation-error")
                 }
             })
         }
@@ -753,5 +753,5 @@ var lokDialogHelper = {
 
 };
 
-lokDialogHelper.setUpButtons();
-lokDialogHelper.loadShortcodeDetails();
+wooDialogHelper.setUpButtons();
+wooDialogHelper.loadShortcodeDetails();

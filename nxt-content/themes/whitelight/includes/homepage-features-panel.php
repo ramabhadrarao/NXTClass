@@ -13,12 +13,12 @@
 					'features_area_entries' => 3,
 					'features_area_title' => '',
 					'features_area_message' => '',
-					'features_area_link_text' => __( 'View all our features', 'lokthemes' ),
+					'features_area_link_text' => __( 'View all our features', 'woothemes' ),
 					'features_area_link_URL' => '',
 					'features_area_order' => 'DESC'
 					);
 					
-	$settings = lok_get_dynamic_values( $settings );
+	$settings = woo_get_dynamic_values( $settings );
 	$orderby = 'date';
 	if ( $settings['features_area_order'] == 'rand' )
 		$orderby = 'rand';

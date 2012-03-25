@@ -6,11 +6,11 @@
  * singular view of a feature ('features' post_type).
  * @link http://codex.nxtclass.org/Post_Types#Post
  *
- * @package lokFramework
+ * @package WooFramework
  * @subpackage Template
  */
 	get_header();
-	global $lok_options;
+	global $woo_options;
 	
 /**
  * The Variables
@@ -25,16 +25,16 @@
 					'thumb_single_align' => 'alignright'
 					);
 					
-	$settings = lok_get_dynamic_values( $settings );
+	$settings = woo_get_dynamic_values( $settings );
 ?>
        
     <div id="content">
     	
     	<div class="col-full">
     		
-    		<?php if ( isset( $lok_options['lok_breadcrumbs_show'] ) && $lok_options['lok_breadcrumbs_show'] == 'true' ) { ?>
+    		<?php if ( isset( $woo_options['woo_breadcrumbs_show'] ) && $woo_options['woo_breadcrumbs_show'] == 'true' ) { ?>
 				<section id="breadcrumbs">
-					<?php lok_breadcrumbs(); ?>
+					<?php woo_breadcrumbs(); ?>
 				</section><!--/#breadcrumbs -->
 			<?php } ?>
     		
@@ -46,8 +46,8 @@
 	        ?>
 				<article <?php post_class('fix'); ?>>
 	
-					<?php echo lok_embed( 'width=580' ); ?>
-	                <?php if ( $settings['thumb_single'] == 'true' && ! lok_embed( '' ) ) { lok_image( 'noheight=true&key=feature_icon&width=' . $settings['single_w'] . '&height=' . $settings['single_h'] . '&class=thumbnail ' . $settings['thumb_single_align'] ); } ?>
+					<?php echo woo_embed( 'width=580' ); ?>
+	                <?php if ( $settings['thumb_single'] == 'true' && ! woo_embed( '' ) ) { woo_image( 'noheight=true&key=feature_icon&width=' . $settings['single_w'] . '&height=' . $settings['single_h'] . '&class=thumbnail ' . $settings['thumb_single_align'] ); } ?>
 	                
 	                <div class="post-body">
 	
@@ -60,16 +60,16 @@
 	                	
 	                	<section class="entry">
 	                		<?php the_content(); ?>
-							<?php nxt_link_pages( array( 'before' => '<div class="page-link">' . __( 'Pages:', 'lokthemes' ), 'after' => '</div>' ) ); ?>
+							<?php nxt_link_pages( array( 'before' => '<div class="page-link">' . __( 'Pages:', 'woothemes' ), 'after' => '</div>' ) ); ?>
 						</section>
 											
-						<?php the_tags( '<p class="tags">'.__( 'Tags: ', 'lokthemes' ), ', ', '</p>' ); ?>
+						<?php the_tags( '<p class="tags">'.__( 'Tags: ', 'woothemes' ), ', ', '</p>' ); ?>
 					
 					</div>
 	                                
 	            </article><!-- .post -->
 	            
-				<?php lok_subscribe_connect(); ?>
+				<?php woo_subscribe_connect(); ?>
 	
 		        <nav id="post-entries" class="fix">
 		            <div class="nav-prev fl"><?php previous_post_link( '%link', '<span class="meta-nav">&larr;</span> %title' ); ?></div>
@@ -80,7 +80,7 @@
 				} else {
 			?>
 				<article <?php post_class(); ?>>
-	            	<p><?php _e( 'Sorry, no posts matched your criteria.', 'lokthemes' ); ?></p>
+	            	<p><?php _e( 'Sorry, no posts matched your criteria.', 'woothemes' ); ?></p>
 				</article><!-- .post -->             
 	       	<?php } ?>  
 	        

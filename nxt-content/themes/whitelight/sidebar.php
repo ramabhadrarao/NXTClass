@@ -4,18 +4,18 @@
  *
  * If a `primary` widget area is active and has widgets, display the sidebar.
  *
- * @package lokFramework
+ * @package WooFramework
  * @subpackage Template
  */
-	global $lok_options;
+	global $woo_options;
 	
-	if ( isset( $lok_options['lok_layout'] ) && ( $lok_options['lok_layout'] != 'layout-full' ) ) {
+	if ( isset( $woo_options['woo_layout'] ) && ( $woo_options['woo_layout'] != 'layout-full' ) ) {
 ?>	
 <aside id="sidebar" class="col-right">
 
-	<?php if ( lok_active_sidebar( 'primary' ) ) { ?>
+	<?php if ( woo_active_sidebar( 'primary' ) ) { ?>
     <div class="primary">
-		<?php lok_sidebar( 'primary' ); ?>		           
+		<?php woo_sidebar( 'primary' ); ?>		           
 	</div>        
 	<?php } // End IF Statement ?>    
 	

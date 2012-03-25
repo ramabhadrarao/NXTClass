@@ -3,7 +3,7 @@
  * The default template for displaying content for pages
  */
 
-	global $lok_options;
+	global $woo_options;
   
 ?>
 

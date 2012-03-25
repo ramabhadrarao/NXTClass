@@ -5,11 +5,11 @@
  * The sitemap page template displays a user-friendly overview
  * of the content of your website.
  *
- * @package lokFramework
+ * @package WooFramework
  * @subpackage Template
  */
 
- global $lok_options; 
+ global $woo_options; 
  get_header();
 ?>
        
@@ -17,9 +17,9 @@
     	
     	<div class="page col-full">
     	
-    		<?php if ( isset( $lok_options['lok_breadcrumbs_show'] ) && $lok_options['lok_breadcrumbs_show'] == 'true' ) { ?>
+    		<?php if ( isset( $woo_options['woo_breadcrumbs_show'] ) && $woo_options['woo_breadcrumbs_show'] == 'true' ) { ?>
 				<section id="breadcrumbs">
-					<?php lok_breadcrumbs(); ?>
+					<?php woo_breadcrumbs(); ?>
 				</section><!--/#breadcrumbs -->
 			<?php } ?> 
     
@@ -40,14 +40,14 @@
 			            ?>  
 	
 						<div id="sitemap-pages" class="fl" style="width:50%">												  
-			            	<h3><?php _e( 'Pages', 'lokthemes' ); ?></h3>
+			            	<h3><?php _e( 'Pages', 'woothemes' ); ?></h3>
 			            	<ul>
 			           	    	<?php nxt_list_pages( 'depth=0&sort_column=menu_order&title_li=' ); ?>		
 			            	</ul>
 		            	</div><!--/#sitemap-pages-->			
 		    
 						<div id="sitemap-categories" class="fl" style="width:50%">												  	    
-				            <h3><?php _e( 'Categories', 'lokthemes' ); ?></h3>
+				            <h3><?php _e( 'Categories', 'woothemes' ); ?></h3>
 				            <ul>
 			    	            <?php nxt_list_categories( 'title_li=&hierarchical=0&show_count=1' ); ?>	
 			        	    </ul>
@@ -55,7 +55,7 @@
 		        	    
 		        	    <div class="fix"></div>
 				        
-				        <h3><?php _e( 'Posts per category', 'lokthemes' ); ?></h3>
+				        <h3><?php _e( 'Posts per category', 'woothemes' ); ?></h3>
 				        <?php
 				    
 				            $cats = get_categories();
@@ -68,7 +68,7 @@
 		        			<h4><?php echo $cat->cat_name; ?></h4>
 				        	<ul>	
 		    	        	    <?php while ( have_posts() ) { the_post(); ?>
-		        	    	    <li style="font-weight:normal !important;"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a> - <?php _e( 'Comments', 'lokthemes' ); ?> (<?php echo $post->comment_count; ?>)</li>
+		        	    	    <li style="font-weight:normal !important;"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a> - <?php _e( 'Comments', 'woothemes' ); ?> (<?php echo $post->comment_count; ?>)</li>
 		            		    <?php } ?>
 				        	</ul>
 		    

@@ -4,19 +4,19 @@
 /*-----------------------------------------------------------------------------------*/
 
 $widgets = array(
-				'includes/widgets/widget-lok-tabs.php', 
-				'includes/widgets/widget-lok-adspace.php', 
-				'includes/widgets/widget-lok-blogauthor.php', 
-				'includes/widgets/widget-lok-embed.php', 
-				'includes/widgets/widget-lok-flickr.php', 
-				'includes/widgets/widget-lok-search.php', 
-				'includes/widgets/widget-lok-twitter.php', 
-				'includes/widgets/widget-lok-subscribe.php',
-				'includes/widgets/widget-lok-componentbase.php'
+				'includes/widgets/widget-woo-tabs.php', 
+				'includes/widgets/widget-woo-adspace.php', 
+				'includes/widgets/widget-woo-blogauthor.php', 
+				'includes/widgets/widget-woo-embed.php', 
+				'includes/widgets/widget-woo-flickr.php', 
+				'includes/widgets/widget-woo-search.php', 
+				'includes/widgets/widget-woo-twitter.php', 
+				'includes/widgets/widget-woo-subscribe.php',
+				'includes/widgets/widget-woo-componentbase.php'
 				);
 
 // Allow child themes/plugins to add widgets to be loaded.
-$widgets = apply_filters( 'lok_widgets', $widgets );
+$widgets = apply_filters( 'woo_widgets', $widgets );
 				
 	foreach ( $widgets as $w ) {
 		locate_template( $w, true );
@@ -25,12 +25,12 @@ $widgets = apply_filters( 'lok_widgets', $widgets );
 /*---------------------------------------------------------------------------------*/
 /* Deregister Default Widgets */
 /*---------------------------------------------------------------------------------*/
-if (!function_exists( 'lok_deregister_widgets')) {
-	function lok_deregister_widgets(){
-	    unregister_widget( 'WP_Widget_Search' );         
+if (!function_exists( 'woo_deregister_widgets')) {
+	function woo_deregister_widgets(){
+	    unregister_widget( 'nxt_Widget_Search' );         
 	}
 }
-add_action( 'widgets_init', 'lok_deregister_widgets' );  
+add_action( 'widgets_init', 'woo_deregister_widgets' );  
 
 
 ?>

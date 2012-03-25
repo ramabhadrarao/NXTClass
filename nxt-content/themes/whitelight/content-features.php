@@ -3,7 +3,7 @@
  * The default template for displaying content for features
  */
 
-	global $lok_options;
+	global $woo_options;
  
 /**
  * The Variables
@@ -17,7 +17,7 @@
 					'thumb_align' => 'alignleft'
 					);
 					
-	$settings = lok_get_dynamic_values( $settings );
+	$settings = woo_get_dynamic_values( $settings );
  
 ?>
 
@@ -28,17 +28,17 @@
 		    <span class="post-category"><?php the_category( ', ') ?></span>
 		</header>
 		
-		<?php if ( isset( $lok_options['lok_post_content'] ) && $lok_options['lok_post_content'] != 'content' ) { ?>
+		<?php if ( isset( $woo_options['woo_post_content'] ) && $woo_options['woo_post_content'] != 'content' ) { ?>
 	    	<img src="<?php echo get_post_meta( $post->ID, 'feature_icon', true ); ?>" alt="" class="feature-thumb <?php echo $settings['thumb_align']; ?>" />
 	    <?php } ?>
 	
 		<section class="entry">
-		<?php if ( isset( $lok_options['lok_post_content'] ) && $lok_options['lok_post_content'] == 'content' ) { the_content( __( 'Continue Reading &rarr;', 'lokthemes' ) ); } else { the_excerpt(); } ?>
+		<?php if ( isset( $woo_options['woo_post_content'] ) && $woo_options['woo_post_content'] == 'content' ) { the_content( __( 'Continue Reading &rarr;', 'woothemes' ) ); } else { the_excerpt(); } ?>
 		</section>
 	
 		<footer class="post-more">      
-		<?php if ( isset( $lok_options['lok_post_content'] ) && $lok_options['lok_post_content'] == 'excerpt' ) { ?>
-		    <span class="read-more"><a href="<?php the_permalink(); ?>" title="<?php esc_attr_e( 'Continue Reading &rarr;', 'lokthemes' ); ?>"><?php _e( 'Continue Reading &rarr;', 'lokthemes' ); ?></a></span>
+		<?php if ( isset( $woo_options['woo_post_content'] ) && $woo_options['woo_post_content'] == 'excerpt' ) { ?>
+		    <span class="read-more"><a href="<?php the_permalink(); ?>" title="<?php esc_attr_e( 'Continue Reading &rarr;', 'woothemes' ); ?>"><?php _e( 'Continue Reading &rarr;', 'woothemes' ); ?></a></span>
 		<?php } ?>
 		</footer>  
 

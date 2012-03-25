@@ -1,35 +1,35 @@
 <?php
 /*-----------------------------------------------------------------------------------*/
-/* lokThemes Framework Version & Theme Version */
+/* WooThemes Framework Version & Theme Version */
 /*-----------------------------------------------------------------------------------*/
-function lok_version_init() {
+function woo_version_init() {
 
-    $lok_framework_version = '5.1.4';
+    $woo_framework_version = '5.1.4';
 
-    if ( get_option( 'lok_framework_version' ) != $lok_framework_version ) {
-    	update_option( 'lok_framework_version', $lok_framework_version );
+    if ( get_option( 'woo_framework_version' ) != $woo_framework_version ) {
+    	update_option( 'woo_framework_version', $woo_framework_version );
     }
 
 }
 
-add_action( 'init', 'lok_version_init', 10 );
+add_action( 'init', 'woo_version_init', 10 );
 
-function lok_version(){
+function woo_version(){
 
     $theme_data = get_theme_data( get_template_directory() . '/style.css' );
     $theme_version = $theme_data['Version'];
-    $lok_framework_version = get_option( 'lok_framework_version' );
+    $woo_framework_version = get_option( 'woo_framework_version' );
 
 	echo "\n<!-- Theme version -->\n";
-    echo '<meta name="generator" content="'. esc_attr( get_option( 'lok_themename' ) ) . ' ' . $theme_version . '" />' ."\n";
-    echo '<meta name="generator" content="lokFramework '. esc_attr( $lok_framework_version ) .'" />' ."\n";
+    echo '<meta name="generator" content="'. esc_attr( get_option( 'woo_themename' ) ) . ' ' . $theme_version . '" />' ."\n";
+    echo '<meta name="generator" content="WooFramework '. esc_attr( $woo_framework_version ) .'" />' ."\n";
 
 }
 // Add or remove Generator meta tags
-if ( get_option( 'framework_lok_disable_generator' ) == 'true' ) {
+if ( get_option( 'framework_woo_disable_generator' ) == 'true' ) {
 	remove_action( 'nxt_head',  'nxt_generator' );
 } else {
-	add_action( 'nxt_head', 'lok_version', 10 );
+	add_action( 'nxt_head', 'woo_version', 10 );
 }
 /*-----------------------------------------------------------------------------------*/
 /* Load the required Framework Files */
@@ -45,11 +45,11 @@ require_once ( $functions_path . 'admin-framework-settings.php' );		// Framework
 require_once ( $functions_path . 'admin-seo.php' );						// Framework SEO controls
 require_once ( $functions_path . 'admin-sbm.php' ); 					// Framework Sidebar Manager
 require_once ( $functions_path . 'admin-medialibrary-uploader.php' ); 	// Framework Media Library Uploader Functions // 2010-11-05.
-require_once ( $functions_path . 'admin-hooks.php' );					// Definition of lokHooks
-if ( get_option( 'framework_lok_loknav' ) == 'true' ) {
-	require_once ( $functions_path . 'admin-custom-nav.php' );			// lok Custom Navigation
+require_once ( $functions_path . 'admin-hooks.php' );					// Definition of WooHooks
+if ( get_option( 'framework_woo_woonav' ) == 'true' ) {
+	require_once ( $functions_path . 'admin-custom-nav.php' );			// Woo Custom Navigation
 }
-require_once ( $functions_path . 'admin-shortcodes.php' );				// lok Shortcodes
+require_once ( $functions_path . 'admin-shortcodes.php' );				// Woo Shortcodes
 require_once ( $functions_path . 'admin-shortcode-generator.php' ); 	// Framework Shortcode generator // 2011-01-21.
 require_once ( $functions_path . 'admin-backup.php' ); 					// Theme Options Backup // 2011-08-26.
 ?>

@@ -17,16 +17,16 @@ if ( ! function_exists( 'custom_comment' ) ) {
 		      	<div class="comment-head">
 		      	            
 	                <span class="name"><?php the_commenter_link(); ?></span>           
-	                <span class="date"><?php echo get_comment_date( get_option( 'date_format' ) ); ?> <?php _e( 'at', 'lokthemes' ); ?> <?php echo get_comment_time( get_option( 'time_format' ) ); ?></span>
-	                <span class="perma"><a href="<?php echo get_comment_link(); ?>" title="<?php esc_attr_e( 'Direct link to this comment', 'lokthemes' ); ?>">#</a></span>
-	                <span class="edit"><?php edit_comment_link(__( 'Edit', 'lokthemes' ), '', '' ); ?></span>
+	                <span class="date"><?php echo get_comment_date( get_option( 'date_format' ) ); ?> <?php _e( 'at', 'woothemes' ); ?> <?php echo get_comment_time( get_option( 'time_format' ) ); ?></span>
+	                <span class="perma"><a href="<?php echo get_comment_link(); ?>" title="<?php esc_attr_e( 'Direct link to this comment', 'woothemes' ); ?>">#</a></span>
+	                <span class="edit"><?php edit_comment_link(__( 'Edit', 'woothemes' ), '', '' ); ?></span>
 		        		          	
 				</div><!-- /.comment-head -->
 		      
 		   		<div class="comment-entry"  id="comment-<?php comment_ID(); ?>">
 				<?php comment_text(); ?>   
 				<?php if ( $comment->comment_approved == '0' ) { ?>
-	                <p class='unapproved'><?php _e( 'Your comment is awaiting moderation.', 'lokthemes' ); ?></p>
+	                <p class='unapproved'><?php _e( 'Your comment is awaiting moderation.', 'woothemes' ); ?></p>
 	            <?php } ?>
 						
 	                <div class="reply">

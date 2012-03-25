@@ -9,7 +9,7 @@ jQuery(document).ready(function(){
 	// FitVids - Responsive Videos
 	jQuery( ".post, .widget, #featured .slide .slide-video" ).fitVids();
 	
-	// Add class to parent menu items with JS until WP does this natively
+	// Add class to parent menu items with JS until nxt does this natively
 	jQuery("ul.sub-menu, ul.children").parents('li').addClass('parent');
 	
 	// Responsive Navigation (switch top drop down for select)

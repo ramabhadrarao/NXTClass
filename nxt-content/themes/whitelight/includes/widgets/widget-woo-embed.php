@@ -3,17 +3,17 @@
 /* Embed Widget */
 /*---------------------------------------------------------------------------------*/
 
-class lok_EmbedWidget extends WP_Widget {
+class Woo_EmbedWidget extends nxt_Widget {
 	var $settings = array( 'title', 'cat_id', 'width', 'height', 'limit', 'tag' );
 
-	function lok_EmbedWidget() {
+	function Woo_EmbedWidget() {
 		$widget_ops = array( 'description' => 'Display the Embed code from posts in tab like fashion.' );
-		parent::WP_Widget( false, __( 'lok - Embed/Video', 'lokthemes' ), $widget_ops );
+		parent::nxt_Widget( false, __( 'Woo - Embed/Video', 'woothemes' ), $widget_ops );
 	}
 
 	function widget( $args, $instance ) {
 		extract( $args, EXTR_SKIP );
-		$instance = $this->lok_enforce_defaults( $instance );
+		$instance = $this->woo_enforce_defaults( $instance );
 		extract( $instance, EXTR_SKIP );
 
 		if ( !empty( $tag ) )
@@ -30,7 +30,7 @@ class lok_EmbedWidget extends WP_Widget {
 		echo $before_title . apply_filters('widget_title', $title, $instance, $this->id_base) . $after_title;
 		if ( isset( $myposts ) ) {
 			foreach( $myposts as $mypost ) {
-				$embed = lok_get_embed( 'embed', $width, $height, 'widget_video', $mypost->ID );
+				$embed = woo_get_embed( 'embed', $width, $height, 'widget_video', $mypost->ID );
 				if ( $embed ) {
 					$count++;
 					if ( $count > 1 ) {
@@ -54,12 +54,12 @@ class lok_EmbedWidget extends WP_Widget {
 	}
 
 	function update( $new_instance, $old_instance ) {
-		$new_instance = $this->lok_enforce_defaults( $new_instance );
+		$new_instance = $this->woo_enforce_defaults( $new_instance );
 		return $new_instance;
 	}
 
-	function lok_enforce_defaults( $instance ) {
-		$defaults = $this->lok_get_settings();
+	function woo_enforce_defaults( $instance ) {
+		$defaults = $this->woo_get_settings();
 		$instance = nxt_parse_args( $instance, $defaults );
 		$instance['cat_id'] = absint( $instance['cat_id'] );
 		if ( $instance['cat_id'] < 1 )
@@ -75,9 +75,9 @@ class lok_EmbedWidget extends WP_Widget {
 
 	/**
 	 * Provides an array of the settings with the setting name as the key and the default value as the value
-	 * This cannot be called get_settings() or it will override WP_Widget::get_settings()
+	 * This cannot be called get_settings() or it will override nxt_Widget::get_settings()
 	 */
-	function lok_get_settings() {
+	function woo_get_settings() {
 		// Set the default to a blank string
 		$settings = array_fill_keys( $this->settings, '' );
 		// Now set the more specific defaults
@@ -88,15 +88,15 @@ class lok_EmbedWidget extends WP_Widget {
 	}
 
 	function form( $instance ) {
-		$instance = $this->lok_enforce_defaults( $instance );
+		$instance = $this->woo_enforce_defaults( $instance );
 		extract( $instance, EXTR_SKIP );
 		?>
 			<p>
-				<label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:','lokthemes'); ?></label>
+				<label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:','woothemes'); ?></label>
 				<input type="text" name="<?php echo $this->get_field_name('title'); ?>" value="<?php echo esc_attr( $title ); ?>" class="widefat" id="<?php echo $this->get_field_id('title'); ?>" />
 			</p>
 			<p>
-				<label for="<?php echo $this->get_field_id('cat_id'); ?>"><?php _e('Category:','lokthemes'); ?></label>
+				<label for="<?php echo $this->get_field_id('cat_id'); ?>"><?php _e('Category:','woothemes'); ?></label>
 				<?php $cats = get_categories(); ?>
 				<select name="<?php echo $this->get_field_name('cat_id'); ?>" class="widefat" id="<?php echo $this->get_field_id('cat_id'); ?>">
 				<option value="">Disabled</option>
@@ -108,18 +108,18 @@ class lok_EmbedWidget extends WP_Widget {
 				</select>
 			</p>
 			<p>
-				<label for="<?php echo $this->get_field_id('tag'); ?>">Or <?php _e('Tag:','lokthemes'); ?></label>
+				<label for="<?php echo $this->get_field_id('tag'); ?>">Or <?php _e('Tag:','woothemes'); ?></label>
 				<input type="text" name="<?php echo $this->get_field_name('tag'); ?>" value="<?php echo esc_attr( $tag ); ?>" class="widefat" id="<?php echo $this->get_field_id('tag'); ?>" />
 			</p>
 
 			<p>
-				<label for="<?php echo $this->get_field_id('width'); ?>"><?php _e('Size:','lokthemes'); ?></label>
+				<label for="<?php echo $this->get_field_id('width'); ?>"><?php _e('Size:','woothemes'); ?></label>
 				<input type="text" size="2" name="<?php echo $this->get_field_name('width'); ?>" value="<?php echo esc_attr( $width ); ?>" class="" id="<?php echo $this->get_field_id('width'); ?>" />
 				W <input type="text" size="2" name="<?php echo $this->get_field_name('height'); ?>" value="<?php echo esc_attr( $height ); ?>" class="" id="<?php echo $this->get_field_id('height'); ?>" /> H
 			</p>
 
 			<p>
-				<label for="<?php echo $this->get_field_id('limit'); ?>"><?php _e('Limit (optional):','lokthemes'); ?></label>
+				<label for="<?php echo $this->get_field_id('limit'); ?>"><?php _e('Limit (optional):','woothemes'); ?></label>
 				<input type="text" name="<?php echo $this->get_field_name('limit'); ?>" value="<?php echo esc_attr( $limit ); ?>" class="" id="<?php echo $this->get_field_id('limit'); ?>" />
 			</p>
 
@@ -127,15 +127,15 @@ class lok_EmbedWidget extends WP_Widget {
 	}
 }
 
-register_widget( 'lok_EmbedWidget' );
+register_widget( 'Woo_EmbedWidget' );
 
-if ( is_active_widget( null, null, 'lok_embedwidget' ) == true ) {
-	add_action( 'nxt_footer','lok_widget_embed_js' );
+if ( is_active_widget( null, null, 'woo_embedwidget' ) == true ) {
+	add_action( 'nxt_footer','woo_widget_embed_js' );
 }
 
-function lok_widget_embed_js() {
+function woo_widget_embed_js() {
 ?>
-<!-- lok Video Player Widget -->
+<!-- Woo Video Player Widget -->
 <script type="text/javascript">
 	jQuery(document).ready(function(){
 		var list = jQuery('ul.widget-video-list');

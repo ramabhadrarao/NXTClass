@@ -5,11 +5,11 @@
  * The contact form page template displays the a
  * simple contact form in your website's content area.
  *
- * @package lokFramework
+ * @package WooFramework
  * @subpackage Template
  */
  
-global $lok_options;
+global $woo_options;
 get_header();
  
 $nameError = '';
@@ -26,7 +26,7 @@ if( isset( $_POST['submitted'] ) ) {
 
 		//Check to make sure that the name field is not empty
 		if( trim( $_POST['contactName'] ) === '' ) {
-			$nameError =  __( 'You forgot to enter your name.', 'lokthemes' );
+			$nameError =  __( 'You forgot to enter your name.', 'woothemes' );
 			$hasError = true;
 		} else {
 			$name = trim( $_POST['contactName'] );
@@ -34,10 +34,10 @@ if( isset( $_POST['submitted'] ) ) {
 
 		//Check to make sure sure that a valid email address is submitted
 		if( trim( $_POST['email'] ) === '' )  {
-			$emailError = __( 'You forgot to enter your email address.', 'lokthemes' );
+			$emailError = __( 'You forgot to enter your email address.', 'woothemes' );
 			$hasError = true;
 		} else if ( ! eregi( "^[A-Z0-9._%-]+@[A-Z0-9._%-]+\.[A-Z]{2,4}$", trim($_POST['email'] ) ) ) {
-			$emailError = __( 'You entered an invalid email address.', 'lokthemes' );
+			$emailError = __( 'You entered an invalid email address.', 'woothemes' );
 			$hasError = true;
 		} else {
 			$email = trim( $_POST['email'] );
@@ -45,7 +45,7 @@ if( isset( $_POST['submitted'] ) ) {
 
 		//Check to make sure comments were entered
 		if( trim( $_POST['comments'] ) === '' ) {
-			$commentError = __( 'You forgot to enter your comments.', 'lokthemes' );
+			$commentError = __( 'You forgot to enter your comments.', 'woothemes' );
 			$hasError = true;
 		} else {
 			$comments = stripslashes( trim( $_POST['comments'] ) );
@@ -54,17 +54,17 @@ if( isset( $_POST['submitted'] ) ) {
 		//If there is no error, send the email
 		if( ! isset( $hasError ) ) {
 
-			$emailTo = get_option( 'lok_contactform_email' );
-			$subject = __( 'Contact Form Submission from ', 'lokthemes' ).$name;
+			$emailTo = get_option( 'woo_contactform_email' );
+			$subject = __( 'Contact Form Submission from ', 'woothemes' ).$name;
 			$sendCopy = trim( $_POST['sendCopy'] );
-			$body = __( "Name: $name \n\nEmail: $email \n\nComments: $comments", 'lokthemes' );
-			$headers = __( 'From: ', 'lokthemes') . "$name <$email>" . "\r\n" . __( 'Reply-To: ', 'lokthemes' ) . $email;
+			$body = __( "Name: $name \n\nEmail: $email \n\nComments: $comments", 'woothemes' );
+			$headers = __( 'From: ', 'woothemes') . "$name <$email>" . "\r\n" . __( 'Reply-To: ', 'woothemes' ) . $email;
 
 			nxt_mail( $emailTo, $subject, $body, $headers );
 
 			if( $sendCopy == true ) {
-				$subject = __( 'You emailed ', 'lokthemes' ) . get_bloginfo( 'title' );
-				$headers = __( 'From: ', 'lokthemes' ) . "$name <$emailTo>";
+				$subject = __( 'You emailed ', 'woothemes' ) . get_bloginfo( 'title' );
+				$headers = __( 'From: ', 'woothemes' ) . "$name <$emailTo>";
 				nxt_mail( $email, $subject, $body, $headers );
 			}
 
@@ -83,14 +83,14 @@ jQuery(document).ready(function() {
 		jQuery( '.requiredField').each(function() {
 			if(jQuery.trim(jQuery(this).val()) == '') {
 				var labelText = jQuery(this).prev( 'label').text();
-				jQuery(this).parent().append( '<span class="error"><?php _e( 'You forgot to enter your', 'lokthemes' ); ?> '+labelText+'.</span>' );
+				jQuery(this).parent().append( '<span class="error"><?php _e( 'You forgot to enter your', 'woothemes' ); ?> '+labelText+'.</span>' );
 				jQuery(this).addClass( 'inputError' );
 				hasError = true;
 			} else if(jQuery(this).hasClass( 'email')) {
 				var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
 				if(!emailReg.test(jQuery.trim(jQuery(this).val()))) {
 					var labelText = jQuery(this).prev( 'label').text();
-					jQuery(this).parent().append( '<span class="error"><?php _e( 'You entered an invalid', 'lokthemes' ); ?> '+labelText+'.</span>' );
+					jQuery(this).parent().append( '<span class="error"><?php _e( 'You entered an invalid', 'woothemes' ); ?> '+labelText+'.</span>' );
 					jQuery(this).addClass( 'inputError' );
 					hasError = true;
 				}
@@ -100,7 +100,7 @@ jQuery(document).ready(function() {
 			var formInput = jQuery(this).serialize();
 			jQuery.post(jQuery(this).attr( 'action'),formInput, function(data){
 				jQuery( 'form#contactForm').slideUp( "fast", function() {
-					jQuery(this).before( '<p class="tick"><?php _e( '<strong>Thanks!</strong> Your email was successfully sent.', 'lokthemes' ); ?></p>' );
+					jQuery(this).before( '<p class="tick"><?php _e( '<strong>Thanks!</strong> Your email was successfully sent.', 'woothemes' ); ?></p>' );
 				});
 			});
 		}
@@ -115,9 +115,9 @@ jQuery(document).ready(function() {
     <div id="content">
     	<div class="col-full">
     	
-    	<?php if ( isset( $lok_options['lok_breadcrumbs_show'] ) && $lok_options['lok_breadcrumbs_show'] == 'true' ) { ?>
+    	<?php if ( isset( $woo_options['woo_breadcrumbs_show'] ) && $woo_options['woo_breadcrumbs_show'] == 'true' ) { ?>
 			<section id="breadcrumbs">
-				<?php lok_breadcrumbs(); ?>
+				<?php woo_breadcrumbs(); ?>
 			</section><!--/#breadcrumbs -->
 		<?php } ?>
     
@@ -127,7 +127,7 @@ jQuery(document).ready(function() {
 
             <?php if( isset( $emailSent ) && $emailSent == true ) { ?>
 
-                <p class="info"><?php _e( 'Your email was successfully sent.', 'lokthemes' ); ?></p>
+                <p class="info"><?php _e( 'Your email was successfully sent.', 'woothemes' ); ?></p>
 
             <?php } else { ?>
 
@@ -144,27 +144,27 @@ jQuery(document).ready(function() {
                 			
                 			<div class="location-twitter fix">
     							
-    							<?php if ( isset( $lok_options['lok_contact_panel'] ) && $lok_options['lok_contact_panel'] == 'true' ) { ?>
-						    	<section id="office-location"<?php if ( ( isset( $lok_options['lok_contact_twitter'] ) && $lok_options['lok_contact_twitter'] != '' ) || ( isset($lok_options['lok_contact_subscribe_and_connect']) && $lok_options['lok_contact_subscribe_and_connect'] == 'true' ) ) { ?> class="col-left"<?php } ?>>
-									<?php if (isset($lok_options['lok_contact_title'])) { ?><h3><?php echo $lok_options['lok_contact_title']; ?></h3><?php } ?>
+    							<?php if ( isset( $woo_options['woo_contact_panel'] ) && $woo_options['woo_contact_panel'] == 'true' ) { ?>
+						    	<section id="office-location"<?php if ( ( isset( $woo_options['woo_contact_twitter'] ) && $woo_options['woo_contact_twitter'] != '' ) || ( isset($woo_options['woo_contact_subscribe_and_connect']) && $woo_options['woo_contact_subscribe_and_connect'] == 'true' ) ) { ?> class="col-left"<?php } ?>>
+									<?php if (isset($woo_options['woo_contact_title'])) { ?><h3><?php echo $woo_options['woo_contact_title']; ?></h3><?php } ?>
 									<ul>
-										<?php if (isset($lok_options['lok_contact_title']) && $lok_options['lok_contact_title'] != '' ) { ?><li><?php echo $lok_options['lok_contact_address']; ?></li><?php } ?>
-										<?php if (isset($lok_options['lok_contact_number']) && $lok_options['lok_contact_number'] != '' ) { ?><li><?php _e('Tel:','lokthemes'); ?> <?php echo $lok_options['lok_contact_number']; ?></li><?php } ?>
-										<?php if (isset($lok_options['lok_contact_fax']) && $lok_options['lok_contact_fax'] != '' ) { ?><li><?php _e('Fax:','lokthemes'); ?> <?php echo $lok_options['lok_contact_fax']; ?></li><?php } ?>
-										<?php if (isset($lok_options['lok_contactform_email']) && $lok_options['lok_contactform_email'] != '' ) { ?><li><?php _e('Email:','lokthemes'); ?> <a href="mailto:<?php echo $lok_options['lok_contactform_email']; ?>"><?php echo $lok_options['lok_contactform_email']; ?></a></li><?php } ?>
+										<?php if (isset($woo_options['woo_contact_title']) && $woo_options['woo_contact_title'] != '' ) { ?><li><?php echo $woo_options['woo_contact_address']; ?></li><?php } ?>
+										<?php if (isset($woo_options['woo_contact_number']) && $woo_options['woo_contact_number'] != '' ) { ?><li><?php _e('Tel:','woothemes'); ?> <?php echo $woo_options['woo_contact_number']; ?></li><?php } ?>
+										<?php if (isset($woo_options['woo_contact_fax']) && $woo_options['woo_contact_fax'] != '' ) { ?><li><?php _e('Fax:','woothemes'); ?> <?php echo $woo_options['woo_contact_fax']; ?></li><?php } ?>
+										<?php if (isset($woo_options['woo_contactform_email']) && $woo_options['woo_contactform_email'] != '' ) { ?><li><?php _e('Email:','woothemes'); ?> <a href="mailto:<?php echo $woo_options['woo_contactform_email']; ?>"><?php echo $woo_options['woo_contactform_email']; ?></a></li><?php } ?>
 									</ul>
 						    	</section>
 						    	<?php } ?>
-						    	<div class="contact-social<?php if ( ( isset( $lok_options['lok_contact_panel'] ) && $lok_options['lok_contact_panel'] == 'true' ) && ( ( isset( $lok_options['lok_contact_twitter'] ) && $lok_options['lok_contact_twitter'] != '' ) || ( isset($lok_options['lok_contact_subscribe_and_connect']) && $lok_options['lok_contact_subscribe_and_connect'] == 'true' ) ) ) { ?> col-right<?php } ?>">
+						    	<div class="contact-social<?php if ( ( isset( $woo_options['woo_contact_panel'] ) && $woo_options['woo_contact_panel'] == 'true' ) && ( ( isset( $woo_options['woo_contact_twitter'] ) && $woo_options['woo_contact_twitter'] != '' ) || ( isset($woo_options['woo_contact_subscribe_and_connect']) && $woo_options['woo_contact_subscribe_and_connect'] == 'true' ) ) ) { ?> col-right<?php } ?>">
 						    	
-						    		<?php if ( isset( $lok_options['lok_contact_twitter'] ) && $lok_options['lok_contact_twitter'] != '' ) { ?>
+						    		<?php if ( isset( $woo_options['woo_contact_twitter'] ) && $woo_options['woo_contact_twitter'] != '' ) { ?>
 						    		<section id="twitter">
 						    			<h3>Twitter</h3>
 						    			<ul id="twitter_update_list_123"><li></li></ul>
-						    			<?php echo lok_twitter_script(123, $lok_options['lok_contact_twitter'],1); ?>
+						    			<?php echo woo_twitter_script(123, $woo_options['woo_contact_twitter'],1); ?>
 						    		</section>
 						    		<?php } ?>
-						    		<?php if ( isset($lok_options['lok_contact_subscribe_and_connect']) && $lok_options['lok_contact_subscribe_and_connect'] == 'true' ) { lok_subscribe_connect('true', $title, 'on', 'off', 'true'); } ?>			    		
+						    		<?php if ( isset($woo_options['woo_contact_subscribe_and_connect']) && $woo_options['woo_contact_subscribe_and_connect'] == 'true' ) { woo_subscribe_connect('true', $title, 'on', 'off', 'true'); } ?>			    		
 						    	
 						    	</div>
 						    	
@@ -172,47 +172,47 @@ jQuery(document).ready(function() {
 	                        
                         </section>
                         
-                        <?php if ( isset($lok_options['lok_contactform_map_coords']) && $lok_options['lok_contactform_map_coords'] != '' ) { $geocoords = $lok_options['lok_contactform_map_coords']; }  else { $geocoords = ''; } ?>
+                        <?php if ( isset($woo_options['woo_contactform_map_coords']) && $woo_options['woo_contactform_map_coords'] != '' ) { $geocoords = $woo_options['woo_contactform_map_coords']; }  else { $geocoords = ''; } ?>
                 		<?php if ($geocoords != '') { ?>
-                		<?php lok_maps_contact_output("geocoords=$geocoords"); ?>
+                		<?php woo_maps_contact_output("geocoords=$geocoords"); ?>
                 		<?php echo do_shortcode( '[hr]' ); ?>
                 		<?php } ?>
 
                     <?php if( isset( $hasError ) || isset( $captchaError ) ) { ?>
-                        <p class="alert"><?php _e( 'There was an error submitting the form.', 'lokthemes' ); ?></p>
+                        <p class="alert"><?php _e( 'There was an error submitting the form.', 'woothemes' ); ?></p>
                     <?php } ?>
 
-                    <?php if ( get_option( 'lok_contactform_email' ) == '' ) { ?>
-                        <?php echo do_shortcode( '[box type="alert"]' . __( 'E-mail has not been setup properly. Please add your contact e-mail!', 'lokthemes' ) . '[/box]' );  ?>
+                    <?php if ( get_option( 'woo_contactform_email' ) == '' ) { ?>
+                        <?php echo do_shortcode( '[box type="alert"]' . __( 'E-mail has not been setup properly. Please add your contact e-mail!', 'woothemes' ) . '[/box]' );  ?>
                     <?php } ?>
 
 
                     <form action="<?php the_permalink(); ?>" id="contactForm" method="post">
 
                         <ol class="forms">
-                            <li><label for="contactName"><?php _e( 'Name', 'lokthemes' ); ?></label>
+                            <li><label for="contactName"><?php _e( 'Name', 'woothemes' ); ?></label>
                                 <input type="text" name="contactName" id="contactName" value="<?php if( isset( $_POST['contactName'] ) ) { echo esc_attr( $_POST['contactName'] ); } ?>" class="txt requiredField" />
                                 <?php if($nameError != '') { ?>
                                     <span class="error"><?php echo $nameError;?></span>
                                 <?php } ?>
                             </li>
 
-                            <li><label for="email"><?php _e( 'Email', 'lokthemes' ); ?></label>
+                            <li><label for="email"><?php _e( 'Email', 'woothemes' ); ?></label>
                                 <input type="text" name="email" id="email" value="<?php if( isset( $_POST['email'] ) ) { echo esc_attr( $_POST['email'] ); } ?>" class="txt requiredField email" />
                                 <?php if($emailError != '') { ?>
                                     <span class="error"><?php echo $emailError;?></span>
                                 <?php } ?>
                             </li>
 
-                            <li class="textarea"><label for="commentsText"><?php _e( 'Message', 'lokthemes' ); ?></label>
+                            <li class="textarea"><label for="commentsText"><?php _e( 'Message', 'woothemes' ); ?></label>
                                 <textarea name="comments" id="commentsText" rows="20" cols="30" class="requiredField"><?php if( isset( $_POST['comments'] ) ) { echo esc_textarea( $_POST['comments'] ); } ?></textarea>
                                 <?php if( $commentError != '' ) { ?>
                                     <span class="error"><?php echo $commentError; ?></span>
                                 <?php } ?>
                             </li>
-                            <li class="inline"><input type="checkbox" name="sendCopy" id="sendCopy" value="true"<?php if( isset( $_POST['sendCopy'] ) && $_POST['sendCopy'] == true ) { echo ' checked="checked"'; } ?> /><label for="sendCopy"><?php _e( 'Send a copy of this email to yourself', 'lokthemes' ); ?></label></li>
-                            <li class="screenReader"><label for="checking" class="screenReader"><?php _e( 'If you want to submit this form, do not enter anything in this field', 'lokthemes' ); ?></label><input type="text" name="checking" id="checking" class="screenReader" value="<?php if( isset( $_POST['checking'] ) ) { echo esc_attr( $_POST['checking'] ); } ?>" /></li>
-                            <li class="buttons"><input type="hidden" name="submitted" id="submitted" value="true" /><input class="submit button" type="submit" value="<?php esc_attr_e( 'Submit', 'lokthemes' ); ?>" /></li>
+                            <li class="inline"><input type="checkbox" name="sendCopy" id="sendCopy" value="true"<?php if( isset( $_POST['sendCopy'] ) && $_POST['sendCopy'] == true ) { echo ' checked="checked"'; } ?> /><label for="sendCopy"><?php _e( 'Send a copy of this email to yourself', 'woothemes' ); ?></label></li>
+                            <li class="screenReader"><label for="checking" class="screenReader"><?php _e( 'If you want to submit this form, do not enter anything in this field', 'woothemes' ); ?></label><input type="text" name="checking" id="checking" class="screenReader" value="<?php if( isset( $_POST['checking'] ) ) { echo esc_attr( $_POST['checking'] ); } ?>" /></li>
+                            <li class="buttons"><input type="hidden" name="submitted" id="submitted" value="true" /><input class="submit button" type="submit" value="<?php esc_attr_e( 'Submit', 'woothemes' ); ?>" /></li>
                         </ol>
                     </form>
 

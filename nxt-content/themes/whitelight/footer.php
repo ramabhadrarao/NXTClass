@@ -4,20 +4,20 @@
  *
  * Here we setup all logic and XHTML that is required for the footer section of all screens.
  *
- * @package lokFramework
+ * @package WooFramework
  * @subpackage Template
  */
-	global $lok_options;
+	global $woo_options;
 
 	$total = 4;
-	if ( isset( $lok_options['lok_footer_sidebars'] ) && ( $lok_options['lok_footer_sidebars'] != '' ) ) {
-		$total = $lok_options['lok_footer_sidebars'];
+	if ( isset( $woo_options['woo_footer_sidebars'] ) && ( $woo_options['woo_footer_sidebars'] != '' ) ) {
+		$total = $woo_options['woo_footer_sidebars'];
 	}
 
-	if ( ( lok_active_sidebar( 'footer-1' ) ||
-		   lok_active_sidebar( 'footer-2' ) ||
-		   lok_active_sidebar( 'footer-3' ) ||
-		   lok_active_sidebar( 'footer-4' ) ) && $total > 0 ) {
+	if ( ( woo_active_sidebar( 'footer-1' ) ||
+		   woo_active_sidebar( 'footer-2' ) ||
+		   woo_active_sidebar( 'footer-3' ) ||
+		   woo_active_sidebar( 'footer-4' ) ) && $total > 0 ) {
 
 ?>
 	<section id="footer-widgets" class="col-<?php echo $total; ?> fix">
@@ -25,10 +25,10 @@
 		<div class="col-full">
 
 			<?php $i = 0; while ( $i < $total ) { $i++; ?>
-				<?php if ( lok_active_sidebar( 'footer-' . $i ) ) { ?>
+				<?php if ( woo_active_sidebar( 'footer-' . $i ) ) { ?>
 	
 			<div class="block footer-widget-<?php echo $i; ?>">
-	        	<?php lok_sidebar( 'footer-' . $i ); ?>
+	        	<?php woo_sidebar( 'footer-' . $i ); ?>
 			</div>
 	
 		        <?php } ?>
@@ -43,12 +43,12 @@
 		<div class="col-full">
 
 			<div id="copyright" class="col-left">
-			<?php if( isset( $lok_options['lok_footer_left'] ) && $lok_options['lok_footer_left'] == 'true' ) {
+			<?php if( isset( $woo_options['woo_footer_left'] ) && $woo_options['woo_footer_left'] == 'true' ) {
 	
-					echo stripslashes( $lok_options['lok_footer_left_text'] );
+					echo stripslashes( $woo_options['woo_footer_left_text'] );
 	
 			} else { ?>
-				<p><?php bloginfo(); ?> &copy; <?php echo date( 'Y' ); ?>. <?php _e( 'All Rights Reserved.', 'lokthemes' ); ?></p>
+				<p><?php bloginfo(); ?> &copy; <?php echo date( 'Y' ); ?>. <?php _e( 'All Rights Reserved.', 'woothemes' ); ?></p>
 			<?php } ?>
 			</div>
 	
@@ -56,12 +56,12 @@
 			
 			<?php if ( function_exists( 'has_nav_menu' ) && has_nav_menu( 'footer-menu' ) ) {
 				nxt_nav_menu( array( 'depth' => 1, 'sort_column' => 'menu_order', 'container' => 'ul', 'menu_id' => 'footer-nav', 'menu_class' => 'nav', 'theme_location' => 'footer-menu' ) );
-			} elseif ( isset( $lok_options['lok_footer_right'] ) && $lok_options['lok_footer_right'] == 'true' ) {
+			} elseif ( isset( $woo_options['woo_footer_right'] ) && $woo_options['woo_footer_right'] == 'true' ) {
 	
-	        	echo stripslashes( $lok_options['lok_footer_right_text'] );
+	        	echo stripslashes( $woo_options['woo_footer_right_text'] );
 	
 			} else { ?>
-				<p><?php _e( 'Powered by', 'lokthemes' ); ?> <a href="http://www.nxtclass.org">NXTClass</a>. <?php _e( 'Designed by', 'lokthemes' ); ?> <a href="<?php echo ( isset( $lok_options['lok_footer_aff_link'] ) && ! empty( $lok_options['lok_footer_aff_link'] ) ? esc_url( $lok_options['lok_footer_aff_link'] ) : 'http://www.lokthemes.com' ); ?>"><img src="<?php echo get_template_directory_uri(); ?>/images/lokthemes.png" width="74" height="19" alt="lok Themes" /></a></p>
+				<p><?php _e( 'Powered by', 'woothemes' ); ?> <a href="http://www.nxtclass.org">NXTClass</a>. <?php _e( 'Designed by', 'woothemes' ); ?> <a href="<?php echo ( isset( $woo_options['woo_footer_aff_link'] ) && ! empty( $woo_options['woo_footer_aff_link'] ) ? esc_url( $woo_options['woo_footer_aff_link'] ) : 'http://www.woothemes.com' ); ?>"><img src="<?php echo get_template_directory_uri(); ?>/images/woothemes.png" width="74" height="19" alt="Woo Themes" /></a></p>
 			<?php } ?>
 			</div>
 			
@@ -71,6 +71,6 @@
 
 </div><!-- /#wrapper -->
 <?php nxt_footer(); ?>
-<?php lok_foot(); ?>
+<?php woo_foot(); ?>
 </body>
 </html>

@@ -1,10 +1,10 @@
 <?php
 /**
- * lokthemes Tumblog Functionality
+ * Woothemes Tumblog Functionality
  *
  * @version 3.0.0
  *
- * @package lokFramework
+ * @package WooFramework
  * @subpackage Tumblog
  */
 
@@ -13,18 +13,18 @@
 TABLE OF CONTENTS
 
 - Register Actions
--- lok_register_tumblog_dashboard_widget()
--- lok_load_tumblog_libraries()
--- lok_load_tumblog_css()
+-- woo_register_tumblog_dashboard_widget()
+-- woo_load_tumblog_libraries()
+-- woo_load_tumblog_css()
 - AJAX Callback Functions
--- lok_tumblog_ajax_post()
--- lok_tumblog_publish()
--- lok_tumblog_file_upload()
+-- woo_tumblog_ajax_post()
+-- woo_tumblog_publish()
+-- woo_tumblog_file_upload()
 - Dashboard Widget
--- lok_tumblog_dashboard_widget_output()
+-- woo_tumblog_dashboard_widget_output()
 - Tumblog Upgrade
--- lokthemes_tumblog_page
--- lok_upgrade_existing_tumblog_posts
+-- woothemes_tumblog_page
+-- woo_upgrade_existing_tumblog_posts
 -----------------------------------------------------------------------------------*/
 
 /*-----------------------------------------------------------------------------------*/
@@ -32,7 +32,7 @@ TABLE OF CONTENTS
 /*-----------------------------------------------------------------------------------*/
 
 //Include iphone app functionality
-$content_method = get_option( 'lok_tumblog_content_method' );
+$content_method = get_option( 'woo_tumblog_content_method' );
 if ($content_method == 'post_format') {
 	$iphone_function_file = get_template_directory() . '/functions/' . 'admin-express-functions.php';
 } else {
@@ -46,34 +46,34 @@ if (file_exists($iphone_function_file)) {
 //Authenticate User Permissions
 if (current_user_can( 'publish_posts')) {
 	//Register Actions
-	add_action( 'nxt_ajax_lok_tumblog_media_upload', 'lok_tumblog_file_upload' );
-	add_action( 'nxt_ajax_lok_tumblog_post', 'lok_tumblog_ajax_post' );
-	add_action( 'nxt_ajax_nopriv_lok_tumblog_post', 'lok_tumblog_ajax_post' );
+	add_action( 'nxt_ajax_woo_tumblog_media_upload', 'woo_tumblog_file_upload' );
+	add_action( 'nxt_ajax_woo_tumblog_post', 'woo_tumblog_ajax_post' );
+	add_action( 'nxt_ajax_nopriv_woo_tumblog_post', 'woo_tumblog_ajax_post' );
 	//Load scripts and libraries
-	add_action( 'admin_print_scripts-index.php', 'lok_load_tumblog_libraries' );
-	add_action( 'admin_print_styles-index.php', 'lok_load_tumblog_css',10,1);
+	add_action( 'admin_print_scripts-index.php', 'woo_load_tumblog_libraries' );
+	add_action( 'admin_print_styles-index.php', 'woo_load_tumblog_css',10,1);
 	// Hook into the 'nxt_dashboard_setup' action to register Tumblog Dashboard Widget
-	add_action( 'nxt_dashboard_setup', 'lok_register_tumblog_dashboard_widget' );
+	add_action( 'nxt_dashboard_setup', 'woo_register_tumblog_dashboard_widget' );
 }
 
-//Adds the Tumblog Dashboard Widget to the WP Dashboard
-function lok_register_tumblog_dashboard_widget() {
-	nxt_add_dashboard_widget( 'lok_tumblog_dashboard_widget', 'Tumblog', 'lok_tumblog_dashboard_widget_output' );
+//Adds the Tumblog Dashboard Widget to the nxt Dashboard
+function woo_register_tumblog_dashboard_widget() {
+	nxt_add_dashboard_widget( 'woo_tumblog_dashboard_widget', 'Tumblog', 'woo_tumblog_dashboard_widget_output' );
 	// Globalize the metaboxes array, this holds all the widgets for nxt-admin
 	global $nxt_meta_boxes;
 	// Get the regular dashboard widgets array
 	$normal_dashboard = $nxt_meta_boxes['dashboard']['normal']['core'];
 	// Backup and delete dashboard widget from the end of the array
-	$lok_tumblog_widget_backup = array( 'lok_tumblog_dashboard_widget' => $normal_dashboard['lok_tumblog_dashboard_widget']);
-	unset($normal_dashboard['lok_tumblog_dashboard_widget']);
+	$woo_tumblog_widget_backup = array( 'woo_tumblog_dashboard_widget' => $normal_dashboard['woo_tumblog_dashboard_widget']);
+	unset($normal_dashboard['woo_tumblog_dashboard_widget']);
 	// Merge the two arrays together so tumblog widget is at the beginning
-	$sorted_dashboard = array_merge($lok_tumblog_widget_backup, $normal_dashboard);
+	$sorted_dashboard = array_merge($woo_tumblog_widget_backup, $normal_dashboard);
 	// Save the sorted array back into the original metaboxes
 	$nxt_meta_boxes['dashboard']['normal']['core'] = $sorted_dashboard;
 }
 
 //Loads Tumblog javascript and php js functions
-function lok_load_tumblog_libraries() {
+function woo_load_tumblog_libraries() {
 	nxt_enqueue_script( 'newscript', get_template_directory_uri() . '/functions/js/tumblog-ajax.js', array( 'jquery', 'jquery-form'));
 	nxt_enqueue_script( 'nicedit', get_template_directory_uri() . '/functions/js/nicEdit.js' );
  	nxt_enqueue_script( 'phpjs', get_template_directory_uri() . '/functions/js/php.js' );
@@ -81,7 +81,7 @@ function lok_load_tumblog_libraries() {
 }
 
 //Load Tumblog CSS
-function lok_load_tumblog_css($hook) {
+function woo_load_tumblog_css($hook) {
 	if ($hook == 'post.php' OR $hook == 'post-new.php' OR $hook == 'page-new.php' OR $hook == 'page.php') {
 	}
 	else {
@@ -95,14 +95,14 @@ function lok_load_tumblog_css($hook) {
 /* AJAX Callback Functions
 /*-----------------------------------------------------------------------------------*/
 
-//Handles AJAX Form Post from lok QuickPress
-function lok_tumblog_ajax_post() {
+//Handles AJAX Form Post from Woo QuickPress
+function woo_tumblog_ajax_post() {
 	//Publish Article
 	if ($_POST['tumblog-type'] == 'article')
 	{
 		$data = $_POST;
 		$type = 'note';
-		lok_tumblog_publish($type, $data);
+		woo_tumblog_publish($type, $data);
 		die ( 'OK' );
 	}
 	//Publish Video
@@ -110,7 +110,7 @@ function lok_tumblog_ajax_post() {
 	{
 		$data = $_POST;
 		$type = 'video';
-		lok_tumblog_publish($type, $data);
+		woo_tumblog_publish($type, $data);
 		die ( 'OK' );
 	}
 	//Publish Image
@@ -118,7 +118,7 @@ function lok_tumblog_ajax_post() {
 	{
 		$data = $_POST;
 		$type = 'image';
-		lok_tumblog_publish($type, $data);
+		woo_tumblog_publish($type, $data);
 		die ( 'OK' );
 	}
 	//Publish Link
@@ -126,7 +126,7 @@ function lok_tumblog_ajax_post() {
 	{
 		$data = $_POST;
 		$type = 'link';
-		lok_tumblog_publish($type, $data);
+		woo_tumblog_publish($type, $data);
 		die ( 'OK' );
 	}
 	//Publish Quote
@@ -134,7 +134,7 @@ function lok_tumblog_ajax_post() {
 	{
 		$data = $_POST;
 		$type = 'quote';
-		lok_tumblog_publish($type, $data);
+		woo_tumblog_publish($type, $data);
 		die ( 'OK' );
 	}
 	//Publish Audio
@@ -142,7 +142,7 @@ function lok_tumblog_ajax_post() {
 	{
 		$data = $_POST;
 		$type = 'audio';
-		lok_tumblog_publish($type, $data);
+		woo_tumblog_publish($type, $data);
 		die ( 'OK' );
 	}
 	//Default
@@ -152,12 +152,12 @@ function lok_tumblog_ajax_post() {
 }
 
 //Publishes the Tumblog Item
-function lok_tumblog_publish($type, $data) {
+function woo_tumblog_publish($type, $data) {
 	global $current_user;
     //Gets the current user's info
     get_currentuserinfo();
 
-    $content_method = get_option( 'lok_tumblog_content_method' );
+    $content_method = get_option( 'woo_tumblog_content_method' );
 
     //Set custom fields
 	$tumblog_custom_fields = array(	'video-embed' => 'video-embed',
@@ -169,12 +169,12 @@ function lok_tumblog_publish($type, $data) {
 								'audio-url' => 'audio'
 								);
 	//get term ids
-	$tumblog_items = array(	'articles'	=> get_option( 'lok_articles_term_id'),
-							'images' 	=> get_option( 'lok_images_term_id'),
-							'audio' 	=> get_option( 'lok_audio_term_id'),
-							'video' 	=> get_option( 'lok_video_term_id'),
-							'quotes'	=> get_option( 'lok_quotes_term_id'),
-							'links' 	=> get_option( 'lok_links_term_id')
+	$tumblog_items = array(	'articles'	=> get_option( 'woo_articles_term_id'),
+							'images' 	=> get_option( 'woo_images_term_id'),
+							'audio' 	=> get_option( 'woo_audio_term_id'),
+							'video' 	=> get_option( 'woo_video_term_id'),
+							'quotes'	=> get_option( 'woo_quotes_term_id'),
+							'links' 	=> get_option( 'woo_links_term_id')
 							);
 	//Set date formatting
 	$php_formatting = "Y-m-d H:i:s";
@@ -196,7 +196,7 @@ function lok_tumblog_publish($type, $data) {
   			$tumbl_note['post_title'] = $data['note-title'];
   			$tumbl_note['post_content'] = $data['tumblog-content'];
   			// DEPRECATED
-  			// if (get_option( 'tumblog_lok_tumblog_upgraded') == 'true') {
+  			// if (get_option( 'tumblog_woo_tumblog_upgraded') == 'true') {
   				if ($data['tumblog-status'] != '') {
   					$tumbl_note['post_status'] = $data['tumblog-status'];
   				}
@@ -230,8 +230,8 @@ function lok_tumblog_publish($type, $data) {
   			// DEPRECATED
   			// Get Category from Theme Options
   			/*
-  			if (get_option( 'tumblog_lok_tumblog_upgraded') != 'true') {
-  				$category_id = get_cat_ID( get_option( 'lok_articles_category') );
+  			if (get_option( 'tumblog_woo_tumblog_upgraded') != 'true') {
+  				$category_id = get_cat_ID( get_option( 'woo_articles_category') );
   				$categories = array($category_id);
   			} else {
   				$categories = array();
@@ -255,7 +255,7 @@ function lok_tumblog_publish($type, $data) {
   			$post_id = nxt_insert_post($tumbl_note);
 
   			// DEPRECATED
-  			// if (get_option( 'tumblog_lok_tumblog_upgraded') == 'true') {
+  			// if (get_option( 'tumblog_woo_tumblog_upgraded') == 'true') {
 
   				if ($content_method == 'post_format') {
   					set_post_format( $post_id, 'aside' );
@@ -285,7 +285,7 @@ function lok_tumblog_publish($type, $data) {
   			$tumbl_note['post_title'] = $data['video-title'];
   			$tumbl_note['post_content'] = $data['tumblog-content'];
   			// DEPRECATED
-  			//if (get_option( 'tumblog_lok_tumblog_upgraded') == 'true') {
+  			//if (get_option( 'tumblog_woo_tumblog_upgraded') == 'true') {
   				if ($data['tumblog-status'] != '') {
   					$tumbl_note['post_status'] = $data['tumblog-status'];
   				}
@@ -319,8 +319,8 @@ function lok_tumblog_publish($type, $data) {
   			// DEPRECATED
   			//Get Category from Theme Options
   			/*
-  			if (get_option( 'tumblog_lok_tumblog_upgraded') != 'true') {
-  				$category_id = get_cat_ID( get_option( 'lok_videos_category') );
+  			if (get_option( 'tumblog_woo_tumblog_upgraded') != 'true') {
+  				$category_id = get_cat_ID( get_option( 'woo_videos_category') );
   				$categories = array($category_id);
   			} else {
   				$categories = array();
@@ -346,7 +346,7 @@ function lok_tumblog_publish($type, $data) {
     	    add_post_meta($post_id, $tumblog_custom_fields['video-embed'], $data['video-embed'], true);
 
     	    // DEPRECATED
-    	    // if (get_option( 'tumblog_lok_tumblog_upgraded') == 'true') {
+    	    // if (get_option( 'tumblog_woo_tumblog_upgraded') == 'true') {
 
     	    	if ($content_method == 'post_format') {
   					set_post_format( $post_id, 'video' );
@@ -377,7 +377,7 @@ function lok_tumblog_publish($type, $data) {
   			$tumbl_note['post_content'] = $data['tumblog-content'];
 
   			// DEPRECATED
-  			// if (get_option( 'tumblog_lok_tumblog_upgraded') == 'true') {
+  			// if (get_option( 'tumblog_woo_tumblog_upgraded') == 'true') {
   				if ($data['tumblog-status'] != '') {
   					$tumbl_note['post_status'] = $data['tumblog-status'];
   				}
@@ -412,8 +412,8 @@ function lok_tumblog_publish($type, $data) {
   			// DEPRECATED
   			//Get Category from Theme Options
   			/*
-  			if (get_option( 'tumblog_lok_tumblog_upgraded') != 'true') {
-  				$category_id = get_cat_ID( get_option( 'lok_images_category') );
+  			if (get_option( 'tumblog_woo_tumblog_upgraded') != 'true') {
+  				$category_id = get_cat_ID( get_option( 'woo_images_category') );
   				$categories = array($category_id);
   			} else {
   				$categories = array();
@@ -449,7 +449,7 @@ function lok_tumblog_publish($type, $data) {
     	    }
 
     	    // DEPRECATED
-    	    // if (get_option( 'tumblog_lok_tumblog_upgraded') == 'true') {
+    	    // if (get_option( 'tumblog_woo_tumblog_upgraded') == 'true') {
 
     	    	if ($content_method == 'post_format') {
   					set_post_format( $post_id, 'image' );
@@ -480,7 +480,7 @@ function lok_tumblog_publish($type, $data) {
 			$tumbl_note['post_content'] = $data['tumblog-content'];
 
 			// DEPRECATED
-			// if (get_option( 'tumblog_lok_tumblog_upgraded') == 'true') {
+			// if (get_option( 'tumblog_woo_tumblog_upgraded') == 'true') {
 				if ($data['tumblog-status'] != '') {
 	  				$tumbl_note['post_status'] = $data['tumblog-status'];
 	  			}
@@ -514,8 +514,8 @@ function lok_tumblog_publish($type, $data) {
 	  		// DEPRECATED
 	  		//Get Category from Theme Options
 	  		/*
-	  		if (get_option( 'tumblog_lok_tumblog_upgraded') != 'true') {
-	  			$category_id = get_cat_ID( get_option( 'lok_links_category') );
+	  		if (get_option( 'tumblog_woo_tumblog_upgraded') != 'true') {
+	  			$category_id = get_cat_ID( get_option( 'woo_links_category') );
 	  			$categories = array($category_id);
 	  		} else {
 	  			$categories = array();
@@ -541,7 +541,7 @@ function lok_tumblog_publish($type, $data) {
 	  		add_post_meta($post_id, $tumblog_custom_fields['link-url'], $data['link-url'], true);
 
 	  		// DEPRECATED
-	  		// if (get_option( 'tumblog_lok_tumblog_upgraded') == 'true') {
+	  		// if (get_option( 'tumblog_woo_tumblog_upgraded') == 'true') {
 
 	  			if ($content_method == 'post_format') {
   					set_post_format( $post_id, 'link' );
@@ -571,7 +571,7 @@ function lok_tumblog_publish($type, $data) {
 	  		$tumbl_note['post_content'] = $data['tumblog-content'];
 
 	  		// DEPRECATED
-	  		// if (get_option( 'tumblog_lok_tumblog_upgraded') == 'true') {
+	  		// if (get_option( 'tumblog_woo_tumblog_upgraded') == 'true') {
 	  			if ($data['tumblog-status'] != '') {
 	  				$tumbl_note['post_status'] = $data['tumblog-status'];
 	  			}
@@ -605,8 +605,8 @@ function lok_tumblog_publish($type, $data) {
 	  		// DEPRECATED
 	  		//Get Category from Theme Options
 	  		/*
-	  		if (get_option( 'tumblog_lok_tumblog_upgraded') != 'true') {
-	  			$category_id = get_cat_ID( get_option( 'lok_quotes_category') );
+	  		if (get_option( 'tumblog_woo_tumblog_upgraded') != 'true') {
+	  			$category_id = get_cat_ID( get_option( 'woo_quotes_category') );
 	  			$categories = array($category_id);
 	  		} else {
 	  			$categories = array();
@@ -633,7 +633,7 @@ function lok_tumblog_publish($type, $data) {
 	        add_post_meta($post_id, $tumblog_custom_fields['quote-author'], $data['quote-author'], true);
 	        add_post_meta($post_id, $tumblog_custom_fields['quote-url'], $data['quote-url'], true);
 	        // DEPRECATED
-	        // if (get_option( 'tumblog_lok_tumblog_upgraded') == 'true') {
+	        // if (get_option( 'tumblog_woo_tumblog_upgraded') == 'true') {
 
 	        	if ($content_method == 'post_format') {
   					set_post_format( $post_id, 'quote' );
@@ -663,7 +663,7 @@ function lok_tumblog_publish($type, $data) {
 	  		$tumbl_note['post_content'] = $data['tumblog-content'];
 
 	  		// DEPRECATED
-	  		// if (get_option( 'tumblog_lok_tumblog_upgraded') == 'true') {
+	  		// if (get_option( 'tumblog_woo_tumblog_upgraded') == 'true') {
 	  			if ($data['tumblog-status'] != '') {
 	  				$tumbl_note['post_status'] = $data['tumblog-status'];
 	  			}
@@ -698,8 +698,8 @@ function lok_tumblog_publish($type, $data) {
 	  		// DEPRECATED
 	  		//Get Category from Theme Options
 	  		/*
-	  		if (get_option( 'tumblog_lok_tumblog_upgraded') != 'true') {
-	  			$category_id = get_cat_ID( get_option( 'lok_audio_category') );
+	  		if (get_option( 'tumblog_woo_tumblog_upgraded') != 'true') {
+	  			$category_id = get_cat_ID( get_option( 'woo_audio_category') );
 	  			$categories = array($category_id);
 	  		} else {
 	  			$categories = array();
@@ -734,7 +734,7 @@ function lok_tumblog_publish($type, $data) {
 	        	add_post_meta($post_id, $tumblog_custom_fields['audio-url'], $data['audio-url'], true);
 	    	}
 	    	// DEPRECATED
-	    	// if (get_option( 'tumblog_lok_tumblog_upgraded') == 'true') {
+	    	// if (get_option( 'tumblog_woo_tumblog_upgraded') == 'true') {
 	    	   	if ($content_method == 'post_format') {
   					set_post_format( $post_id, 'audio' );
   				} else {
@@ -763,7 +763,7 @@ function lok_tumblog_publish($type, $data) {
 }
 
 //Handles AJAX Post
-function lok_tumblog_file_upload() {
+function woo_tumblog_file_upload() {
 	global $nxtdb;
 	//Upload overrides
 	$filename = $_FILES['userfile']; // [name] [tmp_name]
@@ -794,15 +794,15 @@ function lok_tumblog_file_upload() {
 /*-----------------------------------------------------------------------------------*/
 
 // Tumblog Dashboard Widget Output
-function lok_tumblog_dashboard_widget_output() {
+function woo_tumblog_dashboard_widget_output() {
 	//security check
 	if (current_user_can( 'publish_posts')) {
-		$tumblog_items = array(	'articles'	=> get_option( 'lok_articles_term_id'),
-								'images' 	=> get_option( 'lok_images_term_id'),
-								'audio' 	=> get_option( 'lok_audio_term_id'),
-								'video' 	=> get_option( 'lok_video_term_id'),
-								'quotes'	=> get_option( 'lok_quotes_term_id'),
-								'links' 	=> get_option( 'lok_links_term_id')
+		$tumblog_items = array(	'articles'	=> get_option( 'woo_articles_term_id'),
+								'images' 	=> get_option( 'woo_images_term_id'),
+								'audio' 	=> get_option( 'woo_audio_term_id'),
+								'video' 	=> get_option( 'woo_video_term_id'),
+								'quotes'	=> get_option( 'woo_quotes_term_id'),
+								'links' 	=> get_option( 'woo_links_term_id')
 								);
 		?>
 		<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/functions/js/ajaxupload.js"></script>
@@ -844,7 +844,7 @@ function lok_tumblog_dashboard_widget_output() {
 				jQuery( '#tumblog-type').attr( 'value','article' );
 				jQuery( '#content-fields').removeAttr( 'class' );
 				jQuery( '#tag-fields').removeAttr( 'class' );
-				<?php if (get_option( 'lok_tumblog_content_method') != 'post_format') { ?>
+				<?php if (get_option( 'woo_tumblog_content_method') != 'post_format') { ?>
 				//Additional Tumblogs Checks
 				jQuery( '#additional-tumblogs input').each(function(){
 
@@ -904,7 +904,7 @@ function lok_tumblog_dashboard_widget_output() {
 				jQuery( '#tumblog-type').attr( 'value','image' );
 				jQuery( '#content-fields').removeAttr( 'class' );
 				jQuery( '#tag-fields').removeAttr( 'class' );
-				<?php if (get_option( 'lok_tumblog_content_method') != 'post_format') { ?>
+				<?php if (get_option( 'woo_tumblog_content_method') != 'post_format') { ?>
 				//Additional Tumblogs Checks
 				jQuery( '#additional-tumblogs input').each(function(){
 
@@ -964,7 +964,7 @@ function lok_tumblog_dashboard_widget_output() {
 				jQuery( '#tumblog-type').attr( 'value','link' );
 				jQuery( '#content-fields').removeAttr( 'class' );
 				jQuery( '#tag-fields').removeAttr( 'class' );
-				<?php if (get_option( 'lok_tumblog_content_method') != 'post_format') { ?>
+				<?php if (get_option( 'woo_tumblog_content_method') != 'post_format') { ?>
 				//Additional Tumblogs Checks
 				jQuery( '#additional-tumblogs input').each(function(){
 
@@ -1024,7 +1024,7 @@ function lok_tumblog_dashboard_widget_output() {
 				jQuery( '#tumblog-type').attr( 'value','audio' );
 				jQuery( '#content-fields').removeAttr( 'class' );
 				jQuery( '#tag-fields').removeAttr( 'class' );
-				<?php if (get_option( 'lok_tumblog_content_method') != 'post_format') { ?>
+				<?php if (get_option( 'woo_tumblog_content_method') != 'post_format') { ?>
 				//Additional Tumblogs Checks
 				jQuery( '#additional-tumblogs input').each(function(){
 
@@ -1084,7 +1084,7 @@ function lok_tumblog_dashboard_widget_output() {
 				jQuery( '#tumblog-type').attr( 'value','video' );
 				jQuery( '#content-fields').removeAttr( 'class' );
 				jQuery( '#tag-fields').removeAttr( 'class' );
-				<?php if (get_option( 'lok_tumblog_content_method') != 'post_format') { ?>
+				<?php if (get_option( 'woo_tumblog_content_method') != 'post_format') { ?>
 				//Additional Tumblogs Checks
 				jQuery( '#additional-tumblogs input').each(function(){
 
@@ -1144,7 +1144,7 @@ function lok_tumblog_dashboard_widget_output() {
 				jQuery( '#tumblog-type').attr( 'value','quote' );
 				jQuery( '#content-fields').removeAttr( 'class' );
 				jQuery( '#tag-fields').removeAttr( 'class' );
-				<?php if (get_option( 'lok_tumblog_content_method') != 'post_format') { ?>
+				<?php if (get_option( 'woo_tumblog_content_method') != 'post_format') { ?>
 				//Additional Tumblogs Checks
 				jQuery( '#additional-tumblogs input').each(function(){
 
@@ -1194,7 +1194,7 @@ function lok_tumblog_dashboard_widget_output() {
 			{
 	  			name: 'formpost',
 	  			data: { // Additional data to send
-							action: 'lok_tumblog_post',
+							action: 'woo_tumblog_post',
 							type: 'upload',
 							data: 'formpost' },
 				// handler function for success event
@@ -1228,7 +1228,7 @@ function lok_tumblog_dashboard_widget_output() {
 	  			action: '<?php echo admin_url( "admin-ajax.php" ); ?>',
 	  			name: 'userfile',
 	  			data: { // Additional data to send
-							action: 'lok_tumblog_media_upload',
+							action: 'woo_tumblog_media_upload',
 							type: 'upload',
 							data: 'userfile' },
 	  			onSubmit : function(file , ext){
@@ -1254,7 +1254,7 @@ function lok_tumblog_dashboard_widget_output() {
 	  			action: '<?php echo admin_url( "admin-ajax.php" ); ?>',
 	  			name: 'userfile',
 	  			data: { // Additional data to send
-							action: 'lok_tumblog_media_upload',
+							action: 'woo_tumblog_media_upload',
 							type: 'upload',
 							data: 'userfile' },
 	  			onSubmit : function(file , ext){
@@ -1408,7 +1408,7 @@ function lok_tumblog_dashboard_widget_output() {
 				<?php // END - POST STATUS AND DATE TIME ?>
 			</p>
 			<br />
-			<div id="additional-categories" style="width:<?php if (get_option( 'lok_tumblog_content_method') != 'post_format') { ?>47%;float:left;<?php } else { ?>94%;<?php } ?>">
+			<div id="additional-categories" style="width:<?php if (get_option( 'woo_tumblog_content_method') != 'post_format') { ?>47%;float:left;<?php } else { ?>94%;<?php } ?>">
 				<strong><label for="post_category[]">Additional Categories : </label></strong>
 				<?php // START - MULTI CATEGORY DROP DOWN ?>
 				<?php $taxonomy = 'category'; ?>
@@ -1423,7 +1423,7 @@ function lok_tumblog_dashboard_widget_output() {
 				<?php // END - MULTI CATEGORY DROP DOWN ?>
 				</div>
 			</div>
-			<?php if (get_option( 'lok_tumblog_content_method') != 'post_format') { ?>
+			<?php if (get_option( 'woo_tumblog_content_method') != 'post_format') { ?>
 			<div id="additional-tumblogs" style="width:47%;float:right;">
 				<strong><label for="post_tumblog[]">Additional Tumblogs : </label></strong>
 				<?php // START - MULTI TUMBLOG DROP DOWN ?>

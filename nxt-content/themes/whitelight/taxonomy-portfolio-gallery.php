@@ -3,21 +3,21 @@
  * "Portfolio Gallery" Taxonomy Archive Template
  *
  * This template file is used when displaying an archive of posts in the
- * "portfolio-gallery" taxonomy. This is used with lokTumblog.
+ * "portfolio-gallery" taxonomy. This is used with WooTumblog.
  *
- * @package lokFramework
+ * @package WooFramework
  * @subpackage Template
  */
 
- global $lok_options; 
+ global $woo_options; 
  get_header();
 ?>
     <div id="content">
 		<section id="portfolio-gallery" class="page col-full">
 		           
-		<?php if ( isset( $lok_options['lok_breadcrumbs_show'] ) && $lok_options['lok_breadcrumbs_show'] == 'true' ) { ?>
+		<?php if ( isset( $woo_options['woo_breadcrumbs_show'] ) && $woo_options['woo_breadcrumbs_show'] == 'true' ) { ?>
 			<section id="breadcrumbs">
-				<?php lok_breadcrumbs(); ?>
+				<?php woo_breadcrumbs(); ?>
 			</section><!--/#breadcrumbs -->
 		<?php } ?>  			
 
@@ -28,7 +28,7 @@
             
         <?php else : ?>
 			<article <?php post_class(); ?>>
-            	<p><?php _e( 'Sorry, no posts matched your criteria.', 'lokthemes' ); ?></p>
+            	<p><?php _e( 'Sorry, no posts matched your criteria.', 'woothemes' ); ?></p>
             </article><!-- /.post -->
         <?php endif; ?>  
         

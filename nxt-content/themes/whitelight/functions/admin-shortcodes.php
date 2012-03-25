@@ -3,7 +3,7 @@
 
 TABLE OF CONTENTS
 
-1. lok Shortcodes
+1. Woo Shortcodes
   1.1 Output shortcode JS in footer (in development)
 2. Boxes
 3. Buttons
@@ -39,23 +39,23 @@ TABLE OF CONTENTS
 -----------------------------------------------------------------------------------*/
 
 /*-----------------------------------------------------------------------------------*/
-/* 1. lok Shortcodes  */
+/* 1. Woo Shortcodes  */
 /*-----------------------------------------------------------------------------------*/
 
 // Enable shortcodes in widget areas
 add_filter( 'widget_text', 'do_shortcode' );
 
 // Add stylesheet for shortcodes to HEAD (added to HEAD in admin-setup.php)
-if ( ! function_exists( 'lok_shortcode_stylesheet' ) && get_option( 'framework_lok_disable_shortcodes' ) != 'true' ) {
-	function lok_shortcode_stylesheet() {
-		echo "\n" . "<!-- lok Shortcodes CSS -->\n";
+if ( ! function_exists( 'woo_shortcode_stylesheet' ) && get_option( 'framework_woo_disable_shortcodes' ) != 'true' ) {
+	function woo_shortcode_stylesheet() {
+		echo "\n" . "<!-- Woo Shortcodes CSS -->\n";
 		echo '<link href="'. get_template_directory_uri() . '/functions/css/shortcodes.css" rel="stylesheet" type="text/css" />'."\n";
 	}
 }
 
-// Replace WP autop formatting
-if ( ! function_exists( 'lok_remove_nxtautop' ) ) {
-	function lok_remove_nxtautop( $content ) {
+// Replace nxt autop formatting
+if ( ! function_exists( 'woo_remove_nxtautop' ) ) {
+	function woo_remove_nxtautop( $content ) {
 		$content = do_shortcode( shortcode_unautop( $content ) );
 		$content = preg_replace( '#^<\/p>|^<br \/>|<p>$#', '', $content );
 		return $content;
@@ -66,25 +66,25 @@ if ( ! function_exists( 'lok_remove_nxtautop' ) ) {
 /* 1.1 Output shortcode JS in footer */
 /*-----------------------------------------------------------------------------------*/
 
-add_action( 'nxt_print_scripts', 'lok_register_shortcode_js', 10 );
+add_action( 'nxt_print_scripts', 'woo_register_shortcode_js', 10 );
 
-function lok_register_shortcode_js () {
-	nxt_register_script( 'lok-shortcodes', get_template_directory_uri() . '/functions/js/shortcodes.js', array( 'jquery', 'jquery-ui-tabs' ), '5.0.0' );
-} // End lok_register_shortcode_js()
+function woo_register_shortcode_js () {
+	nxt_register_script( 'woo-shortcodes', get_template_directory_uri() . '/functions/js/shortcodes.js', array( 'jquery', 'jquery-ui-tabs' ), '5.0.0' );
+} // End woo_register_shortcode_js()
 
-add_action( 'nxt_footer', 'lok_enqueue_shortcode_js', 10 );
+add_action( 'nxt_footer', 'woo_enqueue_shortcode_js', 10 );
 
-function lok_enqueue_shortcode_js () {
-	if ( ! is_admin() && defined( 'lok_SHORTCODE_JS' ) ) {
-		nxt_enqueue_script( 'lok-shortcodes' );
+function woo_enqueue_shortcode_js () {
+	if ( ! is_admin() && defined( 'WOO_SHORTCODE_JS' ) ) {
+		nxt_enqueue_script( 'woo-shortcodes' );
 		
 		global $nxt_scripts;
-		$nxt_scripts->to_do = array( 'lok-shortcodes' );
+		$nxt_scripts->to_do = array( 'woo-shortcodes' );
 		
 		nxt_print_scripts();
 	} // End IF Statement
 
-} // End lok_enqueue_shortcode_js()
+} // End woo_enqueue_shortcode_js()
 
 /*-----------------------------------------------------------------------------------*/
 /* 2. Boxes - box
@@ -99,7 +99,7 @@ Optional arguments:
  - icon: none OR full URL to a custom icon
 
 */
-function lok_shortcode_box( $atts, $content = null ) {
+function woo_shortcode_box( $atts, $content = null ) {
    extract(shortcode_atts(array(	'type' => 'normal',
    									'size' => '',
    									'style' => '',
@@ -113,9 +113,9 @@ function lok_shortcode_box( $atts, $content = null ) {
    		$custom = ' style="padding-left:50px;background-image:url( '.$icon.' ); background-repeat:no-repeat; background-position:20px 45%;"';
 
 
-   	return '<div class="lok-sc-box '.$type.' '.$size.' '.$style.' '.$border.'"'.$custom.'>' . do_shortcode( lok_remove_nxtautop($content) ) . '</div>';
+   	return '<div class="woo-sc-box '.$type.' '.$size.' '.$style.' '.$border.'"'.$custom.'>' . do_shortcode( woo_remove_nxtautop($content) ) . '</div>';
 }
-add_shortcode( 'box', 'lok_shortcode_box' );
+add_shortcode( 'box', 'woo_shortcode_box' );
 
 /*-----------------------------------------------------------------------------------*/
 /* 3. Buttons - button
@@ -129,11 +129,11 @@ Optional arguments:
  - border: border color (e.g. red or #000000)
  - text: black (for light color background on button)
  - class: custom class
- - link: button link (e.g http://www.lokthemes.com)
+ - link: button link (e.g http://www.woothemes.com)
  - window: true/false
 
 */
-function lok_shortcode_button($atts, $content = null) {
+function woo_shortcode_button($atts, $content = null) {
    	extract(shortcode_atts(array(	'size' => '',
    									'style' => '',
    									'bg_color' => '',
@@ -204,10 +204,10 @@ function lok_shortcode_button($atts, $content = null) {
 		$window = 'target="_blank" ';
 
 
-   	$output = '<a '.$window.'href="'.$link.'" class="lok-sc-button'.$class_output.'" '.$color_output.'><span class="lok-'.$style.'">' . lok_remove_nxtautop($content) . '</span></a>';
+   	$output = '<a '.$window.'href="'.$link.'" class="woo-sc-button'.$class_output.'" '.$color_output.'><span class="woo-'.$style.'">' . woo_remove_nxtautop($content) . '</span></a>';
    	return $output;
 }
-add_shortcode( 'button', 'lok_shortcode_button' );
+add_shortcode( 'button', 'woo_shortcode_button' );
 
 
 /*-----------------------------------------------------------------------------------*/
@@ -220,7 +220,7 @@ Optional arguments:
  - image: thumbnail size, 0 = off (default: 0)
 */
 
-function lok_shortcode_related_posts ( $atts ) {
+function woo_shortcode_related_posts ( $atts ) {
 	global $post, $nxt_version;
 	
 		nxt_reset_query(); // Make sure we have a fresh query before we start.
@@ -235,7 +235,7 @@ function lok_shortcode_related_posts ( $atts ) {
 	
 		// This function requires at least NXTClass Version 3.1.
 		if ( $nxt_version < 3.1 ) {
-			return _dep_lok_shortcode_related_posts( $atts );
+			return _dep_woo_shortcode_related_posts( $atts );
 		} else {
 	
 		// Sanitize float attribute.
@@ -244,7 +244,7 @@ function lok_shortcode_related_posts ( $atts ) {
 		// Float translation array.
 		$floats = array( 'none' => '', 'left' => 'fl', 'right' => 'fr' );
 	
-		$css_class = 'lok-sc-related-posts';
+		$css_class = 'woo-sc-related-posts';
 	
 		extract( $atts );
 		
@@ -301,7 +301,7 @@ function lok_shortcode_related_posts ( $atts ) {
  						'exclude' => array( $post->ID )
  					);
 		
-		$posts = lok_get_posts_by_taxonomy( $query_args );
+		$posts = woo_get_posts_by_taxonomy( $query_args );
 		
 		if ( count( (array)$posts ) ) {
 			
@@ -315,7 +315,7 @@ function lok_shortcode_related_posts ( $atts ) {
 				if ( $image <= 0 ) {
 					$image_html = '';
 				} else {
-					$image_html = '<a href="' . get_permalink( $post->ID ) . '" class="thumbnail">' . lok_image( 'link=img&width=' . $image . '&height=' . $image . '&return=true&id=' . $post->ID ) . '</a>' . "\n";
+					$image_html = '<a href="' . get_permalink( $post->ID ) . '" class="thumbnail">' . woo_image( 'link=img&width=' . $image . '&height=' . $image . '&return=true&id=' . $post->ID ) . '</a>' . "\n";
 				}
 				
 				$output .= '<li class="post-id-' . $post->ID . '">' . "\n" . $image_html . "\n" . '<a href="' . get_permalink( $post->ID ) . '" title="' . the_title_attribute( array( 'echo' => 0 ) ) . '" class="related-title"><span>' . get_the_title( $post->ID )  . '</span></a>' . "\n" . '</li>' . "\n";
@@ -323,18 +323,18 @@ function lok_shortcode_related_posts ( $atts ) {
 			
 			$output .= '</ul>' . "\n";
 			$output .= '<div class="fix"></div><!--/.fix-->' . "\n";
-			$output .= '</div><!--/.lok-sc-related-posts-->';
+			$output .= '</div><!--/.woo-sc-related-posts-->';
 		}
 		
 		nxt_reset_query();
 		
-		return apply_filters( 'lok_shortcode_related_posts', $output, $atts );
+		return apply_filters( 'woo_shortcode_related_posts', $output, $atts );
 	
 	} // End IF Statement (version check)
 
-} // End lok_shortcode_related_posts()
+} // End woo_shortcode_related_posts()
 
-add_shortcode( 'related_posts', 'lok_shortcode_related_posts' );
+add_shortcode( 'related_posts', 'woo_shortcode_related_posts' );
 
 /*-----------------------------------------------------------------------------------*/
 /* Deprecated: Related Posts Shortcode.
@@ -342,7 +342,7 @@ add_shortcode( 'related_posts', 'lok_shortcode_related_posts' );
 /* Used for NXTClass version 3.0 or less.
 /*-----------------------------------------------------------------------------------*/
 
-function _dep_lok_shortcode_related_posts( $atts ) {
+function _dep_woo_shortcode_related_posts( $atts ) {
 
 	extract(shortcode_atts(array(
 	    'limit' => '5',
@@ -354,7 +354,7 @@ function _dep_lok_shortcode_related_posts( $atts ) {
 	if ($post->ID) {
 
 		$retval = '
-<ul class="lok-sc-related-posts">';
+<ul class="woo-sc-related-posts">';
 
 		// Get tags
 		$tags = nxt_get_post_tags($post->ID);
@@ -391,7 +391,7 @@ function _dep_lok_shortcode_related_posts( $atts ) {
 				if ( $image ) {
 					$image_out = "";
 					$image_out .= '<a class="thumbnail" href="'.get_permalink($r->ID).'">';
-					$image_out .= lok_image( "link=img&width=".$image."&height=".$image."&return=true&id=".$r->ID);
+					$image_out .= woo_image( "link=img&width=".$image."&height=".$image."&return=true&id=".$r->ID);
 					$image_out .= '</a>';
 				}
 				$retval .= '
@@ -400,7 +400,7 @@ function _dep_lok_shortcode_related_posts( $atts ) {
 			}
 		} else {
 			$retval .= '
-	<li>'.__( 'No related posts found', 'lokthemes' ).'</li>
+	<li>'.__( 'No related posts found', 'woothemes' ).'</li>
 ';
 		}
 		$retval .= '</ul>
@@ -424,7 +424,7 @@ Optional arguments:
  - float: none, left, right (default: left)
 
 */
-function lok_shortcode_tweetmeme($atts, $content = null) {
+function woo_shortcode_tweetmeme($atts, $content = null) {
    	extract(shortcode_atts(array(	'link' => '',
    									'style' => '',
    									'source' => '',
@@ -448,11 +448,11 @@ function lok_shortcode_tweetmeme($atts, $content = null) {
 	if ( $link OR $style )
 		$output = '<script type="text/javascript">'.$output.'</script>';
 
-	$output .= '<div class="lok-tweetmeme '.$float.'"><script type="text/javascript" src="http://tweetmeme.com/i/scripts/button.js"></script></div>';
+	$output .= '<div class="woo-tweetmeme '.$float.'"><script type="text/javascript" src="http://tweetmeme.com/i/scripts/button.js"></script></div>';
 	return $output;
 
 }
-add_shortcode( 'tweetmeme', 'lok_shortcode_tweetmeme' );
+add_shortcode( 'tweetmeme', 'woo_shortcode_tweetmeme' );
 
 /*-----------------------------------------------------------------------------------*/
 /* 6. Twitter button - twitter
@@ -471,7 +471,7 @@ Optional arguments:
  - lang: fr, de, es, js (default: english)
  - use_post_url: automatically retrieve the URL to the specific post (useful on archive screens)
 */
-function lok_shortcode_twitter($atts, $content = null) {
+function woo_shortcode_twitter($atts, $content = null) {
    	global $post;
    	extract(shortcode_atts(array(	'url' => '',
    									'style' => 'vertical',
@@ -502,11 +502,11 @@ function lok_shortcode_twitter($atts, $content = null) {
 		$output .= ' data-url="' . get_permalink( $post->ID ) . '"';
 	}
 
-	$output = '<div class="lok-sc-twitter '.$float.'"><a href="http://twitter.com/share" class="twitter-share-button"'.$output.' data-count="'.$style.'">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></div>';
+	$output = '<div class="woo-sc-twitter '.$float.'"><a href="http://twitter.com/share" class="twitter-share-button"'.$output.' data-count="'.$style.'">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></div>';
 	return $output;
 
 }
-add_shortcode( 'twitter', 'lok_shortcode_twitter' );
+add_shortcode( 'twitter', 'woo_shortcode_twitter' );
 
 /*-----------------------------------------------------------------------------------*/
 /* 7. Digg Button - digg
@@ -521,7 +521,7 @@ Optional arguments:
  - style: medium, large, compact, icon (default: medium)
  - float: none, left, right (default: left)
 */
-function lok_shortcode_digg($atts, $content = null) {
+function woo_shortcode_digg($atts, $content = null) {
    	extract(shortcode_atts(array(	'link' => '',
    									'title' => '',
    									'style' => 'medium',
@@ -561,11 +561,11 @@ function lok_shortcode_digg($atts, $content = null) {
 	else
 		$style = "Medium";
 
-	$output .= '<div class="lok-digg '.$float.'"><a class="DiggThisButton Digg'.$style.'"'.$link.'></a></div>';
+	$output .= '<div class="woo-digg '.$float.'"><a class="DiggThisButton Digg'.$style.'"'.$link.'></a></div>';
 	return $output;
 
 }
-add_shortcode( 'digg', 'lok_shortcode_digg' );
+add_shortcode( 'digg', 'woo_shortcode_digg' );
 
 
 /*-----------------------------------------------------------------------------------*/
@@ -586,7 +586,7 @@ Optional arguments:
  - font: arial (default), lucida grande, segoe ui, tahoma, trebuchet ms, verdana
 
 */
-function lok_shortcode_fblike($atts, $content = null) {
+function woo_shortcode_fblike($atts, $content = null) {
    	extract(shortcode_atts(array(	'float' => 'none',
    									'url' => '',
    									'style' => 'standard',
@@ -645,14 +645,14 @@ function lok_shortcode_fblike($atts, $content = null) {
 	} // End SWITCH Statement
 
 	$output = '
-<div class="lok-fblike '.$float.'">
+<div class="woo-fblike '.$float.'">
 <iframe src="http://www.facebook.com/plugins/like.php?href=' . $url . '&amp;layout=' . $style . '&amp;show_faces=' . $showfaces . '&amp;width=' . $width . '&amp;action=' . $verb . '&amp;colorscheme=' . $colorscheme . '&amp;font=' . $font . '" scrolling="no" frameborder="0" allowTransparency="true" style="border:none; overflow:hidden; width:' . $widthpx . '; height:' . $height . 'px;"></iframe>
 </div>
 	';
 	return $output;
 
 }
-add_shortcode( 'fblike', 'lok_shortcode_fblike' );
+add_shortcode( 'fblike', 'woo_shortcode_fblike' );
 
 
 /*-----------------------------------------------------------------------------------*/
@@ -670,165 +670,165 @@ last column.
 
 /* ============= Two Columns ============= */
 
-function lok_shortcode_twocol_one($atts, $content = null) {
-   return '<div class="twocol-one">' . lok_remove_nxtautop($content) . '</div>';
+function woo_shortcode_twocol_one($atts, $content = null) {
+   return '<div class="twocol-one">' . woo_remove_nxtautop($content) . '</div>';
 }
-add_shortcode( 'twocol_one', 'lok_shortcode_twocol_one' );
+add_shortcode( 'twocol_one', 'woo_shortcode_twocol_one' );
 
-function lok_shortcode_twocol_one_last($atts, $content = null) {
-   return '<div class="twocol-one last">' . lok_remove_nxtautop($content) . '</div>';
+function woo_shortcode_twocol_one_last($atts, $content = null) {
+   return '<div class="twocol-one last">' . woo_remove_nxtautop($content) . '</div>';
 }
-add_shortcode( 'twocol_one_last', 'lok_shortcode_twocol_one_last' );
+add_shortcode( 'twocol_one_last', 'woo_shortcode_twocol_one_last' );
 
 
 /* ============= Three Columns ============= */
 
-function lok_shortcode_threecol_one($atts, $content = null) {
-   return '<div class="threecol-one">' . lok_remove_nxtautop($content) . '</div>';
+function woo_shortcode_threecol_one($atts, $content = null) {
+   return '<div class="threecol-one">' . woo_remove_nxtautop($content) . '</div>';
 }
-add_shortcode( 'threecol_one', 'lok_shortcode_threecol_one' );
+add_shortcode( 'threecol_one', 'woo_shortcode_threecol_one' );
 
-function lok_shortcode_threecol_one_last($atts, $content = null) {
-   return '<div class="threecol-one last">' . lok_remove_nxtautop($content) . '</div>';
+function woo_shortcode_threecol_one_last($atts, $content = null) {
+   return '<div class="threecol-one last">' . woo_remove_nxtautop($content) . '</div>';
 }
-add_shortcode( 'threecol_one_last', 'lok_shortcode_threecol_one_last' );
+add_shortcode( 'threecol_one_last', 'woo_shortcode_threecol_one_last' );
 
-function lok_shortcode_threecol_two($atts, $content = null) {
-   return '<div class="threecol-two">' . lok_remove_nxtautop($content) . '</div>';
+function woo_shortcode_threecol_two($atts, $content = null) {
+   return '<div class="threecol-two">' . woo_remove_nxtautop($content) . '</div>';
 }
-add_shortcode( 'threecol_two', 'lok_shortcode_threecol_two' );
+add_shortcode( 'threecol_two', 'woo_shortcode_threecol_two' );
 
-function lok_shortcode_threecol_two_last($atts, $content = null) {
-   return '<div class="threecol-two last">' . lok_remove_nxtautop($content) . '</div>';
+function woo_shortcode_threecol_two_last($atts, $content = null) {
+   return '<div class="threecol-two last">' . woo_remove_nxtautop($content) . '</div>';
 }
-add_shortcode( 'threecol_two_last', 'lok_shortcode_threecol_two_last' );
+add_shortcode( 'threecol_two_last', 'woo_shortcode_threecol_two_last' );
 
 /* ============= Four Columns ============= */
 
-function lok_shortcode_fourcol_one($atts, $content = null) {
-   return '<div class="fourcol-one">' . lok_remove_nxtautop($content) . '</div>';
+function woo_shortcode_fourcol_one($atts, $content = null) {
+   return '<div class="fourcol-one">' . woo_remove_nxtautop($content) . '</div>';
 }
-add_shortcode( 'fourcol_one', 'lok_shortcode_fourcol_one' );
+add_shortcode( 'fourcol_one', 'woo_shortcode_fourcol_one' );
 
-function lok_shortcode_fourcol_one_last($atts, $content = null) {
-   return '<div class="fourcol-one last">' . lok_remove_nxtautop($content) . '</div>';
+function woo_shortcode_fourcol_one_last($atts, $content = null) {
+   return '<div class="fourcol-one last">' . woo_remove_nxtautop($content) . '</div>';
 }
-add_shortcode( 'fourcol_one_last', 'lok_shortcode_fourcol_one_last' );
+add_shortcode( 'fourcol_one_last', 'woo_shortcode_fourcol_one_last' );
 
-function lok_shortcode_fourcol_two($atts, $content = null) {
-   return '<div class="fourcol-two">' . lok_remove_nxtautop($content) . '</div>';
+function woo_shortcode_fourcol_two($atts, $content = null) {
+   return '<div class="fourcol-two">' . woo_remove_nxtautop($content) . '</div>';
 }
-add_shortcode( 'fourcol_two', 'lok_shortcode_fourcol_two' );
+add_shortcode( 'fourcol_two', 'woo_shortcode_fourcol_two' );
 
-function lok_shortcode_fourcol_two_last($atts, $content = null) {
-   return '<div class="fourcol-two last">' . lok_remove_nxtautop($content) . '</div>';
+function woo_shortcode_fourcol_two_last($atts, $content = null) {
+   return '<div class="fourcol-two last">' . woo_remove_nxtautop($content) . '</div>';
 }
-add_shortcode( 'fourcol_two_last', 'lok_shortcode_fourcol_two_last' );
+add_shortcode( 'fourcol_two_last', 'woo_shortcode_fourcol_two_last' );
 
-function lok_shortcode_fourcol_three($atts, $content = null) {
-   return '<div class="fourcol-three">' . lok_remove_nxtautop($content) . '</div>';
+function woo_shortcode_fourcol_three($atts, $content = null) {
+   return '<div class="fourcol-three">' . woo_remove_nxtautop($content) . '</div>';
 }
-add_shortcode( 'fourcol_three', 'lok_shortcode_fourcol_three' );
+add_shortcode( 'fourcol_three', 'woo_shortcode_fourcol_three' );
 
-function lok_shortcode_fourcol_three_last($atts, $content = null) {
-   return '<div class="fourcol-three last">' . lok_remove_nxtautop($content) . '</div>';
+function woo_shortcode_fourcol_three_last($atts, $content = null) {
+   return '<div class="fourcol-three last">' . woo_remove_nxtautop($content) . '</div>';
 }
-add_shortcode( 'fourcol_three_last', 'lok_shortcode_fourcol_three_last' );
+add_shortcode( 'fourcol_three_last', 'woo_shortcode_fourcol_three_last' );
 
 /* ============= Five Columns ============= */
 
-function lok_shortcode_fivecol_one($atts, $content = null) {
-   return '<div class="fivecol-one">' . lok_remove_nxtautop($content) . '</div>';
+function woo_shortcode_fivecol_one($atts, $content = null) {
+   return '<div class="fivecol-one">' . woo_remove_nxtautop($content) . '</div>';
 }
-add_shortcode( 'fivecol_one', 'lok_shortcode_fivecol_one' );
+add_shortcode( 'fivecol_one', 'woo_shortcode_fivecol_one' );
 
-function lok_shortcode_fivecol_one_last($atts, $content = null) {
-   return '<div class="fivecol-one last">' . lok_remove_nxtautop($content) . '</div>';
+function woo_shortcode_fivecol_one_last($atts, $content = null) {
+   return '<div class="fivecol-one last">' . woo_remove_nxtautop($content) . '</div>';
 }
-add_shortcode( 'fivecol_one_last', 'lok_shortcode_fivecol_one_last' );
+add_shortcode( 'fivecol_one_last', 'woo_shortcode_fivecol_one_last' );
 
-function lok_shortcode_fivecol_two($atts, $content = null) {
-   return '<div class="fivecol-two">' . lok_remove_nxtautop($content) . '</div>';
+function woo_shortcode_fivecol_two($atts, $content = null) {
+   return '<div class="fivecol-two">' . woo_remove_nxtautop($content) . '</div>';
 }
-add_shortcode( 'fivecol_two', 'lok_shortcode_fivecol_two' );
+add_shortcode( 'fivecol_two', 'woo_shortcode_fivecol_two' );
 
-function lok_shortcode_fivecol_two_last($atts, $content = null) {
-   return '<div class="fivecol-two last">' . lok_remove_nxtautop($content) . '</div>';
+function woo_shortcode_fivecol_two_last($atts, $content = null) {
+   return '<div class="fivecol-two last">' . woo_remove_nxtautop($content) . '</div>';
 }
-add_shortcode( 'fivecol_two_last', 'lok_shortcode_fivecol_two_last' );
+add_shortcode( 'fivecol_two_last', 'woo_shortcode_fivecol_two_last' );
 
-function lok_shortcode_fivecol_three($atts, $content = null) {
-   return '<div class="fivecol-three">' . lok_remove_nxtautop($content) . '</div>';
+function woo_shortcode_fivecol_three($atts, $content = null) {
+   return '<div class="fivecol-three">' . woo_remove_nxtautop($content) . '</div>';
 }
-add_shortcode( 'fivecol_three', 'lok_shortcode_fivecol_three' );
+add_shortcode( 'fivecol_three', 'woo_shortcode_fivecol_three' );
 
-function lok_shortcode_fivecol_three_last($atts, $content = null) {
-   return '<div class="fivecol-three last">' . lok_remove_nxtautop($content) . '</div>';
+function woo_shortcode_fivecol_three_last($atts, $content = null) {
+   return '<div class="fivecol-three last">' . woo_remove_nxtautop($content) . '</div>';
 }
-add_shortcode( 'fivecol_three_last', 'lok_shortcode_fivecol_three_last' );
+add_shortcode( 'fivecol_three_last', 'woo_shortcode_fivecol_three_last' );
 
-function lok_shortcode_fivecol_four($atts, $content = null) {
-   return '<div class="fivecol-four">' . lok_remove_nxtautop($content) . '</div>';
+function woo_shortcode_fivecol_four($atts, $content = null) {
+   return '<div class="fivecol-four">' . woo_remove_nxtautop($content) . '</div>';
 }
-add_shortcode( 'fivecol_four', 'lok_shortcode_fivecol_four' );
+add_shortcode( 'fivecol_four', 'woo_shortcode_fivecol_four' );
 
-function lok_shortcode_fivecol_four_last($atts, $content = null) {
-   return '<div class="fivecol-four last">' . lok_remove_nxtautop($content) . '</div>';
+function woo_shortcode_fivecol_four_last($atts, $content = null) {
+   return '<div class="fivecol-four last">' . woo_remove_nxtautop($content) . '</div>';
 }
-add_shortcode( 'fivecol_four_last', 'lok_shortcode_fivecol_four_last' );
+add_shortcode( 'fivecol_four_last', 'woo_shortcode_fivecol_four_last' );
 
 
 /* ============= Six Columns ============= */
 
-function lok_shortcode_sixcol_one($atts, $content = null) {
-   return '<div class="sixcol-one">' . lok_remove_nxtautop($content) . '</div>';
+function woo_shortcode_sixcol_one($atts, $content = null) {
+   return '<div class="sixcol-one">' . woo_remove_nxtautop($content) . '</div>';
 }
-add_shortcode( 'sixcol_one', 'lok_shortcode_sixcol_one' );
+add_shortcode( 'sixcol_one', 'woo_shortcode_sixcol_one' );
 
-function lok_shortcode_sixcol_one_last($atts, $content = null) {
-   return '<div class="sixcol-one last">' . lok_remove_nxtautop($content) . '</div>';
+function woo_shortcode_sixcol_one_last($atts, $content = null) {
+   return '<div class="sixcol-one last">' . woo_remove_nxtautop($content) . '</div>';
 }
-add_shortcode( 'sixcol_one_last', 'lok_shortcode_sixcol_one_last' );
+add_shortcode( 'sixcol_one_last', 'woo_shortcode_sixcol_one_last' );
 
-function lok_shortcode_sixcol_two($atts, $content = null) {
-   return '<div class="sixcol-two">' . lok_remove_nxtautop($content) . '</div>';
+function woo_shortcode_sixcol_two($atts, $content = null) {
+   return '<div class="sixcol-two">' . woo_remove_nxtautop($content) . '</div>';
 }
-add_shortcode( 'sixcol_two', 'lok_shortcode_sixcol_two' );
+add_shortcode( 'sixcol_two', 'woo_shortcode_sixcol_two' );
 
-function lok_shortcode_sixcol_two_last($atts, $content = null) {
-   return '<div class="sixcol-two last">' . lok_remove_nxtautop($content) . '</div>';
+function woo_shortcode_sixcol_two_last($atts, $content = null) {
+   return '<div class="sixcol-two last">' . woo_remove_nxtautop($content) . '</div>';
 }
-add_shortcode( 'sixcol_two_last', 'lok_shortcode_sixcol_two_last' );
+add_shortcode( 'sixcol_two_last', 'woo_shortcode_sixcol_two_last' );
 
-function lok_shortcode_sixcol_three($atts, $content = null) {
-   return '<div class="sixcol-three">' . lok_remove_nxtautop($content) . '</div>';
+function woo_shortcode_sixcol_three($atts, $content = null) {
+   return '<div class="sixcol-three">' . woo_remove_nxtautop($content) . '</div>';
 }
-add_shortcode( 'sixcol_three', 'lok_shortcode_sixcol_three' );
+add_shortcode( 'sixcol_three', 'woo_shortcode_sixcol_three' );
 
-function lok_shortcode_sixcol_three_last($atts, $content = null) {
-   return '<div class="sixcol-three last">' . lok_remove_nxtautop($content) . '</div>';
+function woo_shortcode_sixcol_three_last($atts, $content = null) {
+   return '<div class="sixcol-three last">' . woo_remove_nxtautop($content) . '</div>';
 }
-add_shortcode( 'sixcol_three_last', 'lok_shortcode_sixcol_three_last' );
+add_shortcode( 'sixcol_three_last', 'woo_shortcode_sixcol_three_last' );
 
-function lok_shortcode_sixcol_four($atts, $content = null) {
-   return '<div class="sixcol-four">' . lok_remove_nxtautop($content) . '</div>';
+function woo_shortcode_sixcol_four($atts, $content = null) {
+   return '<div class="sixcol-four">' . woo_remove_nxtautop($content) . '</div>';
 }
-add_shortcode( 'sixcol_four', 'lok_shortcode_sixcol_four' );
+add_shortcode( 'sixcol_four', 'woo_shortcode_sixcol_four' );
 
-function lok_shortcode_sixcol_four_last($atts, $content = null) {
-   return '<div class="sixcol-four last">' . lok_remove_nxtautop($content) . '</div>';
+function woo_shortcode_sixcol_four_last($atts, $content = null) {
+   return '<div class="sixcol-four last">' . woo_remove_nxtautop($content) . '</div>';
 }
-add_shortcode( 'sixcol_four_last', 'lok_shortcode_sixcol_four_last' );
+add_shortcode( 'sixcol_four_last', 'woo_shortcode_sixcol_four_last' );
 
-function lok_shortcode_sixcol_five($atts, $content = null) {
-   return '<div class="sixcol-five">' . lok_remove_nxtautop($content) . '</div>';
+function woo_shortcode_sixcol_five($atts, $content = null) {
+   return '<div class="sixcol-five">' . woo_remove_nxtautop($content) . '</div>';
 }
-add_shortcode( 'sixcol_five', 'lok_shortcode_sixcol_five' );
+add_shortcode( 'sixcol_five', 'woo_shortcode_sixcol_five' );
 
-function lok_shortcode_sixcol_five_last($atts, $content = null) {
-   return '<div class="sixcol-five last">' . lok_remove_nxtautop($content) . '</div>';
+function woo_shortcode_sixcol_five_last($atts, $content = null) {
+   return '<div class="sixcol-five last">' . woo_remove_nxtautop($content) . '</div>';
 }
-add_shortcode( 'sixcol_five_last', 'lok_shortcode_sixcol_five_last' );
+add_shortcode( 'sixcol_five_last', 'woo_shortcode_sixcol_five_last' );
 
 
 /*-----------------------------------------------------------------------------------*/
@@ -839,20 +839,20 @@ add_shortcode( 'sixcol_five_last', 'lok_shortcode_sixcol_five_last' );
 Description: Use to separate text.
 
 */
-function lok_shortcode_hr($atts, $content = null) {
-   return '<div class="lok-sc-hr"></div>';
+function woo_shortcode_hr($atts, $content = null) {
+   return '<div class="woo-sc-hr"></div>';
 }
-add_shortcode( 'hr', 'lok_shortcode_hr' );
+add_shortcode( 'hr', 'woo_shortcode_hr' );
 
-function lok_shortcode_divider($atts, $content = null) {
-   return '<div class="lok-sc-divider"></div>';
+function woo_shortcode_divider($atts, $content = null) {
+   return '<div class="woo-sc-divider"></div>';
 }
-add_shortcode( 'divider', 'lok_shortcode_divider' );
+add_shortcode( 'divider', 'woo_shortcode_divider' );
 
-function lok_shortcode_divider_flat($atts, $content = null) {
-   return '<div class="lok-sc-divider flat"></div>';
+function woo_shortcode_divider_flat($atts, $content = null) {
+   return '<div class="woo-sc-divider flat"></div>';
 }
-add_shortcode( 'divider_flat', 'lok_shortcode_divider_flat' );
+add_shortcode( 'divider_flat', 'woo_shortcode_divider_flat' );
 
 
 /*-----------------------------------------------------------------------------------*/
@@ -865,7 +865,7 @@ Optional arguments:
  - float: left, right
 
 */
-function lok_shortcode_quote($atts, $content = null) {
+function woo_shortcode_quote($atts, $content = null) {
    	extract(shortcode_atts(array(	'style' => '',
    									'float' => ''), $atts));
    $class = '';
@@ -874,9 +874,9 @@ function lok_shortcode_quote($atts, $content = null) {
    if ( $float )
    		$class .= ' '.$float;
 
-   return '<div class="lok-sc-quote' . $class . '"><p>' . lok_remove_nxtautop($content) . '</p></div>';
+   return '<div class="woo-sc-quote' . $class . '"><p>' . woo_remove_nxtautop($content) . '</p></div>';
 }
-add_shortcode( 'quote', 'lok_shortcode_quote' );
+add_shortcode( 'quote', 'woo_shortcode_quote' );
 
 /*-----------------------------------------------------------------------------------*/
 /* 12. Icon links - ilink
@@ -890,7 +890,7 @@ Optional arguments:
  - title: optional title attribute
 
 */
-function lok_shortcode_ilink( $atts, $content = null ) {
+function woo_shortcode_ilink( $atts, $content = null ) {
    	extract( shortcode_atts( array( 'style' => 'info', 'url' => '', 'icon' => '', 'title' => '' ), $atts ) );
 
 	$atts = '';
@@ -901,9 +901,9 @@ function lok_shortcode_ilink( $atts, $content = null ) {
    		$atts .= ' title="' . esc_attr( $title ) . '"';
    	}
    	
-   	return '<span class="lok-sc-ilink"><a class="' . $style . '" href="' . $url . '"' . $atts . '>' . lok_remove_nxtautop( $content ) . '</a></span>';
+   	return '<span class="woo-sc-ilink"><a class="' . $style . '" href="' . $url . '"' . $atts . '>' . woo_remove_nxtautop( $content ) . '</a></span>';
 }
-add_shortcode( 'ilink', 'lok_shortcode_ilink' );
+add_shortcode( 'ilink', 'woo_shortcode_ilink' );
 
 /*-----------------------------------------------------------------------------------*/
 /* 13. jQuery Toggle
@@ -918,22 +918,22 @@ Optional arguments:
  - display_main_trigger: Display the main trigger on the toggle
 
 */
-function lok_shortcode_toggle ( $atts, $content = null ) {
+function woo_shortcode_toggle ( $atts, $content = null ) {
 
 		// Instruct the shortcode JavaScript to load.
-		if ( ! defined( 'lok_SHORTCODE_JS' ) ) { define( 'lok_SHORTCODE_JS', 'load' ); }
+		if ( ! defined( 'WOO_SHORTCODE_JS' ) ) { define( 'WOO_SHORTCODE_JS', 'load' ); }
 
 		$defaults = array(
-							'title_open' => __( 'Hide the Content', 'lokthemes' ),
-							'title_closed' => __( 'Show the Content', 'lokthemes' ),
+							'title_open' => __( 'Hide the Content', 'woothemes' ),
+							'title_closed' => __( 'Show the Content', 'woothemes' ),
 							'hide' => 'yes',
 							'display_main_trigger' => 'yes',
 							'style' => 'default',
 							'border' => 'yes',
 							'excerpt_length' => '0',
 							'include_excerpt_html' => 'no',
-							'read_more_text' => __( 'Read More', 'lokthemes' ),
-							'read_less_text' => __( 'Read Less', 'lokthemes' )
+							'read_more_text' => __( 'Read More', 'woothemes' ),
+							'read_less_text' => __( 'Read Less', 'woothemes' )
 						);
 
 		extract( shortcode_atts( $defaults, $atts ) );
@@ -984,9 +984,9 @@ function lok_shortcode_toggle ( $atts, $content = null ) {
 
 		return '<div class="shortcode-toggle' . $class . '">' . $main_trigger . '<div class="toggle-content">' . do_shortcode( $content ) . '</div><!--/.toggle-content-->' . "\n" . '<input type="hidden" name="title_open" value="' . esc_attr( $title_open ) . '" /><input type="hidden" name="title_closed" value="' . esc_attr( $title_closed ) . '" />' . '</div><!--/.shortcode-toggle-->';
 
-} // End lok_shortcode_toggle()
+} // End woo_shortcode_toggle()
 
-add_shortcode( 'toggle', 'lok_shortcode_toggle', 99 );
+add_shortcode( 'toggle', 'woo_shortcode_toggle', 99 );
 
 /*-----------------------------------------------------------------------------------*/
 /* 14. Facebook Share Button - fbshare
@@ -1000,7 +1000,7 @@ Optional arguments:
  - float: none, left, right (default: left)
 
 */
-function lok_shortcode_fbshare($atts, $content = null) {
+function woo_shortcode_fbshare($atts, $content = null) {
    	extract( shortcode_atts( array( 'url' => '', 'type' => 'button', 'float' => 'left' ), $atts ) );
 
 	global $post;
@@ -1008,8 +1008,8 @@ function lok_shortcode_fbshare($atts, $content = null) {
 	if ( isset( $url ) && $url == '' && isset( $post ) ) { $url = get_permalink( $post->ID ); } // End IF Statement
 
 	$output = '
-<div class="lok-fbshare ' . $float . '">
-<a name="fb_share" type="' . $type . '" share_url="' . $url . '">' . lok_remove_nxtautop( $content ) . '</a>
+<div class="woo-fbshare ' . $float . '">
+<a name="fb_share" type="' . $type . '" share_url="' . $url . '">' . woo_remove_nxtautop( $content ) . '</a>
 <script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share"
         type="text/javascript">
 </script>
@@ -1018,7 +1018,7 @@ function lok_shortcode_fbshare($atts, $content = null) {
 	return $output;
 
 }
-add_shortcode( 'fbshare', 'lok_shortcode_fbshare' );
+add_shortcode( 'fbshare', 'woo_shortcode_fbshare' );
 
 
 /*-----------------------------------------------------------------------------------*/
@@ -1027,7 +1027,7 @@ add_shortcode( 'fbshare', 'lok_shortcode_fbshare' );
 /*
 
 Optional arguments:
- - email: The e-mail address to which the form will send (defaults to lok_contactform_email).
+ - email: The e-mail address to which the form will send (defaults to woo_contactform_email).
  - subject: The subject of the e-mail (defaults to "Message via the contact form".
  - button_text: Optionally change the text of the "submit" button.
 
@@ -1040,12 +1040,12 @@ Optional arguments:
 
 */
 
-function lok_shortcode_contactform ( $atts, $content = null ) {
+function woo_shortcode_contactform ( $atts, $content = null ) {
 
 		$defaults = array(
-						'email' => get_option( 'lok_contactform_email'),
-						'subject' => __( 'Message via the contact form', 'lokthemes' ),
-						'button_text' => apply_filters( 'lok_contact_form_button_text', __( 'Submit', 'lokthemes' ) )
+						'email' => get_option( 'woo_contactform_email'),
+						'subject' => __( 'Message via the contact form', 'woothemes' ),
+						'button_text' => apply_filters( 'woo_contact_form_button_text', __( 'Submit', 'woothemes' ) )
 						);
 
 		extract( shortcode_atts( $defaults, $atts ) );
@@ -1341,9 +1341,9 @@ function lok_shortcode_contactform ( $atts, $content = null ) {
 			$fields_to_skip = array( 'checking', 'submitted', 'sendCopy' );
 			$default_fields = array( 'contactName' => '', 'contactEmail' => '', 'contactMessage' => '' );
 			$error_responses = array(
-									'contactName' => __( 'Please enter your name', 'lokthemes' ),
-									'contactEmail' => __( 'Please enter your email address (and please make sure it\'s valid)', 'lokthemes' ),
-									'contactMessage' => __( 'Please enter your message', 'lokthemes' )
+									'contactName' => __( 'Please enter your name', 'woothemes' ),
+									'contactEmail' => __( 'Please enter your email address (and please make sure it\'s valid)', 'woothemes' ),
+									'contactMessage' => __( 'Please enter your message', 'woothemes' )
 									);
 
 			$posted_data = $_POST;
@@ -1426,7 +1426,7 @@ function lok_shortcode_contactform ( $atts, $content = null ) {
 				} // End FOREACH Loop
 
 				// Send the e-mail.
-				$headers = __( 'From: ', 'lokthemes') . $default_fields['contactName'] . ' <' . $default_fields['contactEmail'] . '>' . "\r\n" . __( 'Reply-To: ', 'lokthemes' ) . $default_fields['contactEmail'];
+				$headers = __( 'From: ', 'woothemes') . $default_fields['contactName'] . ' <' . $default_fields['contactEmail'] . '>' . "\r\n" . __( 'Reply-To: ', 'woothemes' ) . $default_fields['contactEmail'];
 
 				$emailSent = nxt_mail($email, $subject, $message_body, $headers);
 
@@ -1434,7 +1434,7 @@ function lok_shortcode_contactform ( $atts, $content = null ) {
 
 				if ( isset( $_POST['sendCopy'] ) && $_POST['sendCopy'] == 'true' ) {
 
-					$headers = __( 'From: ', 'lokthemes') . $default_fields['contactName'] . ' <' . $default_fields['contactEmail'] . '>' . "\r\n" . __( 'Reply-To: ', 'lokthemes' ) . $default_fields['contactEmail'];
+					$headers = __( 'From: ', 'woothemes') . $default_fields['contactName'] . ' <' . $default_fields['contactEmail'] . '>' . "\r\n" . __( 'Reply-To: ', 'woothemes' ) . $default_fields['contactEmail'];
 
 					$emailSent = nxt_mail($default_fields['contactEmail'], $subject, $message_body, $headers);
 
@@ -1456,7 +1456,7 @@ function lok_shortcode_contactform ( $atts, $content = null ) {
 
 		if( isset( $emailSent ) && $emailSent == true ) {
 
-			$html .= do_shortcode( '[box type="tick"]' . __( 'Your email was successfully sent.', 'lokthemes' ) . '[/box]' );
+			$html .= do_shortcode( '[box type="tick"]' . __( 'Your email was successfully sent.', 'woothemes' ) . '[/box]' );
 			$html .= '<span class="has_sent hide"></span>' . "\n";
 
 		} // End IF Statement
@@ -1465,7 +1465,7 @@ function lok_shortcode_contactform ( $atts, $content = null ) {
 
 		if( count( $error_messages ) ) {
 
-			$html .= do_shortcode( '[box type="alert"]' . __( 'There were one or more errors while submitting the form.', 'lokthemes' ) . '[/box]' );
+			$html .= do_shortcode( '[box type="alert"]' . __( 'There were one or more errors while submitting the form.', 'woothemes' ) . '[/box]' );
 
 		} // End IF Statement
 
@@ -1473,7 +1473,7 @@ function lok_shortcode_contactform ( $atts, $content = null ) {
 
         if( $email == '' ) {
 
-			$html .= do_shortcode( '[box type="alert"]' . __( 'E-mail has not been setup properly. Please add your contact e-mail!', 'lokthemes' ) . '[/box]' );
+			$html .= do_shortcode( '[box type="alert"]' . __( 'E-mail has not been setup properly. Please add your contact e-mail!', 'woothemes' ) . '[/box]' );
 
 		} // End IF Statement
 
@@ -1495,7 +1495,7 @@ function lok_shortcode_contactform ( $atts, $content = null ) {
 			$contactMessage = '';
 			if( isset( $_POST['contactMessage'] ) ) { $contactMessage = stripslashes( $_POST['contactMessage'] ); } // End IF Statement
 
-			$html .= '<p><label for="contactName">' . __( 'Name', 'lokthemes' ) . '</label>' . "\n";
+			$html .= '<p><label for="contactName">' . __( 'Name', 'woothemes' ) . '</label>' . "\n";
 			$html .= '<input type="text" name="contactName" id="contactName" value="' . esc_attr( $contactName ) . '" class="txt requiredField" />' . "\n";
 
 			if( array_key_exists( 'contactName', $error_messages ) ) {
@@ -1506,7 +1506,7 @@ function lok_shortcode_contactform ( $atts, $content = null ) {
 
 			$html .= '</p>' . "\n";
 
-			$html .= '<p><label for="contactEmail">' . __( 'Email', 'lokthemes' ) . '</label>' . "\n";
+			$html .= '<p><label for="contactEmail">' . __( 'Email', 'woothemes' ) . '</label>' . "\n";
 			$html .= '<input type="text" name="contactEmail" id="contactEmail" value="' . esc_attr( $contactEmail ) . '" class="txt requiredField email" />' . "\n";
 
 			if( array_key_exists( 'contactEmail', $error_messages ) ) {
@@ -1517,7 +1517,7 @@ function lok_shortcode_contactform ( $atts, $content = null ) {
 
 			$html .= '</p>' . "\n";
 
-			$html .= '<p class="textarea"><label for="contactMessage">' . __( 'Message', 'lokthemes' ) . '</label>' . "\n";
+			$html .= '<p class="textarea"><label for="contactMessage">' . __( 'Message', 'woothemes' ) . '</label>' . "\n";
 			$html .= '<textarea name="contactMessage" id="contactMessage" rows="20" cols="30" class="textarea requiredField">' . esc_textarea( $contactMessage ) . '</textarea>' . "\n";
 
 			if( array_key_exists( 'contactMessage', $error_messages ) ) {
@@ -1548,15 +1548,15 @@ function lok_shortcode_contactform ( $atts, $content = null ) {
 
 						$html .= '<p><label for="' . $k . '">' . $v['label'] . '</label>' . "\n";
 
-							$html .= '<span class="lok-radio-container fl">' . "\n";
+							$html .= '<span class="woo-radio-container fl">' . "\n";
 
 							foreach ( $v['options'] as $value => $label ) {
 
-								$html .= '<input type="radio" name="' . $k . '" class="radio-button lok-input-radio" value="' . $value . '"' . checked( $value, ${$k}, false ) . ' />&nbsp;' . $label . '<br />' . "\n";
+								$html .= '<input type="radio" name="' . $k . '" class="radio-button woo-input-radio" value="' . $value . '"' . checked( $value, ${$k}, false ) . ' />&nbsp;' . $label . '<br />' . "\n";
 
 							} // End FOREACH Loop
 
-							$html .= '</span><!--/.lok-radio-container-->' . "\n";
+							$html .= '</span><!--/.woo-radio-container-->' . "\n";
 
 					} // End IF Statement
 
@@ -1575,7 +1575,7 @@ function lok_shortcode_contactform ( $atts, $content = null ) {
 						if ( array_key_exists( 'checked', $v ) && $v['checked'] == 'yes' ) { $checked = ${$k}; }
 
 						$html .= '<p class="inline">' . "\n";
-						$html .= '<input type="checkbox" value="' . ${$k} . '" name="' . $k . '" id="' . $k . '" class="checkbox input-checkbox lok-input-checkbox"' . checked( $checked, ${$k}, false ) . ' />' . "\n";
+						$html .= '<input type="checkbox" value="' . ${$k} . '" name="' . $k . '" id="' . $k . '" class="checkbox input-checkbox woo-input-checkbox"' . checked( $checked, ${$k}, false ) . ' />' . "\n";
 						$html .= '<label for="' . $k . '">' . $v['label'] . '</label></p>' . "\n";
 
 					} // End IF Statement
@@ -1592,7 +1592,7 @@ function lok_shortcode_contactform ( $atts, $content = null ) {
 						if ( isset( $_POST[$k] ) ) { ${$k} = trim( strip_tags( $_POST[$k] ) ); } // End IF Statement
 
 						$html .= '<p><label for="' . $k . '">' . $v['label'] . '</label>' . "\n";
-						$html .= '<input type="text" value="' . esc_attr( ${$k} ) . '" name="' . $k . '" id="' . $k . '" class="txt input-text textfield lok-input-text" /></p>' . "\n";
+						$html .= '<input type="text" value="' . esc_attr( ${$k} ) . '" name="' . $k . '" id="' . $k . '" class="txt input-text textfield woo-input-text" /></p>' . "\n";
 
 					} // End IF Statement
 
@@ -1608,7 +1608,7 @@ function lok_shortcode_contactform ( $atts, $content = null ) {
 						if ( isset( $_POST[$k] ) ) { ${$k} = trim( strip_tags( $_POST[$k] ) ); } // End IF Statement
 
 						$html .= '<p><label for="' . $k . '">' . $v['label'] . '</label>' . "\n";
-						$html .= '<select name="' . $k . '" id="' . $k . '" class="select selectfield lok-select">' . "\n";
+						$html .= '<select name="' . $k . '" id="' . $k . '" class="select selectfield woo-select">' . "\n";
 
 							foreach ( $v['options'] as $value => $label ) {
 
@@ -1635,7 +1635,7 @@ function lok_shortcode_contactform ( $atts, $content = null ) {
 						if ( isset( $_POST[$k] ) ) { ${$k} = trim( strip_tags( $_POST[$k] ) ); } // End IF Statement
 
 						$html .= '<p><label for="' . $k . '">' . $v['label'] . '</label>' . "\n";
-						$html .= '<textarea rows="' . $v['number_of_rows'] . '" cols="' . $v['number_of_columns'] . '" name="' . $k . '" id="' . $k . '" class="input-textarea textarea lok-textarea">' . $v['default_text'] . '</textarea></p>' . "\n";
+						$html .= '<textarea rows="' . $v['number_of_rows'] . '" cols="' . $v['number_of_columns'] . '" name="' . $k . '" id="' . $k . '" class="input-textarea textarea woo-textarea">' . $v['default_text'] . '</textarea></p>' . "\n";
 
 					} // End IF Statement
 
@@ -1653,7 +1653,7 @@ function lok_shortcode_contactform ( $atts, $content = null ) {
 
 			} // End IF Statement
 
-			$html .= '<p class="inline"><input type="checkbox" name="sendCopy" id="sendCopy" value="true"' . $sendCopy . ' /><label for="sendCopy">' . __( 'Send a copy of this email to yourself', 'lokthemes' ) . '</label></p>' . "\n";
+			$html .= '<p class="inline"><input type="checkbox" name="sendCopy" id="sendCopy" value="true"' . $sendCopy . ' /><label for="sendCopy">' . __( 'Send a copy of this email to yourself', 'woothemes' ) . '</label></p>' . "\n";
 
 			$checking = '';
 			if(isset($_POST['checking'])) {
@@ -1662,7 +1662,7 @@ function lok_shortcode_contactform ( $atts, $content = null ) {
 
 			} // End IF Statement
 
-			$html .= '<p class="screenReader"><label for="checking" class="screenReader">' . __('If you want to submit this form, do not enter anything in this field', 'lokthemes') . '</label><input type="text" name="checking" id="checking" class="screenReader" value="' . esc_attr( $checking ) . '" /></p>' . "\n";
+			$html .= '<p class="screenReader"><label for="checking" class="screenReader">' . __('If you want to submit this form, do not enter anything in this field', 'woothemes') . '</label><input type="text" name="checking" id="checking" class="screenReader" value="' . esc_attr( $checking ) . '" /></p>' . "\n";
 
 			$html .= '<p class="buttons"><input type="hidden" name="submitted" id="submitted" value="true" /><input class="submit button" type="submit" value="' . $button_text . '" /></p>';
 
@@ -1678,18 +1678,18 @@ function lok_shortcode_contactform ( $atts, $content = null ) {
 
 		return $html;
 
-} // End lok_shortcode_contactform()
+} // End woo_shortcode_contactform()
 
-add_shortcode( 'contact_form', 'lok_shortcode_contactform' );
+add_shortcode( 'contact_form', 'woo_shortcode_contactform' );
 
 /*-----------------------------------------------------------------------------------*/
 /* 16. Tabs - [tabs][/tabs]
 /*-----------------------------------------------------------------------------------*/
 
-function lok_shortcode_tabs ( $atts, $content = null ) {
+function woo_shortcode_tabs ( $atts, $content = null ) {
 
 		// Instruct the shortcode JavaScript to load.
-		if ( ! defined( 'lok_SHORTCODE_JS' ) ) { define( 'lok_SHORTCODE_JS', 'load' ); }
+		if ( ! defined( 'WOO_SHORTCODE_JS' ) ) { define( 'WOO_SHORTCODE_JS', 'load' ); }
 
 		$defaults = array( 'style' => 'default', 'title' => '', 'css' => '', 'id' => '' );
 
@@ -1732,15 +1732,15 @@ function lok_shortcode_tabs ( $atts, $content = null ) {
 
 		return '<div id="tabs-' . $id . '" class="shortcode-tabs ' . $style . $css . '">' . $titles_html . do_shortcode( $content ) . "\n" . '<div class="fix"></div><!--/.fix-->' . "\n" . '</div><!--/.tabs-->';
 
-} // End lok_shortcode_tabs()
+} // End woo_shortcode_tabs()
 
-add_shortcode( 'tabs', 'lok_shortcode_tabs', 90 );
+add_shortcode( 'tabs', 'woo_shortcode_tabs', 90 );
 
 /*-----------------------------------------------------------------------------------*/
 /* 16.1 A Single Tab - [tab title="The title goes here"][/tab]
 /*-----------------------------------------------------------------------------------*/
 
-function lok_shortcode_tab_single ( $atts, $content = null ) {
+function woo_shortcode_tab_single ( $atts, $content = null ) {
 
 		$defaults = array( 'title' => 'Tab' );
 
@@ -1756,15 +1756,15 @@ function lok_shortcode_tab_single ( $atts, $content = null ) {
 
 		return '<div class="tab' . $class . '">' . do_shortcode( $content ) . '</div><!--/.tab-->';
 
-} // End lok_shortcode_tab_single()
+} // End woo_shortcode_tab_single()
 
-add_shortcode( 'tab', 'lok_shortcode_tab_single', 99 );
+add_shortcode( 'tab', 'woo_shortcode_tab_single', 99 );
 
 /*-----------------------------------------------------------------------------------*/
 /* 17. Dropcap - [dropcap][/dropcap]
 /*-----------------------------------------------------------------------------------*/
 
-function lok_shortcode_dropcap ( $atts, $content = null ) {
+function woo_shortcode_dropcap ( $atts, $content = null ) {
 
 	$defaults = array();
 
@@ -1772,15 +1772,15 @@ function lok_shortcode_dropcap ( $atts, $content = null ) {
 
 	return '<span class="dropcap">' . $content . '</span><!--/.dropcap-->';
 
-} // End lok_shortcode_dropcap()
+} // End woo_shortcode_dropcap()
 
-add_shortcode( 'dropcap', 'lok_shortcode_dropcap' );
+add_shortcode( 'dropcap', 'woo_shortcode_dropcap' );
 
 /*-----------------------------------------------------------------------------------*/
 /* 18. Highlight - [highlight][/highlight]
 /*-----------------------------------------------------------------------------------*/
 
-function lok_shortcode_highlight ( $atts, $content = null ) {
+function woo_shortcode_highlight ( $atts, $content = null ) {
 
 	$defaults = array();
 
@@ -1788,15 +1788,15 @@ function lok_shortcode_highlight ( $atts, $content = null ) {
 
 	return '<span class="shortcode-highlight">' . $content . '</span><!--/.shortcode-highlight-->';
 
-} // End lok_shortcode_highlight()
+} // End woo_shortcode_highlight()
 
-add_shortcode( 'highlight', 'lok_shortcode_highlight' );
+add_shortcode( 'highlight', 'woo_shortcode_highlight' );
 
 /*-----------------------------------------------------------------------------------*/
 /* 19. Abbreviation - [abbr][/abbr]
 /*-----------------------------------------------------------------------------------*/
 
-function lok_shortcode_abbreviation ( $atts, $content = null ) {
+function woo_shortcode_abbreviation ( $atts, $content = null ) {
 
 	$defaults = array( 'title' => '' );
 
@@ -1804,15 +1804,15 @@ function lok_shortcode_abbreviation ( $atts, $content = null ) {
 
 	return '<abbr title="' . $title . '">' . $content . '</abbr>';
 
-} // End lok_shortcode_abbreviation()
+} // End woo_shortcode_abbreviation()
 
-add_shortcode( 'abbr', 'lok_shortcode_abbreviation' );
+add_shortcode( 'abbr', 'woo_shortcode_abbreviation' );
 
 /*-----------------------------------------------------------------------------------*/
 /* 20. Typography - [typography font="" size="" color=""][/typography]
 /*-----------------------------------------------------------------------------------*/
 
-function lok_shortcode_typography ( $atts, $content = null ) {
+function woo_shortcode_typography ( $atts, $content = null ) {
 
 	global $google_fonts;
 
@@ -1872,13 +1872,13 @@ function lok_shortcode_typography ( $atts, $content = null ) {
 
 	return '<span class="shortcode-typography" style="font-family: ' . $font . '; font-size: ' . $size . $size_format . '; color: ' . $color . ';">' . do_shortcode( $content ) . '</span>';
 
-} // End lok_shortcode_typography()
+} // End woo_shortcode_typography()
 
-add_shortcode( 'typography', 'lok_shortcode_typography' );
+add_shortcode( 'typography', 'woo_shortcode_typography' );
 
-add_action( 'nxt_head', 'lok_shortcode_typography_loadgooglefonts', 0 );
+add_action( 'nxt_head', 'woo_shortcode_typography_loadgooglefonts', 0 );
 
-function lok_shortcode_typography_loadgooglefonts ( $font = '' ) {
+function woo_shortcode_typography_loadgooglefonts ( $font = '' ) {
 
 	// If a specific font is requested, just enqueue that font.
 	$variations = array(
@@ -1906,7 +1906,7 @@ function lok_shortcode_typography_loadgooglefonts ( $font = '' ) {
 
 		} // End IF Statement
 
-		echo "<link rel='stylesheet' id='" . 'lok-googlefont-' . sanitize_title( $f ) . "'  href='" . 'http'. ( is_ssl() ? 's' : '' ) .'://fonts.googleapis.com/css?family=' . $f_include . '' . "' type='text/css' media='screen' />" . "\n";
+		echo "<link rel='stylesheet' id='" . 'woo-googlefont-' . sanitize_title( $f ) . "'  href='" . 'http'. ( is_ssl() ? 's' : '' ) .'://fonts.googleapis.com/css?family=' . $f_include . '' . "' type='text/css' media='screen' />" . "\n";
 
 	} else {
 
@@ -1959,7 +1959,7 @@ function lok_shortcode_typography_loadgooglefonts ( $font = '' ) {
 
 				} // End IF Statement
 
-				nxt_enqueue_style( 'lok-googlefont-' . sanitize_title( $f ), 'http'. ( is_ssl() ? 's' : '' ) .'://fonts.googleapis.com/css?family=' . $f_include . '', array(), '3.6', 'screen' );
+				nxt_enqueue_style( 'woo-googlefont-' . sanitize_title( $f ), 'http'. ( is_ssl() ? 's' : '' ) .'://fonts.googleapis.com/css?family=' . $f_include . '', array(), '3.6', 'screen' );
 
 			} // End FOREACH Loop
 
@@ -1967,13 +1967,13 @@ function lok_shortcode_typography_loadgooglefonts ( $font = '' ) {
 
 	} // End IF Statement
 
-} // End lok_shortcode_typography_loadgooglefonts()
+} // End woo_shortcode_typography_loadgooglefonts()
 
 /*-----------------------------------------------------------------------------------*/
 /* 21. List Styles - Unordered List - [unordered_list style=""][/unordered_list]
 /*-----------------------------------------------------------------------------------*/
 
-function lok_shortcode_unorderedlist ( $atts, $content = null ) {
+function woo_shortcode_unorderedlist ( $atts, $content = null ) {
 
 	$defaults = array( 'style' => 'default' );
 
@@ -1981,15 +1981,15 @@ function lok_shortcode_unorderedlist ( $atts, $content = null ) {
 
 	return '<div class="shortcode-unorderedlist ' . $style . '">' . do_shortcode( $content ) . '</div>' . "\n";
 
-} // End lok_shortcode_unorderedlist()
+} // End woo_shortcode_unorderedlist()
 
-add_shortcode( 'unordered_list', 'lok_shortcode_unorderedlist' );
+add_shortcode( 'unordered_list', 'woo_shortcode_unorderedlist' );
 
 /*-----------------------------------------------------------------------------------*/
 /* 22. List Styles - Ordered List - [ordered_list style=""][/ordered_list]
 /*-----------------------------------------------------------------------------------*/
 
-function lok_shortcode_orderedlist ( $atts, $content = null ) {
+function woo_shortcode_orderedlist ( $atts, $content = null ) {
 
 	$defaults = array( 'style' => 'default' );
 
@@ -1997,15 +1997,15 @@ function lok_shortcode_orderedlist ( $atts, $content = null ) {
 
 	return '<div class="shortcode-orderedlist ' . $style . '">' . do_shortcode( $content ) . '</div>' . "\n";
 
-} // End lok_shortcode_orderedlist()
+} // End woo_shortcode_orderedlist()
 
-add_shortcode( 'ordered_list', 'lok_shortcode_orderedlist' );
+add_shortcode( 'ordered_list', 'woo_shortcode_orderedlist' );
 
 /*-----------------------------------------------------------------------------------*/
 /* 23. Social Icon - [social_icon url="" float="" icon_url="" title="" profile_type="" window=""]
 /*-----------------------------------------------------------------------------------*/
 
-function lok_shortcode_socialicon ( $atts, $content = null ) {
+function woo_shortcode_socialicon ( $atts, $content = null ) {
 
 	$defaults = array( 'url' => '', 'float' => 'none', 'icon_url' => '', 'title' => '', 'profile_type' => '', 'window' => 'no', 'rel' => '' );
 
@@ -2040,7 +2040,7 @@ function lok_shortcode_socialicon ( $atts, $content = null ) {
 
 		$_profile_match = true;
 		$_profile_to_display = $profile_type;
-		if ( $title ) { $_alt_text = $title; } else { $_alt_text = ucwords( $_profile_to_display ); $_alt_text = sprintf( __( 'My %s Profile', 'lokthemes' ), $_alt_text ); } // End IF Statement
+		if ( $title ) { $_alt_text = $title; } else { $_alt_text = ucwords( $_profile_to_display ); $_alt_text = sprintf( __( 'My %s Profile', 'woothemes' ), $_alt_text ); } // End IF Statement
 		$_profile_class = ' social-icon-' . $_profile_to_display;
 
 		if ( $icon_url ) {
@@ -2061,7 +2061,7 @@ function lok_shortcode_socialicon ( $atts, $content = null ) {
 
 		$_profile_match = true;
 		$_profile_to_display = 'rss';
-		if ( $title ) { $_alt_text = $title; } else { $_alt_text = __( 'Subscribe to our RSS feed', 'lokthemes' ); } // End IF Statement
+		if ( $title ) { $_alt_text = $title; } else { $_alt_text = __( 'Subscribe to our RSS feed', 'woothemes' ); } // End IF Statement
 		$_classes .= ' social-icon-subscribe';
 		$url = get_bloginfo( 'rss2_url' );
 
@@ -2090,7 +2090,7 @@ function lok_shortcode_socialicon ( $atts, $content = null ) {
 
 				$_profile_match = true;
 				$_profile_to_display = $k;
-				if ( $title ) { $_alt_text = $title; } else { $_alt_text = ucwords( $_profile_to_display ); $_alt_text = sprintf( __( 'My %s Profile', 'lokthemes' ), $_alt_text ); } // End IF Statement
+				if ( $title ) { $_alt_text = $title; } else { $_alt_text = ucwords( $_profile_to_display ); $_alt_text = sprintf( __( 'My %s Profile', 'woothemes' ), $_alt_text ); } // End IF Statement
 				$_profile_class = ' social-icon-' . $_profile_to_display;
 
 				if ( $icon_url ) {
@@ -2106,7 +2106,7 @@ function lok_shortcode_socialicon ( $atts, $content = null ) {
 			} else {
 
 				$_profile_to_display = 'default';
-				if ( $title ) { $_alt_text = $title; } else { $_alt_text = ucwords( $matches[1] ); $_alt_text = sprintf( __( 'My %s Profile', 'lokthemes' ), $_alt_text ); } // End IF Statement
+				if ( $title ) { $_alt_text = $title; } else { $_alt_text = ucwords( $matches[1] ); $_alt_text = sprintf( __( 'My %s Profile', 'woothemes' ), $_alt_text ); } // End IF Statement
 
 				$_host_bits = explode( '.', $matches[1] );
 				$_profile_class = ' social-icon-' . $_host_bits[0];
@@ -2166,15 +2166,15 @@ function lok_shortcode_socialicon ( $atts, $content = null ) {
 
 	return '<a href="' . $url . '" title="' . $_alt_text . '"' . $target . $rel . '><img src="' . $_img_url . '" alt="' . $_alt_text . '" class="' . $_classes . '" /></a>' . "\n";
 
-} // End lok_shortcode_socialicon()
+} // End woo_shortcode_socialicon()
 
-add_shortcode( 'social_icon', 'lok_shortcode_socialicon' );
+add_shortcode( 'social_icon', 'woo_shortcode_socialicon' );
 
 /*-----------------------------------------------------------------------------------*/
 /* 24. LinkedIn Button - [linkedin_share url="" style=""]
 /*-----------------------------------------------------------------------------------*/
 
-function lok_shortcode_linkedin_share ( $atts, $content = null ) {
+function woo_shortcode_linkedin_share ( $atts, $content = null ) {
 
 	$defaults = array( 'url' => '', 'style' => 'none', 'float' => 'none' );
 
@@ -2197,28 +2197,28 @@ function lok_shortcode_linkedin_share ( $atts, $content = null ) {
 	if ( $float == 'none' ) {} else { $output .= '</div><!--/.shortcode-linkedin_share-->' . "\n"; }
 
 	// Enqueue the LinkedIn button JavaScript from their API.
-	add_action( 'nxt_footer', 'lok_shortcode_linkedin_js' );
-	add_action( 'lok_shortcode_generator_preview_footer', 'lok_shortcode_linkedin_js' );
+	add_action( 'nxt_footer', 'woo_shortcode_linkedin_js' );
+	add_action( 'woo_shortcode_generator_preview_footer', 'woo_shortcode_linkedin_js' );
 
 	return $output . "\n";
 
-} // End lok_shortcode_linkedin_share()
+} // End woo_shortcode_linkedin_share()
 
-add_shortcode( 'linkedin_share', 'lok_shortcode_linkedin_share' );
+add_shortcode( 'linkedin_share', 'woo_shortcode_linkedin_share' );
 
 /*-----------------------------------------------------------------------------------*/
 /* 24.1 Load Javascript for LinkedIn Button
 /*-----------------------------------------------------------------------------------*/
 
-function lok_shortcode_linkedin_js () {
+function woo_shortcode_linkedin_js () {
 	echo '<script src="http://platform.linkedin.com/in.js" type="text/javascript"></script>' . "\n";
-} // End lok_shortcode_linkedin_js()
+} // End woo_shortcode_linkedin_js()
 
 /*-----------------------------------------------------------------------------------*/
 /* 25. Google +1 Button - [google_plusone]
 /*-----------------------------------------------------------------------------------*/
 
-function lok_shortcode_google_plusone ( $atts, $content = null ) {
+function woo_shortcode_google_plusone ( $atts, $content = null ) {
 
 	global $post;
 
@@ -2324,34 +2324,34 @@ function lok_shortcode_google_plusone ( $atts, $content = null ) {
 	}
 
 	// Enqueue the Google +1 button JavaScript from their API.
-	// add_action( 'nxt_footer', 'lok_shortcode_google_plusone_js' );
-	// add_action( 'lok_shortcode_generator_preview_footer', 'lok_shortcode_google_plusone_js' );
-	lok_shortcode_google_plusone_js( $params );
+	// add_action( 'nxt_footer', 'woo_shortcode_google_plusone_js' );
+	// add_action( 'woo_shortcode_generator_preview_footer', 'woo_shortcode_google_plusone_js' );
+	woo_shortcode_google_plusone_js( $params );
 
 	return $output . "\n";
 
-} // End lok_shortcode_google_plusone()
+} // End woo_shortcode_google_plusone()
 
-add_shortcode( 'google_plusone', 'lok_shortcode_google_plusone' );
+add_shortcode( 'google_plusone', 'woo_shortcode_google_plusone' );
 
 /*-----------------------------------------------------------------------------------*/
 /* 25.1 Load Javascript for Google +1 Button
 /*-----------------------------------------------------------------------------------*/
 
-function lok_shortcode_google_plusone_js ( $params ) {
+function woo_shortcode_google_plusone_js ( $params ) {
 	echo '<script src="https://apis.google.com/js/plusone.js" type="text/javascript">' . "\n";
 	if ( isset( $params['language'] ) && ( $params['language'] != '' ) ) {
 		echo ' {lang: \'' . $params['language'] . '\'}' . "\n";
 	}
 	echo '</script>' . "\n";
 	echo '<script type="text/javascript">gapi.plusone.go();</script>' . "\n";
-} // End lok_shortcode_google_plusone_js()
+} // End woo_shortcode_google_plusone_js()
 
 /*-----------------------------------------------------------------------------------*/
 /* 26. Twitter Follow Button - [twitter_follow]
 /*-----------------------------------------------------------------------------------*/
 
-function lok_shortcode_twitter_follow ( $atts, $content = null ) {
+function woo_shortcode_twitter_follow ( $atts, $content = null ) {
 
 	global $post;
 
@@ -2403,31 +2403,31 @@ function lok_shortcode_twitter_follow ( $atts, $content = null ) {
 		}
 	}
 
-	$output = '<div class="shortcode-twitter-follow' . $allowed_floats[$float] . '"><a href="http://twitter.com/' . $username . '/"' . $tag_atts . ' class="twitter-follow-button">' . __( 'Follow', 'lokthemes' ) . ' ' . $username . '</a></div><!--/.shortcode-twitter-follow-->' . "\n";
+	$output = '<div class="shortcode-twitter-follow' . $allowed_floats[$float] . '"><a href="http://twitter.com/' . $username . '/"' . $tag_atts . ' class="twitter-follow-button">' . __( 'Follow', 'woothemes' ) . ' ' . $username . '</a></div><!--/.shortcode-twitter-follow-->' . "\n";
 
 	// Enqueue the Twitter Follow button JavaScript from their API.
-	add_action( 'nxt_footer', 'lok_shortcode_twitter_follow_js' );
-	add_action( 'lok_shortcode_generator_preview_footer', 'lok_shortcode_twitter_follow_js' );
+	add_action( 'nxt_footer', 'woo_shortcode_twitter_follow_js' );
+	add_action( 'woo_shortcode_generator_preview_footer', 'woo_shortcode_twitter_follow_js' );
 
 	return $output . "\n";
 
-} // End lok_shortcode_twitter_follow()
+} // End woo_shortcode_twitter_follow()
 
-add_shortcode( 'twitter_follow', 'lok_shortcode_twitter_follow' );
+add_shortcode( 'twitter_follow', 'woo_shortcode_twitter_follow' );
 
 /*-----------------------------------------------------------------------------------*/
 /* 26.1 Load Javascript for Google +1 Button
 /*-----------------------------------------------------------------------------------*/
 
-function lok_shortcode_twitter_follow_js () {
+function woo_shortcode_twitter_follow_js () {
 	echo '<script src="http://platform.twitter.com/widgets.js" type="text/javascript"></script>' . "\n";
-} // End lok_shortcode_twitter_follow_js()
+} // End woo_shortcode_twitter_follow_js()
 
 /*-----------------------------------------------------------------------------------*/
 /* 27. StumbleUpon Badge - [stumbleupon]
 /*-----------------------------------------------------------------------------------*/
 
-function lok_shortcode_stumbleupon ( $atts, $content = null ) {
+function woo_shortcode_stumbleupon ( $atts, $content = null ) {
 	global $post;
 	
 	$defaults = array(
@@ -2461,256 +2461,12 @@ function lok_shortcode_stumbleupon ( $atts, $content = null ) {
 		$url_call = '&r=' . get_permalink( $post );
 	}
 
-	$output = apply_filters( 'lok_shortcode_stumbleupon', '<div class="shortcode-stumbleupon' . $allowed_floats[$float] . '"><script src="http://www.stumbleupon.com/hostedbadge.php?s=' . $allowed_designs[$design] . $url_call . '"></script></div><!--/.shortcode-stumbleupon-->' . "\n", $atts );
+	$output = apply_filters( 'woo_shortcode_stumbleupon', '<div class="shortcode-stumbleupon' . $allowed_floats[$float] . '"><script src="http://www.stumbleupon.com/hostedbadge.php?s=' . $allowed_designs[$design] . $url_call . '"></script></div><!--/.shortcode-stumbleupon-->' . "\n", $atts );
 
 	return $output . "\n";
-} // End lok_shortcode_stumbleupon()
+} // End woo_shortcode_stumbleupon()
 
-add_shortcode( 'stumbleupon', 'lok_shortcode_stumbleupon' );
-
-
-/*-----------------------------------------------------------------------------------*/
-/* 28. Summary
-/*-----------------------------------------------------------------------------------*/
-
-function summary( $atts, $content = null ) {
-	extract( shortcode_atts( array(
-	'text' => "", 
-	), $atts ) );
-	
-	$output = '<div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-parent="#accordion" href="#summary" data-toggle="collapse">Summary</a></div>
-<div id="summary" class="accordion-body collapse">';
-	$output .= $text;
-	$output .= '</div></div>';
-	
-	return $output;
-}
-
-add_shortcode('summary', 'summary'); 
-
-/*-----------------------------------------------------------------------------------*/
-/* 29. Short Answer Questions
-/*-----------------------------------------------------------------------------------*/
-
-function saq( $atts, $content = null ) {
-	extract( shortcode_atts( array(
-	'text' => "", 
-	), $atts ) );
-	
-	$output = '<div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-parent="#accordion" href="#saq" data-toggle="collapse">Short Answer Questions</a></div>
-<div id="saq" class="accordion-body collapse">';
-	$output .= $text;
-	$output .= '</div></div>';
-	
-	return $output;
-}
-
-add_shortcode('saq', 'saq'); 
-
-/*-----------------------------------------------------------------------------------*/
-/* 30. Long Answer Questions
-/*-----------------------------------------------------------------------------------*/
-
-function laq( $atts, $content = null ) {
-	extract( shortcode_atts( array(
-	'text' => "", 
-	), $atts ) );
-	
-	$output = '<div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-parent="#accordion" href="#laq" data-toggle="collapse">Long Answer Questions</a></div>
-<div id="laq" class="accordion-body collapse">';
-	$output .= $text;
-	$output .= '</div></div>';
-	
-	return $output;
-}
-
-add_shortcode('laq', 'laq'); 
-
-/*-----------------------------------------------------------------------------------*/
-/* 31. About the Poet
-/*-----------------------------------------------------------------------------------*/
-
-function abpoet( $atts, $content = null ) {
-	extract( shortcode_atts( array(
-	'text' => "", 
-	), $atts ) );
-	
-	$output = '<div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-parent="#accordion" href="#abpoet" data-toggle="collapse">About the Poet</a></div>
-<div id="abpoet" class="accordion-body collapse">';
-	$output .= $text;
-	$output .= '</div></div>';
-	
-	return $output;
-}
-
-add_shortcode('abpoet', 'abpoet'); 
-
-/*-----------------------------------------------------------------------------------*/
-/* 32. About the Poem
-/*-----------------------------------------------------------------------------------*/
-
-function abpoem( $atts, $content = null ) {
-	extract( shortcode_atts( array(
-	'text' => "", 
-	), $atts ) );
-	
-	$output = '<div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-parent="#accordion" href="#abpoem" data-toggle="collapse">About the Poem</a></div>
-<div id="abpoem" class="accordion-body collapse">';
-	$output .= $text;
-	$output .= '</div></div>';
-	
-	return $output;
-}
-
-add_shortcode('abpoem', 'abpoem'); 
-
-/*-----------------------------------------------------------------------------------*/
-/* 33. NCERT Solutions
-/*-----------------------------------------------------------------------------------*/
-
-function ncert( $atts, $content = null ) {
-	extract( shortcode_atts( array(
-	'text' => "", 
-	), $atts ) );
-	
-	$output = '<div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-parent="#accordion" href="#ncert" data-toggle="collapse">NCERT Solutions</a></div>
-<div id="ncert" class="accordion-body collapse">';
-	$output .= $text;
-	$output .= '</div></div>';
-	
-	return $output;
-}
-
-add_shortcode('ncert', 'ncert'); 
-
-/*-----------------------------------------------------------------------------------*/
-/* 34. Collapse
-/*-----------------------------------------------------------------------------------*/
-
-function col( $atts, $content = null ) {
-	extract( shortcode_atts( array(
-	'url' => "",
-	'title' => "",
-	'text' => "", 
-	), $atts ) );
-	
-	$output = '<div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-parent="#accordion" href="#'.$url.'" data-toggle="collapse">'.$title.'</a></div>
-<div id="'.$url.'" class="accordion-body collapse">';
-	$output .= $text;
-	$output .= '</div></div>';
-	
-	return $output;
-}
-
-add_shortcode('col', 'col'); 
-
-/*-----------------------------------------------------------------------------------*/
-/* 35. Intro
-/*-----------------------------------------------------------------------------------*/
-
-function introduction ( $atts, $content = null ) {
-	extract( shortcode_atts( array(
-	'text' => "", 
-	), $atts ) );
-	
-	$output = '<div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-parent="#accordion" href="#introduction" data-toggle="collapse">Introduction</a></div>
-<div id="introduction" class="accordion-body collapse">';
-	$output .= $text;
-	$output .= '</div></div>';
-	
-	return $output;
-}
-
-add_shortcode('introduction', 'introduction'); 
-
-/*-----------------------------------------------------------------------------------*/
-/* 36. Story
-/*-----------------------------------------------------------------------------------*/
-
-function story( $atts, $content = null ) {
-	extract( shortcode_atts( array(
-	'text' => "", 
-	), $atts ) );
-	
-	$output = '<div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-parent="#accordion" href="#story" data-toggle="collapse">Story</a></div>
-<div id="story" class="accordion-body collapse">';
-	$output .= $text;
-	$output .= '</div></div>';
-	
-	return $output;
-}
-
-add_shortcode('story', 'story'); 
-
-/*-----------------------------------------------------------------------------------*/
-/* 37. Characters
-/*-----------------------------------------------------------------------------------*/
-
-function character( $atts, $content = null ) {
-	extract( shortcode_atts( array(
-	'text' => "",
-	), $atts ) );
-	
-	$output = '<div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-parent="#accordion" href="#character" data-toggle="collapse">Characters</a></div>
-<div id="character" class="accordion-body collapse">';
-	$output .= $text;
-	$output .= '</div></div>';
-	
-	return $output;
-}
-
-add_shortcode('character', 'character'); 
-
-/*-----------------------------------------------------------------------------------*/
-/* 38. Title
-/*-----------------------------------------------------------------------------------*/
-
-function title( $atts, $content = null ) {
-	extract( shortcode_atts( array(
-	'text' => "", 
-	), $atts ) );
-	
-	$output = '<div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-parent="#accordion" href="#title" data-toggle="collapse">Title</a></div>
-<div id="title" class="accordion-body collapse">';
-	$output .= $text;
-	$output .= '</div></div>';
-	
-	return $output;
-}
-
-add_shortcode('title', 'title'); 
-
-/*-----------------------------------------------------------------------------------*/
-/* 39. Theme
-/*-----------------------------------------------------------------------------------*/
-
-function theme( $atts, $content = null ) {
-	extract( shortcode_atts( array(
-	'text' => "", 
-	), $atts ) );
-	
-	$output = '<div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-parent="#accordion" href="#theme" data-toggle="collapse">Theme</a></div>
-<div id="theme" class="accordion-body collapse">'.$text.'</div></div>';
-	return $output;
-}
-
-add_shortcode('theme', 'theme'); 
-
-/*-----------------------------------------------------------------------------------*/
-/* 39. Paraphrase
-/*-----------------------------------------------------------------------------------*/
-
-function pphrase( $atts, $content = null ) {
-	extract( shortcode_atts( array(
-	'text' => "", 
-	), $atts ) );
-	
-	$output = '<div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-parent="#accordion" href="#pphrase" data-toggle="collapse">Paraphrase</a></div>
-<div id="pphrase" class="accordion-body collapse">'.$text.'</div></div>';
-	return $output;
-}
-
-add_shortcode('pphrase', 'pphrase'); 
+add_shortcode( 'stumbleupon', 'woo_shortcode_stumbleupon' );
 
 /*-----------------------------------------------------------------------------------*/
 /* THE END */

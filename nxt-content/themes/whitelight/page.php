@@ -6,19 +6,19 @@
  * singular view of a page ('page' post_type) unless another page template overrules this one.
  * @link http://codex.nxtclass.org/Pages
  *
- * @package lokFramework
+ * @package WooFramework
  * @subpackage Template
  */
 	get_header();
-	global $lok_options;
+	global $woo_options;
 ?>
        
     <div id="content">
     	<div class="page col-full">
     	
-    		<?php if ( isset( $lok_options['lok_breadcrumbs_show'] ) && $lok_options['lok_breadcrumbs_show'] == 'true' && !is_front_page() ) { ?>
+    		<?php if ( isset( $woo_options['woo_breadcrumbs_show'] ) && $woo_options['woo_breadcrumbs_show'] == 'true' && !is_front_page() ) { ?>
 				<section id="breadcrumbs">
-					<?php lok_breadcrumbs(); ?>
+					<?php woo_breadcrumbs(); ?>
 				</section><!--/#breadcrumbs -->
 			<?php } ?> 
     	
@@ -37,16 +37,16 @@
 	                <section class="entry">
 	                	<?php the_content(); ?>
 	
-						<?php nxt_link_pages( array( 'before' => '<div class="page-link">' . __( 'Pages:', 'lokthemes' ), 'after' => '</div>' ) ); ?>
+						<?php nxt_link_pages( array( 'before' => '<div class="page-link">' . __( 'Pages:', 'woothemes' ), 'after' => '</div>' ) ); ?>
 	               	</section><!-- /.entry -->
 	
-					<?php edit_post_link( __( '{ Edit }', 'lokthemes' ), '<span class="small">', '</span>' ); ?>
+					<?php edit_post_link( __( '{ Edit }', 'woothemes' ), '<span class="small">', '</span>' ); ?>
 	                
 	            </article><!-- /.post -->
 	            
 	            <?php
 	            	// Determine wether or not to display comments here, based on "Theme Options".
-	            	if ( isset( $lok_options['lok_comments'] ) && in_array( $lok_options['lok_comments'], array( 'page', 'both' ) ) ) {
+	            	if ( isset( $woo_options['woo_comments'] ) && in_array( $woo_options['woo_comments'], array( 'page', 'both' ) ) ) {
 	            		comments_template();
 	            	}
 	
@@ -54,7 +54,7 @@
 				} else {
 			?>
 				<article <?php post_class(); ?>>
-	            	<p><?php _e( 'Sorry, no posts matched your criteria.', 'lokthemes' ); ?></p>
+	            	<p><?php _e( 'Sorry, no posts matched your criteria.', 'woothemes' ); ?></p>
 	            </article><!-- /.post -->
 	        <?php } // End IF Statement ?>  
 	        

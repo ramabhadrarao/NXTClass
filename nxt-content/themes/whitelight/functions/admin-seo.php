@@ -1,23 +1,23 @@
 <?php
 /*-----------------------------------------------------------------------------------*/
-/* SEO - lokthemes_seo_page */
+/* SEO - woothemes_seo_page */
 /*-----------------------------------------------------------------------------------*/
 
-function lokthemes_seo_page(){
+function woothemes_seo_page(){
 
-    $themename =  get_option( 'lok_themename' );
-    $manualurl =  get_option( 'lok_manual' );
-	$shortname =  'seo_lok';
+    $themename =  get_option( 'woo_themename' );
+    $manualurl =  get_option( 'woo_manual' );
+	$shortname =  'seo_woo';
 
     //Framework Version in Backend Head
-    $lok_framework_version = get_option( 'lok_framework_version' );
+    $woo_framework_version = get_option( 'woo_framework_version' );
 
     //Version in Backend Head
     $theme_data = get_theme_data( get_template_directory() . '/style.css' );
     $local_version = $theme_data['Version'];
 
     //GET themes update RSS feed and do magic
-	include_once(ABSPATH . WPINC . '/feed.php' );
+	include_once(ABSPATH . nxtINC . '/feed.php' );
 
 	$pos = strpos($manualurl, 'documentation' );
 	$theme_slug = str_replace( "/", "", substr($manualurl, ($pos + 13))); //13 for the word documentation
@@ -40,7 +40,7 @@ function lokthemes_seo_page(){
 
 	$seo_options[] = array( "name" => "Please Read",
 					"type" => "info",
-					"std" => "Welcome to the lokSEO feature. <br /><small>Here we help you take control of your search engine readiness with some in-built theme options. Our themes do however support some of NXTClass.org's most commonly used SEO plugins - <strong>All-in-One SEO Pack</strong>, <strong>Headspace 2</strong> and <strong>NXTClass SEO By Yoast</strong>. Use the checkbox below to use 3rd party plugin data.</small>" );
+					"std" => "Welcome to the WooSEO feature. <br /><small>Here we help you take control of your search engine readiness with some in-built theme options. Our themes do however support some of NXTClass.org's most commonly used SEO plugins - <strong>All-in-One SEO Pack</strong>, <strong>Headspace 2</strong> and <strong>NXTClass SEO By Yoast</strong>. Use the checkbox below to use 3rd party plugin data.</small>" );
 
 	$seo_options[] = array( "name" => "Use 3rd Party Plugin Data",
 					"desc" => "Meta data added to <strong>custom fields in posts and pages</strong> will be extracted and used where applicable. This typically does not include Homepages and Archives, and only Singular templates.",
@@ -76,8 +76,8 @@ function lokthemes_seo_page(){
 					"std" => "",
 					"type" => "text" );
 
-	$seo_options[] = array( "name" => "Enable lok_title()",
-					"desc" => "lok_title() makes use of NXTClass's built in nxt_title() function to control the output for your page titles. It's also recommended for use with plugins.",
+	$seo_options[] = array( "name" => "Enable woo_title()",
+					"desc" => "woo_title() makes use of NXTClass's built in nxt_title() function to control the output for your page titles. It's also recommended for use with plugins.",
 					"id" => $shortname."_nxt_title",
 					"std" => "false",
 					"class" => "collapsed",
@@ -179,7 +179,7 @@ function lokthemes_seo_page(){
 					"id" => $shortname."_meta_home_desc",
 					"std" => "a",
 					"options" => array(	"a" => "Off",
-										"b" => "From WP Site Description",
+										"b" => "From nxt Site Description",
 										"c" => "From Custom Homepage Description"),
 					"type" => "radio" );
 
@@ -255,22 +255,22 @@ function lokthemes_seo_page(){
 					"type" => "textarea" );
 
 
-	update_option( 'lok_seo_template',$seo_options);
+	update_option( 'woo_seo_template',$seo_options);
 
 
 	?>
 
-    <div class="wrap" id="lok_container">
+    <div class="wrap" id="woo_container">
     <?php
 
     	if(
     		class_exists( 'All_in_One_SEO_Pack') ||
     		class_exists( 'Headspace_Plugin') ||
-    		class_exists( 'WPSEO_Admin' ) ||
-    		class_exists( 'WPSEO_Frontend' )
+    		class_exists( 'nxtSEO_Admin' ) ||
+    		class_exists( 'nxtSEO_Frontend' )
     	  ) {
 
-			echo "<div id='lok-seo-notice' class='lok-notice'><p><strong>3rd Party SEO Plugin(s) Detected</strong> - Some lokTheme SEO functionality has been disabled.</p></div>";
+			echo "<div id='woo-seo-notice' class='woo-notice'><p><strong>3rd Party SEO Plugin(s) Detected</strong> - Some WooTheme SEO functionality has been disabled.</p></div>";
 
 		}
 
@@ -279,41 +279,41 @@ function lokthemes_seo_page(){
 
     	if ( get_option( 'blog_public') == 0 ) {
 
-			echo "<div id='lok-seo-notice-privacy' class='lok-notice'><p><strong>This site is set to Private</strong> - SEO is disabled, change settings <a href='". admin_url( 'options-privacy.php' ) . "'>here</a>.</p></div>";
+			echo "<div id='woo-seo-notice-privacy' class='woo-notice'><p><strong>This site is set to Private</strong> - SEO is disabled, change settings <a href='". admin_url( 'options-privacy.php' ) . "'>here</a>.</p></div>";
 
 		}
 
     ?>
-    <div id="lok-popup-save" class="lok-save-popup"><div class="lok-save-save">Options Updated</div></div>
-    <div id="lok-popup-reset" class="lok-save-popup"><div class="lok-save-reset">Options Reset</div></div>
-        <form action="" enctype="multipart/form-data" id="lokform" method="post">
+    <div id="woo-popup-save" class="woo-save-popup"><div class="woo-save-save">Options Updated</div></div>
+    <div id="woo-popup-reset" class="woo-save-popup"><div class="woo-save-reset">Options Reset</div></div>
+        <form action="" enctype="multipart/form-data" id="wooform" method="post">
         <?php
 	    	// Add nonce for added security.
-	    	if ( function_exists( 'nxt_nonce_field' ) ) { nxt_nonce_field( 'lokframework-seo-options-update' ); } // End IF Statement
+	    	if ( function_exists( 'nxt_nonce_field' ) ) { nxt_nonce_field( 'wooframework-seo-options-update' ); } // End IF Statement
 
-	    	$lok_nonce = '';
+	    	$woo_nonce = '';
 
-	    	if ( function_exists( 'nxt_create_nonce' ) ) { $lok_nonce = nxt_create_nonce( 'lokframework-seo-options-update' ); } // End IF Statement
+	    	if ( function_exists( 'nxt_create_nonce' ) ) { $woo_nonce = nxt_create_nonce( 'wooframework-seo-options-update' ); } // End IF Statement
 
-	    	if ( $lok_nonce == '' ) {} else {
+	    	if ( $woo_nonce == '' ) {} else {
 
 	    ?>
-	    	<input type="hidden" name="_ajax_nonce" value="<?php echo $lok_nonce; ?>" />
+	    	<input type="hidden" name="_ajax_nonce" value="<?php echo $woo_nonce; ?>" />
 	    <?php
 
 	    	} // End IF Statement
 	    ?>
             <div id="header">
                <div class="logo">
-                <?php if(get_option( 'framework_lok_backend_header_image')) { ?>
-                <img alt="" src="<?php echo get_option( 'framework_lok_backend_header_image' ); ?>"/>
+                <?php if(get_option( 'framework_woo_backend_header_image')) { ?>
+                <img alt="" src="<?php echo get_option( 'framework_woo_backend_header_image' ); ?>"/>
                 <?php } else { ?>
-                <img alt="lokThemes" src="<?php echo get_template_directory_uri(); ?>/functions/images/logo.png"/>
+                <img alt="WooThemes" src="<?php echo get_template_directory_uri(); ?>/functions/images/logo.png"/>
                 <?php } ?>
                 </div>
                 <div class="theme-info">
                     <span class="theme"><?php echo $themename; ?> <?php echo $local_version; ?></span>
-                    <span class="framework">Framework <?php echo $lok_framework_version; ?></span>
+                    <span class="framework">Framework <?php echo $woo_framework_version; ?></span>
                 </div>
                 <div class="clear"></div>
             </div>
@@ -322,14 +322,14 @@ function lokthemes_seo_page(){
                 <ul>
                     <li class="changelog"><a title="Theme Changelog" href="<?php echo $manualurl; ?>#Changelog">View Changelog</a></li>
                     <li class="docs"><a title="Theme Documentation" href="<?php echo $manualurl; ?>">View Themedocs</a></li>
-                    <li class="forum"><a href="http://www.lokthemes.com/support-forum" target="_blank">Visit Forum</a></li>
+                    <li class="forum"><a href="http://www.woothemes.com/support-forum" target="_blank">Visit Forum</a></li>
                     <li class="right"><img style="display:none" src="<?php echo get_template_directory_uri(); ?>/functions/images/loading-top.gif" class="ajax-loading-img ajax-loading-img-top" alt="Working..." /><a href="#" id="expand_options">[+]</a> <input type="submit" value="Save All Changes" class="button submit-button" /></li>
                 </ul>
 
             </div>
-            <?php $return = lokthemes_machine($seo_options); ?>
+            <?php $return = woothemes_machine($seo_options); ?>
             <div id="main">
-                <div id="lok-nav">
+                <div id="woo-nav">
                     <ul>
                         <?php echo $return[1]; ?>
                     </ul>
@@ -342,30 +342,30 @@ function lokthemes_seo_page(){
             </div>
             <div class="save_bar_top">
             <img style="display:none" src="<?php echo get_template_directory_uri(); ?>/functions/images/loading-bottom.gif" class="ajax-loading-img ajax-loading-img-bottom" alt="Working..." />
-            <input type="hidden" name="lok_save" value="save" />
+            <input type="hidden" name="woo_save" value="save" />
             <input type="submit" value="Save All Changes" class="button submit-button" />
             </form>
 
-            <form action="<?php echo esc_attr( $_SERVER['REQUEST_URI'] ) ?>" method="post" style="display:inline" id="lokform-reset">
+            <form action="<?php echo esc_attr( $_SERVER['REQUEST_URI'] ) ?>" method="post" style="display:inline" id="wooform-reset">
             <?php
 		    	// Add nonce for added security.
-		    	if ( function_exists( 'nxt_nonce_field' ) ) { nxt_nonce_field( 'lokframework-seo-options-reset' ); } // End IF Statement
+		    	if ( function_exists( 'nxt_nonce_field' ) ) { nxt_nonce_field( 'wooframework-seo-options-reset' ); } // End IF Statement
 
-		    	$lok_nonce = '';
+		    	$woo_nonce = '';
 
-		    	if ( function_exists( 'nxt_create_nonce' ) ) { $lok_nonce = nxt_create_nonce( 'lokframework-seo-options-reset' ); } // End IF Statement
+		    	if ( function_exists( 'nxt_create_nonce' ) ) { $woo_nonce = nxt_create_nonce( 'wooframework-seo-options-reset' ); } // End IF Statement
 
-		    	if ( $lok_nonce == '' ) {} else {
+		    	if ( $woo_nonce == '' ) {} else {
 
 		    ?>
-		    	<input type="hidden" name="_ajax_nonce" value="<?php echo $lok_nonce; ?>" />
+		    	<input type="hidden" name="_ajax_nonce" value="<?php echo $woo_nonce; ?>" />
 		    <?php
 
 		    	} // End IF Statement
 		    ?>
             <span class="submit-footer-reset">
             <input name="reset" type="submit" value="Reset All SEO Options" class="button submit-button reset-button" onclick="return confirm( 'Click OK to reset all SEO options. All settings will be lost!' );" />
-            <input type="hidden" name="lok_save" value="reset" />
+            <input type="hidden" name="woo_save" value="reset" />
             </span>
         	</form>
 

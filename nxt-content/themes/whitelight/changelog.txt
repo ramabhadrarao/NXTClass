@@ -31,8 +31,8 @@
  * includes/theme-options.php,
    includes/theme-functions.php - removed single portfolio gallery option (not used)
  * single-portfolio.php - tweaked lightbox gallery functionality
- * styles/dark-lokd.css,
-   dark-glossy.css - lokCommerce message font color.
+ * styles/dark-wood.css,
+   dark-glossy.css - WooCommerce message font color.
 	
 2012.02.08 - version 1.0.1
  * style.css - Portfolio page template sizes & margins

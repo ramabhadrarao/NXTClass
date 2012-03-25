@@ -7,24 +7,24 @@
  * If no search results are found, the user is assisted in refining their search query in
  * an attempt to produce an appropriate search results set for the user's search query.
  *
- * @package lokFramework
+ * @package WooFramework
  * @subpackage Template
  */
 
  get_header();
- global $lok_options;
+ global $woo_options;
 ?>     
     <div id="content">
     
     	<div class="col-full">
     		
-    		<?php if ( isset( $lok_options['lok_breadcrumbs_show'] ) && $lok_options['lok_breadcrumbs_show'] == 'true' ) { ?>
+    		<?php if ( isset( $woo_options['woo_breadcrumbs_show'] ) && $woo_options['woo_breadcrumbs_show'] == 'true' ) { ?>
 				<section id="breadcrumbs">
-					<?php lok_breadcrumbs(); ?>
+					<?php woo_breadcrumbs(); ?>
 				</section><!--/#breadcrumbs -->
 			<?php } ?>  	
 			
-			<header class="archive_header"><?php echo __( 'Search results:', 'lokthemes' ) . ' '; the_search_query(); ?></header>
+			<header class="archive_header"><?php echo __( 'Search results:', 'woothemes' ) . ' '; the_search_query(); ?></header>
     		
 			<section id="main" class="col-left">
 	            
@@ -42,12 +42,12 @@
 			<?php else : ?>
 	        
 	            <article <?php post_class(); ?>>
-	                <p><?php _e( 'Sorry, no posts matched your criteria.', 'lokthemes' ); ?></p>
+	                <p><?php _e( 'Sorry, no posts matched your criteria.', 'woothemes' ); ?></p>
 	            </article><!-- /.post -->
 	        
 	        <?php endif; ?>
 	
-				<?php lok_pagenav(); ?>
+				<?php woo_pagenav(); ?>
 	                
 	        </section><!-- /#main -->
 	

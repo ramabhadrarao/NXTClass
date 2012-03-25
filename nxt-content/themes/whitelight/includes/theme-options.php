@@ -1,23 +1,23 @@
 <?php
-if (!function_exists( 'lok_options')) {
-function lok_options() {
+if (!function_exists( 'woo_options')) {
+function woo_options() {
 
 // THEME VARIABLES
 $themename = "Whitelight";
 $themeslug = "whitelight";
 
 // STANDARD VARIABLES. DO NOT TOUCH!
-$shortname = "lok";
-$manualurl = 'http://www.lokthemes.com/support/theme-documentation/'.$themeslug.'/';
+$shortname = "woo";
+$manualurl = 'http://www.woothemes.com/support/theme-documentation/'.$themeslug.'/';
 
 //Access the NXTClass Pages via an Array
-$lok_pages = array();
-$lok_pages_obj = get_pages( 'sort_column=post_parent,menu_order' );
-foreach ($lok_pages_obj as $lok_page) {
-    $lok_pages[$lok_page->ID] = $lok_page->post_name; } 
-$lok_pages_raw = $lok_pages;
-$lok_pages_raw[0] = "Select a page:";
-$lok_pages_tmp = array_unshift($lok_pages, "Select a page:" );
+$woo_pages = array();
+$woo_pages_obj = get_pages( 'sort_column=post_parent,menu_order' );
+foreach ($woo_pages_obj as $woo_page) {
+    $woo_pages[$woo_page->ID] = $woo_page->post_name; } 
+$woo_pages_raw = $woo_pages;
+$woo_pages_raw[0] = "Select a page:";
+$woo_pages_tmp = array_unshift($woo_pages, "Select a page:" );
 
 //Stylesheets Reader
 $alt_stylesheet_path = get_template_directory() . '/styles/';
@@ -167,7 +167,7 @@ $options[] = array( "name" => "Background",
 
 $options[] = array( "name" =>  "Background Color",
 					"desc" => "Pick a custom color for background color of the theme e.g. #697e09",
-					"id" => "lok_body_color",
+					"id" => "woo_body_color",
 					"std" => "",
 					"type" => "color" );
 
@@ -196,7 +196,7 @@ $options[] = array( "name" => "Header",
                     
 $options[] = array( "name" =>  "Header Background Color",
 					"desc" => "Pick a custom color for background color of the theme's header e.g. #697e09",
-					"id" => "lok_header_color",
+					"id" => "woo_header_color",
 					"std" => "",
 					"type" => "color" );
 
@@ -225,7 +225,7 @@ $options[] = array( "name" => "Slider",
                     
 $options[] = array( "name" =>  "Slider Background Color",
 					"desc" => "Pick a custom color for background color of the theme's slider e.g. #697e09",
-					"id" => "lok_slider_color",
+					"id" => "woo_slider_color",
 					"std" => "",
 					"type" => "color" );
 
@@ -254,7 +254,7 @@ $options[] = array( "name" => "Intro Section",
                     
 $options[] = array( "name" =>  "Intro Section Background Color",
 					"desc" => "Pick a custom color for background color of the theme's intro section e.g. #697e09",
-					"id" => "lok_intro_color",
+					"id" => "woo_intro_color",
 					"std" => "",
 					"type" => "color" );
 
@@ -283,25 +283,25 @@ $options[] = array( "name" => "Links",
 
 $options[] = array( "name" =>  "Link Color",
 					"desc" => "Pick a custom color for links or add a hex color code e.g. #697e09",
-					"id" => "lok_link_color",
+					"id" => "woo_link_color",
 					"std" => "",
 					"type" => "color" );
 
 $options[] = array( "name" =>  "Link Hover Color",
 					"desc" => "Pick a custom color for links hover or add a hex color code e.g. #697e09",
-					"id" => "lok_link_hover_color",
+					"id" => "woo_link_hover_color",
 					"std" => "",
 					"type" => "color" );
 
 $options[] = array( "name" =>  "Button Color",
 					"desc" => "Pick a custom color for buttons or add a hex color code e.g. #697e09",
-					"id" => "lok_button_color",
+					"id" => "woo_button_color",
 					"std" => "",
 					"type" => "color" );
 
 $options[] = array( "name" =>  "Navigation Hover &amp; Dropdowns Color",
 					"desc" => "Pick a custom color for navigation hover &amp; dropdowns or add a hex color code e.g. #697e09",
-					"id" => "lok_navhover_color",
+					"id" => "woo_navhover_color",
 					"std" => "",
 					"type" => "color" );
 
@@ -407,7 +407,7 @@ $options[] = array( "name" => "Enable Homepage Intro Message",
 $options[] = array( "name" => "Homepage Intro Message",
                     "desc" => "Enter a welcome message for your homepage to be displayed under the slider area.",
                     "id" => $shortname."_custom_intro_message_text",
-                    "std" => 'Whitelight features a full width slider and a widgetized homepage, allowing you full control over how you showcase your business. <a href="http://lokthemes.com/2012/02/whitelight/">Read more</a> about all the cool features!',
+                    "std" => 'Whitelight features a full width slider and a widgetized homepage, allowing you full control over how you showcase your business. <a href="http://woothemes.com/2012/02/whitelight/">Read more</a> about all the cool features!',
                     "type" => "textarea" );
 
 $options[] = array( "name" => "Features Area",
@@ -426,12 +426,12 @@ $options[] = array( "name" => "Number of Features",
                     "type" => "select",
                     "options" => $other_entries);
 
-$options[] = array(    "name" => __( 'Features Order', 'lokthemes' ),
-                    "desc" => __( 'Select which way you wish to order your features.', 'lokthemes' ),
+$options[] = array(    "name" => __( 'Features Order', 'woothemes' ),
+                    "desc" => __( 'Select which way you wish to order your features.', 'woothemes' ),
                     "id" => $shortname."_features_area_order",
                     "std" => "DESC",
 					"type" => "select2",
-					"options" => array("desc" => __( 'Newest to oldest', 'lokthemes' ), "ASC" => "Oldest to newest", "rand" => "Random order") );   
+					"options" => array("desc" => __( 'Newest to oldest', 'woothemes' ), "ASC" => "Oldest to newest", "rand" => "Random order") );   
 					                    
 $options[] = array( "name" => "Features Area Title Text",
 					"desc" => "Enter the title for the features area to be displayed on your homepage.",
@@ -473,12 +473,12 @@ $options[] = array( "name" => "Number of Portfolio items",
                     "type" => "select",
                     "options" => $other_entries);
                     
-$options[] = array(    "name" => __( 'Portfolio Order', 'lokthemes' ),
-                    "desc" => __( 'Select which way you wish to order your porfolio items.', 'lokthemes' ),
+$options[] = array(    "name" => __( 'Portfolio Order', 'woothemes' ),
+                    "desc" => __( 'Select which way you wish to order your porfolio items.', 'woothemes' ),
                     "id" => $shortname."_portfolio_area_order",
                     "std" => "DESC",
 					"type" => "select2",
-					"options" => array("desc" => __( 'Newest to oldest', 'lokthemes' ), "ASC" => "Oldest to newest", "rand" => "Random order") );   
+					"options" => array("desc" => __( 'Newest to oldest', 'woothemes' ), "ASC" => "Oldest to newest", "rand" => "Random order") );   
 
 $options[] = array( "name" => "Portfolio Area Title Text",
 					"desc" => "Enter the title for the portfolio area to be displayed on your homepage.",
@@ -538,7 +538,7 @@ $options[] = array( "name" => "Page Content",
                     "id" => $shortname."_blog_area_page",
                     "std" => "",
                     "type" => "select2",
-                    "options" => $lok_pages_raw);
+                    "options" => $woo_pages_raw);
                                         					                    					                    															
 /* Featured Slider */
 
@@ -579,12 +579,12 @@ $options[] = array( "name" => "Slider Image/Video Height",
                     "std" => "380",
                     "type" => "text");
 
-$options[] = array(    "name" => __( 'Slides Post Order', 'lokthemes' ),
-                    "desc" => __( 'Select which way you wish to order your slider posts.', 'lokthemes' ),
+$options[] = array(    "name" => __( 'Slides Post Order', 'woothemes' ),
+                    "desc" => __( 'Select which way you wish to order your slider posts.', 'woothemes' ),
                     "id" => $shortname."_featured_order",
                     "std" => "DESC",
 					"type" => "select2",
-					"options" => array("desc" => __( 'Newest to oldest', 'lokthemes' ), "ASC" => "Oldest to newest", "rand" => "Random order") );   
+					"options" => array("desc" => __( 'Newest to oldest', 'woothemes' ), "ASC" => "Oldest to newest", "rand" => "Random order") );   
 					
 
 $options[] = array( "name" => "Disable Slider Title/Description on Video Posts",
@@ -612,15 +612,15 @@ $options[] = array( "name" => "Slider Hover Pause",
                     "type" => "checkbox");                     
 
 /*
-$options[] = array( "name" => __( 'Slider Animation Effect', 'lokthemes' ),
-					"desc" => __( 'Select the slider animation effect. ', 'lokthemes' ),
+$options[] = array( "name" => __( 'Slider Animation Effect', 'woothemes' ),
+					"desc" => __( 'Select the slider animation effect. ', 'woothemes' ),
 					"id" => $shortname."_featured_effect",
 					"type" => "select2",
 					"std" => "slide",
 					"options" => array("fade" => "Fade", "slide" => "Slide") );                         
 
-$options[] = array( "name" => __( 'Sliding Direction', 'lokthemes' ),
-					"desc" => __( 'Select the sliding direction.', 'lokthemes' ),
+$options[] = array( "name" => __( 'Sliding Direction', 'woothemes' ),
+					"desc" => __( 'Select the sliding direction.', 'woothemes' ),
 					"id" => $shortname."_featured_sliding_direction",
 					"type" => "select2",
 					"options" => array("horizontal" => "Horizontal", "vertical" => "Vertical") );                         
@@ -642,52 +642,52 @@ $options[] = array( "name" => "Slider Animation Speed",
 					
 /* Portfolio */
 
-$options[] = array( "name" => __( 'Portfolio Settings', 'lokthemes' ),
+$options[] = array( "name" => __( 'Portfolio Settings', 'woothemes' ),
                     "icon" => "portfolio",
 					"type" => "heading");
 					
 /*
-$options[] = array( "name" => __( 'Enable Single Portfolio Gallery', 'lokthemes' ),
-					"desc" => __( 'Enable the gallery feature in the single portfolio page layout.', 'lokthemes' ),
+$options[] = array( "name" => __( 'Enable Single Portfolio Gallery', 'woothemes' ),
+					"desc" => __( 'Enable the gallery feature in the single portfolio page layout.', 'woothemes' ),
 					"id" => $shortname."_portfolio_gallery",
 					"std" => "true",
 					"type" => "checkbox");
 */
 
-$options[] = array( "name" => __( 'Portfolio Items URL Base', 'lokthemes' ),
-						"desc" => sprintf( __( 'The base of all portfolio item URLs (re-save the %s after changing this setting).', 'lokthemes' ), '<a href="' . admin_url( 'options-permalink.php' ) . '">' . __( 'Permalinks', 'lokthemes' ) . '</a>' ),
+$options[] = array( "name" => __( 'Portfolio Items URL Base', 'woothemes' ),
+						"desc" => sprintf( __( 'The base of all portfolio item URLs (re-save the %s after changing this setting).', 'woothemes' ), '<a href="' . admin_url( 'options-permalink.php' ) . '">' . __( 'Permalinks', 'woothemes' ) . '</a>' ),
 						"id" => $shortname."_portfolioitems_rewrite",
 						"std" => "portfolio-items",
 						"type" => "text");
 						
-$options[] = array( "name" => __( 'Exclude Galleries from the Portfolio Navigation', 'lokthemes' ),
-						"desc" => __( 'Optionally exclude portfolio galleries from the portfolio gallery navigation switcher. Place the gallery slugs here, separated by commas <br />(eg: one, two, three)', 'lokthemes' ),
+$options[] = array( "name" => __( 'Exclude Galleries from the Portfolio Navigation', 'woothemes' ),
+						"desc" => __( 'Optionally exclude portfolio galleries from the portfolio gallery navigation switcher. Place the gallery slugs here, separated by commas <br />(eg: one, two, three)', 'woothemes' ),
 						"id" => $shortname."_portfolio_excludenav",
 						"std" => "",
 						"type" => "text");
 
-$options[] = array( "name" => __( 'Exclude Portfolio Items from Search Results', 'lokthemes' ),
-					"desc" => __( 'Exclude portfolio items from results when searching your website.', 'lokthemes' ),
+$options[] = array( "name" => __( 'Exclude Portfolio Items from Search Results', 'woothemes' ),
+					"desc" => __( 'Exclude portfolio items from results when searching your website.', 'woothemes' ),
 					"id" => $shortname."_portfolio_excludesearch",
 					"std" => "false",
 					"type" => "checkbox");
 
-$options[] = array( "name" => __( 'Portfolio Items Link To', 'lokthemes' ),
-                    "desc" => __( 'Do the portfolio items link to the lightbox, or to the single portfolio item screen?', 'lokthemes' ),
+$options[] = array( "name" => __( 'Portfolio Items Link To', 'woothemes' ),
+                    "desc" => __( 'Do the portfolio items link to the lightbox, or to the single portfolio item screen?', 'woothemes' ),
                     "id" => $shortname."_portfolio_linkto",
                     "std" => "post",
 					"type" => "select2",
-					"options" => array( 'lightbox' => __( 'Lightbox', 'lokthemes' ), 'post' => __( 'Portfolio Item', 'lokthemes' ) ) );	
+					"options" => array( 'lightbox' => __( 'Lightbox', 'woothemes' ), 'post' => __( 'Portfolio Item', 'woothemes' ) ) );	
 
-$options[] = array( "name" => __( 'Enable Pagination in Portfolio', 'lokthemes' ),
-					"desc" => __( 'Enable pagination in the portfolio section (disables JavaScript filtering by category)', 'lokthemes' ),
+$options[] = array( "name" => __( 'Enable Pagination in Portfolio', 'woothemes' ),
+					"desc" => __( 'Enable pagination in the portfolio section (disables JavaScript filtering by category)', 'woothemes' ),
 					"id" => $shortname."_portfolio_enable_pagination",
 					"std" => "false", 
 					"class" => 'collapsed', 
 					"type" => "checkbox");
 					
-$options[] = array( "name" => __( 'Number of posts to display on "Portfolio" page template', 'lokthemes' ),
-						"desc" => __( 'The number of posts to display per page, when pagination is enabled, in the "Portfolio" page template.', 'lokthemes' ),
+$options[] = array( "name" => __( 'Number of posts to display on "Portfolio" page template', 'woothemes' ),
+						"desc" => __( 'The number of posts to display per page, when pagination is enabled, in the "Portfolio" page template.', 'woothemes' ),
 						"id" => $shortname."_portfolio_posts_per_page",
 						"std" => get_option( 'posts_per_page' ), 
 						"class" => 'hidden last', 
@@ -704,24 +704,24 @@ $options[] = array( "name" => "Resizer Settings",
 $options[] = array( "name" => 'Dynamic Image Resizing',
 					"desc" => "",
 					"id" => $shortname."_nxtthumb_notice",
-					"std" => 'There are two alternative methods of dynamically resizing the thumbnails in the theme, <strong>WP Post Thumbnail</strong> or <strong>TimThumb - Custom Settings panel</strong>. We recommend using WP Post Thumbnail option.',
+					"std" => 'There are two alternative methods of dynamically resizing the thumbnails in the theme, <strong>nxt Post Thumbnail</strong> or <strong>TimThumb - Custom Settings panel</strong>. We recommend using nxt Post Thumbnail option.',
 					"type" => "info");					
 
-$options[] = array( "name" => "WP Post Thumbnail",
+$options[] = array( "name" => "nxt Post Thumbnail",
 					"desc" => "Use NXTClass post thumbnail to assign a post thumbnail. Will enable the <strong>Featured Image panel</strong> in your post sidebar where you can assign a post thumbnail.",
 					"id" => $shortname."_post_image_support",
 					"std" => "true",
 					"class" => "collapsed",
 					"type" => "checkbox" );
 
-$options[] = array( "name" => "WP Post Thumbnail - Dynamic Image Resizing",
-					"desc" => "The post thumbnail will be dynamically resized using native WP resize functionality. <em>(Requires PHP 5.2+)</em>",
+$options[] = array( "name" => "nxt Post Thumbnail - Dynamic Image Resizing",
+					"desc" => "The post thumbnail will be dynamically resized using native nxt resize functionality. <em>(Requires PHP 5.2+)</em>",
 					"id" => $shortname."_pis_resize",
 					"std" => "true",
 					"class" => "hidden",
 					"type" => "checkbox" );
 
-$options[] = array( "name" => "WP Post Thumbnail - Hard Crop",
+$options[] = array( "name" => "nxt Post Thumbnail - Hard Crop",
 					"desc" => "The post thumbnail will be cropped to match the target aspect ratio (only used if 'Dynamic Image Resizing' is enabled).",
 					"id" => $shortname."_pis_hard_crop",
 					"std" => "true",
@@ -729,7 +729,7 @@ $options[] = array( "name" => "WP Post Thumbnail - Hard Crop",
 					"type" => "checkbox" );
 
 $options[] = array( "name" => "TimThumb - Custom Settings Panel",
-					"desc" => "This will enable the <a href='http://code.google.com/p/timthumb/'>TimThumb</a> (thumb.php) script which dynamically resizes images added through the <strong>custom settings panel below the post</strong>. Make sure your themes <em>cache</em> folder is writable. <a href='http://www.lokthemes.com/2008/10/troubleshooting-image-resizer-thumbphp/'>Need help?</a>",
+					"desc" => "This will enable the <a href='http://code.google.com/p/timthumb/'>TimThumb</a> (thumb.php) script which dynamically resizes images added through the <strong>custom settings panel below the post</strong>. Make sure your themes <em>cache</em> folder is writable. <a href='http://www.woothemes.com/2008/10/troubleshooting-image-resizer-thumbphp/'>Need help?</a>",
 					"id" => $shortname."_resize",
 					"std" => "false",
 					"type" => "checkbox" );
@@ -792,7 +792,7 @@ $options[] = array( "name" => "Footer Widget Areas",
 					);
 
 $options[] = array( "name" => "Custom Affiliate Link",
-					"desc" => "Add an affiliate link to the lokThemes logo in the footer of the theme.",
+					"desc" => "Add an affiliate link to the WooThemes logo in the footer of the theme.",
 					"id" => $shortname."_footer_aff_link",
 					"std" => "",
 					"type" => "text" );
@@ -850,8 +850,8 @@ $options[] = array( "name" => "Subscribe By E-mail ID (Feedburner)",
 					"std" => '',
 					"type" => "text" );
 
-$options[] = array( "name" => 'Subscribe By E-mail to MailChimp', 'lokthemes',
-					"desc" => 'If you have a MailChimp account you can enter the <a href="http://lokchimp.heroku.com" target="_blank">MailChimp List Subscribe URL</a> to allow your users to subscribe to a MailChimp List.',
+$options[] = array( "name" => 'Subscribe By E-mail to MailChimp', 'woothemes',
+					"desc" => 'If you have a MailChimp account you can enter the <a href="http://woochimp.heroku.com" target="_blank">MailChimp List Subscribe URL</a> to allow your users to subscribe to a MailChimp List.',
 					"id" => $shortname."_connect_mailchimp_list_url",
 					"std" => '',
 					"type" => "text");
@@ -863,37 +863,37 @@ $options[] = array( "name" => "Enable RSS",
 					"type" => "checkbox" );
 
 $options[] = array( "name" => "Twitter URL",
-					"desc" => "Enter your  <a href='http://www.twitter.com/'>Twitter</a> URL e.g. http://www.twitter.com/lokthemes",
+					"desc" => "Enter your  <a href='http://www.twitter.com/'>Twitter</a> URL e.g. http://www.twitter.com/woothemes",
 					"id" => $shortname."_connect_twitter",
 					"std" => '',
 					"type" => "text" );
 
 $options[] = array( "name" => "Facebook URL",
-					"desc" => "Enter your  <a href='http://www.facebook.com/'>Facebook</a> URL e.g. http://www.facebook.com/lokthemes",
+					"desc" => "Enter your  <a href='http://www.facebook.com/'>Facebook</a> URL e.g. http://www.facebook.com/woothemes",
 					"id" => $shortname."_connect_facebook",
 					"std" => '',
 					"type" => "text" );
 
 $options[] = array( "name" => "YouTube URL",
-					"desc" => "Enter your  <a href='http://www.youtube.com/'>YouTube</a> URL e.g. http://www.youtube.com/lokthemes",
+					"desc" => "Enter your  <a href='http://www.youtube.com/'>YouTube</a> URL e.g. http://www.youtube.com/woothemes",
 					"id" => $shortname."_connect_youtube",
 					"std" => '',
 					"type" => "text" );
 
 $options[] = array( "name" => "Flickr URL",
-					"desc" => "Enter your  <a href='http://www.flickr.com/'>Flickr</a> URL e.g. http://www.flickr.com/lokthemes",
+					"desc" => "Enter your  <a href='http://www.flickr.com/'>Flickr</a> URL e.g. http://www.flickr.com/woothemes",
 					"id" => $shortname."_connect_flickr",
 					"std" => '',
 					"type" => "text" );
 
 $options[] = array( "name" => "LinkedIn URL",
-					"desc" => "Enter your  <a href='http://www.www.linkedin.com.com/'>LinkedIn</a> URL e.g. http://www.linkedin.com/in/lokthemes",
+					"desc" => "Enter your  <a href='http://www.www.linkedin.com.com/'>LinkedIn</a> URL e.g. http://www.linkedin.com/in/woothemes",
 					"id" => $shortname."_connect_linkedin",
 					"std" => '',
 					"type" => "text" );
 
 $options[] = array( "name" => "Delicious URL",
-					"desc" => "Enter your <a href='http://www.delicious.com/'>Delicious</a> URL e.g. http://www.delicious.com/lokthemes",
+					"desc" => "Enter your <a href='http://www.delicious.com/'>Delicious</a> URL e.g. http://www.delicious.com/woothemes",
 					"id" => $shortname."_connect_delicious",
 					"std" => '',
 					"type" => "text" );
@@ -933,13 +933,13 @@ $options[] = array( "name" => "Adsense code",
 $options[] = array( "name" => "Image Location",
 					"desc" => "Enter the URL to the banner ad image location.",
 					"id" => $shortname."_ad_top_image",
-					"std" => "http://www.lokthemes.com/ads/468x60b.jpg",
+					"std" => "http://www.woothemes.com/ads/468x60b.jpg",
 					"type" => "upload" );
 
 $options[] = array( "name" => "Destination URL",
 					"desc" => "Enter the URL where this banner ad points to.",
 					"id" => $shortname."_ad_top_url",
-					"std" => "http://www.lokthemes.com",
+					"std" => "http://www.woothemes.com",
 					"type" => "text" );
 					
 /* Contact Template Settings */
@@ -993,7 +993,7 @@ $options[] = array( "name" => "Contact Form E-Mail",
 					"type" => "text" );
 					
 $options[] = array( 'name' => "Your Twitter username",
-					'desc' => "Enter your Twitter username. Example: lokthemes",
+					'desc' => "Enter your Twitter username. Example: woothemes",
 					'id' => $shortname . '_contact_twitter',
 					'std' => '',
 					'type' => 'text' );
@@ -1040,18 +1040,18 @@ $options[] = array( 'name' => "Default Map Type",
 					'options' => array( 'G_NORMAL_MAP' => 'Normal', 'G_SATELLITE_MAP' => 'Satellite','G_HYBRID_MAP' => 'Hybrid', 'G_PHYSICAL_MAP' => 'Terrain' ) );
 
 // Add extra options through function
-if ( function_exists( "lok_options_add") )
-	$options = lok_options_add($options);
+if ( function_exists( "woo_options_add") )
+	$options = woo_options_add($options);
 
-if ( get_option( 'lok_template') != $options) update_option( 'lok_template',$options);
-if ( get_option( 'lok_themename') != $themename) update_option( 'lok_themename',$themename);
-if ( get_option( 'lok_shortname') != $shortname) update_option( 'lok_shortname',$shortname);
-if ( get_option( 'lok_manual') != $manualurl) update_option( 'lok_manual',$manualurl);
+if ( get_option( 'woo_template') != $options) update_option( 'woo_template',$options);
+if ( get_option( 'woo_themename') != $themename) update_option( 'woo_themename',$themename);
+if ( get_option( 'woo_shortname') != $shortname) update_option( 'woo_shortname',$shortname);
+if ( get_option( 'woo_manual') != $manualurl) update_option( 'woo_manual',$manualurl);
 
-// lok Metabox Options
+// Woo Metabox Options
 // Start name with underscore to hide custom key from the user
 global $post;
-$lok_metaboxes = array();
+$woo_metaboxes = array();
 
 // Shown on both posts and pages
 
@@ -1061,14 +1061,14 @@ $lok_metaboxes = array();
 if ( get_post_type() == 'post' || get_post_type() == 'slide' || !get_post_type() ) {
 
 	// TimThumb is enabled in options
-	if ( get_option( 'lok_resize') == "true" ) {
+	if ( get_option( 'woo_resize') == "true" ) {
 	
-		$lok_metaboxes[] = array (	"name" => "image",
+		$woo_metaboxes[] = array (	"name" => "image",
 									"label" => "Image",
 									"type" => "upload",
 									"desc" => "Upload an image or enter an URL." );
 
-		$lok_metaboxes[] = array (	"name" => "_image_alignment",
+		$woo_metaboxes[] = array (	"name" => "_image_alignment",
 									"std" => "Center",
 									"label" => "Image Crop Alignment",
 									"type" => "select2",
@@ -1081,14 +1081,14 @@ if ( get_post_type() == 'post' || get_post_type() == 'slide' || !get_post_type()
 	// TimThumb disabled in the options
 	} else {
 	
-		$lok_metaboxes[] = array (	"name" => "_timthumb-info",
+		$woo_metaboxes[] = array (	"name" => "_timthumb-info",
 									"label" => "Image",
 									"type" => "info",
 									"desc" => "<strong>TimThumb</strong> is disabled. Use the <strong>Featured Image</strong> panel in the sidebar instead, or enable TimThumb in the options panel." );
 
 	}
 
-	$lok_metaboxes[] = array (  "name"  => "embed",
+	$woo_metaboxes[] = array (  "name"  => "embed",
 					            "std"  => "",
 					            "label" => "Embed Code",
 					            "type" => "textarea",
@@ -1097,14 +1097,14 @@ if ( get_post_type() == 'post' || get_post_type() == 'slide' || !get_post_type()
 } // End post
 elseif ( get_post_type() == 'portfolio' || !get_post_type() ) {
 
-	$lok_metaboxes[] = array (  "name"  => "embed",
+	$woo_metaboxes[] = array (  "name"  => "embed",
 					            "std"  => "",
-					            "label" => __( "Embed Code", 'lokthemes' ),
+					            "label" => __( "Embed Code", 'woothemes' ),
 					            "type" => "textarea",
-					            "desc" => __( "Enter the video embed code for your video (YouTube, Vimeo or similar)", 'lokthemes' ) );
+					            "desc" => __( "Enter the video embed code for your video (YouTube, Vimeo or similar)", 'woothemes' ) );
 
 
-	$lok_metaboxes[] = array (	
+	$woo_metaboxes[] = array (	
 					"name" => "_portfolio_url",
 					"std" => "",
 					"label" => "Portfolio URL",
@@ -1116,7 +1116,7 @@ elseif ( get_post_type() == 'portfolio' || !get_post_type() ) {
 
 if ( get_post_type() == 'slide' || !get_post_type() ) {
 	
-	$lok_metaboxes[] = array (	"name" => "url",
+	$woo_metaboxes[] = array (	"name" => "url",
 								"label" => "Slide URL",
 								"type" => "text",
 								"desc" => "Enter an URL to link the slider title and image to a page e.g. http://yoursite.com/pagename/ (optional) ");
@@ -1125,21 +1125,21 @@ if ( get_post_type() == 'slide' || !get_post_type() ) {
 
 if( get_post_type() == 'features' || !get_post_type() ){	
 
-	$lok_metaboxes[] = array (	
+	$woo_metaboxes[] = array (	
 					"name" => "feature_icon",
 					"label" => "Features Icon",
 					"type" => "upload",
 					"desc" => "Upload icon for use with the Feature ara on the homepage (optimal size: 32x32px) (optional)"
 				);
 	 
-	$lok_metaboxes[] = array (	
+	$woo_metaboxes[] = array (	
 					"name" => "feature_excerpt",
 					"label" => "Features Excerpt",
 					"type" => "textarea",
 					"desc" => "Enter the text to show in your Feature on your homepage. If nothing is specified, an excerpt of your post will be output."
 				);
 	
-	$lok_metaboxes[] = array (	
+	$woo_metaboxes[] = array (	
 					"name" => "feature_readmore",
 					"std" => "",
 					"label" => "Features URL",
@@ -1151,7 +1151,7 @@ if( get_post_type() == 'features' || !get_post_type() ){
 
 if ( get_post_type() == 'post' || get_post_type() == 'page' || !get_post_type() ) {
 
-$lok_metaboxes[] = array (	"name" => "_layout",
+$woo_metaboxes[] = array (	"name" => "_layout",
 							"std" => "normal",
 							"label" => "Layout",
 							"type" => "images",
@@ -1166,27 +1166,27 @@ $lok_metaboxes[] = array (	"name" => "_layout",
 
 
 // Add extra metaboxes through function
-if ( function_exists( "lok_metaboxes_add") )
-	$lok_metaboxes = lok_metaboxes_add($lok_metaboxes);
+if ( function_exists( "woo_metaboxes_add") )
+	$woo_metaboxes = woo_metaboxes_add($woo_metaboxes);
 
-if ( get_option( 'lok_custom_template' ) != $lok_metaboxes) update_option( 'lok_custom_template', $lok_metaboxes );
+if ( get_option( 'woo_custom_template' ) != $woo_metaboxes) update_option( 'woo_custom_template', $woo_metaboxes );
 
-} // END lok_options()
+} // END woo_options()
 } // END function_exists()
 
 // Add options to admin_head
-add_action( 'admin_head','lok_options' );
+add_action( 'admin_head','woo_options' );
 
-//Enable lokSEO on these Post types
+//Enable WooSEO on these Post types
 $seo_post_types = array( 'post','page' );
 define( "SEOPOSTTYPES", serialize($seo_post_types));
 
 //Global options setup
-add_action( 'init','lok_global_options' );
-function lok_global_options(){
-	// Populate lokThemes option in array for use in theme
-	global $lok_options;
-	$lok_options = get_option( 'lok_options' );
+add_action( 'init','woo_global_options' );
+function woo_global_options(){
+	// Populate WooThemes option in array for use in theme
+	global $woo_options;
+	$woo_options = get_option( 'woo_options' );
 }
 
 ?>

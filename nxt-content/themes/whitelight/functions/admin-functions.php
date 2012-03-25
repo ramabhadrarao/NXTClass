@@ -3,11 +3,11 @@
 
 TABLE OF CONTENTS
 
-- lok_image - Get Image from custom field
+- woo_image - Get Image from custom field
     - vt_resize - Resize post thumbnail
-    - lok_get_youtube_video_image - Get thumbnail from YouTube
-- lok_get_embed - Get Video
-- lok Show Page Menu
+    - woo_get_youtube_video_image - Get thumbnail from YouTube
+- woo_get_embed - Get Video
+- Woo Show Page Menu
 - Get the style path currently selected
 - Get page ID
 - Tidy up the image source url
@@ -17,50 +17,50 @@ TABLE OF CONTENTS
 - Twitter's Blogger.js output for Twitter widgets
 - Template Detector
 - Framework Updater
-	- lokFramework Update Page
- 	- lokFramework Update Head
- 	- lokFramework Version Getter
-- lok URL shortener
-- SEO - lok_title()
+	- WooFramework Update Page
+ 	- WooFramework Update Head
+ 	- WooFramework Version Getter
+- Woo URL shortener
+- SEO - woo_title()
 - SEO - Strip slashes from the display of the website/page title
-- SEO - lok_meta()
-- lok Text Trimmer
+- SEO - woo_meta()
+- Woo Text Trimmer
 - Google Webfonts array
 - Google Fonts Stylesheet Generator
-- Enable Home link in WP Menus
+- Enable Home link in nxt Menus
 - Buy Themes page
 - Detects the Charset of String and Converts it to UTF-8
-- WP Login logo
-- WP Login logo URL
-- WP Login logo title
-- lok_pagination()
-- lok_breadcrumbs()
--- lok_breadcrumbs_get_parents()
--- lok_breadcrumbs_get_term_parents()
+- nxt Login logo
+- nxt Login logo URL
+- nxt Login logo title
+- woo_pagination()
+- woo_breadcrumbs()
+-- woo_breadcrumbs_get_parents()
+-- woo_breadcrumbs_get_term_parents()
 - NXTClass Admin Bar-related
 -- Disable NXTClass Admin Bar
 -- Enhancements to the NXTClass Admin Bar
-- lok_prepare_category_ids_from_option()
+- woo_prepare_category_ids_from_option()
 - Move tracking code from footer to header.
 - Timthumb Update Page and Functions
-	- lokthemes_timthumb_update_page
-	- lok_check_if_thumbs_are_equal
-	- lok_thumb_new_contents
-- lok_get_dynamic_values()
-- lok_get_posts_by_taxonomy()
+	- woothemes_timthumb_update_page
+	- woo_check_if_thumbs_are_equal
+	- woo_thumb_new_contents
+- woo_get_dynamic_values()
+- woo_get_posts_by_taxonomy()
 - If the user has specified a "posts page", load the "Blog" page template there
 - PressTrends API Integration
 -----------------------------------------------------------------------------------*/
 
 /*-----------------------------------------------------------------------------------*/
-/* lok_image - Get Image from custom field  */
+/* woo_image - Get Image from custom field  */
 /*-----------------------------------------------------------------------------------*/
 
 /*
 This function retrieves/resizes the image to be used with the post in this order:
 
 1. Image passed through parameter 'src'
-2. WP Post Thumbnail (if option activated)
+2. nxt Post Thumbnail (if option activated)
 3. Custom field
 4. First attached image in post (if option activated)
 5. First inline image in post (if option activated)
@@ -87,19 +87,19 @@ Parameters:
 		$src = A parameter that accepts a img url for resizing. (No anchor)
 		$meta = Add a custom meta text to the image and anchor of the image.
 		$alignment = Crop alignment for thumb.php (l, r, t, b)
-		$size = Custom pre-defined size for WP Thumbnail (string)
+		$size = Custom pre-defined size for nxt Thumbnail (string)
 		$noheight = Don't output the height on img tag (for responsive designs)
 */
 
-if ( !function_exists('lok_image') ) {
-function lok_image($args) {
+if ( !function_exists('woo_image') ) {
+function woo_image($args) {
 
 	/* ------------------------------------------------------------------------- */
 	/* SET VARIABLES */
 	/* ------------------------------------------------------------------------- */
 
 	global $post;
-	global $lok_options;
+	global $woo_options;
 
 	//Defaults
 	$key = 'image';
@@ -160,13 +160,13 @@ function lok_image($args) {
 		$custom_field = $src;
 		$link = 'img';
 
-	// WP 2.9 Post Thumbnail support
-	} elseif ( get_option( 'lok_post_image_support') == 'true' AND !empty($thumb_id) ) {
+	// nxt 2.9 Post Thumbnail support
+	} elseif ( get_option( 'woo_post_image_support') == 'true' AND !empty($thumb_id) ) {
 
-		if ( get_option( 'lok_pis_resize') == "true") {
+		if ( get_option( 'woo_pis_resize') == "true") {
 
 			// Dynamically resize the post thumbnail
-			$vt_crop = get_option( 'lok_pis_hard_crop' );
+			$vt_crop = get_option( 'woo_pis_hard_crop' );
 			if ($vt_crop == "true") $vt_crop = true; else $vt_crop = false;
 			$vt_image = vt_resize( $thumb_id, '', $width, $height, $vt_crop );
 
@@ -182,7 +182,7 @@ function lok_image($args) {
 			else
 				$thumb_size = array($width,$height);
 
-			$img_link = get_the_post_thumbnail($id,$thumb_size,array( 'class' => 'lok-image ' . $class));
+			$img_link = get_the_post_thumbnail($id,$thumb_size,array( 'class' => 'woo-image ' . $class));
 		}
 
 	// Grab the image from custom field
@@ -191,7 +191,7 @@ function lok_image($args) {
 	}
 
 	// Automatic Image Thumbs - get first image from post attachment
-	if ( empty($custom_field) && get_option( 'lok_auto_img') == 'true' && empty($img_link) && !(is_singular() AND in_the_loop() AND $link == "src") ) {
+	if ( empty($custom_field) && get_option( 'woo_auto_img') == 'true' && empty($img_link) && !(is_singular() AND in_the_loop() AND $link == "src") ) {
 
         if( $offset >= 1 )
 			$repeat = $repeat + $offset;
@@ -214,10 +214,10 @@ function lok_image($args) {
 				if ( $counter < $offset )
 					continue;
 
-				if ( get_option( 'lok_post_image_support' ) == "true" AND get_option( 'lok_pis_resize') == "true" ) {
+				if ( get_option( 'woo_post_image_support' ) == "true" AND get_option( 'woo_pis_resize') == "true" ) {
 
 					// Dynamically resize the post thumbnail
-					$vt_crop = get_option( 'lok_pis_hard_crop' );
+					$vt_crop = get_option( 'woo_pis_hard_crop' );
 					if ($vt_crop == "true") $vt_crop = true; else $vt_crop = false;
 					$vt_image = vt_resize( $att_id, '', $width, $height, $vt_crop );
 
@@ -266,22 +266,22 @@ function lok_image($args) {
 	if ( empty($custom_field) && empty($img_link) ) {
 		$embed = get_post_meta($id, "embed", true);
 		if ( $embed )
-	    	$custom_field = lok_get_video_image($embed);
+	    	$custom_field = woo_get_video_image($embed);
 	}
 
 	// Return if there is no attachment or custom field set
 	if ( empty($custom_field) && empty($img_link) ) {
 
 		// Check if default placeholder image is uploaded
-		$placeholder = get_option( 'framework_lok_default_image' );
+		$placeholder = get_option( 'framework_woo_default_image' );
 		if ( $placeholder && !(is_singular() AND in_the_loop()) ) {
 			$custom_field = $placeholder;
 
 			// Resize the placeholder if
-			if ( get_option( 'lok_post_image_support' ) == "true" AND get_option( 'lok_pis_resize') == "true") {
+			if ( get_option( 'woo_post_image_support' ) == "true" AND get_option( 'woo_pis_resize') == "true") {
 
 				// Dynamically resize the post thumbnail
-				$vt_crop = get_option( 'lok_pis_hard_crop' );
+				$vt_crop = get_option( 'woo_pis_hard_crop' );
 				if ($vt_crop == "true") $vt_crop = true; else $vt_crop = false;
 				$vt_image = vt_resize( '', $placeholder, $width, $height, $vt_crop );
 
@@ -313,12 +313,12 @@ function lok_image($args) {
     	$set_height = ' height="' . $height .'" ';
 
 	// Set standard class
-	if ( $class ) $class = 'lok-image ' . $class; else $class = 'lok-image';
+	if ( $class ) $class = 'woo-image ' . $class; else $class = 'woo-image';
 
 	// Do check to verify if images are smaller then specified.
 	if($force == true){ $set_width = ''; $set_height = ''; }
 
-	// WP Post Thumbnail
+	// nxt Post Thumbnail
 	if(!empty($img_link) ){
 
 		if( $link == 'img' ) {  // Output the image without anchors
@@ -356,7 +356,7 @@ function lok_image($args) {
 	}
 
 	// Use thumb.php to resize. Skip if image has been natively resized with vt_resize.
-	elseif ( get_option( 'lok_resize') == 'true' && empty($vt_image['url']) ) {
+	elseif ( get_option( 'woo_resize') == 'true' && empty($vt_image['url']) ) {
 
 		foreach($src_arr as $key => $custom_field){
 
@@ -364,10 +364,10 @@ function lok_image($args) {
 			$href = $custom_field;
 			$custom_field = cleanSource( $custom_field );
 
-			// Check if WPMU and set correct path AND that image isn't external
+			// Check if nxtMU and set correct path AND that image isn't external
 			if ( function_exists( 'get_current_site') && strpos($custom_field,"http://") !== 0 ) {
 				get_current_site();
-				//global $blog_id; Breaks with WP3 MS
+				//global $blog_id; Breaks with nxt3 MS
 				if ( !$blog_id ) {
 					global $current_blog;
 					$blog_id = $current_blog->blog_id;
@@ -505,8 +505,8 @@ function lok_image($args) {
 
 /* Get thumbnail from Video Embed code */
 
-if (!function_exists( 'lok_get_video_image')) {
-	function lok_get_video_image($embed) {
+if (!function_exists( 'woo_get_video_image')) {
+	function woo_get_video_image($embed) {
 	
 		$video_thumb = '';
 
@@ -672,13 +672,13 @@ if ( !function_exists( 'vt_resize') ) {
 
 
 /*-----------------------------------------------------------------------------------*/
-/* Depreciated - lok_get_image - Get Image from custom field */
+/* Depreciated - woo_get_image - Get Image from custom field */
 /*-----------------------------------------------------------------------------------*/
 
 // Depreciated
-function lok_get_image($key = 'image', $width = null, $height = null, $class = "thumbnail", $quality = 90,$id = null,$link = 'src',$repeat = 1,$offset = 0,$before = '', $after = '',$single = false, $force = false, $return = false) {
+function woo_get_image($key = 'image', $width = null, $height = null, $class = "thumbnail", $quality = 90,$id = null,$link = 'src',$repeat = 1,$offset = 0,$before = '', $after = '',$single = false, $force = false, $return = false) {
 	// Run new function
-	lok_image( 'key='.$key.'&width='.$width.'&height='.$height.'&class='.$class.'&quality='.$quality.'&id='.$id.'&link='.$link.'&repeat='.$repeat.'&offset='.$offset.'&before='.$before.'&after='.$after.'&single='.$single.'&fore='.$force.'&return='.$return );
+	woo_image( 'key='.$key.'&width='.$width.'&height='.$height.'&class='.$class.'&quality='.$quality.'&id='.$id.'&link='.$link.'&repeat='.$repeat.'&offset='.$offset.'&before='.$before.'&after='.$after.'&single='.$single.'&fore='.$force.'&return='.$return );
 	return;
 
 }
@@ -686,7 +686,7 @@ function lok_get_image($key = 'image', $width = null, $height = null, $class = "
 
 
 /*-----------------------------------------------------------------------------------*/
-/* lok_embed - Get Video embed code from custom field */
+/* woo_embed - Get Video embed code from custom field */
 /*-----------------------------------------------------------------------------------*/
 
 /*
@@ -700,8 +700,8 @@ Parameters:
 		$id = ID from post to pull custom field from
 */
 
-if ( !function_exists('lok_embed') ) {
-function lok_embed($args) {
+if ( !function_exists('woo_embed') ) {
+function woo_embed($args) {
 
 	//Defaults
 	$key = 'embed';
@@ -792,28 +792,28 @@ endif;
 }
 
 /*-----------------------------------------------------------------------------------*/
-/* Depreciated - lok_get_embed - Get Video embed code from custom field */
+/* Depreciated - woo_get_embed - Get Video embed code from custom field */
 /*-----------------------------------------------------------------------------------*/
 
 // Depreciated
-function lok_get_embed($key = 'embed', $width, $height, $class = 'video', $id = null) {
+function woo_get_embed($key = 'embed', $width, $height, $class = 'video', $id = null) {
 	// Run new function
-	return lok_embed( 'key='.$key.'&width='.$width.'&height='.$height.'&class='.$class.'&id='.$id );
+	return woo_embed( 'key='.$key.'&width='.$width.'&height='.$height.'&class='.$class.'&id='.$id );
 
 }
 
 
 
 /*-----------------------------------------------------------------------------------*/
-/* lok Show Page Menu */
+/* Woo Show Page Menu */
 /*-----------------------------------------------------------------------------------*/
 
 // Show menu in header.php
 // Exlude the pages from the slider
-function lok_show_pagemenu( $exclude="" ) {
+function woo_show_pagemenu( $exclude="" ) {
     // Split the featured pages from the options, and put in an array
-    if ( get_option( 'lok_ex_featpages') ) {
-        $menupages = get_option( 'lok_featpages' );
+    if ( get_option( 'woo_ex_featpages') ) {
+        $menupages = get_option( 'woo_featpages' );
         $exclude = $menupages . ',' . $exclude;
     }
 
@@ -829,7 +829,7 @@ function lok_show_pagemenu( $exclude="" ) {
 /* Get the style path currently selected */
 /*-----------------------------------------------------------------------------------*/
 
-function lok_style_path() {
+function woo_style_path() {
 
 	$return = '';
 
@@ -844,7 +844,7 @@ function lok_style_path() {
 
 	} else {
 
-		$stylesheet = get_option( 'lok_alt_stylesheet' );
+		$stylesheet = get_option( 'woo_alt_stylesheet' );
 
 		// Prevent against an empty return to $stylesheet.
 
@@ -870,7 +870,7 @@ function lok_style_path() {
 
 	echo $return;
 
-} // End lok_style_path()
+} // End woo_style_path()
 
 
 /*-----------------------------------------------------------------------------------*/
@@ -920,7 +920,7 @@ function cleanSource($src) {
 /* Show image in RSS feed */
 /* Original code by Justin Tadlock http://justintadlock.com */
 /*-----------------------------------------------------------------------------------*/
-if ( get_option( 'lok_rss_thumb') == 'true' ) {
+if ( get_option( 'woo_rss_thumb') == 'true' ) {
 	if ( get_option( 'rss_use_excerpt' ) ) 
 		add_filter( 'the_excerpt_rss', 'add_image_RSS' );
 	else
@@ -935,7 +935,7 @@ function add_image_RSS( $content ) {
 
 	// Get the "image" from custom field
 	//$image = get_post_meta($post->ID, 'image', $single = true);
-	$image = lok_image( 'return=true&link=url' ); 
+	$image = woo_image( 'return=true&link=url' ); 
 	$image_width = '240';
 
 	// If there's an image, display the image with the content
@@ -958,12 +958,12 @@ function add_image_RSS( $content ) {
 /*-----------------------------------------------------------------------------------*/
 /* Show analytics code in footer */
 /*-----------------------------------------------------------------------------------*/
-function lok_analytics(){
-	$output = get_option( 'lok_google_analytics' );
+function woo_analytics(){
+	$output = get_option( 'woo_google_analytics' );
 	if ( $output <> "" )
 		echo stripslashes($output) . "\n";
 }
-add_action( 'nxt_footer','lok_analytics' );
+add_action( 'nxt_footer','woo_analytics' );
 
 
 
@@ -1009,8 +1009,8 @@ function browser_body_class($classes) {
 /* Twitter's Blogger.js output for Twitter widgets */
 /*-----------------------------------------------------------------------------------*/
 
-if ( !function_exists( 'lok_twitter_script') ) {
-	function lok_twitter_script($unique_id,$username,$limit) {
+if ( !function_exists( 'woo_twitter_script') ) {
+	function woo_twitter_script($unique_id,$username,$limit) {
 	?>
 	<script type="text/javascript">
 	<!--//--><![CDATA[//><!--
@@ -1039,19 +1039,19 @@ if ( !function_exists( 'lok_twitter_script') ) {
 	      delta = delta + (relative_to.getTimezoneOffset() * 60);
 
 	      if (delta < 60) {
-	        return '<?php _e( 'less than a minute ago', 'lokthemes' ); ?>';
+	        return '<?php _e( 'less than a minute ago', 'woothemes' ); ?>';
 	      } else if(delta < 120) {
-	        return '<?php _e( 'about a minute ago', 'lokthemes' ); ?>';
+	        return '<?php _e( 'about a minute ago', 'woothemes' ); ?>';
 	      } else if(delta < (60*60)) {
-	        return (parseInt(delta / 60)).toString() + ' <?php _e( 'minutes ago', 'lokthemes' ); ?>';
+	        return (parseInt(delta / 60)).toString() + ' <?php _e( 'minutes ago', 'woothemes' ); ?>';
 	      } else if(delta < (120*60)) {
 	        return 'about an hour ago';
 	      } else if(delta < (24*60*60)) {
-	        return 'about ' + (parseInt(delta / 3600)).toString() + ' <?php _e( 'hours ago', 'lokthemes' ); ?>';
+	        return 'about ' + (parseInt(delta / 3600)).toString() + ' <?php _e( 'hours ago', 'woothemes' ); ?>';
 	      } else if(delta < (48*60*60)) {
 	        return '1 day ago';
 	      } else {
-	        return (parseInt(delta / 86400)).toString() + ' <?php _e( 'days ago', 'lokthemes' ); ?>';
+	        return (parseInt(delta / 86400)).toString() + ' <?php _e( 'days ago', 'woothemes' ); ?>';
 	      }
 	    }
 	//-->!]]>
@@ -1064,7 +1064,7 @@ if ( !function_exists( 'lok_twitter_script') ) {
 /*-----------------------------------------------------------------------------------*/
 /* Template Detector */
 /*-----------------------------------------------------------------------------------*/
-function lok_active_template($filename = null){
+function woo_active_template($filename = null){
 
 	if(isset($filename)){
 
@@ -1089,15 +1089,15 @@ function lok_active_template($filename = null){
 
 }
 /*-----------------------------------------------------------------------------------*/
-/* lokFramework Update Page */
+/* WooFramework Update Page */
 /*-----------------------------------------------------------------------------------*/
 
-function lokthemes_framework_update_page() {
+function woothemes_framework_update_page() {
 
 	// Clear transients.
-	delete_transient( 'lok_framework_critical_update' );
-	delete_transient( 'lok_framework_critical_update_data' );
-	delete_transient( 'lokframework_version_data' );
+	delete_transient( 'woo_framework_critical_update' );
+	delete_transient( 'woo_framework_critical_update_data' );
+	delete_transient( 'wooframework_version_data' );
 
         $method = get_filesystem_method();
         
@@ -1105,20 +1105,20 @@ function lokthemes_framework_update_page() {
         if(isset($_POST['password'])){
 
             $cred = $_POST;
-            $filesystem = WP_Filesystem($cred);
+            $filesystem = nxt_Filesystem($cred);
 
         }
-        elseif(isset($_POST['lok_ftp_cred'])){
+        elseif(isset($_POST['woo_ftp_cred'])){
 
-             $cred = unserialize(base64_decode($_POST['lok_ftp_cred']));
-             $filesystem = WP_Filesystem($cred);
+             $cred = unserialize(base64_decode($_POST['woo_ftp_cred']));
+             $filesystem = nxt_Filesystem($cred);
 
         } else {
 
-           $filesystem = WP_Filesystem();
+           $filesystem = nxt_Filesystem();
 
         };
-        $url = admin_url( 'admin.php?page=lokthemes_framework_update' );
+        $url = admin_url( 'admin.php?page=woothemes_framework_update' );
         ?>
             <div class="wrap themes-page">
         <?php
@@ -1129,10 +1129,10 @@ function lokthemes_framework_update_page() {
             }  else {
 
             // Clear the transient to force a fresh update.
-            delete_transient( 'lokframework_version_data' );
+            delete_transient( 'wooframework_version_data' );
             	
-            $localversion = get_option( 'lok_framework_version' );
-            $remoteversion = lok_get_fw_version();
+            $localversion = get_option( 'woo_framework_version' );
+            $remoteversion = woo_get_fw_version();
             
             // Test if new version
             $upd = false;
@@ -1150,12 +1150,12 @@ function lokthemes_framework_update_page() {
             <?php screen_icon( 'tools' ); ?>
             <h2>Framework Update</h2>
             <span style="display:none"><?php echo $method; ?></span>
-            <form method="post"  enctype="multipart/form-data" id="lokform" action="<?php /* echo $url; */ ?>">
+            <form method="post"  enctype="multipart/form-data" id="wooform" action="<?php /* echo $url; */ ?>">
 
                 <?php if( $upd ) { ?>
                 <?php nxt_nonce_field( 'update-options' ); ?>
-                <h3>A new version of lokFramework is available.</h3>
-                <p>This updater will download and extract the latest lokFramework files to your current theme's functions folder. </p>
+                <h3>A new version of WooFramework is available.</h3>
+                <p>This updater will download and extract the latest WooFramework files to your current theme's functions folder. </p>
                 <p>We recommend backing up your theme files and updating NXTClass to latest version before proceeding.</p>
                 <p>&rarr; <strong>Your version:</strong> <?php echo $localversion; ?></p>
 
@@ -1163,11 +1163,11 @@ function lokthemes_framework_update_page() {
 
                 <input type="submit" class="button" value="Update Framework" />
                 <?php } else { ?>
-                <h3>You have the latest version of lokFramework</h3>
+                <h3>You have the latest version of WooFramework</h3>
                 <p>&rarr; <strong>Your version:</strong> <?php echo $localversion; ?></p>
                 <?php } ?>
-                <input type="hidden" name="lok_update_save" value="save" />
-                <input type="hidden" name="lok_ftp_cred" value="<?php echo esc_attr( base64_encode(serialize($_POST))); ?>" />
+                <input type="hidden" name="woo_update_save" value="save" />
+                <input type="hidden" name="woo_ftp_cred" value="<?php echo esc_attr( base64_encode(serialize($_POST))); ?>" />
 
             </form>
             <?php } ?>
@@ -1176,49 +1176,49 @@ function lokthemes_framework_update_page() {
 };
 
 /*-----------------------------------------------------------------------------------*/
-/* lokFramework Update Head */
+/* WooFramework Update Head */
 /*-----------------------------------------------------------------------------------*/
 
-function lokthemes_framework_update_head(){
+function woothemes_framework_update_head(){
 
   if(isset($_REQUEST['page'])){
 
 	// Sanitize page being requested.
 	$_page = strtolower( strip_tags( trim( $_REQUEST['page'] ) ) );
 
-	if( $_page == 'lokthemes_framework_update'){
+	if( $_page == 'woothemes_framework_update'){
 
 		//Setup Filesystem
 		$method = get_filesystem_method();
 
-		if(isset($_POST['lok_ftp_cred'])){
+		if(isset($_POST['woo_ftp_cred'])){
 
-			$cred = unserialize(base64_decode($_POST['lok_ftp_cred']));
-			$filesystem = WP_Filesystem($cred);
+			$cred = unserialize(base64_decode($_POST['woo_ftp_cred']));
+			$filesystem = nxt_Filesystem($cred);
 
 		} else {
 
-		   $filesystem = WP_Filesystem();
+		   $filesystem = nxt_Filesystem();
 
 		};
 
 		if($filesystem == false && $_POST['upgrade'] != 'Proceed'){
 
-			function lokthemes_framework_update_filesystem_warning() {
+			function woothemes_framework_update_filesystem_warning() {
 					$method = get_filesystem_method();
 					echo "<div id='filesystem-warning' class='updated fade'><p>Failed: Filesystem preventing downloads. ( ". $method .")</p></div>";
 				}
-				add_action( 'admin_notices', 'lokthemes_framework_update_filesystem_warning' );
+				add_action( 'admin_notices', 'woothemes_framework_update_filesystem_warning' );
 				return;
 		}
-		if(isset($_REQUEST['lok_update_save'])){
+		if(isset($_REQUEST['woo_update_save'])){
 
 			// Sanitize action being requested.
-			$_action = strtolower( trim( strip_tags( $_REQUEST['lok_update_save'] ) ) );
+			$_action = strtolower( trim( strip_tags( $_REQUEST['woo_update_save'] ) ) );
 
 		if( $_action == 'save' ){
 
-		$temp_file_addr = download_url( 'http://www.lokthemes.com/updates/framework.zip' );
+		$temp_file_addr = download_url( 'http://www.woothemes.com/updates/framework.zip' );
 
 		if ( is_nxt_error($temp_file_addr) ) {
 
@@ -1226,15 +1226,15 @@ function lokthemes_framework_update_head(){
 
 			if($error == 'http_no_url') {
 			//The source file was not found or is invalid
-				function lokthemes_framework_update_missing_source_warning() {
+				function woothemes_framework_update_missing_source_warning() {
 					echo "<div id='source-warning' class='updated fade'><p>Failed: Invalid URL Provided</p></div>";
 				}
-				add_action( 'admin_notices', 'lokthemes_framework_update_missing_source_warning' );
+				add_action( 'admin_notices', 'woothemes_framework_update_missing_source_warning' );
 			} else {
-				function lokthemes_framework_update_other_upload_warning() {
+				function woothemes_framework_update_other_upload_warning() {
 					echo "<div id='source-warning' class='updated fade'><p>Failed: Upload - $error</p></div>";
 				}
-				add_action( 'admin_notices', 'lokthemes_framework_update_other_upload_warning' );
+				add_action( 'admin_notices', 'woothemes_framework_update_other_upload_warning' );
 
 			}
 
@@ -1259,39 +1259,39 @@ function lokthemes_framework_update_head(){
 
 			if($error == 'incompatible_archive') {
 				//The source file was not found or is invalid
-				function lokthemes_framework_update_no_archive_warning() {
-					echo "<div id='lok-no-archive-warning' class='updated fade'><p>Failed: Incompatible archive</p></div>";
+				function woothemes_framework_update_no_archive_warning() {
+					echo "<div id='woo-no-archive-warning' class='updated fade'><p>Failed: Incompatible archive</p></div>";
 				}
-				add_action( 'admin_notices', 'lokthemes_framework_update_no_archive_warning' );
+				add_action( 'admin_notices', 'woothemes_framework_update_no_archive_warning' );
 			}
 			if($error == 'empty_archive') {
-				function lokthemes_framework_update_empty_archive_warning() {
-					echo "<div id='lok-empty-archive-warning' class='updated fade'><p>Failed: Empty Archive</p></div>";
+				function woothemes_framework_update_empty_archive_warning() {
+					echo "<div id='woo-empty-archive-warning' class='updated fade'><p>Failed: Empty Archive</p></div>";
 				}
-				add_action( 'admin_notices', 'lokthemes_framework_update_empty_archive_warning' );
+				add_action( 'admin_notices', 'woothemes_framework_update_empty_archive_warning' );
 			}
 			if($error == 'mkdir_failed') {
-				function lokthemes_framework_update_mkdir_warning() {
-					echo "<div id='lok-mkdir-warning' class='updated fade'><p>Failed: mkdir Failure</p></div>";
+				function woothemes_framework_update_mkdir_warning() {
+					echo "<div id='woo-mkdir-warning' class='updated fade'><p>Failed: mkdir Failure</p></div>";
 				}
-				add_action( 'admin_notices', 'lokthemes_framework_update_mkdir_warning' );
+				add_action( 'admin_notices', 'woothemes_framework_update_mkdir_warning' );
 			}
 			if($error == 'copy_failed') {
-				function lokthemes_framework_update_copy_fail_warning() {
-					echo "<div id='lok-copy-fail-warning' class='updated fade'><p>Failed: Copy Failed</p></div>";
+				function woothemes_framework_update_copy_fail_warning() {
+					echo "<div id='woo-copy-fail-warning' class='updated fade'><p>Failed: Copy Failed</p></div>";
 				}
-				add_action( 'admin_notices', 'lokthemes_framework_update_copy_fail_warning' );
+				add_action( 'admin_notices', 'woothemes_framework_update_copy_fail_warning' );
 			}
 
 			return;
 
 		}
 
-		function lokthemes_framework_updated_success() {
+		function woothemes_framework_updated_success() {
 			echo "<div id='framework-upgraded' class='updated fade'><p>New framework successfully downloaded, extracted and updated.</p></div>";
 		}
 		
-		add_action( 'admin_notices', 'lokthemes_framework_updated_success' );
+		add_action( 'admin_notices', 'woothemes_framework_updated_success' );
 
 		}
 	}
@@ -1299,23 +1299,23 @@ function lokthemes_framework_update_head(){
  }
 }
 
-add_action( 'admin_head', 'lokthemes_framework_update_head' );
+add_action( 'admin_head', 'woothemes_framework_update_head' );
 
 /*-----------------------------------------------------------------------------------*/
-/* lokFramework Version Getter */
+/* WooFramework Version Getter */
 /*-----------------------------------------------------------------------------------*/
 
-function lok_get_fw_version( $url = '', $check_if_critical = false ) {
+function woo_get_fw_version( $url = '', $check_if_critical = false ) {
 
 	if( ! empty( $url ) ) {
 		$fw_url = $url;
 	} else {
-    	$fw_url = 'http://www.lokthemes.com/updates/functions-changelog.txt';
+    	$fw_url = 'http://www.woothemes.com/updates/functions-changelog.txt';
     }
     
     $output = array( 'version' => '', 'is_critical' => false );
     
-    $version_data = get_transient( 'lokframework_version_data' );
+    $version_data = get_transient( 'wooframework_version_data' );
 
 	if ( $version_data != '' && $check_if_critical == false ) { return $version_data; }
 
@@ -1342,26 +1342,26 @@ function lok_get_fw_version( $url = '', $check_if_critical = false ) {
         }
         unlink( $temp_file_addr );
     } else {
-        $output['version'] = get_option( 'lok_framework_version' );
+        $output['version'] = get_option( 'woo_framework_version' );
     }
     
     // Set the transient containing the latest version number.
-	set_transient( 'lokframework_version_data', $output , 60*60*24 );
+	set_transient( 'wooframework_version_data', $output , 60*60*24 );
 	
 	return $output;
-} // End lok_get_fw_version()
+} // End woo_get_fw_version()
 
 
 /*-----------------------------------------------------------------------------------*/
-/* lokFramework Version Checker */
+/* WooFramework Version Checker */
 /*-----------------------------------------------------------------------------------*/
 
-function lok_framework_version_checker( $local_version, $check_if_critical = false ) {
+function woo_framework_version_checker( $local_version, $check_if_critical = false ) {
 	$data = array( 'is_update' => false, 'version' => '1.0.0', 'status' => 'none' );
 	
 	if ( ! $local_version ) { return $data; }
 	
-	$version_data = lok_get_fw_version( '', $check_if_critical );
+	$version_data = woo_get_fw_version( '', $check_if_critical );
 	
 	$check = version_compare( $version_data['version'], $local_version ); // Returns 1 if there is an update available.
 	
@@ -1372,16 +1372,16 @@ function lok_framework_version_checker( $local_version, $check_if_critical = fal
 	}
 	
 	return $data;
-} // End lok_framework_version_checker()
+} // End woo_framework_version_checker()
 
 /*-----------------------------------------------------------------------------------*/
-/* lok URL shortener */
+/* Woo URL shortener */
 /*-----------------------------------------------------------------------------------*/
 
-function lok_short_url($url) {
-	$service = get_option( 'lok_url_shorten' );
-	$bitlyapilogin = get_option( 'lok_bitly_api_login' );;
-	$bitlyapikey = get_option( 'lok_bitly_api_key' );;
+function woo_short_url($url) {
+	$service = get_option( 'woo_url_shorten' );
+	$bitlyapilogin = get_option( 'woo_bitly_api_login' );;
+	$bitlyapikey = get_option( 'woo_bitly_api_key' );;
 	if (isset($service)) {
 		switch ($service)
 		{
@@ -1474,10 +1474,10 @@ function _iscurlinstalled() {
 }
 
 /*-----------------------------------------------------------------------------------*/
-/* lok_title() */
+/* woo_title() */
 /*-----------------------------------------------------------------------------------*/
 
-function lok_title(){
+function woo_title(){
 
 	global $post;
 	$layout = '';
@@ -1485,7 +1485,7 @@ function lok_title(){
 	// Setup the variable that will, ultimately, hold the title value.
 	$title = '';
 
-	//Taxonomy Details WP 3.0 only
+	//Taxonomy Details nxt 3.0 only
 	if ( function_exists( 'get_taxonomies') ) :
 		global $nxt_query;
 		$taxonomy_obj = $nxt_query->get_queried_object();
@@ -1502,7 +1502,7 @@ function lok_title(){
 
 	//3rd Party Plugins
 	$use_third_party_data = false;
-	if(get_option( 'seo_lok_use_third_party_data') == 'true'){
+	if(get_option( 'seo_woo_use_third_party_data') == 'true'){
 		$use_third_party_data = true;
 	}
 
@@ -1511,15 +1511,15 @@ function lok_title(){
 		(
 			class_exists( 'All_in_One_SEO_Pack') ||
 			class_exists( 'Headspace_Plugin') ||
-			class_exists( 'WPSEO_Admin' ) ||
-			class_exists( 'WPSEO_Frontend' )
+			class_exists( 'nxtSEO_Admin' ) ||
+			class_exists( 'nxtSEO_Frontend' )
     	)
 	&&
 		( $use_third_party_data == true ) ) { 
 			
 		global $page, $paged; 
 				
-		if ( class_exists( 'WPSEO_Frontend' ) ) { 
+		if ( class_exists( 'nxtSEO_Frontend' ) ) { 
 		
 			nxt_title('');
 		
@@ -1537,20 +1537,20 @@ function lok_title(){
 		
 			// Add a page number if necessary:
 			if ( $paged >= 2 || $page >= 2 )
-			echo ' | ' . sprintf( __( 'Page %s', 'lokthemes' ), max( $paged, $page ) );
+			echo ' | ' . sprintf( __( 'Page %s', 'woothemes' ), max( $paged, $page ) );
 			
 		}
 		return;
 					
 	}
 	
-	$sep = get_option( 'seo_lok_seperator' );
+	$sep = get_option( 'seo_woo_seperator' );
 	if(empty($sep)) { $sep = " | ";} else { $sep = ' ' . $sep . ' ';}
-	$use_nxt_title = get_option( 'seo_lok_nxt_title' );
-	$home_layout = get_option( 'seo_lok_home_layout' );
-	$single_layout = get_option( 'seo_lok_single_layout' );
-	$page_layout = get_option( 'seo_lok_page_layout' );
-	$archive_layout = get_option( 'seo_lok_archive_layout' );
+	$use_nxt_title = get_option( 'seo_woo_nxt_title' );
+	$home_layout = get_option( 'seo_woo_home_layout' );
+	$single_layout = get_option( 'seo_woo_single_layout' );
+	$page_layout = get_option( 'seo_woo_page_layout' );
+	$archive_layout = get_option( 'seo_woo_archive_layout' );
 
 
 	$output = '';
@@ -1567,13 +1567,13 @@ function lok_title(){
 				}
 			if(is_paged()){
 				$paged_var = get_query_var( 'paged' );
-				if(get_option( 'seo_lok_paged_var_pos') == 'after'){
+				if(get_option( 'seo_woo_paged_var_pos') == 'after'){
 
-					$output .= $sep . get_option( 'seo_lok_paged_var') . ' ' . $paged_var;
+					$output .= $sep . get_option( 'seo_woo_paged_var') . ' ' . $paged_var;
 
 				} else {
 
-					$output = get_option( 'seo_lok_paged_var') . ' ' . $paged_var . $sep . $output;
+					$output = get_option( 'seo_woo_paged_var') . ' ' . $paged_var . $sep . $output;
 
 				}
 
@@ -1592,14 +1592,14 @@ function lok_title(){
 
 
 		//Check if there is a custom value added to post meta
-		$lokseo_title = get_post_meta($post->ID,'seo_title',true); // lokSEO
+		$wooseo_title = get_post_meta($post->ID,'seo_title',true); // WooSEO
 		$aio_title = get_post_meta($post->ID,'_aioseop_title',true); // All-in-One SEO Pack
 		$headspace_title = get_post_meta($post->ID,'_headspace_page_title',true); // Headspace SEO
 		$nxtseo_title = get_post_meta( $post->ID,'_yoast_nxtseo_title', true ); // NXTClass SEO
 
-		if( get_option( 'seo_lok_nxt_custom_field_title') != 'true' && is_singular() ) {
-			if( ! empty($lokseo_title ) ){
-				$layout = 'lokseo';
+		if( get_option( 'seo_woo_nxt_custom_field_title') != 'true' && is_singular() ) {
+			if( ! empty($wooseo_title ) ){
+				$layout = 'wooseo';
 			} elseif(!empty($aio_title) AND $use_third_party_data) {
 				$layout = 'aioseo';
 			} elseif(!empty($headspace_title) AND $use_third_party_data) {
@@ -1621,7 +1621,7 @@ function lok_title(){
 				break;
 				case 'search':  $output = get_bloginfo( 'name') . nxt_title($sep,false,false); // Search is hardcoded
 				break;
-				case 'lokseo':  $output = $lokseo_title; // lokSEO Title
+				case 'wooseo':  $output = $wooseo_title; // WooSEO Title
 				break;
 				case 'aioseo':  $output = $aio_title; // All-in-One SEO Pack Title
 				break;
@@ -1632,10 +1632,10 @@ function lok_title(){
 			}
 			if(is_paged()){
 				$paged_var = get_query_var( 'paged' );
-				if(get_option( 'seo_lok_paged_var_pos') == 'after'){
-					$output .= $sep . get_option( 'seo_lok_paged_var') . ' ' . $paged_var;
+				if(get_option( 'seo_woo_paged_var_pos') == 'after'){
+					$output .= $sep . get_option( 'seo_woo_paged_var') . ' ' . $paged_var;
 				} else {
-					$output = get_option( 'seo_lok_paged_var') . ' ' . $paged_var . $sep . $output;
+					$output = get_option( 'seo_woo_paged_var') . ' ' . $paged_var . $sep . $output;
 				}
 			}
 			$output = stripslashes($output);
@@ -1651,21 +1651,21 @@ function lok_title(){
 	else {
 
 		if ( is_home() ) { $title = get_bloginfo( 'name') . $sep . get_bloginfo( 'description' ); }
-		elseif ( is_search() ) { $title = get_bloginfo( 'name') . $sep . __( 'Search Results', 'lokthemes' );  }
-		elseif ( is_author() ) { $title = get_bloginfo( 'name') . $sep . __( 'Author Archives', 'lokthemes' );  }
+		elseif ( is_search() ) { $title = get_bloginfo( 'name') . $sep . __( 'Search Results', 'woothemes' );  }
+		elseif ( is_author() ) { $title = get_bloginfo( 'name') . $sep . __( 'Author Archives', 'woothemes' );  }
 		elseif ( is_single() ) { $title = nxt_title( $sep, false, true ) . get_bloginfo( 'name' );  }
 		elseif ( is_page() ) { $title = get_bloginfo( 'name' ) . nxt_title( $sep, false, 'none' );  }
-		elseif ( is_category() ) { $title = get_bloginfo( 'name') . $sep . __( 'Category Archive', 'lokthemes' ) . $sep . single_cat_title( '',false );  }
-		elseif ( is_tax() ) { $title = get_bloginfo( 'name') . $sep . $taxonomy_top_level_item . __( ' Archive', 'lokthemes' ) . $sep . $taxonomy_nice_name;  }
-		elseif ( is_day() ) { $title = get_bloginfo( 'name') . $sep . __( 'Daily Archive', 'lokthemes' ) . $sep . get_the_time( 'jS F, Y' );  }
-		elseif ( is_month() ) { $title = get_bloginfo( 'name') . $sep . __( 'Monthly Archive', 'lokthemes' ) . $sep . get_the_time( 'F' );  }
-		elseif ( is_year() ) { $title = get_bloginfo( 'name') . $sep . __( 'Yearly Archive', 'lokthemes' ) . $sep . get_the_time( 'Y' );  }
-		elseif ( is_tag() ) {  $title = get_bloginfo( 'name') . $sep . __( 'Tag Archive', 'lokthemes' ) . $sep . single_tag_title( '',false); }
-		elseif ( function_exists( 'is_post_type_archive' ) && is_post_type_archive() ) { $title = get_bloginfo( 'name') . $sep . $archive_name . __( ' Archive', 'lokthemes' );  }
+		elseif ( is_category() ) { $title = get_bloginfo( 'name') . $sep . __( 'Category Archive', 'woothemes' ) . $sep . single_cat_title( '',false );  }
+		elseif ( is_tax() ) { $title = get_bloginfo( 'name') . $sep . $taxonomy_top_level_item . __( ' Archive', 'woothemes' ) . $sep . $taxonomy_nice_name;  }
+		elseif ( is_day() ) { $title = get_bloginfo( 'name') . $sep . __( 'Daily Archive', 'woothemes' ) . $sep . get_the_time( 'jS F, Y' );  }
+		elseif ( is_month() ) { $title = get_bloginfo( 'name') . $sep . __( 'Monthly Archive', 'woothemes' ) . $sep . get_the_time( 'F' );  }
+		elseif ( is_year() ) { $title = get_bloginfo( 'name') . $sep . __( 'Yearly Archive', 'woothemes' ) . $sep . get_the_time( 'Y' );  }
+		elseif ( is_tag() ) {  $title = get_bloginfo( 'name') . $sep . __( 'Tag Archive', 'woothemes' ) . $sep . single_tag_title( '',false); }
+		elseif ( function_exists( 'is_post_type_archive' ) && is_post_type_archive() ) { $title = get_bloginfo( 'name') . $sep . $archive_name . __( ' Archive', 'woothemes' );  }
 	}
 
 	// Allow child themes/plugins to filter the title value.
-	$title = apply_filters( 'lok_title', $title, $sep );
+	$title = apply_filters( 'woo_title', $title, $sep );
 
 	// Display the formatted title.
 	echo $title;
@@ -1675,16 +1675,16 @@ function lok_title(){
 /* SEO - Strip slashes from the display of the website/page title */
 /*-----------------------------------------------------------------------------------*/
 
-add_filter( 'lok_title', 'stripslashes', 10 );
+add_filter( 'woo_title', 'stripslashes', 10 );
 add_filter( 'nxt_title', 'stripslashes', 10 );
 add_filter( 'admin_title', 'stripslashes', 10 );
 
 /*-----------------------------------------------------------------------------------*/
-/* lok_meta() */
+/* woo_meta() */
 /*-----------------------------------------------------------------------------------*/
 
 
-function lok_meta(){
+function woo_meta(){
 		global $post;
 		global $nxtdb;
 		if(!empty($post)){
@@ -1699,7 +1699,7 @@ function lok_meta(){
 
 		//3rd Party Plugins
 		$use_third_party_data = false;
-		if(get_option( 'seo_lok_use_third_party_data') == 'true'){
+		if(get_option( 'seo_woo_use_third_party_data') == 'true'){
 			$use_third_party_data = true;
 		}
 
@@ -1707,8 +1707,8 @@ function lok_meta(){
 			(
 			class_exists( 'All_in_One_SEO_Pack') ||
     		class_exists( 'Headspace_Plugin') ||
-    		class_exists( 'WPSEO_Admin' ) ||
-    		class_exists( 'WPSEO_Frontend' )
+    		class_exists( 'nxtSEO_Admin' ) ||
+    		class_exists( 'nxtSEO_Frontend' )
     		)
 		&& ( $use_third_party_data == true ) ) { return; }
 
@@ -1716,22 +1716,22 @@ function lok_meta(){
 		if (
 			! class_exists( 'All_in_One_SEO_Pack') &&
     		! class_exists( 'Headspace_Plugin') &&
-    		! class_exists( 'WPSEO_Admin' ) &&
-    		! class_exists( 'WPSEO_Frontend' )
+    		! class_exists( 'nxtSEO_Admin' ) &&
+    		! class_exists( 'nxtSEO_Frontend' )
 		) {
 			$index = 'index';
 			$follow = 'follow';
 
-			if ( is_category() && get_option( 'seo_lok_meta_indexing_category') != 'true' ) { $index = 'noindex'; }
-			elseif ( is_tag() && get_option( 'seo_lok_meta_indexing_tag') != 'true') { $index = 'noindex'; }
-			elseif ( is_post_type_archive() && get_option( 'seo_lok_meta_indexing_posttype') != 'true' ) { $index = 'noindex'; }
-			elseif ( is_tax() && get_option( 'seo_lok_meta_indexing_taxonomy') != 'true' ) { $index = 'noindex'; }
-			elseif ( is_search() && get_option( 'seo_lok_meta_indexing_search') != 'true' ) { $index = 'noindex'; }
-			elseif ( is_author() && get_option( 'seo_lok_meta_indexing_author') != 'true') { $index = 'noindex'; }
-			elseif ( is_date() && get_option( 'seo_lok_meta_indexing_date') != 'true') { $index = 'noindex'; }
+			if ( is_category() && get_option( 'seo_woo_meta_indexing_category') != 'true' ) { $index = 'noindex'; }
+			elseif ( is_tag() && get_option( 'seo_woo_meta_indexing_tag') != 'true') { $index = 'noindex'; }
+			elseif ( is_post_type_archive() && get_option( 'seo_woo_meta_indexing_posttype') != 'true' ) { $index = 'noindex'; }
+			elseif ( is_tax() && get_option( 'seo_woo_meta_indexing_taxonomy') != 'true' ) { $index = 'noindex'; }
+			elseif ( is_search() && get_option( 'seo_woo_meta_indexing_search') != 'true' ) { $index = 'noindex'; }
+			elseif ( is_author() && get_option( 'seo_woo_meta_indexing_author') != 'true') { $index = 'noindex'; }
+			elseif ( is_date() && get_option( 'seo_woo_meta_indexing_date') != 'true') { $index = 'noindex'; }
 
 			// Set to nofollow
-			if ( get_option( 'seo_lok_meta_single_follow') == 'true' )
+			if ( get_option( 'seo_woo_meta_single_follow') == 'true' )
 				$follow = 'nofollow';
 
 			// Set individual post/page to follow/unfollow
@@ -1750,11 +1750,11 @@ function lok_meta(){
 		/* Description */
 		$description = '';
 
-		$home_desc_option = get_option( 'seo_lok_meta_home_desc' );
-		$singular_desc_option = get_option( 'seo_lok_meta_single_desc' );
+		$home_desc_option = get_option( 'seo_woo_meta_home_desc' );
+		$singular_desc_option = get_option( 'seo_woo_meta_single_desc' );
 
 		//Check if there is a custom value added to post meta
-		$lokseo_desc = get_post_meta($post->ID,'seo_description',true); // lokSEO
+		$wooseo_desc = get_post_meta($post->ID,'seo_description',true); // WooSEO
 		$aio_desc = get_post_meta($post->ID,'_aioseop_description',true); // All-in-One SEO Pack
 		$headspace_desc = get_post_meta($post->ID,'_headspace_description',true); // Headspace SEO
 		$nxtseo_desc = get_post_meta($post->ID,'_yoast_nxtseo_metadesc',true); // NXTClass SEO
@@ -1775,7 +1775,7 @@ function lok_meta(){
 				break;
 				case 'b': $description = get_bloginfo( 'description' );
 				break;
-				case 'c': $description = get_option( 'seo_lok_meta_home_desc_custom' );
+				case 'c': $description = get_option( 'seo_woo_meta_home_desc_custom' );
 				break;
 			}
 		}
@@ -1784,7 +1784,7 @@ function lok_meta(){
 			switch($singular_desc_option){
 				case 'a': $description = '';
 				break;
-				case 'b': $description = trim(strip_tags($lokseo_desc));
+				case 'b': $description = trim(strip_tags($wooseo_desc));
 				break;
 				case 'c':
 
@@ -1810,7 +1810,7 @@ function lok_meta(){
 
 					$post_content = esc_attr( strip_tags( strip_shortcodes( $post_content ) ) );
 
-					$description = lok_text_trim($post_content,30);
+					$description = woo_text_trim($post_content,30);
 
 				break;
 				case 'aioseo':  $description = $aio_desc; // All-in-One Description
@@ -1823,8 +1823,8 @@ function lok_meta(){
 			}
 		}
 
-		if(empty($description) AND get_option( 'seo_lok_meta_single_desc_sitewide') == 'true'){
-			$description = get_option( 'seo_lok_meta_single_desc_custom' );
+		if(empty($description) AND get_option( 'seo_woo_meta_single_desc_sitewide') == 'true'){
+			$description = get_option( 'seo_woo_meta_single_desc_custom' );
 		}
 
 
@@ -1853,11 +1853,11 @@ function lok_meta(){
 		/* Keywords */
 		$keywords = '';
 
-		$home_key_option = get_option( 'seo_lok_meta_home_key' );
-		$singular_key_option = get_option( 'seo_lok_meta_single_key' );
+		$home_key_option = get_option( 'seo_woo_meta_home_key' );
+		$singular_key_option = get_option( 'seo_woo_meta_single_key' );
 
 		//Check if there is a custom value added to post meta
-		$lokseo_keywords = get_post_meta($post->ID,'seo_keywords',true); // lokSEO
+		$wooseo_keywords = get_post_meta($post->ID,'seo_keywords',true); // WooSEO
 		$aio_keywords = get_post_meta($post->ID,'_aioseop_keywords',true); // All-in-One SEO Pack
 		$headspace_keywords = get_post_meta($post->ID,'_headspace_keywords',true); // Headspace SEO
 		$nxtseo_keywords = get_post_meta($post->ID,'_yoast_nxtseo_focuskw',true); // NXTClass SEO
@@ -1876,7 +1876,7 @@ function lok_meta(){
 			switch($home_key_option){
 				case 'a': $keywords = '';
 				break;
-				case 'c': $keywords = get_option( 'seo_lok_meta_home_key_custom' );
+				case 'c': $keywords = get_option( 'seo_woo_meta_home_key_custom' );
 				break;
 			}
 		}
@@ -1885,7 +1885,7 @@ function lok_meta(){
 			switch($singular_key_option){
 				case 'a': $keywords = '';
 				break;
-				case 'b': $keywords = $lokseo_keywords;
+				case 'b': $keywords = $wooseo_keywords;
 				break;
 				case 'c':
 
@@ -1943,8 +1943,8 @@ function lok_meta(){
 				}
 		}
 
-		if(empty($keywords) AND get_option( 'seo_lok_meta_single_key_sitewide') == 'true'){
-			$keywords = get_option( 'seo_lok_meta_single_key_custom' );
+		if(empty($keywords) AND get_option( 'seo_woo_meta_single_key_sitewide') == 'true'){
+			$keywords = get_option( 'seo_woo_meta_single_key_custom' );
 		}
 
 		$keywords = htmlspecialchars($keywords, ENT_QUOTES, 'UTF-8' );
@@ -1965,27 +1965,27 @@ function seo_add_custom() {
 
 		$seo_template = array();
 
-		$seo_lok_nxt_title = get_option( 'seo_lok_nxt_title' );
-		$seo_lok_meta_single_desc = get_option( 'seo_lok_meta_single_desc' );
-		$seo_lok_meta_single_key = get_option( 'seo_lok_meta_single_key' );
+		$seo_woo_nxt_title = get_option( 'seo_woo_nxt_title' );
+		$seo_woo_meta_single_desc = get_option( 'seo_woo_meta_single_desc' );
+		$seo_woo_meta_single_key = get_option( 'seo_woo_meta_single_key' );
 
 		// a = off
-		if( $seo_lok_nxt_title != 'true' OR $seo_lok_meta_single_desc == 'a' OR $seo_lok_meta_single_key == 'a') {
+		if( $seo_woo_nxt_title != 'true' OR $seo_woo_meta_single_desc == 'a' OR $seo_woo_meta_single_key == 'a') {
 
 			$output = "";
-			if ( $seo_lok_nxt_title != 'true' )
+			if ( $seo_woo_nxt_title != 'true' )
 				$output .= "Custom Page Titles, ";
-			if ( $seo_lok_meta_single_desc == 'a' )
+			if ( $seo_woo_meta_single_desc == 'a' )
 				$output .= "Custom Descriptions, ";
-			if ( $seo_lok_meta_single_key == 'a' )
+			if ( $seo_woo_meta_single_key == 'a' )
 				$output .= "Custom Keywords";
 
 			$output = rtrim($output, ", " );
 
-			$desc = 'Additional SEO custom fields available: <strong>'.$output.'</strong>. Go to <a href="' . admin_url( 'admin.php?page=lokthemes_seo' ) . '">SEO Settings</a> page to activate.';
+			$desc = 'Additional SEO custom fields available: <strong>'.$output.'</strong>. Go to <a href="' . admin_url( 'admin.php?page=woothemes_seo' ) . '">SEO Settings</a> page to activate.';
 
 		} else {
-			$desc = 'Go to <a href="'.admin_url( 'admin.php?page=lokthemes_seo').'">SEO Settings</a> page for more SEO options.';
+			$desc = 'Go to <a href="'.admin_url( 'admin.php?page=woothemes_seo').'">SEO Settings</a> page for more SEO options.';
 		}
 
 		$seo_template[] = array (	"name"  => "seo_info_1",
@@ -1996,7 +1996,7 @@ function seo_add_custom() {
 
 		// Change checkbox depending on "Add meta for Posts & Pages to 'follow' by default" checkbox value.
 
-		$followstatus = get_option( 'seo_lok_meta_single_follow' );
+		$followstatus = get_option( 'seo_woo_meta_single_follow' );
 
 		if ( $followstatus == "true" ) {
 
@@ -2022,7 +2022,7 @@ function seo_add_custom() {
 										"type" => "checkbox",
 										"desc" => "Set the Page/Post to not be indexed by a search engines." );
 
-		if( get_option( 'seo_lok_nxt_title') == 'true'){
+		if( get_option( 'seo_woo_nxt_title') == 'true'){
 		$seo_template[] = array (	"name"  => "seo_title",
 										"std" => "",
 										"label" => "SEO - Custom Page Title",
@@ -2030,7 +2030,7 @@ function seo_add_custom() {
 										"desc" => "Add a custom title for this post/page." );
 		}
 
-		if( get_option( 'seo_lok_meta_single_desc') == 'b'){
+		if( get_option( 'seo_woo_meta_single_desc') == 'b'){
 		$seo_template[] = array (	"name"  => "seo_description",
 										"std" => "",
 										"label" => "SEO - Custom Description",
@@ -2038,7 +2038,7 @@ function seo_add_custom() {
 										"desc" => "Add a custom meta description for this post/page." );
 		}
 
-		if( get_option( 'seo_lok_meta_single_key') == 'b'){
+		if( get_option( 'seo_woo_meta_single_key') == 'b'){
 		$seo_template[] = array (	"name"  => "seo_keywords",
 										"std" => "",
 										"label" => "SEO - Custom Keywords",
@@ -2047,7 +2047,7 @@ function seo_add_custom() {
 		}
 
 		//3rd Party Plugins
-		if(get_option( 'seo_lok_use_third_party_data') == 'true'){
+		if(get_option( 'seo_woo_use_third_party_data') == 'true'){
 			$use_third_party_data = true;
 		} else {
 			$use_third_party_data = false;
@@ -2056,26 +2056,26 @@ function seo_add_custom() {
 		if( (
 			class_exists( 'All_in_One_SEO_Pack') ||
     		class_exists( 'Headspace_Plugin') ||
-    		class_exists( 'WPSEO_Admin' ) ||
-    		class_exists( 'WPSEO_Frontend' )
+    		class_exists( 'nxtSEO_Admin' ) ||
+    		class_exists( 'nxtSEO_Frontend' )
 			) AND
 		( $use_third_party_data == true )) {
-			delete_option( 'lok_custom_seo_template' );
+			delete_option( 'woo_custom_seo_template' );
 		}
 		else {
 
-			update_option( 'lok_custom_seo_template',$seo_template);
+			update_option( 'woo_custom_seo_template',$seo_template);
 
 		}
 
 }
 
 /*-----------------------------------------------------------------------------------*/
-/* lok Text Trimmer */
+/* Woo Text Trimmer */
 /*-----------------------------------------------------------------------------------*/
 
-if ( !function_exists( 'lok_text_trim') ) {
-	function lok_text_trim($text, $words = 50)
+if ( !function_exists( 'woo_text_trim') ) {
+	function woo_text_trim($text, $words = 50)
 	{
 		$matches = preg_split( "/\s+/", $text, $words + 1);
 		$sz = count($matches);
@@ -2229,7 +2229,7 @@ $google_fonts = array(	array( 'name' => "Cantarell", 'variant' => ':r,b,i,bi'),
 						array( 'name' => "Francois One", 'variant' => ''),
 						array( 'name' => "Sigmar One", 'variant' => ''),
 						array( 'name' => "Carter One", 'variant' => ''),
-						array( 'name' => "Holtlokd One SC", 'variant' => ''),
+						array( 'name' => "Holtwood One SC", 'variant' => ''),
 						array( 'name' => "Paytone One", 'variant' => ''),
 						array( 'name' => "Monofett", 'variant' => ''),
 						array( 'name' => "Rokkitt", 'variant' => ':400,700'),
@@ -2331,7 +2331,7 @@ $google_fonts = array(	array( 'name' => "Cantarell", 'variant' => ':r,b,i,bi'),
 						array( 'name' => "Dorsa", 'variant' => ''),
 						array( 'name' => "Antic", 'variant' => ''),
 						array( 'name' => "Passero One", 'variant' => ''),
-						array( 'name' => "Fanlokd Text", 'variant' => ''),
+						array( 'name' => "Fanwood Text", 'variant' => ''),
 						array( 'name' => "Prociono", 'variant' => ''),
 						array( 'name' => "Merienda One", 'variant' => ''),
 						array( 'name' => "Changa One", 'variant' => ''),
@@ -2392,23 +2392,23 @@ $google_fonts = array(	array( 'name' => "Cantarell", 'variant' => ':r,b,i,bi'),
 INSTRUCTIONS: Needs to be loaded for the Google Fonts options to work for font options. Add this to
 the specific themes includes/theme-actions.php or functions.php:
 
-add_action( 'nxt_head', 'lok_google_webfonts' );
+add_action( 'nxt_head', 'woo_google_webfonts' );
 */
 
-if (!function_exists( "lok_google_webfonts")) {
-	function lok_google_webfonts() {
+if (!function_exists( "woo_google_webfonts")) {
+	function woo_google_webfonts() {
 
 		global $google_fonts;
 		$fonts = '';
 		$output = '';
 
-		// Setup lok Options array
-		global $lok_options;
+		// Setup Woo Options array
+		global $woo_options;
 
 		// Go through the options
-		if ( !empty($lok_options) ) {
+		if ( !empty($woo_options) ) {
 
-			foreach ( $lok_options as $option ) {
+			foreach ( $woo_options as $option ) {
 
 				// Check if option has "face" in array
 				if ( is_array($option) && isset($option['face']) ) {
@@ -2442,44 +2442,44 @@ if (!function_exists( "lok_google_webfonts")) {
 
 
 /*-----------------------------------------------------------------------------------*/
-/* Enable Home link in WP Menus
+/* Enable Home link in nxt Menus
 /*-----------------------------------------------------------------------------------*/
-if ( !function_exists( 'lok_home_page_menu_args') ) {
-	function lok_home_page_menu_args( $args ) {
+if ( !function_exists( 'woo_home_page_menu_args') ) {
+	function woo_home_page_menu_args( $args ) {
 		$args['show_home'] = true;
 		return $args;
 	}
-	add_filter( 'nxt_page_menu_args', 'lok_home_page_menu_args' );
+	add_filter( 'nxt_page_menu_args', 'woo_home_page_menu_args' );
 }
 
 /*-----------------------------------------------------------------------------------*/
 /* Buy Themes page
 /*-----------------------------------------------------------------------------------*/
-if ( ! function_exists( 'lokthemes_more_themes_page' ) ) {
-	function lokthemes_more_themes_page(){
+if ( ! function_exists( 'woothemes_more_themes_page' ) ) {
+	function woothemes_more_themes_page(){
         ?>
         <div class="wrap themes-page">
-	        <?php screen_icon( 'themes' ); ?><h2><?php _e( 'More lokThemes', 'lokthemes' ); ?></h2>
+	        <?php screen_icon( 'themes' ); ?><h2><?php _e( 'More WooThemes', 'woothemes' ); ?></h2>
 	        <div class="info">
-		        <a href="http://www.lokthemes.com/pricing/"><?php _e( 'Join the lokThemes Club', 'lokthemes' ); ?></a>
-		        <a href="http://www.lokthemes.com/themes/"><?php _e( 'Themes Gallery', 'lokthemes' ); ?></a>
-		        <a href="http://showcase.lokthemes.com/"><?php _e( 'Theme Showcase', 'lokthemes' ); ?></a>
+		        <a href="http://www.woothemes.com/pricing/"><?php _e( 'Join the WooThemes Club', 'woothemes' ); ?></a>
+		        <a href="http://www.woothemes.com/themes/"><?php _e( 'Themes Gallery', 'woothemes' ); ?></a>
+		        <a href="http://showcase.woothemes.com/"><?php _e( 'Theme Showcase', 'woothemes' ); ?></a>
 	        </div>
 			<?php
-				$theme_data = get_transient( 'lokthemes_buy_themes' );
+				$theme_data = get_transient( 'woothemes_buy_themes' );
 				
 				if ( ! $theme_data ) {
 					$html = '';
 					
 					// Get RSS Feed(s)
-			        include_once( ABSPATH . WPINC . '/feed.php' );
-			        $rss = fetch_feed( 'http://www.lokthemes.com/?feed=more_themes' );
+			        include_once( ABSPATH . nxtINC . '/feed.php' );
+			        $rss = fetch_feed( 'http://www.woothemes.com/?feed=more_themes' );
 			        // If the RSS is failed somehow.
 			        if ( is_nxt_error($rss) ) {
 			            $error = $rss->get_error_code();
 			            if( $error == 'simplepie-error' ) {
 			                //Simplepie Error
-			                echo '<div class="updated fade"><p>' . sprintf( __( 'An error has occured with the RSS feed. (%s)', 'lokthemes' ), '<code>' . $error . '</code>' ) . '</p></div>';
+			                echo '<div class="updated fade"><p>' . sprintf( __( 'An error has occured with the RSS feed. (%s)', 'woothemes' ), '<code>' . $error . '</code>' ) . '</p></div>';
 			            }
 			            return;
 			         }
@@ -2495,7 +2495,7 @@ if ( ! function_exists( 'lokthemes_more_themes_page' ) ) {
 			        	}
 			        	
 			        	// Cache this data for 2 weeks.
-			        	set_transient( 'lokthemes_buy_themes', $html , 60*60*336 );
+			        	set_transient( 'woothemes_buy_themes', $html , 60*60*336 );
 			        }
 	        	
 	        		// Set the theme data to be displayed.
@@ -2515,8 +2515,8 @@ if ( ! function_exists( 'lokthemes_more_themes_page' ) ) {
 /*---------------------------------------------------------------------------------*/
 /* Detects the Charset of String and Converts it to UTF-8 */
 /*---------------------------------------------------------------------------------*/
-if ( !function_exists( 'lok_encoding_convert') ) {
-	function lok_encoding_convert($str_to_convert) {
+if ( !function_exists( 'woo_encoding_convert') ) {
+	function woo_encoding_convert($str_to_convert) {
 		if ( function_exists( 'mb_detect_encoding') ) {
 			$str_lang_encoding = mb_detect_encoding($str_to_convert);
 			//if no encoding detected, assume UTF-8
@@ -2536,47 +2536,47 @@ if ( !function_exists( 'lok_encoding_convert') ) {
 }
 
 /*---------------------------------------------------------------------------------*/
-/* WP Login logo */
+/* nxt Login logo */
 /*---------------------------------------------------------------------------------*/
-if ( !function_exists( 'lok_custom_login_logo' ) ) {
-	function lok_custom_login_logo() {
-		$logo = get_option( 'framework_lok_custom_login_logo' );
+if ( !function_exists( 'woo_custom_login_logo' ) ) {
+	function woo_custom_login_logo() {
+		$logo = get_option( 'framework_woo_custom_login_logo' );
 	    $dimensions = @getimagesize( $logo );
 		echo '<style type="text/css">.login h1 a { background-image:url( '.$logo.' ); height: '.$dimensions[1].'px; }</style>';
-	} // End lok_custom_login_logo()
-	if ( get_option( 'framework_lok_custom_login_logo') ) {
-		add_action( 'login_head', 'lok_custom_login_logo' );
+	} // End woo_custom_login_logo()
+	if ( get_option( 'framework_woo_custom_login_logo') ) {
+		add_action( 'login_head', 'woo_custom_login_logo' );
 	}
 }
 
 /*---------------------------------------------------------------------------------*/
-/* WP Login logo URL */
+/* nxt Login logo URL */
 /*---------------------------------------------------------------------------------*/
-if ( ! function_exists( 'lok_custom_login_logo_url' ) ) {
-	function lok_custom_login_logo_url( $text ) {
-		return get_option( 'framework_lok_custom_login_logo_url' ); // Escaping via esc_url() is done in nxt-login.php.
-	} // End lok_custom_login_logo_url()
+if ( ! function_exists( 'woo_custom_login_logo_url' ) ) {
+	function woo_custom_login_logo_url( $text ) {
+		return get_option( 'framework_woo_custom_login_logo_url' ); // Escaping via esc_url() is done in nxt-login.php.
+	} // End woo_custom_login_logo_url()
 	
-	if ( get_option( 'framework_lok_custom_login_logo_url' ) != '' ) {
-		add_filter( 'login_headerurl', 'lok_custom_login_logo_url', 10 );
+	if ( get_option( 'framework_woo_custom_login_logo_url' ) != '' ) {
+		add_filter( 'login_headerurl', 'woo_custom_login_logo_url', 10 );
 	}
 }
 
 /*---------------------------------------------------------------------------------*/
-/* WP Login logo title */
+/* nxt Login logo title */
 /*---------------------------------------------------------------------------------*/
-if ( ! function_exists( 'lok_custom_login_logo_title' ) ) {
-	function lok_custom_login_logo_title( $text ) {
-		return get_option( 'framework_lok_custom_login_logo_title' ); // Escaping via esc_attr() is done in nxt-login.php.
-	} // End lok_custom_login_logo_title()
+if ( ! function_exists( 'woo_custom_login_logo_title' ) ) {
+	function woo_custom_login_logo_title( $text ) {
+		return get_option( 'framework_woo_custom_login_logo_title' ); // Escaping via esc_attr() is done in nxt-login.php.
+	} // End woo_custom_login_logo_title()
 	
-	if ( get_option( 'framework_lok_custom_login_logo_title' ) != '' ) {
-		add_filter( 'login_headertitle', 'lok_custom_login_logo_title', 10 );
+	if ( get_option( 'framework_woo_custom_login_logo_title' ) != '' ) {
+		add_filter( 'login_headertitle', 'woo_custom_login_logo_title', 10 );
 	}
 }
 
 /*-----------------------------------------------------------------------------------*/
-/* lok_pagination() - Custom loop pagination function  */
+/* woo_pagination() - Custom loop pagination function  */
 /*-----------------------------------------------------------------------------------*/
 /*
 /* Additional documentation: http://codex.nxtclass.org/Function_Reference/paginate_links
@@ -2609,7 +2609,7 @@ if ( ! function_exists( 'lok_custom_login_logo_title' ) ) {
 /*
 /*-----------------------------------------------------------------------------------*/
 /**
- * lok_pagination() is used for paginating the various archive pages created by NXTClass. This is not
+ * woo_pagination() is used for paginating the various archive pages created by NXTClass. This is not
  * to be used on single.php or other single view pages.
  *
  * @since 3.7.0
@@ -2618,12 +2618,12 @@ if ( ! function_exists( 'lok_custom_login_logo_title' ) ) {
  * @param object $query An optional custom query to paginate.
  */
 
-if ( ! function_exists( 'lok_pagination' ) ) {
+if ( ! function_exists( 'woo_pagination' ) ) {
 
-	function lok_pagination( $args = array(), $query = '' ) {
+	function woo_pagination( $args = array(), $query = '' ) {
 		global $nxt_rewrite, $nxt_query;
 
-		do_action( 'lok_pagination_start' );
+		do_action( 'woo_pagination_start' );
 
 		if ( $query ) {
 
@@ -2648,21 +2648,21 @@ if ( ! function_exists( 'lok_pagination' ) ) {
 			'total' => $max_num_pages,
 			'current' => $current,
 			'prev_next' => true,
-			'prev_text' => __( '&laquo; Previous', 'lokthemes' ), // Translate in NXTClass. This is the default.
-			'next_text' => __( 'Next &raquo;', 'lokthemes' ), // Translate in NXTClass. This is the default.
+			'prev_text' => __( '&laquo; Previous', 'woothemes' ), // Translate in NXTClass. This is the default.
+			'next_text' => __( 'Next &raquo;', 'woothemes' ), // Translate in NXTClass. This is the default.
 			'show_all' => false,
 			'end_size' => 1,
 			'mid_size' => 1,
 			'add_fragment' => '',
 			'type' => 'plain',
-			'before' => '<div class="pagination lok-pagination">', // Begin lok_pagination() arguments.
+			'before' => '<div class="pagination woo-pagination">', // Begin woo_pagination() arguments.
 			'after' => '</div>',
 			'echo' => true, 
 			'use_search_permastruct' => true
 		);
 
 		/* Allow themes/plugins to filter the default arguments. */
-		$defaults = apply_filters( 'lok_pagination_args_defaults', $defaults );
+		$defaults = apply_filters( 'woo_pagination_args_defaults', $defaults );
 
 		/* Add the $base argument to the array if the user is using permalinks. */
 		if( $nxt_rewrite->using_permalinks() )
@@ -2690,7 +2690,7 @@ if ( ! function_exists( 'lok_pagination' ) ) {
 		$args = nxt_parse_args( $args, $defaults );
 
 		/* Allow developers to overwrite the arguments with a filter. */
-		$args = apply_filters( 'lok_pagination_args', $args );
+		$args = apply_filters( 'woo_pagination_args', $args );
 
 		/* Don't allow the user to set this to an array. */
 		if ( 'array' == $args['type'] )
@@ -2716,9 +2716,9 @@ if ( ! function_exists( 'lok_pagination' ) ) {
 		$page_links = $args['before'] . $page_links . $args['after'];
 
 		/* Allow devs to completely overwrite the output. */
-		$page_links = apply_filters( 'lok_pagination', $page_links );
+		$page_links = apply_filters( 'woo_pagination', $page_links );
 
-		do_action( 'lok_pagination_end' );
+		do_action( 'woo_pagination_end' );
 
 		/* Return the paginated links for use in themes. */
 		if ( $args['echo'] )
@@ -2726,12 +2726,12 @@ if ( ! function_exists( 'lok_pagination' ) ) {
 		else
 			return $page_links;
 
-	} // End lok_pagination()
+	} // End woo_pagination()
 
 } // End IF Statement
 
 /*-----------------------------------------------------------------------------------*/
-/* lok_breadcrumbs() - Custom breadcrumb generator function  */
+/* woo_breadcrumbs() - Custom breadcrumb generator function  */
 /*
 /* Params:
 /*
@@ -2749,18 +2749,18 @@ if ( ! function_exists( 'lok_pagination' ) ) {
 /**
  * The code below is inspired by Justin Tadlock's Hybrid Core.
  *
- * lok_breadcrumbs() shows a breadcrumb for all types of pages.  Themes and plugins can filter $args or input directly.
+ * woo_breadcrumbs() shows a breadcrumb for all types of pages.  Themes and plugins can filter $args or input directly.
  * Allow filtering of only the $args using get_the_breadcrumb_args.
  *
  * @since 3.7.0
  * @param array $args Mixed arguments for the menu.
  * @return string Output of the breadcrumb menu.
  */
-function lok_breadcrumbs( $args = array() ) {
+function woo_breadcrumbs( $args = array() ) {
 	global $nxt_query, $nxt_rewrite;
 
 	/* Get the textdomain. */
-	$textdomain = 'lokthemes';
+	$textdomain = 'woothemes';
 
 	/* Create an empty variable for the breadcrumb. */
 	$breadcrumb = '';
@@ -2785,7 +2785,7 @@ function lok_breadcrumbs( $args = array() ) {
 		$defaults["singular_{$nxt_query->post->post_type}_taxonomy"] = false;
 
 	/* Apply filters to the arguments. */
-	$args = apply_filters( 'lok_breadcrumbs_args', $args );
+	$args = apply_filters( 'woo_breadcrumbs_args', $args );
 
 	/* Parse the arguments and extract them for easy variable naming. */
 	extract( nxt_parse_args( $args, $defaults ) );
@@ -2805,7 +2805,7 @@ function lok_breadcrumbs( $args = array() ) {
 	/* If viewing the "home"/posts page. */
 	elseif ( is_home() ) {
 		$home_page = get_page( $nxt_query->get_queried_object_id() );
-		$trail = array_merge( $trail, lok_breadcrumbs_get_parents( $home_page->post_parent, '' ) );
+		$trail = array_merge( $trail, woo_breadcrumbs_get_parents( $home_page->post_parent, '' ) );
 		$trail['trail_end'] = get_the_title( $home_page->ID );
 	}
 
@@ -2833,7 +2833,7 @@ function lok_breadcrumbs( $args = array() ) {
 
 			/* If there's a path, check for parents. */
 			if ( !empty( $path ) && '/' != $path )
-				$trail = array_merge( $trail, lok_breadcrumbs_get_parents( '', $path ) );
+				$trail = array_merge( $trail, woo_breadcrumbs_get_parents( '', $path ) );
 
 			/* If there's an archive page, add it to the trail. */
 			if ( !empty( $post_type_object->has_archive ) && function_exists( 'get_post_type_archive_link' ) )
@@ -2842,13 +2842,13 @@ function lok_breadcrumbs( $args = array() ) {
 
 		/* If the post type path returns nothing and there is a parent, get its parents. */
 		if ( empty( $path ) && 0 !== $parent || 'attachment' == $post_type )
-			$trail = array_merge( $trail, lok_breadcrumbs_get_parents( $parent, '' ) );
+			$trail = array_merge( $trail, woo_breadcrumbs_get_parents( $parent, '' ) );
 
 		/* Toggle the display of the posts page on single blog posts. */		
 		if ( 'post' == $post_type && $show_posts_page == true && 'page' == get_option( 'show_on_front' ) ) {
 			$posts_page = get_option( 'page_for_posts' );
 			if ( $posts_page != '' && is_numeric( $posts_page ) ) {
-				$trail = array_merge( $trail, lok_breadcrumbs_get_parents( $posts_page, '' ) );
+				$trail = array_merge( $trail, woo_breadcrumbs_get_parents( $posts_page, '' ) );
 			}
 		}
 
@@ -2885,11 +2885,11 @@ function lok_breadcrumbs( $args = array() ) {
 
 			/* Get parent pages by path if they exist. */
 			if ( $path )
-				$trail = array_merge( $trail, lok_breadcrumbs_get_parents( '', $path ) );
+				$trail = array_merge( $trail, woo_breadcrumbs_get_parents( '', $path ) );
 
 			/* If the taxonomy is hierarchical, list its parent terms. */
 			if ( is_taxonomy_hierarchical( $term->taxonomy ) && $term->parent )
-				$trail = array_merge( $trail, lok_breadcrumbs_get_term_parents( $term->parent, $term->taxonomy ) );
+				$trail = array_merge( $trail, woo_breadcrumbs_get_term_parents( $term->parent, $term->taxonomy ) );
 
 			/* Add the term name to the trail end. */
 			$trail['trail_end'] = $term->name;
@@ -2911,7 +2911,7 @@ function lok_breadcrumbs( $args = array() ) {
 
 			/* If there's a path, check for parents. */
 			if ( !empty( $path ) )
-				$trail = array_merge( $trail, lok_breadcrumbs_get_parents( '', $path ) );
+				$trail = array_merge( $trail, woo_breadcrumbs_get_parents( '', $path ) );
 
 			/* Add the post type [plural] name to the trail end. */
 			$trail['trail_end'] = $post_type_object->labels->name;
@@ -2930,7 +2930,7 @@ function lok_breadcrumbs( $args = array() ) {
 
 			/* If $path exists, check for parent pages. */
 			if ( !empty( $path ) )
-				$trail = array_merge( $trail, lok_breadcrumbs_get_parents( '', $path ) );
+				$trail = array_merge( $trail, woo_breadcrumbs_get_parents( '', $path ) );
 
 			/* Add the author's display name to the trail end. */
 			$trail['trail_end'] = get_the_author_meta( 'display_name', get_query_var( 'author' ) );
@@ -2954,7 +2954,7 @@ function lok_breadcrumbs( $args = array() ) {
 
 			/* If $front has been set, check for parent pages. */
 			if ( $nxt_rewrite->front )
-				$trail = array_merge( $trail, lok_breadcrumbs_get_parents( '', $nxt_rewrite->front ) );
+				$trail = array_merge( $trail, woo_breadcrumbs_get_parents( '', $nxt_rewrite->front ) );
 
 			if ( is_day() ) {
 				$trail[] = '<a href="' . get_year_link( get_the_time( 'Y' ) ) . '" title="' . get_the_time( esc_attr__( 'Y', $textdomain ) ) . '">' . get_the_time( __( 'Y', $textdomain ) ) . '</a>';
@@ -2987,13 +2987,13 @@ function lok_breadcrumbs( $args = array() ) {
 		$trail['trail_end'] = __( '404 Not Found', $textdomain );
 
 	/* Allow child themes/plugins to filter the trail array. */
-	$trail = apply_filters( 'lok_breadcrumbs_trail', $trail, $args );
+	$trail = apply_filters( 'woo_breadcrumbs_trail', $trail, $args );
 
 	/* Connect the breadcrumb trail if there are items in the trail. */
 	if ( is_array( $trail ) ) {
 
 		/* Open the breadcrumb trail containers. */
-		$breadcrumb = '<div class="breadcrumb breadcrumbs lok-breadcrumbs"><div class="breadcrumb-trail">';
+		$breadcrumb = '<div class="breadcrumb breadcrumbs woo-breadcrumbs"><div class="breadcrumb-trail">';
 
 		/* If $before was set, wrap it in a container. */
 		if ( !empty( $before ) )
@@ -3019,7 +3019,7 @@ function lok_breadcrumbs( $args = array() ) {
 	}
 
 	/* Allow developers to filter the breadcrumb trail HTML. */
-	$breadcrumb = apply_filters( 'lok_breadcrumbs', $breadcrumb );
+	$breadcrumb = apply_filters( 'woo_breadcrumbs', $breadcrumb );
 
 	/* Output the breadcrumb. */
 	if ( $echo )
@@ -3027,10 +3027,10 @@ function lok_breadcrumbs( $args = array() ) {
 	else
 		return $breadcrumb;
 
-} // End lok_breadcrumbs()
+} // End woo_breadcrumbs()
 
 /*-----------------------------------------------------------------------------------*/
-/* lok_breadcrumbs_get_parents() - Retrieve the parents of the current page/post */
+/* woo_breadcrumbs_get_parents() - Retrieve the parents of the current page/post */
 /*-----------------------------------------------------------------------------------*/
 /**
  * Gets parent pages of any post type or taxonomy by the ID or Path.  The goal of this function is to create
@@ -3042,7 +3042,7 @@ function lok_breadcrumbs( $args = array() ) {
  * @param string $path Path of a potential parent page.
  * @return array $trail Array of parent page links.
  */
-function lok_breadcrumbs_get_parents( $post_id = '', $path = '' ) {
+function woo_breadcrumbs_get_parents( $post_id = '', $path = '' ) {
 
 	/* Set up an empty trail array. */
 	$trail = array();
@@ -3135,10 +3135,10 @@ function lok_breadcrumbs_get_parents( $post_id = '', $path = '' ) {
 	/* Return the trail of parent posts. */
 	return $trail;
 
-} // End lok_breadcrumbs_get_parents()
+} // End woo_breadcrumbs_get_parents()
 
 /*-----------------------------------------------------------------------------------*/
-/* lok_breadcrumbs_get_term_parents() - Retrieve the parents of the current term */
+/* woo_breadcrumbs_get_term_parents() - Retrieve the parents of the current term */
 /*-----------------------------------------------------------------------------------*/
 /**
  * Searches for term parents of hierarchical taxonomies.  This function is similar to the NXTClass
@@ -3149,7 +3149,7 @@ function lok_breadcrumbs_get_parents( $post_id = '', $path = '' ) {
  * @param object|string $taxonomy The taxonomy of the term whose parents we want.
  * @return array $trail Array of links to parent terms.
  */
-function lok_breadcrumbs_get_term_parents( $parent_id = '', $taxonomy = '' ) {
+function woo_breadcrumbs_get_term_parents( $parent_id = '', $taxonomy = '' ) {
 
 	/* Set up some default arrays. */
 	$trail = array();
@@ -3179,7 +3179,7 @@ function lok_breadcrumbs_get_term_parents( $parent_id = '', $taxonomy = '' ) {
 	/* Return the trail of parent terms. */
 	return $trail;
 
-} // End lok_breadcrumbs_get_term_parents()
+} // End woo_breadcrumbs_get_term_parents()
 
 /*-----------------------------------------------------------------------------------*/
 /* NXTClass Admin Bar-related */
@@ -3189,81 +3189,81 @@ function lok_breadcrumbs_get_term_parents( $parent_id = '', $taxonomy = '' ) {
 /* Disable NXTClass Admin Bar */
 /*-----------------------------------------------------------------------------------*/
 
-$lok_admin_bar_disable = get_option( 'framework_lok_admin_bar_disable' );
+$woo_admin_bar_disable = get_option( 'framework_woo_admin_bar_disable' );
 
-if ( $lok_admin_bar_disable == 'true' ) {
+if ( $woo_admin_bar_disable == 'true' ) {
 	add_filter( 'show_admin_bar', '__return_false' );
 
-	add_action( 'admin_print_scripts-profile.php', 'lok_hide_admin_bar_prefs' );
+	add_action( 'admin_print_scripts-profile.php', 'woo_hide_admin_bar_prefs' );
 
-	function lok_hide_admin_bar_prefs () { ?>
+	function woo_hide_admin_bar_prefs () { ?>
 	<style type="text/css">
 	    .show-admin-bar { display: none; }
 	</style>
 	<?php
-	} // End lok_hide_admin_bar_prefs()
+	} // End woo_hide_admin_bar_prefs()
 }
 
 /*-----------------------------------------------------------------------------------*/
 /* Enhancements to the NXTClass Admin Bar */
 /*-----------------------------------------------------------------------------------*/
 
-if ( $lok_admin_bar_disable != 'true' && is_user_logged_in() && current_user_can( 'manage_options' ) ) {
+if ( $woo_admin_bar_disable != 'true' && is_user_logged_in() && current_user_can( 'manage_options' ) ) {
 
-	$lok_admin_bar_enhancements = get_option( 'framework_lok_admin_bar_enhancements' );
+	$woo_admin_bar_enhancements = get_option( 'framework_woo_admin_bar_enhancements' );
 
-	if ( $lok_admin_bar_enhancements == 'true' ) {
+	if ( $woo_admin_bar_enhancements == 'true' ) {
 
-		add_action( 'admin_bar_menu', 'lok_admin_bar_menu', 20 );
+		add_action( 'admin_bar_menu', 'woo_admin_bar_menu', 20 );
 
 	}
 
 } // End IF Statement
 
 /*-----------------------------------------------------------------------------------*/
-/* lok_admin_bar_menu() - Add menu items to the admin bar. */
+/* woo_admin_bar_menu() - Add menu items to the admin bar. */
 /*-----------------------------------------------------------------------------------*/
 
-function lok_admin_bar_menu () {
+function woo_admin_bar_menu () {
 
 	global $nxt_admin_bar, $current_user;
     $current_user_id = $current_user->user_login;
-    $super_user = get_option( 'framework_lok_super_user' );
+    $super_user = get_option( 'framework_woo_super_user' );
 
 	$theme_data = get_theme_data( get_template_directory() . '/style.css' );
 
-	$menu_label = __( 'lokThemes', 'lokthemes' );
+	$menu_label = __( 'WooThemes', 'woothemes' );
 
 	// Customise menu label to the child theme's name.
 	if ( is_array( $theme_data ) && array_key_exists( 'Name', $theme_data ) ) {
 		$menu_label = $theme_data['Name'];
 	}
 
-	// Main lokThemes Menu Item
-	$nxt_admin_bar->add_menu( array( 'id' => 'lokthemes', 'title' => $menu_label, 'href' => admin_url('admin.php?page=lokthemes') ) );
+	// Main WooThemes Menu Item
+	$nxt_admin_bar->add_menu( array( 'id' => 'woothemes', 'title' => $menu_label, 'href' => admin_url('admin.php?page=woothemes') ) );
 
 	// Theme Options
-	$nxt_admin_bar->add_menu( array( 'parent' => 'lokthemes', 'id' => 'lokthemes-theme-options', 'title' => __( 'Theme Options', 'lokthemes' ), 'href' => admin_url( 'admin.php?page=lokthemes' ) ) );
+	$nxt_admin_bar->add_menu( array( 'parent' => 'woothemes', 'id' => 'woothemes-theme-options', 'title' => __( 'Theme Options', 'woothemes' ), 'href' => admin_url( 'admin.php?page=woothemes' ) ) );
 
 	// Sidebar Manager
-	if ( get_option( 'framework_lok_sbm_disable') != 'true' ) {
-		$nxt_admin_bar->add_menu( array( 'parent' => 'lokthemes', 'id' => 'lokthemes-sbm', 'title' => __( 'Sidebar Manager', 'lokthemes' ), 'href' => admin_url( 'admin.php?page=lokthemes_sbm' ) ) );
+	if ( get_option( 'framework_woo_sbm_disable') != 'true' ) {
+		$nxt_admin_bar->add_menu( array( 'parent' => 'woothemes', 'id' => 'woothemes-sbm', 'title' => __( 'Sidebar Manager', 'woothemes' ), 'href' => admin_url( 'admin.php?page=woothemes_sbm' ) ) );
 	}
 
 	if ( ( $super_user == $current_user_id ) || empty( $super_user ) ) {
 
 		// Framework Settings
-		$nxt_admin_bar->add_menu( array( 'parent' => 'lokthemes', 'id' => 'lokthemes-framework-settings', 'title' => __( 'Framework Settings', 'lokthemes' ), 'href' => admin_url( 'admin.php?page=lokthemes_framework_settings' ) ) );
+		$nxt_admin_bar->add_menu( array( 'parent' => 'woothemes', 'id' => 'woothemes-framework-settings', 'title' => __( 'Framework Settings', 'woothemes' ), 'href' => admin_url( 'admin.php?page=woothemes_framework_settings' ) ) );
 
 		// Update Framework
-		$nxt_admin_bar->add_menu( array( 'parent' => 'lokthemes', 'id' => 'lokthemes-update-framework', 'title' => __( 'Update Framework', 'lokthemes' ), 'href' => admin_url( 'admin.php?page=lokthemes_framework_update' ) ) );
+		$nxt_admin_bar->add_menu( array( 'parent' => 'woothemes', 'id' => 'woothemes-update-framework', 'title' => __( 'Update Framework', 'woothemes' ), 'href' => admin_url( 'admin.php?page=woothemes_framework_update' ) ) );
 
 	} // End IF Statement
 
-} // End lok_admin_bar_menu()
+} // End woo_admin_bar_menu()
 
 /*-----------------------------------------------------------------------------------*/
-/* lok_prepare_category_ids_from_option()
+/* woo_prepare_category_ids_from_option()
  *
  * Setup an array of category IDs, from a given theme option.
  * Attempt to transform category slugs into ID values as well.
@@ -3272,9 +3272,9 @@ function lok_admin_bar_menu () {
  * Return: Array $cats
 /*-----------------------------------------------------------------------------------*/
 
-if ( ! function_exists( 'lok_prepare_category_ids_from_option' ) ) {
+if ( ! function_exists( 'woo_prepare_category_ids_from_option' ) ) {
 
-	function lok_prepare_category_ids_from_option ( $option ) {
+	function woo_prepare_category_ids_from_option ( $option ) {
 
 		$cats = array();
 
@@ -3301,7 +3301,7 @@ if ( ! function_exists( 'lok_prepare_category_ids_from_option' ) ) {
 
 		return $cats;
 
-	} // End lok_prepare_category_ids_from_option()
+	} // End woo_prepare_category_ids_from_option()
 
 }
 
@@ -3309,29 +3309,29 @@ if ( ! function_exists( 'lok_prepare_category_ids_from_option' ) ) {
 /* Move tracking code from footer to header */
 /*-----------------------------------------------------------------------------------*/
 	
-	add_action( 'init', 'lok_move_tracking_code', 20 );
+	add_action( 'init', 'woo_move_tracking_code', 20 );
 
-	function lok_move_tracking_code () {
-		$move_code = get_option( 'framework_lok_move_tracking_code' );
+	function woo_move_tracking_code () {
+		$move_code = get_option( 'framework_woo_move_tracking_code' );
 		
 		if ( ! is_admin() && isset( $move_code ) && ( $move_code == 'true' ) ) {
-			remove_action( 'nxt_footer', 'lok_analytics' );
-			add_action( 'nxt_head', 'lok_analytics', 10 );
+			remove_action( 'nxt_footer', 'woo_analytics' );
+			add_action( 'nxt_head', 'woo_analytics', 10 );
 		}
-	} // End lok_move_tracking_code()
+	} // End woo_move_tracking_code()
 
 /*-----------------------------------------------------------------------------------*/
 /* Timthumb Update Page and Functions */
 /*-----------------------------------------------------------------------------------*/
 
-function lokthemes_timthumb_update_page(){
+function woothemes_timthumb_update_page(){
         
         // Setup data
-        $timthumb_update = get_option('lok_timthumb_update');
-        $url = admin_url( 'admin.php?page=lokthemes_framework_update' );
+        $timthumb_update = get_option('woo_timthumb_update');
+        $url = admin_url( 'admin.php?page=woothemes_framework_update' );
        	
        	// Do the update
-       	if (isset($_POST['lok_update_save'])) {
+       	if (isset($_POST['woo_update_save'])) {
        		
        		// Read in the old file
        		$filename = locate_template( 'thumb.php' );
@@ -3340,7 +3340,7 @@ function lokthemes_timthumb_update_page(){
        		if ( $filename != '' ) {
        			
        			// Call function test
-				$file_read = lok_check_if_thumbs_are_equal($filename);
+				$file_read = woo_check_if_thumbs_are_equal($filename);
 				$file_open = true;
        			$file_write = false;
        				
@@ -3351,7 +3351,7 @@ function lokthemes_timthumb_update_page(){
 					// File opened successfully
 					if ($file_open) {
 						// New File Contents
-						$new_file_contents = lok_thumb_new_contents();
+						$new_file_contents = woo_thumb_new_contents();
 						$fwrite = fwrite($file, $new_file_contents);
         				if ($fwrite === false) {
             				// Write Fail
@@ -3364,7 +3364,7 @@ function lokthemes_timthumb_update_page(){
 					} // End If Statement
 					
 					if ($file_open && $file_write) {
-						update_option('lok_timthumb_update', 'true');
+						update_option('woo_timthumb_update', 'true');
 					} // End If Statement
 				} else {
 					echo 'An error occurred while reading your current thumb.php';
@@ -3376,14 +3376,14 @@ function lokthemes_timthumb_update_page(){
        		       	
        	}
        	// Get the setting for update
-       	$timthumb_update = get_option('lok_timthumb_update');
+       	$timthumb_update = get_option('woo_timthumb_update');
        
         ?>
             <div class="wrap themes-page">
 
             <?php
-            $localversion = get_option( 'lok_framework_version' );
-            $remoteversion = lok_get_fw_version();
+            $localversion = get_option( 'woo_framework_version' );
+            $remoteversion = woo_get_fw_version();
             // Test if new version
             $upd = false;
 			$loc = explode( '.',$localversion);
@@ -3400,12 +3400,12 @@ function lokthemes_timthumb_update_page(){
             <div class="icon32" id="icon-tools"><br></div>
             <h2>TimThumb Update</h2>
             <span style="display:none"><?php echo $method; ?></span>
-            <form method="post"  enctype="multipart/form-data" id="lokform" action="<?php /* echo $url; */ ?>">
+            <form method="post"  enctype="multipart/form-data" id="wooform" action="<?php /* echo $url; */ ?>">
 
                 <?php if( $upd || ( $timthumb_update == '' ) ) { ?>
                 <?php nxt_nonce_field( 'update-options' ); ?>
                 <h3>A new version of TimThumb is available.</h3>
-                <p>This updater will remove the old version of TimThumb (thumb.php) in your theme folder, and use the new TimThumb in the lokFramework.</p>
+                <p>This updater will remove the old version of TimThumb (thumb.php) in your theme folder, and use the new TimThumb in the WooFramework.</p>
 
                 <input type="submit" class="button" value="Update Timthumb" />
                 <?php } elseif ($file_open && $file_write) { ?> 
@@ -3413,20 +3413,20 @@ function lokthemes_timthumb_update_page(){
                 <?php } else { ?>
                 <h3>Your TimThumb has been updated already.</h3>
                 <?php } ?>
-                <input type="hidden" name="lok_update_save" value="save" />
+                <input type="hidden" name="woo_update_save" value="save" />
                 
             </form>
             </div>
             <?php
 }
 
-function lok_check_if_thumbs_are_equal($filename, $override = false) {
+function woo_check_if_thumbs_are_equal($filename, $override = false) {
 	
 	$file_open = true;
 	$file_read = false;
 	
 	// New File Contents
-	$new_file_contents = lok_thumb_new_contents(); 
+	$new_file_contents = woo_thumb_new_contents(); 
 	
 	// Check file contents
 	$file = fopen($filename, "r") or $file_open = false;
@@ -3445,44 +3445,44 @@ function lok_check_if_thumbs_are_equal($filename, $override = false) {
 	} // End If Statement
 	
 	if ($override && !$file_read) {
-		update_option('lok_timthumb_update', 'true');
+		update_option('woo_timthumb_update', 'true');
 	}
 	
 	return $file_read;
 				
 }
 
-function lok_thumb_new_contents() {
+function woo_thumb_new_contents() {
 	// New File Contents
     $new_file_contents = 
-"<?php" . "\n" . "/*" . "\n" . "\n" . "THUMB.PHP HAS MOVED" . "\n" . "" . "\n" . "TimThumb (thumb.php) has been moved to the lokFramework (/functions/thumb.php)." . "\n" . "\n" . "You can create a config file in your theme folder called timthumb-config.php and" . "\n" . "copy over any definitions that you want to customize." . "\n" . "\n" . "*/" . "\n" . "echo 'TimThumb (thumb.php) is now in the <a href=\"functions/thumb.php\">lokFramework</a>';" . "\n" . "?>";
+"<?php" . "\n" . "/*" . "\n" . "\n" . "THUMB.PHP HAS MOVED" . "\n" . "" . "\n" . "TimThumb (thumb.php) has been moved to the WooFramework (/functions/thumb.php)." . "\n" . "\n" . "You can create a config file in your theme folder called timthumb-config.php and" . "\n" . "copy over any definitions that you want to customize." . "\n" . "\n" . "*/" . "\n" . "echo 'TimThumb (thumb.php) is now in the <a href=\"functions/thumb.php\">WooFramework</a>';" . "\n" . "?>";
 	
 	return $new_file_contents;
 }
 
 /*-----------------------------------------------------------------------------------*/
-/* lok_get_dynamic_value() */
+/* woo_get_dynamic_value() */
 /* Replace values in a provided array with theme options, if available. */
 /*
-/* $settings array should resemble: $settings = array( 'theme_option_without_lok_' => 'default_value' );
+/* $settings array should resemble: $settings = array( 'theme_option_without_woo_' => 'default_value' );
 /*
 /* @since 4.4.4 */
 /*-----------------------------------------------------------------------------------*/
 
-function lok_get_dynamic_values ( $settings ) {
-	global $lok_options;
+function woo_get_dynamic_values ( $settings ) {
+	global $woo_options;
 	
-	if ( is_array( $lok_options ) ) {
+	if ( is_array( $woo_options ) ) {
 		foreach ( $settings as $k => $v ) {
-			if ( isset( $lok_options['lok_' . $k] ) && ( $lok_options['lok_' . $k] != '' ) ) { $settings[$k] = $lok_options['lok_' . $k]; }
+			if ( isset( $woo_options['woo_' . $k] ) && ( $woo_options['woo_' . $k] != '' ) ) { $settings[$k] = $woo_options['woo_' . $k]; }
 		}
 	}
 	
 	return $settings;
-} // End lok_get_dynamic_values()
+} // End woo_get_dynamic_values()
 
 /*-----------------------------------------------------------------------------------*/
-/* lok_get_posts_by_taxonomy()
+/* woo_get_posts_by_taxonomy()
 /*
 /* Selects posts based on specified taxonomies.
 /*
@@ -3491,7 +3491,7 @@ function lok_get_dynamic_values ( $settings ) {
 /* @return array $posts
 /*-----------------------------------------------------------------------------------*/
  
- function lok_get_posts_by_taxonomy ( $args = null ) {
+ function woo_get_posts_by_taxonomy ( $args = null ) {
  	global $nxt_query;
  	
  	$posts = array();
@@ -3622,7 +3622,7 @@ function lok_get_dynamic_values ( $settings ) {
  	
  	$query_saved = $nxt_query;
  	
- 	$query = new WP_Query( $query_args );
+ 	$query = new nxt_Query( $query_args );
  	
  	if ( $query->have_posts() ) {
  		while( $query->have_posts() ) {
@@ -3638,22 +3638,22 @@ function lok_get_dynamic_values ( $settings ) {
  
  	return $posts;
  
- } // End lok_get_posts_by_taxonomy()
+ } // End woo_get_posts_by_taxonomy()
 
 /*-----------------------------------------------------------------------------------*/
 /* If the user has specified a "posts page", load the "Blog" page template there */
 /*-----------------------------------------------------------------------------------*/
 
-add_filter( 'template_include', 'lok_load_posts_page_blog_template', 10 );
+add_filter( 'template_include', 'woo_load_posts_page_blog_template', 10 );
 	
-if ( ! function_exists( 'lok_load_posts_page_blog_template' ) ) {
-	function lok_load_posts_page_blog_template ( $template ) {
+if ( ! function_exists( 'woo_load_posts_page_blog_template' ) ) {
+	function woo_load_posts_page_blog_template ( $template ) {
 		if ( 'page' == get_option( 'show_on_front' ) && ( '' != get_option( 'page_for_posts' ) ) && is_home() ) {
 			$tpl = locate_template( array( 'template-blog.php' ) );
 			if ( $tpl != '' ) { $template = $tpl; }
 		}
 		return $template;
-	} // End lok_load_posts_page_blog_template()
+	} // End woo_load_posts_page_blog_template()
 }
 
 /*-----------------------------------------------------------------------------------*/
@@ -3661,28 +3661,28 @@ if ( ! function_exists( 'lok_load_posts_page_blog_template' ) ) {
 /*-----------------------------------------------------------------------------------*/
 
 /**
- * lok_presstrends function.
+ * woo_presstrends function.
  *
  * @description Send data to the PressTrends API.
  * @access public
  * @return void
  */
 
-if ( defined( 'lok_PRESSTRENDS_THEMEKEY' ) ) {
-	if ( get_option( 'framework_lok_presstrends_disable', 'false' ) != 'true' ) {
-		add_action( 'admin_footer', 'lok_presstrends', 100 );
+if ( defined( 'WOO_PRESSTRENDS_THEMEKEY' ) ) {
+	if ( get_option( 'framework_woo_presstrends_disable', 'false' ) != 'true' ) {
+		add_action( 'admin_footer', 'woo_presstrends', 100 );
 	}
 }
 
-function lok_presstrends () {
-	if ( ! defined( 'lok_PRESSTRENDS_THEMEKEY' ) ) { return; }
+function woo_presstrends () {
+	if ( ! defined( 'WOO_PRESSTRENDS_THEMEKEY' ) ) { return; }
 	
 	// Add your PressTrends API Keys
 	$api_key = 'ypvilflyjb7yyht8as1u2k0no3rxbgl2p4a9';
-	$auth = lok_PRESSTRENDS_THEMEKEY;
+	$auth = WOO_PRESSTRENDS_THEMEKEY;
 
 	// Check if we have cached data.
-	$data = get_transient( 'lok_presstrends_data' );
+	$data = get_transient( 'woo_presstrends_data' );
 
 	if ( ! $data || $data == '' ) {
 		// Don't edit below
@@ -3712,10 +3712,10 @@ function lok_presstrends () {
 		if ( is_nxt_error( $response ) || nxt_remote_retrieve_response_code( $response ) != 200 ) {
 			// Silence is golden.
 		} else {
-			set_transient( 'lok_presstrends_data', $data, 60*60*24 );
+			set_transient( 'woo_presstrends_data', $data, 60*60*24 );
 		}
 	}
-} // End lok_presstrends()
+} // End woo_presstrends()
 
 /*-----------------------------------------------------------------------------------*/
 /* THE END */

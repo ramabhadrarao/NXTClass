@@ -1,10 +1,10 @@
 <?php
 /*-----------------------------------------------------------------------------------*/
-/* 	lokThemes - Sidebar Manager
+/* 	WooThemes - Sidebar Manager
 	Version - V.1.05
 	---
-	Installation: Make sure all dynamic_sidebar are converted to lok_sidebar,
-	and all is_active_sidebars are converted to lok_active_sidebar.
+	Installation: Make sure all dynamic_sidebar are converted to woo_sidebar,
+	and all is_active_sidebars are converted to woo_active_sidebar.
 	Usage: A new admit panel is created where you can create, edit and
 	delete sidebars for your theme.
 	Author: Foxinni (http://foxinni.com)
@@ -13,20 +13,20 @@
 /*-----------------------------------------------------------------------------------*/
 
 //Delete Options
-//delete_option( 'sbm_lok_sbm_options' );
+//delete_option( 'sbm_woo_sbm_options' );
 
 //Created a function that adds a filter to sidebar delegation
-function lok_sidebar($id = 1){
+function woo_sidebar($id = 1){
 
-	$id = apply_filters( 'lok_inject_sidebar', $id );
+	$id = apply_filters( 'woo_inject_sidebar', $id );
 	dynamic_sidebar($id);
 
 }
 
 //Created a function that adds a filter to active sidebar delegation
-function lok_active_sidebar($id){
+function woo_active_sidebar($id){
 
-	$id = apply_filters( 'lok_inject_sidebar', $id );
+	$id = apply_filters( 'woo_inject_sidebar', $id );
 	if(is_active_sidebar($id))
 		return true;
 
@@ -34,16 +34,16 @@ function lok_active_sidebar($id){
 
 }
 //Function to return the correct sidebar ID on the correct template
-function lok_sbm_sidebar($current_sidebar_id){
+function woo_sbm_sidebar($current_sidebar_id){
 
 	//Load Settings
-	$lok_sbm_options = get_option( 'sbm_lok_sbm_options' );
+	$woo_sbm_options = get_option( 'sbm_woo_sbm_options' );
 
 	$_is_replaced = false;
 
 	if(is_int($current_sidebar_id)){ $current_sidebar_id = "sidebar-" . $current_sidebar_id; }
 
-	if(!empty($lok_sbm_options['sidebars'])){
+	if(!empty($woo_sbm_options['sidebars'])){
 
 		/*------------------------------------------------------------*/
 		/* Re-order sidebars such that they are replaced appropriately.
@@ -64,16 +64,16 @@ function lok_sbm_sidebar($current_sidebar_id){
 		$priority = array( 'page', 'page_template', 'custom_post_type', 'category', 'post_tag', 'taxonomy', 'post_type_archive', 'hierarchy' );
 
 		// Make sure a conditional is always set for each sidebar. If not, use the "type" instead.
-		foreach ( $lok_sbm_options['sidebars'] as $k => $s ) {
+		foreach ( $woo_sbm_options['sidebars'] as $k => $s ) {
 			
 			if ( $s['conditionals']['conditional'] == '' ) {
-				$lok_sbm_options['sidebars'][$k]['conditionals']['conditional'] = $s['conditionals']['type'];
+				$woo_sbm_options['sidebars'][$k]['conditionals']['conditional'] = $s['conditionals']['type'];
 			}
 		
 		}
 		
 		// Separate the sidebars by "conditional".
-		foreach ( $lok_sbm_options['sidebars'] as $k => $s ) {
+		foreach ( $woo_sbm_options['sidebars'] as $k => $s ) {
 			
 			$sidebars_by_type[$s['conditionals']['conditional']][$k] = $s;
 		}
@@ -106,15 +106,15 @@ function lok_sbm_sidebar($current_sidebar_id){
 			}
 		}
 
-		$lok_sbm_options['sidebars'] = $reordered_sidebars;
+		$woo_sbm_options['sidebars'] = $reordered_sidebars;
 
 		// Get array of all custom taxonomy keys.
 		$nxt_custom_taxonomy_args = array( '_builtin' => false );
-		$lok_nxt_custom_taxonomies = get_taxonomies( $nxt_custom_taxonomy_args, 'objects' );
+		$woo_nxt_custom_taxonomies = get_taxonomies( $nxt_custom_taxonomy_args, 'objects' );
 		$tax_keys = array();
-		if ( count( $lok_nxt_custom_taxonomies ) > 0 ) { $tax_keys = array_keys( $lok_nxt_custom_taxonomies ); }
+		if ( count( $woo_nxt_custom_taxonomies ) > 0 ) { $tax_keys = array_keys( $woo_nxt_custom_taxonomies ); }
 
-		foreach($lok_sbm_options['sidebars'] as $sidebar){
+		foreach($woo_sbm_options['sidebars'] as $sidebar){
 
 			$id = $sidebar['conditionals']['id'];
 			$type = $sidebar['conditionals']['conditional'];
@@ -124,8 +124,8 @@ function lok_sbm_sidebar($current_sidebar_id){
 
 			if(!empty($sidebar_piggy)) {
 				$sidebar_id = $sidebar_piggy;
-				$sidebar_to_replace = $lok_sbm_options['sidebars'][$sidebar_id]['conditionals']['sidebar_to_replace'];
-				// $type = $lok_sbm_options['sidebars'][$sidebar_id]['conditionals']['type']; // Resolves dependencies issue from V4.3.7 when commented out.
+				$sidebar_to_replace = $woo_sbm_options['sidebars'][$sidebar_id]['conditionals']['sidebar_to_replace'];
+				// $type = $woo_sbm_options['sidebars'][$sidebar_id]['conditionals']['type']; // Resolves dependencies issue from V4.3.7 when commented out.
 			} // End IF Statement
 
 			//For query posts in the wild
@@ -156,7 +156,7 @@ function lok_sbm_sidebar($current_sidebar_id){
 
 				// Make the array pluggable.
 
-				$_disallowed_types = apply_filters( 'lokframework_sbm_disallowed_posttypes', $_disallowed_types );
+				$_disallowed_types = apply_filters( 'wooframework_sbm_disallowed_posttypes', $_disallowed_types );
 
 				if ( count( $_post_types ) ) {
 
@@ -203,7 +203,7 @@ function lok_sbm_sidebar($current_sidebar_id){
 			/*
 			if ( ( $type == 'custom_post_type' && is_single() ) && in_array( $post->post_type, array_keys( $_post_types ) ) ) {
 
-				if( $post->post_type == $id && $sidebar_id == 'lok_sbm_custom_post_type_' . $id . '_' . $current_sidebar_id ) {
+				if( $post->post_type == $id && $sidebar_id == 'woo_sbm_custom_post_type_' . $id . '_' . $current_sidebar_id ) {
 
 					if($sidebar_to_replace == $current_sidebar_id) {
 
@@ -216,7 +216,7 @@ function lok_sbm_sidebar($current_sidebar_id){
 
 				} else {
 
-					if ( is_singular() && $sidebar_id == 'lok_sbm_hierarchy_singular_' . $current_sidebar_id ) {
+					if ( is_singular() && $sidebar_id == 'woo_sbm_hierarchy_singular_' . $current_sidebar_id ) {
 
 						$current_sidebar_id = $sidebar_id;
 
@@ -293,7 +293,7 @@ function lok_sbm_sidebar($current_sidebar_id){
 									$current_sidebar_id = $sidebar_id;
 						if($id == 'page')
 							if( is_page() )
-								if ( ! in_array( 'lok_sbm_page_' . $post->ID . '_' . $sidebar_to_replace, array_keys( $lok_sbm_options['sidebars'] ) ) )
+								if ( ! in_array( 'woo_sbm_page_' . $post->ID . '_' . $sidebar_to_replace, array_keys( $woo_sbm_options['sidebars'] ) ) )
 									if($sidebar_to_replace == $current_sidebar_id)
 										$current_sidebar_id = $sidebar_id;
 
@@ -359,17 +359,17 @@ function lok_sbm_sidebar($current_sidebar_id){
 
 								// CUSTOM TAXONOMIES
 								$nxt_custom_taxonomy_args = array( '_builtin' => false );
-								$lok_nxt_custom_taxonomies = array();
-								$lok_nxt_custom_taxonomies = get_taxonomies( $nxt_custom_taxonomy_args, 'objects' );
+								$woo_nxt_custom_taxonomies = array();
+								$woo_nxt_custom_taxonomies = get_taxonomies( $nxt_custom_taxonomy_args, 'objects' );
 								$sentinel = false;
-								foreach ( $lok_nxt_custom_taxonomies as $lok_nxt_custom_taxonomy ) {
+								foreach ( $woo_nxt_custom_taxonomies as $woo_nxt_custom_taxonomy ) {
 									// checks for match to taxonomy
-									if ( $type_tax == $lok_nxt_custom_taxonomy->name ) {
-										$term_list = get_the_terms( 0, $lok_nxt_custom_taxonomy->name  );
+									if ( $type_tax == $woo_nxt_custom_taxonomy->name ) {
+										$term_list = get_the_terms( 0, $woo_nxt_custom_taxonomy->name  );
 										$term_results = '';
 										if ( $term_list ) {
 											foreach ( $term_list as $term_item ) {
-												if ( ( is_tax( $lok_nxt_custom_taxonomy->name, $term_item->slug ) ) && ( $id == $term_item->term_id ) ) { $sentinel = true; } // End IF Statement
+												if ( ( is_tax( $woo_nxt_custom_taxonomy->name, $term_item->slug ) ) && ( $id == $term_item->term_id ) ) { $sentinel = true; } // End IF Statement
 											} // End FOREACH Loop
 										} // End IF Statement
 									} // End IF Statement
@@ -415,20 +415,20 @@ function lok_sbm_sidebar($current_sidebar_id){
 
 	return $current_sidebar_id;
 
-} // End lok_sbm_sidebar()
+} // End woo_sbm_sidebar()
 
-//Adding the filter that injects the right sidebar ID back into the lok_sidebar function.
-add_filter( 'lok_inject_sidebar','lok_sbm_sidebar' );
+//Adding the filter that injects the right sidebar ID back into the woo_sidebar function.
+add_filter( 'woo_inject_sidebar','woo_sbm_sidebar' );
 
 // Register new widgetized areas via plugin
-if (!function_exists( 'lok_sbm_widgets_init')) {
-	function lok_sbm_widgets_init() {
+if (!function_exists( 'woo_sbm_widgets_init')) {
+	function woo_sbm_widgets_init() {
 		if ( !function_exists( 'register_sidebars') )
 	        return;
 
-		$lok_sbm_options = get_option( 'sbm_lok_sbm_options' );
-		if(!empty($lok_sbm_options['sidebars'])){
-			foreach($lok_sbm_options['sidebars'] as $sidebars){
+		$woo_sbm_options = get_option( 'sbm_woo_sbm_options' );
+		if(!empty($woo_sbm_options['sidebars'])){
+			foreach($woo_sbm_options['sidebars'] as $sidebars){
 			 	if(empty($sidebars['conditionals']['piggy']))
 	   	 			register_sidebar($sidebars['setup']);
 	   		}
@@ -436,49 +436,49 @@ if (!function_exists( 'lok_sbm_widgets_init')) {
     }
 }
 
-add_action( 'init', 'lok_sbm_widgets_init' );
+add_action( 'init', 'woo_sbm_widgets_init' );
 
 /* Sidebar Manager - Reset Function
 --------------------------------------------------*/
 
-function lokthemes_sbm_reset () {
+function woothemes_sbm_reset () {
 
 	$default_data = array( 'sidebars' => array() );
 
-	update_option( 'sbm_lok_sbm_options', $default_data );
+	update_option( 'sbm_woo_sbm_options', $default_data );
 
-} // End lokthemes_sbm_reset()
+} // End woothemes_sbm_reset()
 
-function lokthemes_sbm_page(){
+function woothemes_sbm_page(){
 
 	global $nxt_registered_sidebars;
 
 	// If the user wants to reset the script, we reset the script.
-	if ( isset( $_POST['lok_save'] ) && $_POST['lok_save'] == 'sbm_reset' ) {
+	if ( isset( $_POST['woo_save'] ) && $_POST['woo_save'] == 'sbm_reset' ) {
 
-		lokthemes_sbm_reset();
+		woothemes_sbm_reset();
 
 	} // End IF Statement
 
 	//Load SBM settings
 	$init_array = array( 'sidebars' => array(),'settings' => array( 'infobox' => 'show'));
-	add_option( 'sbm_lok_sbm_options',$init_array);
-	$lok_sbm_options = get_option( 'sbm_lok_sbm_options' );
+	add_option( 'sbm_woo_sbm_options',$init_array);
+	$woo_sbm_options = get_option( 'sbm_woo_sbm_options' );
 
 	//Error checking
-	if(!empty($lok_sbm_options['sidebars'])){
-		foreach($lok_sbm_options['sidebars'] as $key => $options){
-			if(empty($key)){ unset($lok_sbm_options['sidebars'][$key]); }
+	if(!empty($woo_sbm_options['sidebars'])){
+		foreach($woo_sbm_options['sidebars'] as $key => $options){
+			if(empty($key)){ unset($woo_sbm_options['sidebars'][$key]); }
 		}
 
 	}
 
-	//delete_option( 'sbm_lok_sbm_options' );
-    $themename =  get_option( 'lok_themename' );
-    $manualurl =  get_option( 'lok_manual' );
+	//delete_option( 'sbm_woo_sbm_options' );
+    $themename =  get_option( 'woo_themename' );
+    $manualurl =  get_option( 'woo_manual' );
 
     //Framework Version in Backend Head
-    $lok_framework_version = get_option( 'lok_framework_version' );
+    $woo_framework_version = get_option( 'woo_framework_version' );
 
     //Version in Backend Head
     $theme_data = get_theme_data( get_template_directory() . '/style.css' );
@@ -490,7 +490,7 @@ function lokthemes_sbm_page(){
 	$new_sidebars = '';
 	$counter = 0;
 	foreach($nxt_registered_sidebars as $sidebar){
-	    if(!strstr($sidebar['id'],'lok_sbm_')){
+	    if(!strstr($sidebar['id'],'woo_sbm_')){
 	    	$counter++;
 	    	if($counter == 1) { $init_sidebar = $sidebar['name']; }
 	    	$init_sidebars .= '<option value="'.$sidebar['id'].'">'.$sidebar['name'].'</option>';
@@ -536,12 +536,12 @@ function lokthemes_sbm_page(){
 	//Accordian for the template selecting
 	function initMenus() {
 
-		jQuery( '#lok-sbm-menu ul ul').hide();
+		jQuery( '#woo-sbm-menu ul ul').hide();
 
-		jQuery( '#lok-sbm-menu ul ul:first').show();
+		jQuery( '#woo-sbm-menu ul ul:first').show();
 
 
-		jQuery( '#lok-sbm-menu ul#lok-sbm-menu_ul li a').click(
+		jQuery( '#woo-sbm-menu ul#woo-sbm-menu_ul li a').click(
 			function() {
 				var checkElement = jQuery(this).next();
 				var parent = this.parentNode.parentNode.id;
@@ -562,7 +562,7 @@ function lokthemes_sbm_page(){
 
 		initMenus();
 
-		function lok_sbm_title(sidebar,name,type){
+		function woo_sbm_title(sidebar,name,type){
 
 			if ( type == 'custom_post_type' ) {
 
@@ -574,7 +574,7 @@ function lokthemes_sbm_page(){
 			return message;
 		}
 
-		function lok_sbm_description(sidebar,name,type){
+		function woo_sbm_description(sidebar,name,type){
 			if(type == 'post_tag') type = 'tag template';
 			if(type == 'page_template') type = 'page template';
 			if(type == 'hierarchy') type = 'template hierarchy';
@@ -590,8 +590,8 @@ function lokthemes_sbm_page(){
 			return false;
 		})
 
-		jQuery( '#lok-sbm-toggle-info').live( 'click',function(){
-			var info = jQuery( '#lok-sbm-builder-meta' );
+		jQuery( '#woo-sbm-toggle-info').live( 'click',function(){
+			var info = jQuery( '#woo-sbm-builder-meta' );
 			if(info.css( 'display') == 'none'){
 				info.fadeIn();
 			} else {
@@ -599,38 +599,38 @@ function lokthemes_sbm_page(){
 			}
 			return false;
 		});
-		jQuery( '#lok-sbm-builder-piggy').val(0);
-		jQuery( '#lok-sbm-tab-new').live( 'click',function(){
+		jQuery( '#woo-sbm-builder-piggy').val(0);
+		jQuery( '#woo-sbm-tab-new').live( 'click',function(){
 
 			jQuery( '.nav-tabs .nav-tab').removeClass( 'nav-tab-active' );
 			jQuery(this).addClass( 'nav-tab-active' );
-			jQuery( '#lok-sbm-builder-part-assign').hide();
-			jQuery( '#lok-sbm-builder-part-create').show();
-			jQuery( '#lok-sbm-builder-piggy').val(0);
-			jQuery( '#lok-sbm-label-sb-name span').text( "Sidebar Name" );
-			jQuery( '#lok-sbm-label-sb-desc').show();
+			jQuery( '#woo-sbm-builder-part-assign').hide();
+			jQuery( '#woo-sbm-builder-part-create').show();
+			jQuery( '#woo-sbm-builder-piggy').val(0);
+			jQuery( '#woo-sbm-label-sb-name span').text( "Sidebar Name" );
+			jQuery( '#woo-sbm-label-sb-desc').show();
 			return false;
 		});
 
-		jQuery( '#lok-sbm-tab-existing').live( 'click',function(){
+		jQuery( '#woo-sbm-tab-existing').live( 'click',function(){
 
 			jQuery( '.nav-tabs .nav-tab').removeClass( 'nav-tab-active' );
 			jQuery(this).addClass( 'nav-tab-active' );
-			jQuery( '#lok-sbm-builder-part-create').hide();
-			jQuery( '#lok-sbm-builder-part-assign').show();
-			jQuery( '#lok-sbm-builder-piggy').val(1);
-			jQuery( '#lok-sbm-label-sb-name span').text( "Sidebar Alias" );
-			jQuery( '#lok-sbm-label-sb-desc').hide();
+			jQuery( '#woo-sbm-builder-part-create').hide();
+			jQuery( '#woo-sbm-builder-part-assign').show();
+			jQuery( '#woo-sbm-builder-piggy').val(1);
+			jQuery( '#woo-sbm-label-sb-name span').text( "Sidebar Alias" );
+			jQuery( '#woo-sbm-label-sb-desc').hide();
 			return false;
 		});
 
-		jQuery( '#lok-sbm-menu ul#lok-sbm-menu_ul ul li').click(function(){
+		jQuery( '#woo-sbm-menu ul#woo-sbm-menu_ul ul li').click(function(){
 
 			var template_data = jQuery(this).children( 'span').text();
 	    	var ajax_url = '<?php echo admin_url( "admin-ajax.php" ); ?>';
 	    	var data = {
-	    		type: 'lok_sbm_get_links',
-	    		action: 'lok_sbm_post_action',
+	    		type: 'woo_sbm_get_links',
+	    		action: 'woo_sbm_post_action',
 	    		data:template_data
 	    	};
 
@@ -651,8 +651,8 @@ function lokthemes_sbm_page(){
           			jQuery(this).children( "option:selected").each(function(){
                 		sidebar = jQuery(this).text();
               		});
-          			generatedTitle = lok_sbm_title(sidebar,name,type);
-					generatedMessage = lok_sbm_description(sidebar,name,type);
+          			generatedTitle = woo_sbm_title(sidebar,name,type);
+					generatedMessage = woo_sbm_description(sidebar,name,type);
 					jQuery( '#sidebar-title').val(generatedTitle);
 					jQuery( '#sidebar-description').val(generatedMessage);
 
@@ -661,52 +661,52 @@ function lokthemes_sbm_page(){
 				var html = '';
 				var class_name = '';
 
-				generatedTitle = lok_sbm_title( '<?php echo $init_sidebar; ?>',name,type);
-				generatedMessage = lok_sbm_description( '<?php echo $init_sidebar; ?>',name,type);
+				generatedTitle = woo_sbm_title( '<?php echo $init_sidebar; ?>',name,type);
+				generatedMessage = woo_sbm_description( '<?php echo $init_sidebar; ?>',name,type);
 
-				jQuery( '#lok-sbm-get-links').show();
+				jQuery( '#woo-sbm-get-links').show();
 
 				//Add Values to Template Info
-				var name_input = jQuery( '#lok-sbm-get-links-inner #template-info-name' );
+				var name_input = jQuery( '#woo-sbm-get-links-inner #template-info-name' );
 				name_input.val(name);
 				name_input.prev( 'label').html( '<span>Name:</span> '+name);
 
-				var type_input = jQuery( '#lok-sbm-get-links-inner #template-info-type' );
+				var type_input = jQuery( '#woo-sbm-get-links-inner #template-info-type' );
 				type_input.val(type);
 				type_input.val(type).prev().html( '<span>Type:</span> '+type);
 
-				var slug_input = jQuery( '#lok-sbm-get-links-inner #template-info-slug' );
+				var slug_input = jQuery( '#woo-sbm-get-links-inner #template-info-slug' );
 				slug_input.val(slug);
 				slug_input.prev().html( '<span>Slug:</span> '+slug);
 
-				var id_input = jQuery( '#lok-sbm-get-links-inner #template-info-id' );
+				var id_input = jQuery( '#woo-sbm-get-links-inner #template-info-id' );
 				id_input.val(id);
 				id_input.prev().html( '<span>ID:</span> '+id);
 
 				if(other != ''){
-					var other_input = jQuery( '#lok-sbm-get-links-inner #template-info-other' );
+					var other_input = jQuery( '#woo-sbm-get-links-inner #template-info-other' );
 					other_input.val(other);
 					other_input.prev().html( '<span>URL:</span> <small><a href="'+ other +'">'+ other +'</a></small>' );
 				} else {
-					var other_input = jQuery( '#lok-sbm-get-links-inner #template-info-other' );
+					var other_input = jQuery( '#woo-sbm-get-links-inner #template-info-other' );
 					other_input.val( 'n/a' );
 					other_input.prev().html( '<span>URL:</span> n/a' );
 
 				}
 
 				//Add Values to Sidebar Builder
-				jQuery( '#lok-sbm-get-links-inner #sidebar-title').val(generatedTitle);
-				jQuery( '#lok-sbm-get-links-inner #sidebar-description').val(generatedMessage);
-				jQuery( '#lok-sbm-get-links-inner #lok-sbm-builder-conditional').val(cond);
+				jQuery( '#woo-sbm-get-links-inner #sidebar-title').val(generatedTitle);
+				jQuery( '#woo-sbm-get-links-inner #sidebar-description').val(generatedMessage);
+				jQuery( '#woo-sbm-get-links-inner #woo-sbm-builder-conditional').val(cond);
 
 
-				html += '<label id="lok-sbm-label-sb-desc"><span>Sidebar description</span> <textarea id="sidebar-description" name="sidebar-description" style="width:230px">'+generatedMessage+'</textarea></label>';
-			 	html += '<input id="lok-sbm-builder-conditional" type="hidden" name="conditional" value="'+cond+'" />';
+				html += '<label id="woo-sbm-label-sb-desc"><span>Sidebar description</span> <textarea id="sidebar-description" name="sidebar-description" style="width:230px">'+generatedMessage+'</textarea></label>';
+			 	html += '<input id="woo-sbm-builder-conditional" type="hidden" name="conditional" value="'+cond+'" />';
 
-	    		var success = jQuery( '#lok-popup-save' );
+	    		var success = jQuery( '#woo-popup-save' );
 	    		var loading = jQuery( '.ajax-loading-img' );
 	    		loading.fadeOut();
-	    		jQuery( '#lok-sbm-tip-1').hide(); //Fade tip out
+	    		jQuery( '#woo-sbm-tip-1').hide(); //Fade tip out
 
 	    	});
 	    	return false;
@@ -714,13 +714,13 @@ function lokthemes_sbm_page(){
 
 		//Now to save your new sidebar
 
-		jQuery( "#lok-sbm-get-links").live( "submit",function(){
+		jQuery( "#woo-sbm-get-links").live( "submit",function(){
 
 	    	var sidebarTitle = jQuery( '#sidebar-title').val();
 	    	if(sidebarTitle == ''){ alert( 'Please add a Sidebar Name!' ); return false; }
 
 	    	function newValues() {
-	    	  var serializedValues = jQuery( "#lok-sbm-get-links").serialize();
+	    	  var serializedValues = jQuery( "#woo-sbm-get-links").serialize();
 	    	  return serializedValues;
 	    	}
 	    	jQuery( ":checkbox, :radio").click(newValues);
@@ -731,8 +731,8 @@ function lokthemes_sbm_page(){
 	    	var ajax_url = '<?php echo admin_url( "admin-ajax.php" ); ?>';
 
 	    	var data = {
-	    		type: 'lok_sbm_add_sidebar',
-	    		action: 'lok_sbm_post_action',
+	    		type: 'woo_sbm_add_sidebar',
+	    		action: 'woo_sbm_post_action',
 	    		data: serializedReturn
 	    	};
 
@@ -753,7 +753,7 @@ function lokthemes_sbm_page(){
 				var sbId	= response[8];
 				var piggy	= response[9];
 
-	    		var success = jQuery( '#lok-popup-save' );
+	    		var success = jQuery( '#woo-popup-save' );
 	    		var loading = jQuery( '.ajax-loading-img' );
 	    		loading.fadeOut();
 	    		if(stage == 2){
@@ -764,13 +764,13 @@ function lokthemes_sbm_page(){
 	    });
 
    	    //Delete a sidebar
-	    jQuery( '#lok-sbm-sidebars .menu-item .submitdelete').live( 'click',function(){
+	    jQuery( '#woo-sbm-sidebars .menu-item .submitdelete').live( 'click',function(){
 
 	    	var id = jQuery(this).parent().parent().parent().parent().attr( 'id' );
 	    	var ajax_url = '<?php echo admin_url( "admin-ajax.php" ); ?>';
 	    	var data = {
-	    		type: 'lok_sbm_delete-sidebar',
-	    		action: 'lok_sbm_post_action',
+	    		type: 'woo_sbm_delete-sidebar',
+	    		action: 'woo_sbm_post_action',
 	    		data: id
 	    	};
 	    	if(id == ''){
@@ -797,21 +797,21 @@ function lokthemes_sbm_page(){
 				//alert(jQuery( '#sidebar_to_piggyback option').length);
 				if(jQuery( '#sidebar_to_piggyback option').length == 0){
 					//alert( 'its done' );
-					jQuery( '#lok-sbm-tab-existing').remove();
-					jQuery( '#lok-sbm-tab-new').click();
+					jQuery( '#woo-sbm-tab-existing').remove();
+					jQuery( '#woo-sbm-tab-new').click();
 				};
 	    	});
 	    	return false;
 	    });
 
 	    //Cancel a sidebar
-	    jQuery( '#lok-sbm-sidebars .menu-item .submitcancel').live( 'click',function(){
+	    jQuery( '#woo-sbm-sidebars .menu-item .submitcancel').live( 'click',function(){
 	    	jQuery(this).parent().parent().slideUp();
 	    	return false;
 	    })
 
    	    //Edit a sidebar
-	    jQuery( '#lok-sbm-sidebars .menu-item .submitsave').live( 'click',function(){
+	    jQuery( '#woo-sbm-sidebars .menu-item .submitsave').live( 'click',function(){
 
 	    	var clicked = jQuery(this);
 	    	var id = clicked.parent().parent().attr( 'id' );
@@ -828,8 +828,8 @@ function lokthemes_sbm_page(){
 	    		var ajax_url = '<?php echo admin_url( "admin-ajax.php" ); ?>';
 
 	    		var data = {
-	    			type: 'lok_sbm_save-sidebar',
-	    			action: 'lok_sbm_post_action',
+	    			type: 'woo_sbm_save-sidebar',
+	    			action: 'woo_sbm_post_action',
 	    			data: serializedReturn
 	    		};
 
@@ -857,8 +857,8 @@ function lokthemes_sbm_page(){
 
 	    	var ajax_url = '<?php echo admin_url( "admin-ajax.php" ); ?>';
 	    	var data = {
-	    		type: 'lok_sbm_dismiss_intro',
-	    		action: 'lok_sbm_post_action',
+	    		type: 'woo_sbm_dismiss_intro',
+	    		action: 'woo_sbm_post_action',
 	    		data: ''
 	    	};
 
@@ -871,18 +871,18 @@ function lokthemes_sbm_page(){
 });
 </script>
 
-<div class="wrap lok_sidebar_manager" id="lok_container">
+<div class="wrap woo_sidebar_manager" id="woo_container">
          <div id="header">
             <div class="logo">
-             <?php if(get_option( 'framework_lok_backend_header_image')) { ?>
-             <img alt="" src="<?php echo get_option( 'framework_lok_backend_header_image' ); ?>"/>
+             <?php if(get_option( 'framework_woo_backend_header_image')) { ?>
+             <img alt="" src="<?php echo get_option( 'framework_woo_backend_header_image' ); ?>"/>
              <?php } else { ?>
-             <img alt="lokThemes" src="<?php echo get_template_directory_uri(); ?>/functions/images/logo.png"/>
+             <img alt="WooThemes" src="<?php echo get_template_directory_uri(); ?>/functions/images/logo.png"/>
              <?php } ?>
              </div>
              <div class="theme-info">
                  <span class="theme"><?php echo $themename; ?> <?php echo $local_version; ?></span>
-                 <span class="framework">Framework <?php echo $lok_framework_version; ?></span>
+                 <span class="framework">Framework <?php echo $woo_framework_version; ?></span>
              </div>
              <div class="clear"></div>
          </div>
@@ -891,7 +891,7 @@ function lokthemes_sbm_page(){
              <ul>
                  <li class="changelog"><a title="Theme Changelog" href="<?php echo $manualurl; ?>#Changelog">View Changelog</a></li>
                  <li class="docs"><a title="Theme Documentation" href="<?php echo $manualurl; ?>">View Themedocs</a></li>
-                 <li class="forum"><a href="http://www.lokthemes.com/support-forum" target="_blank">Visit Forum</a></li>
+                 <li class="forum"><a href="http://www.woothemes.com/support-forum" target="_blank">Visit Forum</a></li>
                  <li class="right"><img style="display:none" src="<?php echo get_template_directory_uri(); ?>/functions/images/loading-top.gif" class="ajax-loading-img ajax-loading-img-top" alt="Working..." /><?php /* <a href="#" id="expand_options">[+]</a> <input type="submit" value="Save All Changes" class="button submit-button" /> */ ?></li>
              </ul>
 
@@ -899,20 +899,20 @@ function lokthemes_sbm_page(){
          <div id="main">
          	<div id="content" class="sbm-content">
          		<?php
-         		if(isset($lok_sbm_options['settings']['infobox'])){
-         		if($lok_sbm_options['settings']['infobox'] == 'show'){ ?>
+         		if(isset($woo_sbm_options['settings']['infobox'])){
+         		if($woo_sbm_options['settings']['infobox'] == 'show'){ ?>
          		<div class="info-box">
 
-         			<h2>lokThemes Sidebar Manager</h2>
+         			<h2>WooThemes Sidebar Manager</h2>
 
          			<p>You're one step closer to having total control over your theme. This Sidebar Manager is available only to themes running
-         			version 3.0.0 of the lokFramework. If you can see this message you're framework is up-to-date. Good Job!</p>
+         			version 3.0.0 of the WooFramework. If you can see this message you're framework is up-to-date. Good Job!</p>
 
          			<p>If you have not downloaded the latest version of this theme, but rather updated it from the theme options backend, <strong>you will need to upgrade
          			your theme manually</strong> if you're want to make use of this Sidebar Manager feature. Please take note of the following:</p>
 
          			<p><strong>Manual Installation:</strong> Replace all the <code>dynamic_sidebar</code> functions with the new
-         			<code>lok_sidebar</code> and replace all <code>is_active_sidebar</code> with the new <code>lok_active_sidebar</code>. These are typically found in the
+         			<code>woo_sidebar</code> and replace all <code>is_active_sidebar</code> with the new <code>woo_active_sidebar</code>. These are typically found in the
          			<code>sidebar.php</code> &amp; <code>footer.php</code> files.</p>
 
          			<a class="btn-close" href="#" title="#"><img src="<?php echo get_template_directory_uri(); ?>/functions/images/ico-close.png" alt="Close" /></a>
@@ -922,16 +922,16 @@ function lokthemes_sbm_page(){
 
          		<div id="sbm-sidebar">
 
-             		<div id="lok-sbm-menu" class="postbox">
+             		<div id="woo-sbm-menu" class="postbox">
              			<h3>Choose a Template</h3>
-         				<ul id="lok-sbm-menu_ul">
+         				<ul id="woo-sbm-menu_ul">
          				<?php $pages = get_pages(array( 'sort_order' => 'ASC')); ?>
          				<?php if(!empty($pages)){ ?>
          				<li><a href="#">Pages <span>[-]</span></a>
          					<ul>
          						<?php
 	     						foreach ($pages as $page) {
-	     							if(array_key_exists ( 'lok_sbm_page_'.$page->ID,$lok_sbm_options['sidebars'])){ continue; }
+	     							if(array_key_exists ( 'woo_sbm_page_'.$page->ID,$woo_sbm_options['sidebars'])){ continue; }
 	     							echo '<li>' . $page->post_title . '<span>type=page&name='. urlencode(  $page->post_title ) .'&slug='.$page->post_name.'&id='. $page->ID.'&other=null</span></li>';
 	     							} ?>
          					</ul>
@@ -946,7 +946,7 @@ function lokthemes_sbm_page(){
 	     					<?php
 	     					foreach($page_templates as $name => $template){
 	     						//$template = str_replace( '.','',$template);
-	     						//if(array_key_exists( 'lok_sbm_page_template_'.$template,$lok_sbm_options['sidebars'])){ continue; }
+	     						//if(array_key_exists( 'woo_sbm_page_template_'.$template,$woo_sbm_options['sidebars'])){ continue; }
 	     						echo '<li>' . $name .'<span>type=page_template&name='. urlencode(  $name ) .'&slug='.$template.'&id=null&other=null</span></li>';
 		     				}; ?>
 	     					</ul>
@@ -965,7 +965,7 @@ function lokthemes_sbm_page(){
 	     					<ul><?php
 
 	     					foreach($terms as $term){
-	   	     					//if(array_key_exists ( 'lok_sbm_'.$taxonomy.'_'.$term->term_id,$lok_sbm_options['sidebars'])){ continue; }
+	   	     					//if(array_key_exists ( 'woo_sbm_'.$taxonomy.'_'.$term->term_id,$woo_sbm_options['sidebars'])){ continue; }
 	     						echo '<li>' . $term->name . '<span>type='. $taxonomy .'&name='. urlencode( $term->name ) .'&slug='.$term->slug.'&id='.$term->term_id.'&other='.$taxonomy.'</span></li>';
 	     					}?>
 	     					</ul>
@@ -996,7 +996,7 @@ function lokthemes_sbm_page(){
 	     											'404' => '404'
 	     											);
 	     						foreach($heirarchy as $name => $item){
-	   	     					//if(array_key_exists ( 'lok_sbm_hierarchy_' . $item,$lok_sbm_options['sidebars'])){ continue; }
+	   	     					//if(array_key_exists ( 'woo_sbm_hierarchy_' . $item,$woo_sbm_options['sidebars'])){ continue; }
 	     							echo '<li>'.$name.'<span>type=hierarchy&name='.$name.'&slug='.$item.'&id=null&other=null&other=null</span></li>';
 	     						}
 	     						?>
@@ -1026,7 +1026,7 @@ function lokthemes_sbm_page(){
 
 	     					// Make the array pluggable.
 
-	     					$_disallowed_types = apply_filters( 'lokframework_sbm_disallowed_posttypes', $_disallowed_types );
+	     					$_disallowed_types = apply_filters( 'wooframework_sbm_disallowed_posttypes', $_disallowed_types );
 
 	     					if ( count( $_post_types ) ) {
 
@@ -1110,29 +1110,29 @@ function lokthemes_sbm_page(){
 	     						} // End IF Statement
 	     				?>
 	     				</ul>
-	     			</div><!-- /#lok-sbm-menu -->
+	     			</div><!-- /#woo-sbm-menu -->
 
 	     		</div><!-- /#sbm-sidebar -->
 
 	     		<div id="sbm-main">
 
-	     			<div class="lok-sbm-builder">
+	     			<div class="woo-sbm-builder">
 
-	     				<span class="lok-sbm-tip" id="lok-sbm-tip-1">Start by selecting a template from the menu on the left for your new sidebar. The new sidebar will be available on the <a href="<?php echo admin_url( 'widgets.php' ); ?>">Widgets</a> page.<?php /*<br /><br /><small>Please note that, if custom sidebars are created for categories, the sidebar of the posts in that category will use the first custom sidebar created for categories assigned to that post (eg: if "Category 1" and "Category 2" are assigned to the post and the "Category 2" custom sidebar is created first, that sidebar will be displayed on the single post template).</small>*/ ?></span>
+	     				<span class="woo-sbm-tip" id="woo-sbm-tip-1">Start by selecting a template from the menu on the left for your new sidebar. The new sidebar will be available on the <a href="<?php echo admin_url( 'widgets.php' ); ?>">Widgets</a> page.<?php /*<br /><br /><small>Please note that, if custom sidebars are created for categories, the sidebar of the posts in that category will use the first custom sidebar created for categories assigned to that post (eg: if "Category 1" and "Category 2" are assigned to the post and the "Category 2" custom sidebar is created first, that sidebar will be displayed on the single post template).</small>*/ ?></span>
 
-	     				<form action="" id="lok-sbm-get-links">
+	     				<form action="" id="woo-sbm-get-links">
 	     					<?php
 						    	// Add nonce for added security.
-						    	if ( function_exists( 'nxt_nonce_field' ) ) { nxt_nonce_field( 'lokframework-sbm-options-update' ); } // End IF Statement
+						    	if ( function_exists( 'nxt_nonce_field' ) ) { nxt_nonce_field( 'wooframework-sbm-options-update' ); } // End IF Statement
 						    ?>
-	     					<div id="lok-sbm-get-links-inner">
+	     					<div id="woo-sbm-get-links-inner">
 	     					<?php //Sidebar Options panel get created here... ?>
-	     					<div id="lok-sbm-response-builder">
+	     					<div id="woo-sbm-response-builder">
 							<?php //Template Info ?>
 
-							<div id="lok-sbm-builder-meta">
-							    <div id="lok-sbm-builder-meta-top">Template Info</div>
-							    <div id="lok-sbm-builder-meta-bottom">
+							<div id="woo-sbm-builder-meta">
+							    <div id="woo-sbm-builder-meta-top">Template Info</div>
+							    <div id="woo-sbm-builder-meta-bottom">
 							    	<label><span>Name:</span></label><input type="hidden" name="name" id="template-info-name" value="">
 							    	<label><span>Type:</span></label><input type="hidden" name="type" id="template-info-type" value="">
 							    	<label><span>Slug:</span></label><input type="hidden" name="name" id="template-info-slug" value="">
@@ -1143,56 +1143,56 @@ function lokthemes_sbm_page(){
 							<div class="nav-tabs-nav">
 	     						<div class="nav-tabs-wrapper">
 									<div class="nav-tabs">
-										<a id="lok-sbm-tab-new" href="#" class="nav-tab nav-tab-active">Create a new Sidebar</a>
-										<?php if(!empty($lok_sbm_options['sidebars'])) { ?>
-										<a id="lok-sbm-tab-existing" class="nav-tab" href="#">Use Existing Sidebar</a>
+										<a id="woo-sbm-tab-new" href="#" class="nav-tab nav-tab-active">Create a new Sidebar</a>
+										<?php if(!empty($woo_sbm_options['sidebars'])) { ?>
+										<a id="woo-sbm-tab-existing" class="nav-tab" href="#">Use Existing Sidebar</a>
 										<?php } ?>
-										<a id="lok-sbm-toggle-info" class="fr" href="#">Template Info<img src="<?php get_template_directory_uri(); ?>/functions/images/ico-info.png" /></a>
+										<a id="woo-sbm-toggle-info" class="fr" href="#">Template Info<img src="<?php get_template_directory_uri(); ?>/functions/images/ico-info.png" /></a>
 									</div>
 								</div>
 							</div>
 							<div class="builder-header">
-								<label id="lok-sbm-label-sb-name"><span>Sidebar Name</span> <input value="" type="text" name="sidebar-title" id="sidebar-title"/></label>
+								<label id="woo-sbm-label-sb-name"><span>Sidebar Name</span> <input value="" type="text" name="sidebar-title" id="sidebar-title"/></label>
 							</div>
 
-							<div id="lok-sbm-builder-body">
-							    <div id="lok-sbm-builder-part-assign" class="lok-sbm-builder-part-inner">
+							<div id="woo-sbm-builder-body">
+							    <div id="woo-sbm-builder-part-assign" class="woo-sbm-builder-part-inner">
 							    	<label><span>Sidebar to use</span>
 							    	<select name="sidebar_to_piggyback" id="sidebar_to_piggyback">
 							    	<?php echo $new_sidebars; ?>
 							    	</select>
 							    </div>
-							    <div id="lok-sbm-builder-part-create" class="lok-sbm-builder-part-inner">
+							    <div id="woo-sbm-builder-part-create" class="woo-sbm-builder-part-inner">
 							    	<label><span>Sidebar to replace</span>
 							    	<select name="sidebar_to_replace" id="sidebar_to_replace">
 							    	<?php echo $init_sidebars; ?>
 							    	</select></label>
 							    </div>
 
-							    	<label id="lok-sbm-label-sb-desc"><span>Sidebar description</span> <textarea id="sidebar-description" name="sidebar-description" style="width:230px"></textarea></label>
-							    	<input id="lok-sbm-builder-conditional" type="hidden" name="conditional" value="'" />
-							    	<input id="lok-sbm-builder-stage" type="hidden" name="stage" value="2" />
-							    	<input id="lok-sbm-builder-piggy" type="hidden" name="piggy" value="0" />
+							    	<label id="woo-sbm-label-sb-desc"><span>Sidebar description</span> <textarea id="sidebar-description" name="sidebar-description" style="width:230px"></textarea></label>
+							    	<input id="woo-sbm-builder-conditional" type="hidden" name="conditional" value="'" />
+							    	<input id="woo-sbm-builder-stage" type="hidden" name="stage" value="2" />
+							    	<input id="woo-sbm-builder-piggy" type="hidden" name="piggy" value="0" />
 								</div>
-								<div class="lok-sbm-controls">
+								<div class="woo-sbm-controls">
 									<input type="submit" value="Add Sidebar" class="button" />
 								</div>
 							</div>
 	   					</div>
 					</form>
-				</div><!-- /.lok-sbm-builder -->
+				</div><!-- /.woo-sbm-builder -->
 
-	     		<div id="lok-sbm-sidebars" class="js">
+	     		<div id="woo-sbm-sidebars" class="js">
 
 	     				<h3>Custom Sidebars <span>Newly created sidebars</span></h3>
 	     				<?php
-	     				//$lok_sbm_options = get_option( 'sbm_lok_sbm_options' );
+	     				//$woo_sbm_options = get_option( 'sbm_woo_sbm_options' );
 	     				$top_array = array();
-	     				if(!empty($lok_sbm_options['sidebars'])){
+	     				if(!empty($woo_sbm_options['sidebars'])){
 	     				?>
 	     					<ul class="menu ui-sortable" id="menu-to-edit">
 	     					<?php
-	     						foreach($lok_sbm_options['sidebars'] as $sidebar){
+	     						foreach($woo_sbm_options['sidebars'] as $sidebar){
 	     							$sidebar_name = $sidebar['setup']['name'];
 	     							$id = $sidebar['conditionals']['id'];
 	     							$sidebar_id = $sidebar['conditionals']['sidebar_id'];
@@ -1210,11 +1210,11 @@ function lokthemes_sbm_page(){
 	     						foreach($top_array as $top_id => $top_sidebar){
 
 	     							$sidebar_id = $top_id;
-	     							$sidebar_name = $lok_sbm_options['sidebars'][$sidebar_id]['setup']['name'];
+	     							$sidebar_name = $woo_sbm_options['sidebars'][$sidebar_id]['setup']['name'];
 
-	     							$sidebar_id = $lok_sbm_options['sidebars'][$sidebar_id]['conditionals']['sidebar_id'];
-	     							$sidebar_desc = $lok_sbm_options['sidebars'][$sidebar_id]['setup']['description'];
-	     							$sidebar_to_replace = $lok_sbm_options['sidebars'][$sidebar_id]['conditionals']['sidebar_to_replace'];
+	     							$sidebar_id = $woo_sbm_options['sidebars'][$sidebar_id]['conditionals']['sidebar_id'];
+	     							$sidebar_desc = $woo_sbm_options['sidebars'][$sidebar_id]['setup']['description'];
+	     							$sidebar_to_replace = $woo_sbm_options['sidebars'][$sidebar_id]['conditionals']['sidebar_to_replace'];
 	     							
 	     							$sidebar_to_replace_nice = '';
 	     							if ( $sidebar_to_replace != '' && isset( $nxt_registered_sidebars[$sidebar_to_replace] ) ) {
@@ -1275,8 +1275,8 @@ function lokthemes_sbm_page(){
 	     						if(!empty($top_sidebar)){
 	     							foreach($top_sidebar as $piggies){
 	     								$sidebar_id = $piggies;
-	     								$sidebar_name = $lok_sbm_options['sidebars'][$sidebar_id]['setup']['name'];
-	     								$sidebar_id = $lok_sbm_options['sidebars'][$sidebar_id]['conditionals']['sidebar_id'];
+	     								$sidebar_name = $woo_sbm_options['sidebars'][$sidebar_id]['setup']['name'];
+	     								$sidebar_id = $woo_sbm_options['sidebars'][$sidebar_id]['conditionals']['sidebar_id'];
 	     							 	//$sidebar_nice = $nxt_registered_sidebars[$sidebar_id]['name'];
 
 	     							 	?>
@@ -1325,7 +1325,7 @@ function lokthemes_sbm_page(){
 	     			<?php
 	     			}
 	     			?>
-	     			</div><!-- /#lok-sbm-sidebars -->
+	     			</div><!-- /#woo-sbm-sidebars -->
 
 	     		</div><!-- /#sbm-main -->
 
@@ -1334,27 +1334,27 @@ function lokthemes_sbm_page(){
          </div>
          <div class="save_bar_top">
          <img style="display:none" src="<?php echo get_template_directory_uri(); ?>/functions/images/loading-bottom.gif" class="ajax-loading-img ajax-loading-img-bottom" alt="Working..." />
-		 <form action="" method="post" style="display:inline" id="lokform-reset">
+		 <form action="" method="post" style="display:inline" id="wooform-reset">
             <span class="submit-footer-reset">
             <input name="reset" type="submit" value="Reset Sidebar Manager" class="button submit-button reset-button" onclick="return confirm( 'Click OK to reset. Any Sidebar Manager settings will be lost!' );" />
-            <input type="hidden" name="lok_save" value="sbm_reset" />
+            <input type="hidden" name="woo_save" value="sbm_reset" />
             </span>
         </form>
     </div>
     <div style="clear:both;"></div>
     <pre style="display:none">
-    <?php // print_r($lok_sbm_options); ?>
+    <?php // print_r($woo_sbm_options); ?>
     </pre>
     </div><!--wrap-->
 
 <?php }
 /*-----------------------------------------------------------------------------------*/
-/* Ajax Save Action - lok_ajax_callback */
+/* Ajax Save Action - woo_ajax_callback */
 /*-----------------------------------------------------------------------------------*/
 
-add_action( 'nxt_ajax_lok_sbm_post_action', 'lok_sbm_callback' );
+add_action( 'nxt_ajax_woo_sbm_post_action', 'woo_sbm_callback' );
 
-function lok_sbm_callback() {
+function woo_sbm_callback() {
 	global $nxtdb, $nxt_registered_sidebars; // this is how you get access to the database
 
 	$save_type = $_POST['type'];
@@ -1362,9 +1362,9 @@ function lok_sbm_callback() {
 	// Sanitise posted value.
 	$save_type = strtolower( trim( strip_tags( $save_type ) ) );
 
-	$lok_sbm_options = get_option( 'sbm_lok_sbm_options' );
+	$woo_sbm_options = get_option( 'sbm_woo_sbm_options' );
 
-	if($save_type == 'lok_sbm_get_links'){
+	if($save_type == 'woo_sbm_get_links'){
 
 		$data = $_POST['data'];
 
@@ -1430,7 +1430,7 @@ function lok_sbm_callback() {
 
 	}
 
-	if($save_type == 'lok_sbm_add_sidebar'){
+	if($save_type == 'woo_sbm_add_sidebar'){
 
 		$data = $_POST['data'];
 
@@ -1449,9 +1449,9 @@ function lok_sbm_callback() {
 		$stage = $data_array['stage'];
 		$piggy = $data_array['piggy'];
 
-		if(empty($lok_sbm_options)){ $lok_sbm_options = array(); }
+		if(empty($woo_sbm_options)){ $woo_sbm_options = array(); }
 
-		$new_id = "lok_sbm_" . $conditional . "_" . str_replace( '.','',$id) . "_" . $sidebar_to_replace;
+		$new_id = "woo_sbm_" . $conditional . "_" . str_replace( '.','',$id) . "_" . $sidebar_to_replace;
 
 		if($piggy == true){
 
@@ -1481,7 +1481,7 @@ function lok_sbm_callback() {
 
 		$sidebar_data = $nxt_registered_sidebars[$index];
 
-		$lok_sbm_new_set = array( "setup" 		=> array(	'name' => $sidebar_title,
+		$woo_sbm_new_set = array( "setup" 		=> array(	'name' => $sidebar_title,
 															'id' => $new_id,
 															'description' => $sidebar_description,
 															'before_widget' => $sidebar_data['before_widget'],
@@ -1500,9 +1500,9 @@ function lok_sbm_callback() {
 													)
 								);
 
-		$lok_sbm_options['sidebars'][$new_id] = $lok_sbm_new_set;
+		$woo_sbm_options['sidebars'][$new_id] = $woo_sbm_new_set;
 
-		update_option( 'sbm_lok_sbm_options',$lok_sbm_options);
+		update_option( 'sbm_woo_sbm_options',$woo_sbm_options);
 
 		if(!empty($sidebar_piggyback)){
 			$piggy = '1';
@@ -1511,31 +1511,31 @@ function lok_sbm_callback() {
 		echo "$type|$name|$slug|$id|$other|$conditional|$stage|$sidebar_title|$new_id|$piggy";
 	}
 
-	if($save_type == 'lok_sbm_delete-sidebar'){
+	if($save_type == 'woo_sbm_delete-sidebar'){
 		$id = $_POST['data'];
 		$ids = array();
-		$lok_sbm_options_temp = $lok_sbm_options;
-		if(!empty($lok_sbm_options['sidebars'])){
+		$woo_sbm_options_temp = $woo_sbm_options;
+		if(!empty($woo_sbm_options['sidebars'])){
 			$pos = '';
-			foreach($lok_sbm_options['sidebars'] as $top_id => $sidebar){
+			foreach($woo_sbm_options['sidebars'] as $top_id => $sidebar){
 				$sidebar_piggy = $sidebar['conditionals']['piggy'];
 
 				if($id == $top_id OR $id == $sidebar_piggy){
-					unset($lok_sbm_options_temp['sidebars'][$top_id]);
+					unset($woo_sbm_options_temp['sidebars'][$top_id]);
 					$ids[] = $top_id;
 				}
 
 				if($id == $top_id){ $pos = $id; }
 			}
 		}
-		update_option( 'sbm_lok_sbm_options',$lok_sbm_options_temp);
+		update_option( 'sbm_woo_sbm_options',$woo_sbm_options_temp);
 		if(is_array($ids)){
 			$id = implode( ',#',$ids);
 		}
 		echo "#$id|$pos";
 	}
 
-	if($save_type == 'lok_sbm_save-sidebar'){
+	if($save_type == 'woo_sbm_save-sidebar'){
 
 		$data = $_POST['data'];
 
@@ -1547,25 +1547,25 @@ function lok_sbm_callback() {
 		$desc = $data_array['sidebar_description'];
 
 
-		$lok_sbm_options['sidebars'][$id]['conditionals']['sidebar_to_replace'] = $sidebar_to_replace;
-		$lok_sbm_options['sidebars'][$id]['setup']['name'] = $name;
-		$lok_sbm_options['sidebars'][$id]['conditionals']['name'] = $name;
-		$lok_sbm_options['sidebars'][$id]['setup']['description'] = $desc;
+		$woo_sbm_options['sidebars'][$id]['conditionals']['sidebar_to_replace'] = $sidebar_to_replace;
+		$woo_sbm_options['sidebars'][$id]['setup']['name'] = $name;
+		$woo_sbm_options['sidebars'][$id]['conditionals']['name'] = $name;
+		$woo_sbm_options['sidebars'][$id]['setup']['description'] = $desc;
 
 		$sidebar_to_replace_nice = $nxt_registered_sidebars[$sidebar_to_replace]['name'];
 		echo "$name|$sidebar_to_replace_nice";
 
-		update_option( 'sbm_lok_sbm_options',$lok_sbm_options);
+		update_option( 'sbm_woo_sbm_options',$woo_sbm_options);
 
 	}
 
-	if($save_type == 'lok_sbm_dismiss_intro'){
+	if($save_type == 'woo_sbm_dismiss_intro'){
 
 		//$data = $_POST['data'];
-		$temp_options = get_option( 'sbm_lok_sbm_options' );
+		$temp_options = get_option( 'sbm_woo_sbm_options' );
 		$temp_options['settings']['infobox'] = 'hide';
 
-		update_option( 'sbm_lok_sbm_options',$temp_options);
+		update_option( 'sbm_woo_sbm_options',$temp_options);
 
 
 	}

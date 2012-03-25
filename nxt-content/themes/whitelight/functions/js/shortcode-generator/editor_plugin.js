@@ -1,4 +1,4 @@
-function lok_js_querystring(ji) {
+function woo_js_querystring(ji) {
 
 	hu = window.location.search.substring(1);
 	gy = hu.split( "&" );
@@ -13,7 +13,7 @@ function lok_js_querystring(ji) {
 		
 	} // End FOR Loop
 	
-} // End lok_js_querystring()
+} // End woo_js_querystring()
 	
 (
 	
@@ -50,12 +50,12 @@ function lok_js_querystring(ji) {
 		var icon_url = framework_url[0] + '/images/shortcode-icon.png';
 	
 		tinymce.create(
-			"tinymce.plugins.lokThemesShortcodes",
+			"tinymce.plugins.WooThemesShortcodes",
 			{
 				init: function(d,e) {
-						d.addCommand( "lokVisitlokThemes", function(){ window.open( "http://lokthemes.com/" ) } );
+						d.addCommand( "wooVisitWooThemes", function(){ window.open( "http://woothemes.com/" ) } );
 						
-						d.addCommand( "lokOpenDialog",function(a,c){
+						d.addCommand( "wooOpenDialog",function(a,c){
 							
 							// Grab the selected text from the content editor.
 							selectedText = '';
@@ -66,18 +66,18 @@ function lok_js_querystring(ji) {
 								
 							} // End IF Statement
 							
-							lokSelectedShortcodeType = c.identifier;
-							lokSelectedShortcodeTitle = c.title;
+							wooSelectedShortcodeType = c.identifier;
+							wooSelectedShortcodeTitle = c.title;
 							
 							
 							jQuery.get(e+"/dialog.php",function(b){
 								
-								jQuery( '#lok-options').addClass( 'shortcode-' + lokSelectedShortcodeType );
-								jQuery( '#lok-preview').addClass( 'shortcode-' + lokSelectedShortcodeType );
+								jQuery( '#woo-options').addClass( 'shortcode-' + wooSelectedShortcodeType );
+								jQuery( '#woo-preview').addClass( 'shortcode-' + wooSelectedShortcodeType );
 								
 								// Skip the popup on certain shortcodes.
 								
-								switch ( lokSelectedShortcodeType ) {
+								switch ( wooSelectedShortcodeType ) {
 							
 									// Highlight
 									
@@ -101,16 +101,16 @@ function lok_js_querystring(ji) {
 							
 									default:
 									
-									jQuery( "#lok-dialog").remove();
+									jQuery( "#woo-dialog").remove();
 									jQuery( "body").append(b);
-									jQuery( "#lok-dialog").hide();
+									jQuery( "#woo-dialog").hide();
 									var f=jQuery(window).width();
 									b=jQuery(window).height();
 									f=720<f?720:f;
 									f-=80;
 									b-=84;
 								
-								tb_show( "Insert lokThemes "+ lokSelectedShortcodeTitle +" Shortcode", "#TB_inline?width="+f+"&height="+b+"&inlineId=lok-dialog" );jQuery( "#lok-options h3:first").text( "Customize the "+c.title+" Shortcode" );
+								tb_show( "Insert WooThemes "+ wooSelectedShortcodeTitle +" Shortcode", "#TB_inline?width="+f+"&height="+b+"&inlineId=woo-dialog" );jQuery( "#woo-options h3:first").text( "Customize the "+c.title+" Shortcode" );
 								
 									break;
 								
@@ -123,15 +123,15 @@ function lok_js_querystring(ji) {
 						} 
 					);
 						
-						// d.onNodeChange.add(function(a,c){ c.setDisabled( "lokthemes_shortcodes_button",a.selection.getContent().length>0 ) } ) // Disables the button if text is highlighted in the editor.
+						// d.onNodeChange.add(function(a,c){ c.setDisabled( "woothemes_shortcodes_button",a.selection.getContent().length>0 ) } ) // Disables the button if text is highlighted in the editor.
 					},
 					
 				createControl:function(d,e){
 				
-						if(d=="lokthemes_shortcodes_button"){
+						if(d=="woothemes_shortcodes_button"){
 						
-							d=e.createMenuButton( "lokthemes_shortcodes_button",{
-								title:"Insert lokThemes Shortcode",
+							d=e.createMenuButton( "woothemes_shortcodes_button",{
+								title:"Insert WooThemes Shortcode",
 								image:icon_url,
 								icons:false
 								});
@@ -173,7 +173,7 @@ function lok_js_querystring(ji) {
 											a.addWithDialog(c,"Share on LinkedIn","linkedin_share" );
 											a.addWithDialog(c,"Google +1 Button","google_plusone" );
 											a.addWithDialog(c,"StumbleUpon Badge","stumbleupon" );
-		/*b.add({title:"Visit lokThemes.com","class":"lok-loklink",onclick:function(){tinyMCE.activeEditor.execCommand( "lokVisitlokThemes",false,"")}})*/ });
+		/*b.add({title:"Visit WooThemes.com","class":"woo-woolink",onclick:function(){tinyMCE.activeEditor.execCommand( "wooVisitWooThemes",false,"")}})*/ });
 							return d
 						
 						} // End IF Statement
@@ -183,12 +183,12 @@ function lok_js_querystring(ji) {
 		
 				addImmediate:function(d,e,a){d.add({title:e,onclick:function(){tinyMCE.activeEditor.execCommand( "mceInsertContent",false,a)}})},
 				
-				addWithDialog:function(d,e,a){d.add({title:e,onclick:function(){tinyMCE.activeEditor.execCommand( "lokOpenDialog",false,{title:e,identifier:a})}})},
+				addWithDialog:function(d,e,a){d.add({title:e,onclick:function(){tinyMCE.activeEditor.execCommand( "wooOpenDialog",false,{title:e,identifier:a})}})},
 		
-				getInfo:function(){ return{longname:"lokThemes Shortcode Generator",author:"VisualShortcodes.com",authorurl:"http://visualshortcodes.com",infourl:"http://visualshortcodes.com/shortcode-ninja",version:"1.0"} }
+				getInfo:function(){ return{longname:"WooThemes Shortcode Generator",author:"VisualShortcodes.com",authorurl:"http://visualshortcodes.com",infourl:"http://visualshortcodes.com/shortcode-ninja",version:"1.0"} }
 			}
 		);
 		
-		tinymce.PluginManager.add( "lokThemesShortcodes",tinymce.plugins.lokThemesShortcodes)
+		tinymce.PluginManager.add( "WooThemesShortcodes",tinymce.plugins.WooThemesShortcodes)
 	}
 )();

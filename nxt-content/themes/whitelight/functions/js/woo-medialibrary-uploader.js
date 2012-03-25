@@ -1,14 +1,14 @@
 /*-----------------------------------------------------------------------------------*/
-/* lokThemes Media Library-driven AJAX File Uploader Module - JavaScript Functions */
+/* WooThemes Media Library-driven AJAX File Uploader Module - JavaScript Functions */
 /* 2010-11-05. */
 /*
-/* The code below is designed to work as a part of the lokThemes Media Library-driven
+/* The code below is designed to work as a part of the WooThemes Media Library-driven
 /* AJAX File Uploader Module. It is included only on screens where this module is used.
 /*-----------------------------------------------------------------------------------*/
 
 (function ($) {
 
-  lokthemesMLU = {
+  woothemesMLU = {
   
 /*-----------------------------------------------------------------------------------*/
 /* Remove file when the "remove" button is clicked.
@@ -71,13 +71,13 @@
         formID = $(this).attr( 'rel' );
         
         // Display a custom title for each Thickbox popup.
-        var lok_title = '';
+        var woo_title = '';
         
-       if ( $(this).parents( '.section' ).find( '.heading' ) ) { lok_title = $(this).parents( '.section' ).find( '.heading' ).text(); } // End IF Statement
+       if ( $(this).parents( '.section' ).find( '.heading' ) ) { woo_title = $(this).parents( '.section' ).find( '.heading' ).text(); } // End IF Statement
        
-       if ( lok_title == '' && $(this).parents( '.lok_metabox_fields' ).prev( 'th' ).find( 'label' ) ) { lok_title = $(this).parents( '.lok_metabox_fields' ).prev( 'th' ).find( 'label' ).text(); } // End IF Statement
+       if ( woo_title == '' && $(this).parents( '.woo_metabox_fields' ).prev( 'th' ).find( 'label' ) ) { woo_title = $(this).parents( '.woo_metabox_fields' ).prev( 'th' ).find( 'label' ).text(); } // End IF Statement
         
-        tb_show( lok_title, 'media-upload.php?post_id='+formID+'&amp;title=' + lok_title + '&amp;is_lokthemes=yes&amp;TB_iframe=1' );
+        tb_show( woo_title, 'media-upload.php?post_id='+formID+'&amp;title=' + woo_title + '&amp;is_woothemes=yes&amp;TB_iframe=1' );
         return false;
       });
             
@@ -140,17 +140,17 @@
       
     } // End mediaUpload
    
-  }; // End lokthemesMLU Object // Don't remove this, or the sky will fall on your head.
+  }; // End woothemesMLU Object // Don't remove this, or the sky will fall on your head.
 
 /*-----------------------------------------------------------------------------------*/
-/* Execute the above methods in the lokthemesMLU object.
+/* Execute the above methods in the woothemesMLU object.
 /*-----------------------------------------------------------------------------------*/
   
 	$(document).ready(function () {
 
-		lokthemesMLU.removeFile();
-		lokthemesMLU.recreateFileField();
-		lokthemesMLU.mediaUpload();
+		woothemesMLU.removeFile();
+		woothemesMLU.recreateFileField();
+		woothemesMLU.mediaUpload();
 	
 	});
   

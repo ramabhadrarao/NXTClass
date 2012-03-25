@@ -1,4 +1,4 @@
-function lokTabMaker(h, i, f) {
+function wooTabMaker(h, i, f) {
 
     this.parentControl = h;
     var d = this;
@@ -17,7 +17,7 @@ function lokTabMaker(h, i, f) {
     
     this.buildSelectControl = function () {
     	// .attr( "style", "width:" + this.width + "px")
-        this.selectControl = jQuery( "<select></select>").attr( "id", "lok-tab-select").addClass(f ? f : "" );
+        this.selectControl = jQuery( "<select></select>").attr( "id", "woo-tab-select").addClass(f ? f : "" );
         var a = jQuery( "<option></option>").attr( "value", "select").attr( "selected", "selected").text( "Number of Tabs..." );
         a.appendTo(this.selectControl);
         for (var b = 2; b <= this.maxTabs; b++) {
@@ -40,8 +40,8 @@ function lokTabMaker(h, i, f) {
     
     this.buildTextInputControl = function ( id ) {
     
-    	var labelElement = '<label for="lok_tab_title">Tab ' + id + ' Title</label>';
-    	var inputElement = '<input type="text" id="lok_tab_title_' + id.toString() + '" class="txt input-text" name="lok_tab_title" />';
+    	var labelElement = '<label for="woo_tab_title">Tab ' + id + ' Title</label>';
+    	var inputElement = '<input type="text" id="woo_tab_title_' + id.toString() + '" class="txt input-text" name="woo_tab_title" />';
     
         this.textInputControl = jQuery( '<tr><th>' + labelElement + '</th><td>' + inputElement + '</td></tr>' );
         this.parentControl.parents( 'tbody').append(this.textInputControl)
@@ -54,7 +54,7 @@ function lokTabMaker(h, i, f) {
         } else {
 
 			// Wipe the slate clean when the number of tabs desired changes.
-			jQuery( 'label[for="lok_tab_title"]').parents( 'tr').remove();
+			jQuery( 'label[for="woo_tab_title"]').parents( 'tr').remove();
             this.parentControl.append(this.buttonsControl);
 
         }
