@@ -1,4 +1,4 @@
-lokShortcodeMeta={
+wooShortcodeMeta={
 	attributes:[
 		{
 			label:"Email to send form to",

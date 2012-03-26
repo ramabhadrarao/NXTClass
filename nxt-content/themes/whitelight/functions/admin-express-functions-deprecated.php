@@ -191,7 +191,7 @@ function express_uploadFile($args) {
 
 	if ( !current_user_can( 'upload_files') ) {
 		logIO( 'O', '(MW) User does not have upload_files capability' );
-		return new IXR_Error(401, __( 'You are not allowed to upload files to this site.', 'lokthemes'));
+		return new IXR_Error(401, __( 'You are not allowed to upload files to this site.', 'woothemes'));
 	}
 
 	if ( $upload_err = apply_filters( "pre_upload_error", false ) )
@@ -217,7 +217,7 @@ function express_uploadFile($args) {
 
 	$upload = nxt_upload_bits($name, $type, $bits);
 	if ( ! empty($upload['error']) ) {
-		$errorString = sprintf(__( 'Could not write file %1$s (%2$s)', 'lokthemes'), $name, $upload['error']);
+		$errorString = sprintf(__( 'Could not write file %1$s (%2$s)', 'woothemes'), $name, $upload['error']);
 		logIO( 'O', '(MW) ' . $errorString);
 		return new IXR_Error(500, $errorString);
 	}
@@ -242,42 +242,42 @@ function express_uploadFile($args) {
 
 
 /*
- * lok taxonomy
+ * Woo taxonomy
  *
  * Set the proper taxonomy
  *
  */
 	
-function express_lok_taxonomy($args) {
+function express_woo_taxonomy($args) {
 	$content_struct = $args[3];
 
-	// Re-assign the taxonomies so they are compatible with lokThemes themes
+	// Re-assign the taxonomies so they are compatible with WooThemes themes
 	$taxonomies = $content_struct['taxonomy'];
 	if (is_array($taxonomies)) {
 		$new_taxonomy = array();
-		$lok_tags = array();
+		$woo_tags = array();
 		foreach ($taxonomies as $taxonomy) {
 			if ($taxonomy['taxonomy'] == 'tumblog') {
 				foreach ($taxonomy['tags'] as $tag) {
 					switch (strtolower($tag)) {
 						case 'note':
-							$lok_tags[] = get_option( 'lok_articles_term_id' );
+							$woo_tags[] = get_option( 'woo_articles_term_id' );
 							break;
 						case 'link':
-							$lok_tags[] = get_option( 'lok_links_term_id' );
+							$woo_tags[] = get_option( 'woo_links_term_id' );
 							break;
 						case 'quote':
-							$lok_tags[] = get_option( 'lok_quotes_term_id' );
+							$woo_tags[] = get_option( 'woo_quotes_term_id' );
 							break;
 						case 'image':
-							$lok_tags[] = get_option( 'lok_images_term_id' );
+							$woo_tags[] = get_option( 'woo_images_term_id' );
 							break;
 						default:
-							$lok_tags[] = $tag;
+							$woo_tags[] = $tag;
 							break;
 					}	
 				}
-				$taxonomy['tags'] = implode( ',', $lok_tags);
+				$taxonomy['tags'] = implode( ',', $woo_tags);
 			}
 			$new_taxonomy[] = $taxonomy;
 		}
@@ -297,12 +297,12 @@ function express_lok_taxonomy($args) {
  *
  */
 	
-function express_newPost($args) {
+function express_nenxtost($args) {
 	global $nxt_xmlrpc_server;
 	
-	$args = express_lok_taxonomy($args);
+	$args = express_woo_taxonomy($args);
 	
-	$result = $nxt_xmlrpc_server->mw_newPost($args);
+	$result = $nxt_xmlrpc_server->mw_nenxtost($args);
 	$post_ID = intval($result);
 	if ($post_ID == 0) return $result;
 
@@ -340,7 +340,7 @@ function express_newPost($args) {
 function express_editPost($args) {
 	global $nxt_xmlrpc_server;
 	
-	$args = express_lok_taxonomy($args);
+	$args = express_woo_taxonomy($args);
 	
 	$result = $nxt_xmlrpc_server->mw_editPost($args);
 	if ($result == false) return false;
@@ -377,7 +377,7 @@ function attach_express_methods($methods) {
 	$methods['express.version'] = 'express_version';
 	$methods['express.getPostsWithOffset'] = 'express_getPostsWithOffset';
 	$methods['express.uploadFile'] = 'express_uploadFile';
-	$methods['express.newPost'] = 'express_newPost';
+	$methods['express.nenxtost'] = 'express_nenxtost';
 	$methods['express.editPost'] = 'express_editPost';
 	return $methods;
 }

@@ -98,36 +98,6 @@ function add_shortcode($tag, $func) {
 }
 
 /**
- * Removes hook for shortcode.
- *
- * @since 2.5
- * @uses $shortcode_tags
- *
- * @param string $tag shortcode tag to remove hook for.
- */
-function remove_shortcode($tag) {
-	global $shortcode_tags;
-
-	unset($shortcode_tags[$tag]);
-}
-
-/**
- * Clear all shortcodes.
- *
- * This function is simple, it clears all of the shortcode tags by replacing the
- * shortcodes global by a empty array. This is actually a very efficient method
- * for removing all shortcodes.
- *
- * @since 2.5
- * @uses $shortcode_tags
- */
-function remove_all_shortcodes() {
-	global $shortcode_tags;
-
-	$shortcode_tags = array();
-}
-
-/**
  * Search content for shortcodes and filter shortcodes through their hooks.
  *
  * If there are no shortcode tags defined, then the content will be returned

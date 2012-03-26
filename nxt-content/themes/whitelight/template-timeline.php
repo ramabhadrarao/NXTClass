@@ -5,11 +5,11 @@
  * The timeline page template displays a user-friendly timeline of the
  * posts on your website.
  *
- * @package lokFramework
+ * @package WooFramework
  * @subpackage Template
  */
 
- global $lok_options; 
+ global $woo_options; 
  get_header();
 ?>
        
@@ -17,9 +17,9 @@
     
     	<div class="page col-full">
     	
-    		<?php if ( isset( $lok_options['lok_breadcrumbs_show'] ) && $lok_options['lok_breadcrumbs_show'] == 'true' ) { ?>
+    		<?php if ( isset( $woo_options['woo_breadcrumbs_show'] ) && $woo_options['woo_breadcrumbs_show'] == 'true' ) { ?>
 				<section id="breadcrumbs">
-					<?php lok_breadcrumbs(); ?>
+					<?php woo_breadcrumbs(); ?>
 				</section><!--/#breadcrumbs -->
 			<?php } ?>
     
@@ -85,7 +85,7 @@
 						}
 					?>
 						<li>
-							<span class="date"><?php the_time( 'F j' ); ?><sup><?php the_time( 'S' ); ?></sup></span> <span class="linked"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></span> <span class="comments"><?php comments_popup_link( __( 'Leave a comment', 'lokthemes' ), __( '1 comment', 'lokthemes' ), __( '% comments', 'lokthemes' ) ); ?></span>
+							<span class="date"><?php the_time( 'F j' ); ?><sup><?php the_time( 'S' ); ?></sup></span> <span class="linked"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></span> <span class="comments"><?php comments_popup_link( __( 'Leave a comment', 'woothemes' ), __( '1 comment', 'woothemes' ), __( '% comments', 'woothemes' ) ); ?></span>
 						</li>
 					<?php
 							/* For subsequent iterations */

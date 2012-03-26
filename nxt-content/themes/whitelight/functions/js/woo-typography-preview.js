@@ -1,16 +1,16 @@
 /**
- * lokThemes Typography Live Preview
+ * WooThemes Typography Live Preview
  * 2011-10-07.
  *
  * @description The code below is designed to generate a live preview using the
- * setting specified in a "custom typography" field in the lokFramework.
+ * setting specified in a "custom typography" field in the WooFramework.
  *
  * @since 4.7.0
  */
 
 (function ($) {
 
-  lokTypographyPreview = {
+  wooTypographyPreview = {
   
   	/**
   	 * loadPreviewButtons()
@@ -21,14 +21,14 @@
   
     loadPreviewButtons: function () {
      
-     var previewButtonHTML = '<a href="#" class="lok-typography-preview-button button submit-button" title="' + 'Preview your customized typography settings' + '"><span>' + '+' + '</span></a>';
+     var previewButtonHTML = '<a href="#" class="woo-typography-preview-button button submit-button" title="' + 'Preview your customized typography settings' + '"><span>' + '+' + '</span></a>';
      
-     $( 'input.lok-typography-color' ).each( function ( i ) {
+     $( 'input.woo-typography-color' ).each( function ( i ) {
      	$( this ).after( previewButtonHTML );
      });
      
      // Register event handlers.
-     lokTypographyPreview.handleEvents();
+     wooTypographyPreview.handleEvents();
       
     }, // End loadPreviewButtons()
     
@@ -40,13 +40,13 @@
      */
     
     handleEvents: function () {
-    	$( 'a.lok-typography-preview-button' ).live( 'click', function () {
-    		lokTypographyPreview.generatePreview( $( this ) );
+    	$( 'a.woo-typography-preview-button' ).live( 'click', function () {
+    		wooTypographyPreview.generatePreview( $( this ) );
     		return false;
     	});
     	
     	$( 'a.preview_remove' ).live( 'click', function () {
-    		lokTypographyPreview.closePreview( $( this ) );
+    		wooTypographyPreview.closePreview( $( this ) );
     		return false;
     	});
     }, 
@@ -59,7 +59,7 @@
      */
      
      closePreview: function ( target ) {
-		target.parents( '.section' ).find( '.lok-typography-preview-button .refresh' ).removeClass( 'refresh' );
+		target.parents( '.section' ).find( '.woo-typography-preview-button .refresh' ).removeClass( 'refresh' );
      	target.parents( '.typography-preview-container' ).remove();
      }, 
     
@@ -79,16 +79,16 @@
     	var controls = target.parents( '.controls' );
     	var explain = target.parents( '.controls' ).next( '.explain' );
     	
-    	var fontUnit = controls.find( '.lok-typography-unit' ).val();
+    	var fontUnit = controls.find( '.woo-typography-unit' ).val();
     	
-    	var sizeSelector = '.lok-typography-size-px';
-    	if ( fontUnit == 'em' ) { sizeSelector = '.lok-typography-size-em'; }
+    	var sizeSelector = '.woo-typography-size-px';
+    	if ( fontUnit == 'em' ) { sizeSelector = '.woo-typography-size-em'; }
     	
     	var fontSize = controls.find( sizeSelector ).val();
     	
-    	var fontFace = controls.find( '.lok-typography-face' ).val();
-    	var fontStyle = controls.find( '.lok-typography-style' ).val();
-    	var fontColor = controls.find( '.lok-typography-color' ).val();
+    	var fontFace = controls.find( '.woo-typography-face' ).val();
+    	var fontStyle = controls.find( '.woo-typography-style' ).val();
+    	var fontColor = controls.find( '.woo-typography-color' ).val();
    		var lineHeight = ( parseInt( fontSize )  / 2 ) + parseInt( fontSize ); // Calculate pleasant line-height for the selected font size.
 
 		// Fix the line-height if using "em".
@@ -201,19 +201,19 @@
     	}
     	
     	// Set the button to "refresh" mode.
-    	controls.find( '.lok-typography-preview-button span' ).addClass( 'refresh' );
+    	controls.find( '.woo-typography-preview-button span' ).addClass( 'refresh' );
     }
 
    
-  }; // End lokTypographyPreview Object // Don't remove this, or the sky will fall on your head.
+  }; // End wooTypographyPreview Object // Don't remove this, or the sky will fall on your head.
 
 /*-----------------------------------------------------------------------------------*/
-/* Execute the above methods in the lokTypographyPreview object.
+/* Execute the above methods in the wooTypographyPreview object.
 /*-----------------------------------------------------------------------------------*/
   
 	$(document).ready(function () {
 
-		lokTypographyPreview.loadPreviewButtons();
+		wooTypographyPreview.loadPreviewButtons();
 	
 	});
   

@@ -3,17 +3,17 @@
     <div id="content">
     	<div class="col-full">
     		
-    		<?php if ( isset($lok_options['lok_breadcrumbs_show']) && $lok_options['lok_breadcrumbs_show'] == 'true' ) { ?>
+    		<?php if ( isset($woo_options['woo_breadcrumbs_show']) && $woo_options['woo_breadcrumbs_show'] == 'true' ) { ?>
 				<section id="breadcrumbs">
-					<?php lok_breadcrumbs(); ?>
+					<?php woo_breadcrumbs(); ?>
 				</section><!--/#breadcrumbs -->
 			<?php } ?>
 		
-			<header class="archive_header"><?php _e( 'Features', 'lokthemes' ); ?></header>
+			<header class="archive_header"><?php _e( 'Features', 'woothemes' ); ?></header>
 	
 	        <?php
 	        	// Display the description for this archive, if it's available.
-	        	lok_archive_description();
+	        	woo_archive_description();
 	        ?>
 	        
 		        <div class="fix"></div>
@@ -32,12 +32,12 @@
 	        <?php else: ?>
 	        
 	            <article <?php post_class(); ?>>
-	                <p><?php _e( 'Sorry, no posts matched your criteria.', 'lokthemes' ); ?></p>
+	                <p><?php _e( 'Sorry, no posts matched your criteria.', 'woothemes' ); ?></p>
 	            </article><!-- /.post -->
 	        
 	        <?php endif; ?>  
 	    
-				<?php lok_pagenav(); ?>
+				<?php woo_pagenav(); ?>
 	                
 			</section><!-- /#main -->
 	

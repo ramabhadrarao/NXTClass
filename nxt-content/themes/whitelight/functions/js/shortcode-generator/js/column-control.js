@@ -1,4 +1,4 @@
-function lokColumnMaker(h, i, f) {
+function wooColumnMaker(h, i, f) {
     this.parentControl = h;
     var d = this;
     this.width = 250;
@@ -14,7 +14,7 @@ function lokColumnMaker(h, i, f) {
     };
     this.buildSelectControl = function () {
     	// .attr( "style", "width:" + this.width + "px")
-        this.selectControl = jQuery( "<select></select>").attr( "id", "lok-column-select").addClass(f ? f : "" );
+        this.selectControl = jQuery( "<select></select>").attr( "id", "woo-column-select").addClass(f ? f : "" );
         var a = jQuery( "<option></option>").attr( "value", "select").attr( "selected", "selected").text( "Number of columns..." );
         a.appendTo(this.selectControl);
         for (var b = 2; b <= this.maxColumns; b++) {
@@ -34,7 +34,7 @@ function lokColumnMaker(h, i, f) {
     this.buildTextControl = function () {
         var a = jQuery( "<div>").attr( "style", "position: relative;margin-top: 5px; width: " + this.width + "px;" );
         a.appendTo(this.parentControl);
-        this.textControl = jQuery( "<div>&nbsp;</div>").attr( "id", "lok-column-text").attr( "style", "width: " + (this.width - 50) + "px" );
+        this.textControl = jQuery( "<div>&nbsp;</div>").attr( "id", "woo-column-text").attr( "style", "width: " + (this.width - 50) + "px" );
         a.append(this.textControl);
         var b = jQuery( "<input>").attr( "type", "button").attr( "style", "width: 40px;position:absolute;right: 0px;bottom: -2px;font-size: 22px; border:none;background:none;").attr( "value", "\u232b" );
         a.append(b);
@@ -47,7 +47,7 @@ function lokColumnMaker(h, i, f) {
             this.buttonsControl.html( "" );
             this.textControl.html( "&nbsp;")
         } else {
-            this.buttonsControl = jQuery( "<div></div>").attr( "id", "lok-column-buttons" );
+            this.buttonsControl = jQuery( "<div></div>").attr( "id", "woo-column-buttons" );
             this.parentControl.append(this.buttonsControl);
             jQuery( '<div style="clear:both"></div>').appendTo(this.parentControl)
         }

@@ -6,11 +6,11 @@
  * as well as the "portfolio-gallery" taxonomy archive screens. The custom query is only run on the page
  * template, as we already have the data we need when on the taxonomy archive screens.
  *
- * @package lokFramework
+ * @package WooFramework
  * @subpackage Template
  */
 
-global $lok_options;
+global $woo_options;
 global $more; $more = 0;
 
 /* Setup parameters for this loop. */
@@ -25,25 +25,25 @@ $settings = array(
 					'portfolio_posts_per_page' => get_option( 'posts_per_page' )
 				);
 				
-$settings = lok_get_dynamic_values( $settings );
+$settings = woo_get_dynamic_values( $settings );
 
 /* Setup array of booleans to make filtering of this setting easier. */
 $settings_toggle = array( 'true' => true, 'false' => false );
 
 /* Add toggle for the pagination vs portfolio filter bar. */
-$toggle_pagination = apply_filters( 'lok_portfolio_toggle_pagination', $settings_toggle[$settings['portfolio_enable_pagination']] ); // Default: false
+$toggle_pagination = apply_filters( 'woo_portfolio_toggle_pagination', $settings_toggle[$settings['portfolio_enable_pagination']] ); // Default: false
 $filtering_css_class = 'has-filtering';
 if ( $toggle_pagination == true ) {
 	$filtering_css_class = 'no-filtering';
 }
 
 /* Make sure our thumbnail dimensions come through from the theme options. */
-if ( isset( $lok_options['lok_portfolio_thumb_width'] ) && ( $lok_options['lok_portfolio_thumb_width'] != '' ) ) {
-	$thumb_width = $lok_options['lok_portfolio_thumb_width'];
+if ( isset( $woo_options['woo_portfolio_thumb_width'] ) && ( $woo_options['woo_portfolio_thumb_width'] != '' ) ) {
+	$thumb_width = $woo_options['woo_portfolio_thumb_width'];
 }
 
-if ( isset( $lok_options['lok_portfolio_thumb_height'] ) && ( $lok_options['lok_portfolio_thumb_height'] != '' ) ) {
-	$thumb_height = $lok_options['lok_portfolio_thumb_height'];
+if ( isset( $woo_options['woo_portfolio_thumb_height'] ) && ( $woo_options['woo_portfolio_thumb_height'] != '' ) ) {
+	$thumb_height = $woo_options['woo_portfolio_thumb_height'];
 }
 
 /* Setup portfolio galleries navigation. */
@@ -52,8 +52,8 @@ $galleries = get_terms( 'portfolio-gallery' );
 $to_exclude = array();
 
 /* Optionally exclude navigation items. */
-if ( isset( $lok_options['lok_portfolio_excludenav'] ) && ( $lok_options['lok_portfolio_excludenav'] != '' ) ) {
-	$to_exclude = explode( ',', $lok_options['lok_portfolio_excludenav'] );
+if ( isset( $woo_options['woo_portfolio_excludenav'] ) && ( $woo_options['woo_portfolio_excludenav'] != '' ) ) {
+	$to_exclude = explode( ',', $woo_options['woo_portfolio_excludenav'] );
 }
 
 if ( is_array( $to_exclude ) ) {
@@ -127,11 +127,11 @@ if ( have_posts() ) : $count = 0; ?>
 				    	
 <?php
 	if ( $screen_type == 'page' ) { ?><strong><?php the_title(); ?></strong><?php }
-	else if ( $screen_type == 'post-type-archive' ) { echo '<strong>' . apply_filters( 'lok_portfolio_type_archive_title', __( 'Portfolio', 'lokthemes' ) ) . '</strong>'; }
+	else if ( $screen_type == 'post-type-archive' ) { echo '<strong>' . apply_filters( 'woo_portfolio_type_archive_title', __( 'Portfolio', 'woothemes' ) ) . '</strong>'; }
 	else if ( $screen_type == 'taxonomy' ) { echo '<strong>' . $archive_title . '</strong>'; }
 
 	/* Display the gallery navigation (from theme-functions.php). */
-	lok_portfolio_navigation( $galleries, array( 'current' => $current ), $toggle_pagination );
+	woo_portfolio_navigation( $galleries, array( 'current' => $current ), $toggle_pagination );
 ?>
 				    		
 				    	</h1>
@@ -143,10 +143,10 @@ if ( have_posts() ) : $count = 0; ?>
 	while ( have_posts() ) : the_post(); $count++;
 	
 		/* Get the settings for this portfolio item. */
-		$settings = lok_portfolio_item_settings( $post->ID );
+		$settings = woo_portfolio_item_settings( $post->ID );
 		
 		/* If the theme option is set to link to the single portfolio item, adjust the $settings. */
-		if ( isset( $lok_options['lok_portfolio_linkto'] ) && ( $lok_options['lok_portfolio_linkto'] == 'post' ) ) {
+		if ( isset( $woo_options['woo_portfolio_linkto'] ) && ( $woo_options['woo_portfolio_linkto'] == 'post' ) ) {
 			$settings['large'] = get_permalink( $post->ID );
 			$settings['rel'] = '';
 		}
@@ -161,8 +161,8 @@ if ( have_posts() ) : $count = 0; ?>
 		
 			<?php
 			/* Setup image for display and for checks, to avoid doing multiple queries. */
-				$image = lok_image( 'width=215&height=220&link=img&return=true' ); 
-				$image_src = lok_image( 'width=215&height=220&link=url&return=true' );
+				$image = woo_image( 'width=215&height=220&link=img&return=true' ); 
+				$image_src = woo_image( 'width=215&height=220&link=url&return=true' );
 				if ( !$image )
 					$image = '<img src="' . get_template_directory_uri() . '/images/temp-portfolio.png" alt="" />';
 			?>
@@ -201,12 +201,12 @@ if ( have_posts() ) : $count = 0; ?>
 	</div><!--/.portfolio-items-->
 <?php
 	if ( $toggle_pagination == true ) {
-		lok_pagenav();
+		woo_pagenav();
 	}
 ?>
 <?php else : ?>
 	<div <?php post_class(); ?>>
-		<p><?php _e( 'Sorry, no posts matched your criteria.', 'lokthemes' ); ?></p>
+		<p><?php _e( 'Sorry, no posts matched your criteria.', 'woothemes' ); ?></p>
 	</div><!-- .post -->
 <?php
 endif;

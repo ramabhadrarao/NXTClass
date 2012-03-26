@@ -1,6 +1,16 @@
-<?php get_header() ?>
-
-	<div id="content">
+<?php get_header();
+	global $lok_options;
+?>
+       
+    <div id="content">
+    	<div class="page col-full">
+    	
+    		<?php if ( isset( $lok_options['lok_breadcrumbs_show'] ) && $lok_options['lok_breadcrumbs_show'] == 'true' && !is_front_page() ) { ?>
+				<section id="breadcrumbs">
+					<?php lok_breadcrumbs(); ?>
+				</section><!--/#breadcrumbs -->
+			<?php } ?>
+			<section id="main" class="col-left"> 
 		<div class="padder">
 
 		<form action="" method="post" id="achievements-directory-form" class="dir-form">
@@ -51,8 +61,10 @@
 		<?php do_action( 'dpa_after_directory_achievements_content' ) ?>
 
 		</div><!-- .padder -->
-	</div><!-- #content -->
-
-	<?php get_sidebar() ?>
-
-<?php get_footer() ?>
+	</section><!-- /#main -->
+	
+	        <?php get_sidebar(); ?>
+		</div>
+    </div><!-- /#content -->
+		
+<?php get_footer(); ?>

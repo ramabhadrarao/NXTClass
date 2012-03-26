@@ -1,28 +1,16 @@
 <?php
+
 /**
- * Page Template
+ * BuddyPress Member Settings
  *
- * This template is the default page template. It is used to display content when someone is viewing a
- * singular view of a page ('page' post_type) unless another page template overrules this one.
- * @link http://codex.nxtclass.org/Pages
- *
- * @package lokFramework
- * @subpackage Template
+ * @package BuddyPress
+ * @subpackage bp-default
  */
-	get_header();
-	global $lok_options;
 ?>
-       
-    <div id="content">
-    	<div class="page col-full">
-    	
-    		<?php if ( isset( $lok_options['lok_breadcrumbs_show'] ) && $lok_options['lok_breadcrumbs_show'] == 'true' && !is_front_page() ) { ?>
-				<section id="breadcrumbs">
-					<?php lok_breadcrumbs(); ?>
-				</section><!--/#breadcrumbs -->
-			<?php } ?> 
-    	
-			<section id="main" class="col-left"> 			
+
+<?php get_header( 'buddypress' ) ?>
+
+	<div id="content">
 		<div class="padder">
 
 			<?php do_action( 'bp_before_member_settings_template' ); ?>
@@ -94,10 +82,8 @@
 			<?php do_action( 'bp_after_member_settings_template' ); ?>
 
 		</div><!-- .padder -->
-	</section><!-- /#main -->
-	
-	        <?php get_sidebar(); ?>
-		</div>
-    </div><!-- /#content -->
-		
-<?php get_footer(); ?>
+	</div><!-- #content -->
+
+<?php get_sidebar( 'buddypress' ) ?>
+
+<?php get_footer( 'buddypress' ) ?>

@@ -13,13 +13,13 @@
 					'portfolio_area_entries' => 3,
 					'portfolio_area_title' => '',
 					'portfolio_area_message' => '',
-					'portfolio_area_link_text' => __( 'View more work', 'lokthemes' ),
+					'portfolio_area_link_text' => __( 'View more work', 'woothemes' ),
 					'portfolio_area_link_URL' => '',
 					'portfolio_area_order' => 'DESC',
 					'portfolio_linkto' => 'post'
 					);
 					
-	$settings = lok_get_dynamic_values( $settings );
+	$settings = woo_get_dynamic_values( $settings );
 	$orderby = 'date';
 	if ( $settings['portfolio_area_order'] == 'rand' )
 		$orderby = 'rand';
@@ -62,11 +62,11 @@
 						
 						if ( $settings['portfolio_linkto'] == 'lightbox' ) {
 							if ( $custom_url == '' )
-								$permalink = lok_image( 'return=true&link=url' );
+								$permalink = woo_image( 'return=true&link=url' );
 							$rel = ' rel="lightbox[\'home\']"';
 						}
 				
-						$image = lok_image( 'width=215&height=220&link=img&return=true&noheight=true' ); 
+						$image = woo_image( 'width=215&height=220&link=img&return=true&noheight=true' ); 
 						
 						if ( ! has_post_thumbnail( get_the_ID() ) ) {
 							$image = '<img src="'.get_template_directory_uri() . '/images/temp-portfolio.png" alt="" />';

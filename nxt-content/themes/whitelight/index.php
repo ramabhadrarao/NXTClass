@@ -5,7 +5,7 @@
  * Here we setup all logic and XHTML that is required for the index template, used as both the homepage
  * and as a fallback template, if a more appropriate template file doesn't exist for a specific context.
  *
- * @package lokFramework
+ * @package WooFramework
  * @subpackage Template
  */
 	get_header();
@@ -25,7 +25,7 @@
 					'blog_area' => 'false',
 					);
 					
-	$settings = lok_get_dynamic_values( $settings );
+	$settings = woo_get_dynamic_values( $settings );
 	
 ?>
 		

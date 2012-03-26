@@ -1,13 +1,13 @@
 /*  
 Theme Name: Whitelight
-Theme URI: http://www.lokthemes.com/
+Theme URI: http://www.woothemes.com/
 Version: 1.0.4
-Description: Designed by <a href="http://www.lokthemes.com">lokThemes</a>.
-Author: lokThemes
-Author URI: http://www.lokthemes.com
-Tags: lokthemes
+Description: Designed by <a href="http://www.woothemes.com">WooThemes</a>.
+Author: WooThemes
+Author URI: http://www.woothemes.com
+Tags: woothemes
 
-	Copyright: (c) 2009-2011 lokThemes.
+	Copyright: (c) 2009-2011 WooThemes.
 	License: GNU General Public License v2.0
 	License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -53,7 +53,7 @@ INDEX:
 3. POSTS
 -3.1 Images
 -3.2 Typographic Elements
--3.3 Pagination / WP-Pagenavi / lok-Pagination
+-3.3 Pagination / nxt-Pagenavi / Woo-Pagination
 -3.4 Single Post Author
 -3.5 Entry Tables
 -3.6 Subscribe & Connect
@@ -125,7 +125,7 @@ sub { bottom: -0.25em; }
 .fix:after, .col-full:after { clear: both; }
 /* Fix clearfix: blueprintcss.lighthouseapp.com/projects/15318/tickets/5-extra-margin-padding-bottom-of-page */
 .fix, .col-full { zoom: 1; }
-/* For lokCommerce */
+/* For WooCommerce */
 .clear { clear: both; display: block; overflow: hidden; visibility: hidden; width: 0; height: 0; }
 
 .last { clear: right; margin-right: 0 !important; }
@@ -650,7 +650,7 @@ a {
 
 /* 2.4 Custom Post Type - Features */
 .post-type-archive  {
-	.nav-entries, .nxt-pagenavi, .lok-pagination  {
+	.nav-entries, .nxt-pagenavi, .woo-pagination  {
 		border-top: 0;
 		margin-top: 0;
 		padding-top: 0;
@@ -874,8 +874,8 @@ article.type-features  {
 	}
 }
 
-/* 3.3 Pagination / WP-Pagenavi / lok-Pagination */
-.nav-entries, .nxt-pagenavi, .lok-pagination, #post-entries { margin: 0 0 3em; padding:15px 0; }
+/* 3.3 Pagination / nxt-Pagenavi / Woo-Pagination */
+.nav-entries, .nxt-pagenavi, .woo-pagination, #post-entries { margin: 0 0 3em; padding:15px 0; }
 .nav-entries, #post-entries {
 	border-top: 1px solid @border_main;	
 	a {
@@ -894,7 +894,7 @@ article.type-features  {
 	    background: url(images/ico-more.png) no-repeat right center;
 	}
 }
-.lok-pagination {
+.woo-pagination {
 	margin:0;
 	text-align: right;
 	margin: 0 2px;
@@ -1069,7 +1069,7 @@ article.type-features  {
 
 
 /* FLICKR */
-.widget_lok_flickr {
+.widget_woo_flickr {
 	h3 {
 		span {
 			color:#0051d8;
@@ -1098,14 +1098,14 @@ article.type-features  {
 }
 
 /* BLOG AUTHOR */
-.widget_lok_blogauthorinfo {
+.widget_woo_blogauthorinfo {
 	.avatar { padding: 3px; border: 1px solid @border_main; }
 	.left { float: left; margin:0 10px 5px 0; }
 	.right { float: right; margin:0 5px 10px; }
 }
 
 /* TWITTER */
-.widget_lok_twitter {
+.widget_woo_twitter {
 	h3 {
 		img  { margin-right: 7px; }
 	}
@@ -1142,14 +1142,14 @@ article.type-features  {
 }
 
 /* SUBSCRIBE & CONNECT */
-.widget_lok_subscribe #connect .newsletter-form  {
+.widget_woo_subscribe #connect .newsletter-form  {
 	.email  { width: 90%; }
 	.submit  { margin: 8px 0 0 0; }
 }
-.widget_lok_subscribe #connect .social  { margin-top: 0.5em; padding-top: 1em; border-top: 1px dotted @border_main; }
+.widget_woo_subscribe #connect .social  { margin-top: 0.5em; padding-top: 1em; border-top: 1px dotted @border_main; }
 
 /* EMBED */
-.widget_lok_embedwidget  {
+.widget_woo_embedwidget  {
 	h4  { display: none; }
 	ul  {
 		margin-top: 0;
@@ -1162,11 +1162,11 @@ article.type-features  {
 	}
 }
 
-/* lokTABS */
+/* WOOTABS */
 #tabs {	
 	height:auto; display: block;
 	.border_radius(5px);
-	ul.lokTabs {
+	ul.wooTabs {
 		margin: 0;
 		padding:0;
 		li {
@@ -1252,7 +1252,7 @@ article.type-features  {
 		background: #fff;
 	}
 	/* TWITTER */
-	.widget_lok_twitter {
+	.widget_woo_twitter {
 		ul { 
 			margin-top: -10px;
 			li {
@@ -1264,9 +1264,9 @@ article.type-features  {
 			background: none;
 		}
 	}
-	/* lokTABS */
+	/* WOOTABS */
 	#tabs {	
-		ul.lokTabs {
+		ul.wooTabs {
 			li {
 				a {
 					padding: 10px 7px 10px 0;
@@ -1294,7 +1294,7 @@ article.type-features  {
 		}	
 	}
 	/* SUBSCRIBE & CONNECT */
-	.widget_lok_subscribe #connect .social  { border-top: 1px dotted lighten(@bg_dark, 30%); }
+	.widget_woo_subscribe #connect .social  { border-top: 1px dotted lighten(@bg_dark, 30%); }
 	/* RECENT COMMENTS */
 	.widget_recent_comments  {
 		ul li  {
@@ -1306,11 +1306,11 @@ article.type-features  {
 		ul li a  { background: none; border: none; }
 	}
 	/* BLOG AUTHOR */
-	.widget_lok_blogauthorinfo {
+	.widget_woo_blogauthorinfo {
 		.avatar { border: 1px solid lighten(@bg_dark, 30%); }
 	}
 	/* EMBED */
-	.widget_lok_embedwidget  {
+	.widget_woo_embedwidget  {
 		ul  {
 			margin-top: 5px;
 			li  {
@@ -1321,7 +1321,7 @@ article.type-features  {
 		}
 	}
 	/* FLICKR */
-	.widget_lok_flickr {
+	.widget_woo_flickr {
 		a {
 			img { border: 1px solid lighten(@bg_dark, 20%); }
 			&:hover {
@@ -1688,7 +1688,7 @@ img.ui-datepicker-trigger { border: 0; padding:0; }
 .ie8 {
 	.button, .button:visited { padding:10px 15px; margin: 0; }
 	#featured article header  { background: @color_links; }
-	.widget_lok_flickr img, .widget_lok_blogauthorinfo img, #comments img  { width: auto; }
+	.widget_woo_flickr img, .widget_woo_blogauthorinfo img, #comments img  { width: auto; }
 	.home-section  {
 		.mask  { background: #000; }
 		&#portfolio img  { width: auto; }

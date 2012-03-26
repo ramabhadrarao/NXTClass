@@ -5,11 +5,11 @@
  * The tags page template displays a user-friendly tag cloud of the
  * post tags used on your website.
  *
- * @package lokFramework
+ * @package WooFramework
  * @subpackage Template
  */
 
- global $lok_options; 
+ global $woo_options; 
  get_header();
 ?>
        
@@ -17,9 +17,9 @@
     
     	<div class="page col-full">
     	
-    		<?php if ( isset( $lok_options['lok_breadcrumbs_show'] ) && $lok_options['lok_breadcrumbs_show'] == 'true' ) { ?>
+    		<?php if ( isset( $woo_options['woo_breadcrumbs_show'] ) && $woo_options['woo_breadcrumbs_show'] == 'true' ) { ?>
 				<section id="breadcrumbs">
-					<?php lok_breadcrumbs(); ?>
+					<?php woo_breadcrumbs(); ?>
 				</section><!--/#breadcrumbs -->
 			<?php } ?>
     

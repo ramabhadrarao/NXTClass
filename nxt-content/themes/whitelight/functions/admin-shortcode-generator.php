@@ -3,7 +3,7 @@
 
 CLASS INFORMATION
 
-Description: lokThemes shortcode generator.
+Description: WooThemes shortcode generator.
 Date Created: 2011-01-21.
 Author: Based on the work of the Shortcode Ninja plugin by VisualShortcodes.com.
 Integration and Addons: Matty.
@@ -26,7 +26,7 @@ INSTANTIATE CLASS
 
 -----------------------------------------------------------------------------------*/
 
-class lokThemes_Shortcode_Generator {
+class WooThemes_Shortcode_Generator {
 
 /*-----------------------------------------------------------------------------------
   Class Variables
@@ -40,19 +40,19 @@ class lokThemes_Shortcode_Generator {
   * Constructor function. Sets up the class and registers variable action hooks.
 -----------------------------------------------------------------------------------*/
 
-	function lokThemes_Shortcode_Generator () {
+	function WooThemes_Shortcode_Generator () {
 	
 		// Register the necessary actions on `admin_init`.
 		add_action( 'admin_init', array( &$this, 'init' ) );
 		
 		// nxt_ajax_... is only run for logged users.
-		add_action( 'nxt_ajax_lok_check_url_action', array( &$this, 'ajax_action_check_url' ) );
+		add_action( 'nxt_ajax_woo_check_url_action', array( &$this, 'ajax_action_check_url' ) );
 		
 		// Shortcode testing functionality.
 		//if ( ! function_exists( 'add_shortcode' ) ) return;
 		//add_shortcode( 'testing',     array( &$this, 'shortcode_testing' ) );
 	
-	} // End lokThemes_Shortcode_Generator()
+	} // End WooThemes_Shortcode_Generator()
 
 /*-----------------------------------------------------------------------------------
   init()
@@ -70,16 +70,16 @@ class lokThemes_Shortcode_Generator {
 			add_filter( 'mce_external_plugins', array( &$this, 'filter_mce_external_plugins' ) );
 			
 			// Register the colourpicker JavaScript.
-			nxt_register_script( 'lok-colourpicker', $this->framework_url() . 'js/colorpicker.js', array( 'jquery' ), '3.6', true ); // Loaded into the footer.
-			nxt_enqueue_script( 'lok-colourpicker' );
+			nxt_register_script( 'woo-colourpicker', $this->framework_url() . 'js/colorpicker.js', array( 'jquery' ), '3.6', true ); // Loaded into the footer.
+			nxt_enqueue_script( 'woo-colourpicker' );
 			
 			// Register the colourpicker CSS.
-			nxt_register_style( 'lok-colourpicker', $this->framework_url() . 'css/colorpicker.css' );
-			nxt_enqueue_style( 'lok-colourpicker' );
+			nxt_register_style( 'woo-colourpicker', $this->framework_url() . 'css/colorpicker.css' );
+			nxt_enqueue_style( 'woo-colourpicker' );
 			
 			// Register the custom CSS styles.
-			nxt_register_style( 'lok-shortcode-generator', $this->framework_url() . 'css/shortcode-generator.css' );
-			nxt_enqueue_style( 'lok-shortcode-generator' );
+			nxt_register_style( 'woo-shortcode-generator', $this->framework_url() . 'css/shortcode-generator.css' );
+			nxt_enqueue_style( 'woo-shortcode-generator' );
 			
 		} // End IF Statement
 	
@@ -93,7 +93,7 @@ class lokThemes_Shortcode_Generator {
 	
 	function filter_mce_buttons( $buttons ) {
 		
-		array_push( $buttons, '|', 'lokthemes_shortcodes_button' );
+		array_push( $buttons, '|', 'woothemes_shortcodes_button' );
 		
 		return $buttons;
 		
@@ -107,7 +107,7 @@ class lokThemes_Shortcode_Generator {
 	
 	function filter_mce_external_plugins( $plugins ) {
 		
-        $plugins['lokThemesShortcodes'] = $this->framework_url() . 'js/shortcode-generator/editor_plugin.js';
+        $plugins['WooThemesShortcodes'] = $this->framework_url() . 'js/shortcode-generator/editor_plugin.js';
         
         return $plugins;
         
@@ -122,7 +122,7 @@ class lokThemes_Shortcode_Generator {
 /*-----------------------------------------------------------------------------------
   framework_url()
   
-  * Returns the full URL of the lokFramework, including trailing slash.
+  * Returns the full URL of the WooFramework, including trailing slash.
 -----------------------------------------------------------------------------------*/
 
 function framework_url() {
@@ -180,5 +180,5 @@ function shortcode_testing( $atts, $content = null ) {
   INSTANTIATE CLASS
 -----------------------------------------------------------------------------------*/
 
-$lok_shortcode_generator = new lokThemes_Shortcode_Generator();
+$woo_shortcode_generator = new WooThemes_Shortcode_Generator();
 ?>

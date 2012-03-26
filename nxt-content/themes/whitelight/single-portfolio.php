@@ -6,11 +6,11 @@
  * singular view of a portfolio item ('portfolio' post_type).
  * @link http://codex.nxtclass.org/Post_Types#Post
  *
- * @package lokFramework
+ * @package WooFramework
  * @subpackage Template
  */
 	get_header();
-	global $lok_options;
+	global $woo_options;
 	
 /**
  * The Variables
@@ -25,16 +25,16 @@
 					'thumb_single_align' => 'alignright'
 					);
 					
-	$settings = lok_get_dynamic_values( $settings );
+	$settings = woo_get_dynamic_values( $settings );
 ?>
        
     <div id="content">
     	<div class="col-full single-portfolio">
 			<section id="main" class="fullwidth">
 			           
-			<?php if ( isset( $lok_options['lok_breadcrumbs_show'] ) && $lok_options['lok_breadcrumbs_show'] == 'true' ) { ?>
+			<?php if ( isset( $woo_options['woo_breadcrumbs_show'] ) && $woo_options['woo_breadcrumbs_show'] == 'true' ) { ?>
 				<section id="breadcrumbs">
-					<?php lok_breadcrumbs(); ?>
+					<?php woo_breadcrumbs(); ?>
 				</section><!--/#breadcrumbs -->
 			<?php } ?>
 	        <?php
@@ -52,10 +52,10 @@
 	                
 	                <section class="entry">
 	                	<?php the_content(); ?>
-						<?php nxt_link_pages( array( 'before' => '<div class="page-link">' . __( 'Pages:', 'lokthemes' ), 'after' => '</div>' ) ); ?>
+						<?php nxt_link_pages( array( 'before' => '<div class="page-link">' . __( 'Pages:', 'woothemes' ), 'after' => '</div>' ) ); ?>
 					</section>
 										
-	            	<?php lok_portfolio_meta( '' ); ?>
+	            	<?php woo_portfolio_meta( '' ); ?>
 	
 	            </article><!-- .post -->
 	            
@@ -64,7 +64,7 @@
 				<?php
 					$width = 710;
 					$args = 'width=' . $width;
-					$embed = lok_embed( $args );
+					$embed = woo_embed( $args );
 					
 					if ( $embed != '' ) {
 						echo $embed;
@@ -76,13 +76,13 @@
 						$rel = 'lightbox';
 						
 						// Get the other images.
-						$images = lok_get_post_images( 0, 'full' );
+						$images = woo_get_post_images( 0, 'full' );
 
 						if ( count ( $images ) > 0 ) 
 							$rel = 'lightbox[' . $post->ID . ']'; 					
 						
 						// Store featured image ID for exclusion
-						if ( isset( $lok_options['lok_post_image_support'] ) && ( $lok_options['lok_post_image_support'] == 'true' ) && current_theme_supports( 'post-thumbnails' ) && function_exists('get_post_thumbnail_id') ) {
+						if ( isset( $woo_options['woo_post_image_support'] ) && ( $woo_options['woo_post_image_support'] == 'true' ) && current_theme_supports( 'post-thumbnails' ) && function_exists('get_post_thumbnail_id') ) {
 							$featured_image_id = get_post_thumbnail_id( $post->ID );
 						} else {
 							$featured_image_id = '';
@@ -94,7 +94,7 @@
 							$image_data = nxt_get_attachment_image_src( $featured_image_id, 'full' );
 							$image_url = $image_data[0];
 							
-							$html .= '<a href="' . $image_url . '" rel="' . $rel . '">' . lok_image( $args ) . '</a>' . "\n";
+							$html .= '<a href="' . $image_url . '" rel="' . $rel . '">' . woo_image( $args ) . '</a>' . "\n";
 							$html .= '</div>';
 						}
 						
@@ -134,7 +134,7 @@
 	            <div class="fix"></div>
 	            <?php
 	            	// Determine wether or not to display comments here, based on "Theme Options".
-	            	if ( isset( $lok_options['lok_comments'] ) && in_array( $lok_options['lok_comments'], array( 'post', 'both' ) ) ) {
+	            	if ( isset( $woo_options['woo_comments'] ) && in_array( $woo_options['woo_comments'], array( 'post', 'both' ) ) ) {
 	            		comments_template();
 	            	}
 	
@@ -142,7 +142,7 @@
 				} else {
 			?>
 				<article <?php post_class(); ?>>
-	            	<p><?php _e( 'Sorry, no posts matched your criteria.', 'lokthemes' ); ?></p>
+	            	<p><?php _e( 'Sorry, no posts matched your criteria.', 'woothemes' ); ?></p>
 				</article><!-- .post -->             
 	       	<?php } ?>  
 	        

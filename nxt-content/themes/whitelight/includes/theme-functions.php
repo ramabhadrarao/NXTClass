@@ -6,7 +6,7 @@ TABLE OF CONTENTS
 
 - Exclude categories from displaying on the "Blog" page template.
 - Exclude categories from displaying on the homepage.
-- Register WP Menus
+- Register nxt Menus
 - Page navigation
 - Post Meta
 - Portfolio Meta
@@ -14,7 +14,7 @@ TABLE OF CONTENTS
 - Comment Form Fields
 - Comment Form Settings
 - Archive Description
-- lokPagination markup
+- WooPagination markup
 - CPT Portfolio
 - CPT Info Boxes
 - CPT Slides
@@ -27,16 +27,16 @@ TABLE OF CONTENTS
 /*-----------------------------------------------------------------------------------*/
 
 // Exclude categories on the "Blog" page template.
-add_filter( 'lok_blog_template_query_args', 'lok_exclude_categories_blogtemplate' );
+add_filter( 'woo_blog_template_query_args', 'woo_exclude_categories_blogtemplate' );
 
-function lok_exclude_categories_blogtemplate ( $args ) {
+function woo_exclude_categories_blogtemplate ( $args ) {
 
-	if ( ! function_exists( 'lok_prepare_category_ids_from_option' ) ) { return $args; }
+	if ( ! function_exists( 'woo_prepare_category_ids_from_option' ) ) { return $args; }
 
 	$excluded_cats = array();
 
 	// Process the category data and convert all categories to IDs.
-	$excluded_cats = lok_prepare_category_ids_from_option( 'lok_exclude_cats_blog' );
+	$excluded_cats = woo_prepare_category_ids_from_option( 'woo_exclude_cats_blog' );
 
 	// Homepage logic.
 	if ( count( $excluded_cats ) > 0 ) {
@@ -52,23 +52,23 @@ function lok_exclude_categories_blogtemplate ( $args ) {
 
 	return $args;
 
-} // End lok_exclude_categories_blogtemplate()
+} // End woo_exclude_categories_blogtemplate()
 
 /*-----------------------------------------------------------------------------------*/
 /* Exclude categories from displaying on the homepage.
 /*-----------------------------------------------------------------------------------*/
 
 // Exclude categories on the homepage.
-add_filter( 'pre_get_posts', 'lok_exclude_categories_homepage' );
+add_filter( 'pre_get_posts', 'woo_exclude_categories_homepage' );
 
-function lok_exclude_categories_homepage ( $query ) {
+function woo_exclude_categories_homepage ( $query ) {
 
-	if ( ! function_exists( 'lok_prepare_category_ids_from_option' ) ) { return $query; }
+	if ( ! function_exists( 'woo_prepare_category_ids_from_option' ) ) { return $query; }
 
 	$excluded_cats = array();
 
 	// Process the category data and convert all categories to IDs.
-	$excluded_cats = lok_prepare_category_ids_from_option( 'lok_exclude_cats_home' );
+	$excluded_cats = woo_prepare_category_ids_from_option( 'woo_exclude_cats_home' );
 
 	// Homepage logic.
 	if ( is_home() && ( count( $excluded_cats ) > 0 ) ) {
@@ -79,17 +79,17 @@ function lok_exclude_categories_homepage ( $query ) {
 
 	return $query;
 
-} // End lok_exclude_categories_homepage()
+} // End woo_exclude_categories_homepage()
 
 /*-----------------------------------------------------------------------------------*/
-/* Register WP Menus */
+/* Register nxt Menus */
 /*-----------------------------------------------------------------------------------*/
 
 if ( function_exists( 'nxt_nav_menu') ) {
 	add_theme_support( 'nav-menus' );
-	register_nav_menus( array( 'primary-menu' => __( 'Primary Menu', 'lokthemes' ) ) );
-	register_nav_menus( array( 'top-menu' => __( 'Top Menu', 'lokthemes' ) ) );
-	register_nav_menus( array( 'footer-menu' => __( 'Footer Menu', 'lokthemes' ) ) );
+	register_nav_menus( array( 'primary-menu' => __( 'Primary Menu', 'woothemes' ) ) );
+	register_nav_menus( array( 'top-menu' => __( 'Top Menu', 'woothemes' ) ) );
+	register_nav_menus( array( 'footer-menu' => __( 'Footer Menu', 'woothemes' ) ) );
 }
 
 
@@ -97,27 +97,27 @@ if ( function_exists( 'nxt_nav_menu') ) {
 /* Page navigation */
 /*-----------------------------------------------------------------------------------*/
 
-if (!function_exists( 'lok_pagenav')) {
-	function lok_pagenav() {
+if (!function_exists( 'woo_pagenav')) {
+	function woo_pagenav() {
 
-		global $lok_options;
+		global $woo_options;
 
 		// If the user has set the option to use simple paging links, display those. By default, display the pagination.
-		if ( array_key_exists( 'lok_pagination_type', $lok_options ) && $lok_options[ 'lok_pagination_type' ] == 'simple' ) {
+		if ( array_key_exists( 'woo_pagination_type', $woo_options ) && $woo_options[ 'woo_pagination_type' ] == 'simple' ) {
 			if ( get_next_posts_link() || get_previous_posts_link() ) {
 		?>
             <nav class="nav-entries fix">
-                <?php next_posts_link( '<span class="nav-prev fl">'. __( '<span class="meta-nav">&larr;</span> Older posts', 'lokthemes' ) . '</span>' ); ?>
-                <?php previous_posts_link( '<span class="nav-next fr">'. __( 'Newer posts <span class="meta-nav">&rarr;</span>', 'lokthemes' ) . '</span>' ); ?>
+                <?php next_posts_link( '<span class="nav-prev fl">'. __( '<span class="meta-nav">&larr;</span> Older posts', 'woothemes' ) . '</span>' ); ?>
+                <?php previous_posts_link( '<span class="nav-next fr">'. __( 'Newer posts <span class="meta-nav">&rarr;</span>', 'woothemes' ) . '</span>' ); ?>
             </nav>
 		<?php
 			}
 		} else {
-			lok_pagination();
+			woo_pagination();
 
 		} // End IF Statement
 
-	} // End lok_pagenav()
+	} // End woo_pagenav()
 } // End IF Statement
 
 
@@ -125,8 +125,8 @@ if (!function_exists( 'lok_pagenav')) {
 /* Post Meta */
 /*-----------------------------------------------------------------------------------*/
 
-if (!function_exists( 'lok_post_meta')) {
-	function lok_post_meta( ) {
+if (!function_exists( 'woo_post_meta')) {
+	function woo_post_meta( ) {
 ?>
 <aside class="post-meta">
 	<ul>
@@ -137,9 +137,9 @@ if (!function_exists( 'lok_post_meta')) {
 			<?php the_author_posts_link(); ?>
 		</li>
 		<li class="post-comments">
-			<?php comments_popup_link( __( 'Leave a comment', 'lokthemes' ), __( '1 Comment', 'lokthemes' ), __( '% Comments', 'lokthemes' ) ); ?>
+			<?php comments_popup_link( __( 'Leave a comment', 'woothemes' ), __( '1 Comment', 'woothemes' ), __( '% Comments', 'woothemes' ) ); ?>
 		</li>
-		<?php edit_post_link( __( '{ Edit }', 'lokthemes' ), '<li class="edit">', '</li>' ); ?>
+		<?php edit_post_link( __( '{ Edit }', 'woothemes' ), '<li class="edit">', '</li>' ); ?>
 	</ul>
 </aside>
 <?php
@@ -150,8 +150,8 @@ if (!function_exists( 'lok_post_meta')) {
 /* Portfolio Meta */
 /*-----------------------------------------------------------------------------------*/
 
-if (!function_exists( 'lok_portfolio_meta')) {
-	function lok_portfolio_meta( ) {
+if (!function_exists( 'woo_portfolio_meta')) {
+	function woo_portfolio_meta( ) {
 ?>
 <aside class="portfolio-meta">
 	<ul>
@@ -159,9 +159,9 @@ if (!function_exists( 'lok_portfolio_meta')) {
 			<?php the_time( get_option( 'date_format' ) ); ?>
 		</li>
 		<li class="portfolio-comments">
-			<?php comments_popup_link( __( 'Leave a comment', 'lokthemes' ), __( '1 Comment', 'lokthemes' ), __( '% Comments', 'lokthemes' ) ); ?>
+			<?php comments_popup_link( __( 'Leave a comment', 'woothemes' ), __( '1 Comment', 'woothemes' ), __( '% Comments', 'woothemes' ) ); ?>
 		</li>
-		<li><?php edit_post_link( __( '{ Edit }', 'lokthemes' ), '<li class="edit">', '</li>' ); ?></li>
+		<li><?php edit_post_link( __( '{ Edit }', 'woothemes' ), '<li class="edit">', '</li>' ); ?></li>
 	</ul>
 </aside>
 <?php
@@ -174,15 +174,15 @@ if (!function_exists( 'lok_portfolio_meta')) {
 /* Subscribe / Connect */
 /*-----------------------------------------------------------------------------------*/
 
-if (!function_exists( 'lok_subscribe_connect')) {
-	function lok_subscribe_connect($widget = 'false', $title = '', $form = '', $social = '') {
+if (!function_exists( 'woo_subscribe_connect')) {
+	function woo_subscribe_connect($widget = 'false', $title = '', $form = '', $social = '') {
 
 		//Setup default variables, overriding them if the "Theme Options" have been saved.
 		$settings = array(
 						'connect' => 'false', 
-						'connect_title' => __('Subscribe' , 'lokthemes'), 
+						'connect_title' => __('Subscribe' , 'woothemes'), 
 						'connect_related' => 'true', 
-						'connect_content' => __( 'Subscribe to our e-mail newsletter to receive updates.', 'lokthemes' ),
+						'connect_content' => __( 'Subscribe to our e-mail newsletter to receive updates.', 'woothemes' ),
 						'connect_newsletter_id' => '', 
 						'connect_mailchimp_list_url' => '',
 						'feed_url' => '',
@@ -196,7 +196,7 @@ if (!function_exists( 'lok_subscribe_connect')) {
 						'connect_rss' => '',
 						'connect_googleplus' => ''
 						);
-		$settings = lok_get_dynamic_values( $settings );
+		$settings = woo_get_dynamic_values( $settings );
 
 		// Setup title
 		if ( $widget != 'true' )
@@ -210,18 +210,18 @@ if (!function_exists( 'lok_subscribe_connect')) {
 ?>
 	<?php if ( $settings[ 'connect' ] == "true" OR $widget == 'true' ) : ?>
 	<aside id="connect" class="fix">
-		<h3><?php if ( $title ) echo apply_filters( 'widget_title', $title ); else _e('Subscribe','lokthemes'); ?></h3>
+		<h3><?php if ( $title ) echo apply_filters( 'widget_title', $title ); else _e('Subscribe','woothemes'); ?></h3>
 
 		<div <?php if ( $related_posts != '' ) echo 'class="col-left"'; ?>>
 			<p><?php if ($settings[ 'connect_content' ] != '') echo stripslashes($settings[ 'connect_content' ]); ?></p>
 
 			<?php if ( $settings[ 'connect_newsletter_id' ] != "" AND $form != 'on' ) : ?>
 			<form class="newsletter-form<?php if ( $related_posts == '' ) echo ' fl'; ?>" action="http://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open( 'http://feedburner.google.com/fb/a/mailverify?uri=<?php echo $settings[ 'connect_newsletter_id' ]; ?>', 'popupwindow', 'scrollbars=yes,width=550,height=520' );return true">
-				<input class="email" type="text" name="email" value="<?php esc_attr_e( 'E-mail', 'lokthemes' ); ?>" onfocus="if (this.value == '<?php _e( 'E-mail', 'lokthemes' ); ?>') {this.value = '';}" onblur="if (this.value == '') {this.value = '<?php _e( 'E-mail', 'lokthemes' ); ?>';}" />
+				<input class="email" type="text" name="email" value="<?php esc_attr_e( 'E-mail', 'woothemes' ); ?>" onfocus="if (this.value == '<?php _e( 'E-mail', 'woothemes' ); ?>') {this.value = '';}" onblur="if (this.value == '') {this.value = '<?php _e( 'E-mail', 'woothemes' ); ?>';}" />
 				<input type="hidden" value="<?php echo $settings[ 'connect_newsletter_id' ]; ?>" name="uri"/>
 				<input type="hidden" value="<?php bloginfo( 'name' ); ?>" name="title"/>
 				<input type="hidden" name="loc" value="en_US"/>
-				<input class="submit" type="submit" name="submit" value="<?php _e( 'Submit', 'lokthemes' ); ?>" />
+				<input class="submit" type="submit" name="submit" value="<?php _e( 'Submit', 'woothemes' ); ?>" />
 			</form>
 			<?php endif; ?>
 
@@ -229,8 +229,8 @@ if (!function_exists( 'lok_subscribe_connect')) {
 			<!-- Begin MailChimp Signup Form -->
 			<div id="mc_embed_signup">
 				<form class="newsletter-form<?php if ( $related_posts == '' ) echo ' fl'; ?>" action="<?php echo $settings['connect_mailchimp_list_url']; ?>" method="post" target="popupwindow" onsubmit="window.open('<?php echo $settings['connect_mailchimp_list_url']; ?>', 'popupwindow', 'scrollbars=yes,width=650,height=520');return true">
-					<input type="text" name="EMAIL" class="required email" value="<?php _e('E-mail','lokthemes'); ?>"  id="mce-EMAIL" onfocus="if (this.value == '<?php _e('E-mail','lokthemes'); ?>') {this.value = '';}" onblur="if (this.value == '') {this.value = '<?php _e('E-mail','lokthemes'); ?>';}">
-					<input type="submit" value="<?php _e('Submit', 'lokthemes'); ?>" name="subscribe" id="mc-embedded-subscribe" class="btn submit button">
+					<input type="text" name="EMAIL" class="required email" value="<?php _e('E-mail','woothemes'); ?>"  id="mce-EMAIL" onfocus="if (this.value == '<?php _e('E-mail','woothemes'); ?>') {this.value = '';}" onblur="if (this.value == '') {this.value = '<?php _e('E-mail','woothemes'); ?>';}">
+					<input type="submit" value="<?php _e('Submit', 'woothemes'); ?>" name="subscribe" id="mc-embedded-subscribe" class="btn submit button">
 				</form>
 			</div>
 			<!--End mc_embed_signup-->
@@ -270,7 +270,7 @@ if (!function_exists( 'lok_subscribe_connect')) {
 
 		<?php if ( $settings['connect_related' ] == "true" AND $related_posts != '' ) : ?>
 		<div class="related-posts col-right">
-			<h4><?php _e( 'Related Posts:', 'lokthemes' ); ?></h4>
+			<h4><?php _e( 'Related Posts:', 'woothemes' ); ?></h4>
 			<?php echo $related_posts; ?>
 		</div><!-- col-right -->
 		<?php nxt_reset_query(); endif; ?>
@@ -285,14 +285,14 @@ if (!function_exists( 'lok_subscribe_connect')) {
 /* Comment Form Fields */
 /*-----------------------------------------------------------------------------------*/
 
-	add_filter( 'comment_form_default_fields', 'lok_comment_form_fields' );
+	add_filter( 'comment_form_default_fields', 'woo_comment_form_fields' );
 
-	if ( ! function_exists( 'lok_comment_form_fields' ) ) {
-		function lok_comment_form_fields ( $fields ) {
+	if ( ! function_exists( 'woo_comment_form_fields' ) ) {
+		function woo_comment_form_fields ( $fields ) {
 
 			$commenter = nxt_get_current_commenter();
 
-			$required_text = ' <span class="required">(' . __( 'Required', 'lokthemes' ) . ')</span>';
+			$required_text = ' <span class="required">(' . __( 'Required', 'woothemes' ) . ')</span>';
 
 			$req = get_option( 'require_name_email' );
 			$aria_req = ( $req ? " aria-required='true'" : '' );
@@ -313,26 +313,26 @@ if (!function_exists( 'lok_subscribe_connect')) {
 
 			return $fields;
 
-		} // End lok_comment_form_fields()
+		} // End woo_comment_form_fields()
 	}
 
 /*-----------------------------------------------------------------------------------*/
 /* Comment Form Settings */
 /*-----------------------------------------------------------------------------------*/
 
-	add_filter( 'comment_form_defaults', 'lok_comment_form_settings' );
+	add_filter( 'comment_form_defaults', 'woo_comment_form_settings' );
 
-	if ( ! function_exists( 'lok_comment_form_settings' ) ) {
-		function lok_comment_form_settings ( $settings ) {
+	if ( ! function_exists( 'woo_comment_form_settings' ) ) {
+		function woo_comment_form_settings ( $settings ) {
 
 			$settings['comment_notes_before'] = '';
 			$settings['comment_notes_after'] = '';
-			$settings['label_submit'] = __( 'Submit Comment', 'lokthemes' );
-			$settings['cancel_reply_link'] = __( 'Click here to cancel reply.', 'lokthemes' );
+			$settings['label_submit'] = __( 'Submit Comment', 'woothemes' );
+			$settings['cancel_reply_link'] = __( 'Click here to cancel reply.', 'woothemes' );
 
 			return $settings;
 
-		} // End lok_comment_form_settings()
+		} // End woo_comment_form_settings()
 	}
 
 	/*-----------------------------------------------------------------------------------*/
@@ -349,19 +349,19 @@ if (!function_exists( 'lok_subscribe_connect')) {
 
 /*-----------------------------------------------------------------------------------*/
 /**
- * lok_archive_description()
+ * woo_archive_description()
  *
  * Display a description, if available, for the archive being viewed (category, tag, other taxonomy).
  *
  * @since V1.0.0
  * @uses do_atomic(), get_queried_object(), term_description()
  * @echo string
- * @filter lok_archive_description
+ * @filter woo_archive_description
  */
 
-if ( ! function_exists( 'lok_archive_description' ) ) {
-	function lok_archive_description ( $echo = true ) {
-		do_action( 'lok_archive_description' );
+if ( ! function_exists( 'woo_archive_description' ) ) {
+	function woo_archive_description ( $echo = true ) {
+		do_action( 'woo_archive_description' );
 		
 		// Archive Description, if one is available.
 		$term_obj = get_queried_object();
@@ -373,54 +373,54 @@ if ( ! function_exists( 'lok_archive_description' ) ) {
 		
 		if ( $description != '' ) {
 			// Allow child themes/plugins to filter here ( 1: text in DIV and paragraph, 2: term object )
-			$description = apply_filters( 'lok_archive_description', '<div class="archive-description">' . $description . '</div><!--/.archive-description-->', $term_obj );
+			$description = apply_filters( 'woo_archive_description', '<div class="archive-description">' . $description . '</div><!--/.archive-description-->', $term_obj );
 		}
 		
 		if ( $echo != true ) { return $description; }
 		
 		echo $description;
-	} // End lok_archive_description()
+	} // End woo_archive_description()
 }
 
 /*-----------------------------------------------------------------------------------*/
-/* lokPagination Markup */
+/* WooPagination Markup */
 /*-----------------------------------------------------------------------------------*/
 
-add_filter( 'lok_pagination_args', 'lok_pagination_html5_markup', 2 );
+add_filter( 'woo_pagination_args', 'woo_pagination_html5_markup', 2 );
 
-function lok_pagination_html5_markup ( $args ) {
-	$args['before'] = '<nav class="pagination lok-pagination">';
+function woo_pagination_html5_markup ( $args ) {
+	$args['before'] = '<nav class="pagination woo-pagination">';
 	$args['after'] = '</nav>';
 	
 	return $args;
-} // End lok_pagination_html5_markup()
+} // End woo_pagination_html5_markup()
 
 
 /*-----------------------------------------------------------------------------------*/
 /* Custom Post Type - Portfolio Item (Portfolio Component) */
 /*-----------------------------------------------------------------------------------*/
 
-if ( ! function_exists( 'lok_add_portfolio' ) ) {
-	function lok_add_portfolio() {
+if ( ! function_exists( 'woo_add_portfolio' ) ) {
+	function woo_add_portfolio() {
 	
-		global $lok_options;
+		global $woo_options;
 	
 		// "Portfolio Item" Custom Post Type
 		$labels = array(
-			'name' => _x( 'Portfolio', 'post type general name', 'lokthemes' ),
-			'singular_name' => _x( 'Portfolio Item', 'post type singular name', 'lokthemes' ),
-			'add_new' => _x( 'Add New', 'slide', 'lokthemes' ),
-			'add_new_item' => __( 'Add New Portfolio Item', 'lokthemes' ),
-			'edit_item' => __( 'Edit Portfolio Item', 'lokthemes' ),
-			'new_item' => __( 'New Portfolio Item', 'lokthemes' ),
-			'view_item' => __( 'View Portfolio Item', 'lokthemes' ),
-			'search_items' => __( 'Search Portfolio Items', 'lokthemes' ),
-			'not_found' =>  __( 'No portfolio items found', 'lokthemes' ),
-			'not_found_in_trash' => __( 'No portfolio items found in Trash', 'lokthemes' ), 
+			'name' => _x( 'Portfolio', 'post type general name', 'woothemes' ),
+			'singular_name' => _x( 'Portfolio Item', 'post type singular name', 'woothemes' ),
+			'add_new' => _x( 'Add New', 'slide', 'woothemes' ),
+			'add_new_item' => __( 'Add New Portfolio Item', 'woothemes' ),
+			'edit_item' => __( 'Edit Portfolio Item', 'woothemes' ),
+			'new_item' => __( 'New Portfolio Item', 'woothemes' ),
+			'view_item' => __( 'View Portfolio Item', 'woothemes' ),
+			'search_items' => __( 'Search Portfolio Items', 'woothemes' ),
+			'not_found' =>  __( 'No portfolio items found', 'woothemes' ),
+			'not_found_in_trash' => __( 'No portfolio items found in Trash', 'woothemes' ), 
 			'parent_item_colon' => ''
 		);
 		
-		$portfolioitems_rewrite = get_option( 'lok_portfolioitems_rewrite' );
+		$portfolioitems_rewrite = get_option( 'woo_portfolioitems_rewrite' );
  		if( empty( $portfolioitems_rewrite ) ) { $portfolioitems_rewrite = 'portfolio-items'; }
 		
 		$args = array(
@@ -439,7 +439,7 @@ if ( ! function_exists( 'lok_add_portfolio' ) ) {
 			'supports' => array( 'title','editor','thumbnail', 'page-attributes', 'comments')
 		);
 		
-		if ( isset( $lok_options['lok_portfolio_excludesearch'] ) && ( $lok_options['lok_portfolio_excludesearch'] == 'true' ) ) {
+		if ( isset( $woo_options['woo_portfolio_excludesearch'] ) && ( $woo_options['woo_portfolio_excludesearch'] == 'true' ) ) {
 			$args['exclude_from_search'] = true;
 		}
 		
@@ -447,17 +447,17 @@ if ( ! function_exists( 'lok_add_portfolio' ) ) {
 		
 		// "Portfolio Galleries" Custom Taxonomy
 		$labels = array(
-			'name' => _x( 'Portfolio Galleries', 'taxonomy general name', 'lokthemes' ),
-			'singular_name' => _x( 'Portfolio Gallery', 'taxonomy singular name', 'lokthemes' ),
-			'search_items' =>  __( 'Search Portfolio Galleries', 'lokthemes' ),
-			'all_items' => __( 'All Portfolio Galleries', 'lokthemes' ),
-			'parent_item' => __( 'Parent Portfolio Gallery', 'lokthemes' ),
-			'parent_item_colon' => __( 'Parent Portfolio Gallery:', 'lokthemes' ),
-			'edit_item' => __( 'Edit Portfolio Gallery', 'lokthemes' ), 
-			'update_item' => __( 'Update Portfolio Gallery', 'lokthemes' ),
-			'add_new_item' => __( 'Add New Portfolio Gallery', 'lokthemes' ),
-			'new_item_name' => __( 'New Portfolio Gallery Name', 'lokthemes' ),
-			'menu_name' => __( 'Portfolio Galleries', 'lokthemes' )
+			'name' => _x( 'Portfolio Galleries', 'taxonomy general name', 'woothemes' ),
+			'singular_name' => _x( 'Portfolio Gallery', 'taxonomy singular name', 'woothemes' ),
+			'search_items' =>  __( 'Search Portfolio Galleries', 'woothemes' ),
+			'all_items' => __( 'All Portfolio Galleries', 'woothemes' ),
+			'parent_item' => __( 'Parent Portfolio Gallery', 'woothemes' ),
+			'parent_item_colon' => __( 'Parent Portfolio Gallery:', 'woothemes' ),
+			'edit_item' => __( 'Edit Portfolio Gallery', 'woothemes' ), 
+			'update_item' => __( 'Update Portfolio Gallery', 'woothemes' ),
+			'add_new_item' => __( 'Add New Portfolio Gallery', 'woothemes' ),
+			'new_item_name' => __( 'New Portfolio Gallery Name', 'woothemes' ),
+			'menu_name' => __( 'Portfolio Galleries', 'woothemes' )
 		); 	
 		
 		$args = array(
@@ -471,20 +471,20 @@ if ( ! function_exists( 'lok_add_portfolio' ) ) {
 		register_taxonomy( 'portfolio-gallery', array( 'portfolio' ), $args );
 	}
 	
-	add_action( 'init', 'lok_add_portfolio' );
+	add_action( 'init', 'woo_add_portfolio' );
 }
 
 /*-----------------------------------------------------------------------------------*/
-/* lok Portfolio Navigation */
+/* Woo Portfolio Navigation */
 /*-----------------------------------------------------------------------------------*/
 
-if ( ! function_exists( 'lok_portfolio_navigation' ) ) {
-	function lok_portfolio_navigation ( $galleries, $settings = array(), $toggle_pagination = false ) {
+if ( ! function_exists( 'woo_portfolio_navigation' ) ) {
+	function woo_portfolio_navigation ( $galleries, $settings = array(), $toggle_pagination = false ) {
 
 		// Sanity check.
 		if ( ! is_array( $galleries ) || ( count( $galleries ) <= 0 ) ) { return; }
 		
-		global $lok_options;
+		global $woo_options;
 		
 		$defaults = array(
 						'id' => 'port-tags', 
@@ -495,7 +495,7 @@ if ( ! function_exists( 'lok_portfolio_navigation' ) ) {
 		
 		$settings = nxt_parse_args( $settings, $defaults );
 					 
-		$settings = apply_filters( 'lok_portfolio_navigation_args', $settings );
+		$settings = apply_filters( 'woo_portfolio_navigation_args', $settings );
 		
 		// Prepare the anchor tags of the various gallery items.
 		$gallery_anchors = '';
@@ -532,7 +532,7 @@ if ( ! function_exists( 'lok_portfolio_navigation' ) ) {
 					if ( $settings['current'] == 'all' ) {
 						$all_current = ' class="current"';
 					}
-					$html .= '<a href="' . $all_permalink . '" rel="all"' . $all_current . '>' . __( 'All','lokthemes' ) . '</a> ';
+					$html .= '<a href="' . $all_permalink . '" rel="all"' . $all_current . '>' . __( 'All','woothemes' ) . '</a> ';
 				}
 				
 				// Add the gallery anchors in.
@@ -544,22 +544,22 @@ if ( ! function_exists( 'lok_portfolio_navigation' ) ) {
 		$html .= '</div><!--/#' . $settings['id'] . ' .port-tags-->' . "\n";
 		
 		
-		$html = apply_filters( 'lok_portfolio_navigation', $html );
+		$html = apply_filters( 'woo_portfolio_navigation', $html );
 		
 		echo $html;
 	
-	} // End lok_portfolio_navigation()
+	} // End woo_portfolio_navigation()
 }
 
 /*-----------------------------------------------------------------------------------*/
-/* lok Portfolio Item Settings */
-/* @uses lok_portfolio_image_dimensions() */
+/* Woo Portfolio Item Settings */
+/* @uses woo_portfolio_image_dimensions() */
 /*-----------------------------------------------------------------------------------*/
  
-if ( !function_exists( 'lok_portfolio_item_settings' ) ) {
-	function lok_portfolio_item_settings ( $id ) {
+if ( !function_exists( 'woo_portfolio_item_settings' ) ) {
+	function woo_portfolio_item_settings ( $id ) {
 		
-		global $lok_options;
+		global $woo_options;
 		
 		// Sanity check.
 		if ( ! is_numeric( $id ) ) { return; }
@@ -567,10 +567,10 @@ if ( !function_exists( 'lok_portfolio_item_settings' ) ) {
 		$website_layout = 'two-col-left';
 		$website_width = '900px';
 		
-		if ( isset( $lok_options['lok_layout'] ) ) { $website_layout = $lok_options['lok_layout']; }
-		if ( isset( $lok_options['lok_layout_width'] ) ) { $website_width = $lok_options['lok_layout_width']; }
+		if ( isset( $woo_options['woo_layout'] ) ) { $website_layout = $woo_options['woo_layout']; }
+		if ( isset( $woo_options['woo_layout_width'] ) ) { $website_width = $woo_options['woo_layout_width']; }
 		
-		$dimensions = lok_portfolio_image_dimensions( $website_layout, $website_width );
+		$dimensions = woo_portfolio_image_dimensions( $website_layout, $website_width );
 		
 		$width = $dimensions['width'];
 		$height = $dimensions['height'];
@@ -593,7 +593,7 @@ if ( !function_exists( 'lok_portfolio_item_settings' ) ) {
 		$meta = get_post_custom( $id );
 		
 		// Check if there is a gallery in post.
-		// lok_get_post_images is offset by 1 by default. Setting to offset by 0 to show all images.
+		// woo_get_post_images is offset by 1 by default. Setting to offset by 0 to show all images.
 		
 		$large = '';
 		if ( isset( $meta['portfolio-image'][0] ) )
@@ -604,7 +604,7 @@ if ( !function_exists( 'lok_portfolio_item_settings' ) ) {
 		$rel = 'rel="lightbox['. $id .']"';
 
 		// Check if there are more than 1 image
-    	$gallery = lok_get_post_images( '0' );
+    	$gallery = woo_get_post_images( '0' );
     	
 	    // If we only have one image, disable the gallery functionality.
 	    if ( isset( $gallery ) && is_array( $gallery ) && ( count( $gallery ) <= 1 ) ) {
@@ -612,7 +612,7 @@ if ( !function_exists( 'lok_portfolio_item_settings' ) ) {
 	    }
 	    
 	    // Check for a post thumbnail, if support for it is enabled.
-	    if ( isset( $lok_options['lok_post_image_support'] ) && ( $lok_options['lok_post_image_support'] == 'true' ) && current_theme_supports( 'post-thumbnails' ) ) {
+	    if ( isset( $woo_options['woo_post_image_support'] ) && ( $woo_options['woo_post_image_support'] == 'true' ) && current_theme_supports( 'post-thumbnails' ) ) {
 	    	$image_id = get_post_thumbnail_id( $id );
 	    	if ( intval( $image_id ) > 0 ) {
 	    		$large_data = nxt_get_attachment_image_src( $image_id, 'large' );
@@ -635,7 +635,7 @@ if ( !function_exists( 'lok_portfolio_item_settings' ) ) {
 		$css = join( ' ', $galleries );
 		
 		// If on the single item screen, check for a video.
-		if ( is_singular() ) { $settings['embed'] = lok_embed( 'width=540' ); }
+		if ( is_singular() ) { $settings['embed'] = woo_embed( 'width=540' ); }
 		
 		// Add testimonial information.
 		if ( isset( $meta['testimonial'] ) && ( $meta['testimonial'][0] != '' ) ) {
@@ -663,45 +663,45 @@ if ( !function_exists( 'lok_portfolio_item_settings' ) ) {
 		if ( $description != ''  ) { $settings['caption'] = $description; }
 		
 		// Allow child themes/plugins to filter these settings.
-		$settings = apply_filters( 'lok_portfolio_item_settings', $settings, $id );
+		$settings = apply_filters( 'woo_portfolio_item_settings', $settings, $id );
 		
 		return $settings;
 	
-	} // End lok_portfolio_item_settings()
+	} // End woo_portfolio_item_settings()
 }
 
 /*-----------------------------------------------------------------------------------*/
-/* lok Portfolio, show portfolio galleries in portfolio item breadcrumbs */
-/* Modify lok_breadcrumbs() Arguments Specific to this Theme */
+/* Woo Portfolio, show portfolio galleries in portfolio item breadcrumbs */
+/* Modify woo_breadcrumbs() Arguments Specific to this Theme */
 /*-----------------------------------------------------------------------------------*/
 
-add_filter( 'lok_breadcrumbs_args', 'lok_portfolio_filter_breadcrumbs_args', 10 );
+add_filter( 'woo_breadcrumbs_args', 'woo_portfolio_filter_breadcrumbs_args', 10 );
 
-if ( !function_exists( 'lok_portfolio_filter_breadcrumbs_args' ) ) {
-	function lok_portfolio_filter_breadcrumbs_args( $args ) {
+if ( !function_exists( 'woo_portfolio_filter_breadcrumbs_args' ) ) {
+	function woo_portfolio_filter_breadcrumbs_args( $args ) {
 	
 		$args['singular_portfolio_taxonomy'] = 'portfolio-gallery';
 	
 		return $args;
 	
-	} // End lok_portfolio_filter_breadcrumbs_args()
+	} // End woo_portfolio_filter_breadcrumbs_args()
 }
 
 /*-----------------------------------------------------------------------------------*/
-/* lok Portfolio, get image dimensions based on layout and website width settings. */
+/* Woo Portfolio, get image dimensions based on layout and website width settings. */
 /*-----------------------------------------------------------------------------------*/
 
-if ( !function_exists( 'lok_portfolio_image_dimensions' ) ) {
-	function lok_portfolio_image_dimensions ( $layout = 'one-col', $width = '960' ) {
+if ( !function_exists( 'woo_portfolio_image_dimensions' ) ) {
+	function woo_portfolio_image_dimensions ( $layout = 'one-col', $width = '960' ) {
 		
 		$dimensions = array( 'width' => 575, 'height' => 0, 'thumb_width' => 175, 'thumb_height' => 175 );
 		
 		// Allow child themes/plugins to filter these dimensions.
-		$dimensinos = apply_filters( 'lok_portfolio_gallery_dimensions', $dimensions );
+		$dimensinos = apply_filters( 'woo_portfolio_gallery_dimensions', $dimensions );
 	
 		return $dimensions;
 	
-	} // End lok_post_gallery_dimensions()
+	} // End woo_post_gallery_dimensions()
 }
 
 /*-----------------------------------------------------------------------------------*/
@@ -711,15 +711,15 @@ if ( !function_exists( 'lok_portfolio_image_dimensions' ) ) {
 Description:
 
 This function will get all the attached post images that have been uploaded via the 
-WP post image upload and return them in an array. 
+nxt post image upload and return them in an array. 
 
 */
-if ( !function_exists( 'lok_get_post_images' ) ) {
-	function lok_get_post_images( $offset = 1, $size = 'large' ) {
+if ( !function_exists( 'woo_get_post_images' ) ) {
+	function woo_get_post_images( $offset = 1, $size = 'large' ) {
 		
 		// Arguments
 		$repeat = 100; 				// Number of maximum attachments to get 
-		$photo_size = 'large';		// The WP "size" to use for the large image
+		$photo_size = 'large';		// The nxt "size" to use for the large image
 	
 		global $post;
 	
@@ -745,20 +745,20 @@ if ( !function_exists( 'lok_get_post_images' ) ) {
 			}  
 		endif; 
 		return $output;
-	} // End lok_get_post_images()
+	} // End woo_get_post_images()
 }
 
 /**
- * lok_portfolio_add_post_classes function.
+ * woo_portfolio_add_post_classes function.
  * 
  * @access public
  * @param array $classes
  * @return array $classes
  */
 
-add_filter( 'post_class', 'lok_portfolio_add_post_classes', 10 );
+add_filter( 'post_class', 'woo_portfolio_add_post_classes', 10 );
  
-function lok_portfolio_add_post_classes ( $classes ) {
+function woo_portfolio_add_post_classes ( $classes ) {
 	if ( in_array( 'portfolio', $classes ) ) {
 		global $post;
 		
@@ -779,31 +779,31 @@ function lok_portfolio_add_post_classes ( $classes ) {
 		}
 	}
 	return $classes;
-} // End lok_portfolio_add_post_classes()
+} // End woo_portfolio_add_post_classes()
 
 
 /*-----------------------------------------------------------------------------------*/
 /* Custom Post Type - Info Boxes */
 /*-----------------------------------------------------------------------------------*/
 
-add_action('init', 'lok_add_features');
-function lok_add_features() 
+add_action('init', 'woo_add_features');
+function woo_add_features() 
 {
   $labels = array(
-    'name' => _x('Features', 'post type general name', 'lokthemes'),
-    'singular_name' => _x('Feature', 'post type singular name', 'lokthemes'),
-    'add_new' => _x('Add New', 'features', 'lokthemes'),
-    'add_new_item' => __('Add New Feature', 'lokthemes'),
-    'edit_item' => __('Edit Feature', 'lokthemes'),
-    'new_item' => __('New Feature', 'lokthemes'),
-    'view_item' => __('View Feature', 'lokthemes'),
-    'search_items' => __('Search Features', 'lokthemes'),
-    'not_found' =>  __('No Features found', 'lokthemes'),
-    'not_found_in_trash' => __('No Features found in Trash', 'lokthemes'), 
+    'name' => _x('Features', 'post type general name', 'woothemes'),
+    'singular_name' => _x('Feature', 'post type singular name', 'woothemes'),
+    'add_new' => _x('Add New', 'features', 'woothemes'),
+    'add_new_item' => __('Add New Feature', 'woothemes'),
+    'edit_item' => __('Edit Feature', 'woothemes'),
+    'new_item' => __('New Feature', 'woothemes'),
+    'view_item' => __('View Feature', 'woothemes'),
+    'search_items' => __('Search Features', 'woothemes'),
+    'not_found' =>  __('No Features found', 'woothemes'),
+    'not_found_in_trash' => __('No Features found in Trash', 'woothemes'), 
     'parent_item_colon' => ''
   );
   
-  $features_rewrite = get_option('lok_features_rewrite');
+  $features_rewrite = get_option('woo_features_rewrite');
   if(empty($features_rewrite)) $features_rewrite = 'features';
   
   $args = array(
@@ -827,20 +827,20 @@ function lok_add_features()
 /* Custom Post Type - Slides */
 /*-----------------------------------------------------------------------------------*/
 
-add_action('init', 'lok_add_slides');
-function lok_add_slides() 
+add_action('init', 'woo_add_slides');
+function woo_add_slides() 
 {
   $labels = array(
-    'name' => _x('Slides', 'post type general name', 'lokthemes', 'lokthemes'),
-    'singular_name' => _x('Slide', 'post type singular name', 'lokthemes'),
-    'add_new' => _x('Add New', 'slide', 'lokthemes'),
-    'add_new_item' => __('Add New Slide', 'lokthemes'),
-    'edit_item' => __('Edit Slide', 'lokthemes'),
-    'new_item' => __('New Slide', 'lokthemes'),
-    'view_item' => __('View Slide', 'lokthemes'),
-    'search_items' => __('Search Slides', 'lokthemes'),
-    'not_found' =>  __('No slides found', 'lokthemes'),
-    'not_found_in_trash' => __('No slides found in Trash', 'lokthemes'), 
+    'name' => _x('Slides', 'post type general name', 'woothemes', 'woothemes'),
+    'singular_name' => _x('Slide', 'post type singular name', 'woothemes'),
+    'add_new' => _x('Add New', 'slide', 'woothemes'),
+    'add_new_item' => __('Add New Slide', 'woothemes'),
+    'edit_item' => __('Edit Slide', 'woothemes'),
+    'new_item' => __('New Slide', 'woothemes'),
+    'view_item' => __('View Slide', 'woothemes'),
+    'search_items' => __('Search Slides', 'woothemes'),
+    'not_found' =>  __('No slides found', 'woothemes'),
+    'not_found_in_trash' => __('No slides found in Trash', 'woothemes'), 
     'parent_item_colon' => ''
   );
   $args = array(
@@ -863,9 +863,9 @@ function lok_add_slides()
 /* Google Maps */
 /*-----------------------------------------------------------------------------------*/
 
-function lok_maps_contact_output($args){
+function woo_maps_contact_output($args){
 
-	$key = get_option('lok_maps_apikey');
+	$key = get_option('woo_maps_apikey');
 	
 	// No More API Key needed
 	
@@ -874,13 +874,13 @@ function lok_maps_contact_output($args){
 		
 	extract($args);	
 		
-	$map_height = get_option('lok_maps_single_height');
-	$featured_w = get_option('lok_home_featured_w');
-	$featured_h = get_option('lok_home_featured_h');
-	$zoom = get_option('lok_maps_default_mapzoom');
-	$marker_title = get_option('lok_contact_title');
+	$map_height = get_option('woo_maps_single_height');
+	$featured_w = get_option('woo_home_featured_w');
+	$featured_h = get_option('woo_home_featured_h');
+	$zoom = get_option('woo_maps_default_mapzoom');
+	$marker_title = get_option('woo_contact_title');
 	if ( $zoom == '' ) { $zoom = 6; }   
-	$lang = get_option('lok_maps_directions_locale');
+	$lang = get_option('woo_maps_directions_locale');
 	$locale = '';
 	if(!empty($lang)){
 		$locale = ',locale :"'.$lang.'"';
@@ -931,7 +931,7 @@ function lok_maps_contact_output($args){
 				  mapTypeId: google.maps.MapTypeId.<?php echo $type; ?>
 				};
 			  	var map = new google.maps.Map(document.getElementById("single_map_canvas"),  myOptions);
-				<?php if(get_option('lok_maps_scroll') == 'true'){ ?>
+				<?php if(get_option('woo_maps_scroll') == 'true'){ ?>
 			  	map.scrollwheel = false;
 			  	<?php } ?>
 			  	
@@ -953,12 +953,12 @@ function lok_maps_contact_output($args){
 	  				
 	  			<?php		 	
 			 	if(is_page()){ 
-			 		$custom = get_option('lok_cat_custom_marker_pages');
+			 		$custom = get_option('woo_cat_custom_marker_pages');
 					if(!empty($custom)){
 						$color = $custom;
 					}
 					else {
-						$color = get_option('lok_cat_colors_pages');
+						$color = get_option('woo_cat_colors_pages');
 						if (empty($color)) {
 							$color = 'red';
 						}
@@ -967,15 +967,15 @@ function lok_maps_contact_output($args){
 			 		var color = '<?php echo $color; ?>';
 			 		createMarker(map,point,root,the_link,the_title,color);
 			 	<?php } else { ?>
-			 		var color = '<?php echo get_option('lok_cat_colors_pages'); ?>';
+			 		var color = '<?php echo get_option('woo_cat_colors_pages'); ?>';
 	  				createMarker(map,point,root,the_link,the_title,color);
 				<?php 
 				}
-					if(isset($_POST['lok_maps_directions_search'])){ ?>
+					if(isset($_POST['woo_maps_directions_search'])){ ?>
 					
 					directionsPanel = document.getElementById("featured-route");
  					directions = new GDirections(map, directionsPanel);
-  					directions.load("from: <?php echo htmlspecialchars($_POST['lok_maps_directions_search']); ?> to: <?php echo $address; ?>" <?php if($walking == 'on'){ echo $extra_params;} ?>);
+  					directions.load("from: <?php echo htmlspecialchars($_POST['woo_maps_directions_search']); ?> to: <?php echo $address; ?>" <?php if($walking == 'on'){ echo $extra_params;} ?>);
   					
   					
   					
@@ -988,7 +988,7 @@ function lok_maps_contact_output($args){
 					<?php } else { ?>
 					var travelmodesetting = google.maps.DirectionsTravelMode.DRIVING;
 					<?php } ?>
-					var start = '<?php echo htmlspecialchars($_POST['lok_maps_directions_search']); ?>';
+					var start = '<?php echo htmlspecialchars($_POST['woo_maps_directions_search']); ?>';
 					var end = '<?php echo $address; ?>';
 					var request = {
        					origin:start, 
@@ -1033,7 +1033,6 @@ function lok_maps_contact_output($args){
 
 <?php
 }
-
  
 /*-----------------------------------------------------------------------------------*/
 /* END */

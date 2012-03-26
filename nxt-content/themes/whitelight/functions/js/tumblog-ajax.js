@@ -1,10 +1,10 @@
 /**
- * lokthemes Tumblog Functionality
+ * Woothemes Tumblog Functionality
  * JQuery
  *
  * @version 2.0.0
  *
- * @package lokFramework
+ * @package WooFramework
  * @subpackage Tumblog
  */
  

@@ -5,20 +5,20 @@
  * The archives page template displays a conprehensive archive of the current
  * content of your website on a single page. 
  *
- * @package lokFramework
+ * @package WooFramework
  * @subpackage Template
  */
  
- global $lok_options; 
+ global $woo_options; 
  get_header();
 ?> 
     <div id="content">
     
     	<div class="page col-full">
     	
-    		<?php if ( isset( $lok_options['lok_breadcrumbs_show'] ) && $lok_options['lok_breadcrumbs_show'] == 'true' ) { ?>
+    		<?php if ( isset( $woo_options['woo_breadcrumbs_show'] ) && $woo_options['woo_breadcrumbs_show'] == 'true' ) { ?>
 				<section id="breadcrumbs">
-					<?php lok_breadcrumbs(); ?>
+					<?php woo_breadcrumbs(); ?>
 				</section><!--/#breadcrumbs -->
 			<?php } ?>  
     	
@@ -36,7 +36,7 @@
 			            		the_content();
 			            	}
 			            ?>
-					    <h3><?php _e( 'The Last 30 Posts', 'lokthemes' ); ?></h3>
+					    <h3><?php _e( 'The Last 30 Posts', 'woothemes' ); ?></h3>
 																		  
 					    <ul>											  
 					        <?php
@@ -45,7 +45,7 @@
 					        		while ( have_posts() ) { the_post();
 					        ?>
 					            <?php $nxt_query->is_home = false; ?>	  
-					            <li><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a> - <?php the_time( get_option( 'date_format' ) ); ?> - <?php echo $post->comment_count; ?> <?php _e( 'comments', 'lokthemes' ); ?></li>
+					            <li><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a> - <?php the_time( get_option( 'date_format' ) ); ?> - <?php echo $post->comment_count; ?> <?php _e( 'comments', 'woothemes' ); ?></li>
 					        <?php
 					        		}
 					        	}
@@ -54,14 +54,14 @@
 					    </ul>											  
 						
 						<div id="archive-categories" class="fl" style="width:50%">												  
-						    <h3><?php _e( 'Categories', 'lokthemes' ); ?></h3>	  
+						    <h3><?php _e( 'Categories', 'woothemes' ); ?></h3>	  
 						    <ul>											  
 						        <?php nxt_list_categories( 'title_li=&hierarchical=0&show_count=1' ); ?>	
 						    </ul>											  
 						</div><!--/#archive-categories-->			     												  
 	
 						<div id="archive-dates" class="fr" style="width:50%">												  
-						    <h3><?php _e( 'Monthly Archives', 'lokthemes' ); ?></h3>
+						    <h3><?php _e( 'Monthly Archives', 'woothemes' ); ?></h3>
 																			  
 						    <ul>											  
 						        <?php nxt_get_archives( 'type=monthly&show_post_count=1' ); ?>	

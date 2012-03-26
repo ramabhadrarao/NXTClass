@@ -1,5 +1,5 @@
 /**
- * lokThemes Custom Fields JavaScript
+ * WooThemes Custom Fields JavaScript
  *
  * All JavaScript logic for fields in the post meta box.
  * @since 4.8.0
@@ -8,7 +8,7 @@
 
 (function ($) {
 
-  lokthemesCustomFields = {
+  woothemesCustomFields = {
   
 /**
  * adjust_form_encoding()
@@ -27,8 +27,8 @@
  */
  
  	setup_datepickers: function () {
- 		if ( $( '.lok-input-calendar, .lok_input_calendar' ).length ) {
-	 		$( '.lok-input-calendar, .lok_input_calendar' ).each(function () {
+ 		if ( $( '.woo-input-calendar, .woo_input_calendar' ).length ) {
+	 		$( '.woo-input-calendar, .woo_input_calendar' ).each(function () {
 	 			var buttonImageURL = $( this ).parent().find( 'input[name=datepicker-image]' ).val();
 	 			$( this ).next( 'input[name=datepicker-image]' ).remove();
 	 			
@@ -44,8 +44,8 @@
  */
  
  	setup_timefields: function () {
- 		if ( $( '.lok_input_time' ).length ) {
-	 		$( '.lok_input_time' ).each( function (){
+ 		if ( $( '.woo_input_time' ).length ) {
+	 		$( '.woo_input_time' ).each( function (){
 				$( '#' + $( this ).attr( 'id' )).mask( '99:99' );
 			});
 		}
@@ -92,16 +92,16 @@
  */
  
  	setup_image_selectors: function () {
- 		if ( $( '.lok-meta-radio-img-img, .lok-radio-img-img' ).length ) {
-	 		$( '.lok-meta-radio-img-img, .lok-radio-img-img' ).click( function() {
+ 		if ( $( '.woo-meta-radio-img-img, .woo-radio-img-img' ).length ) {
+	 		$( '.woo-meta-radio-img-img, .woo-radio-img-img' ).click( function() {
 				
-				$( this ).parent().parent().find( '.lok-meta-radio-img-img' ).removeClass( 'lok-meta-radio-img-selected' );
-				$( this ).parent().parent().find( '.lok-radio-img-img' ).removeClass( 'lok-radio-img-selected' );
-				$( this ).addClass( 'lok-meta-radio-img-selected' ).addClass( 'lok-radio-img-selected' );
+				$( this ).parent().parent().find( '.woo-meta-radio-img-img' ).removeClass( 'woo-meta-radio-img-selected' );
+				$( this ).parent().parent().find( '.woo-radio-img-img' ).removeClass( 'woo-radio-img-selected' );
+				$( this ).addClass( 'woo-meta-radio-img-selected' ).addClass( 'woo-radio-img-selected' );
 
 			});
-			$( '.lok-meta-radio-img-label, .lok-meta-radio-img-radio, .lok-radio-img-label, .lok-radio-img-radio' ).hide();
-			$( '.lok-meta-radio-img-img, .lok-radio-img-img' ).show();
+			$( '.woo-meta-radio-img-label, .woo-meta-radio-img-radio, .woo-radio-img-label, .woo-radio-img-radio' ).hide();
+			$( '.woo-meta-radio-img-img, .woo-radio-img-img' ).show();
 		}
  	}, // End setup_image_selectors()
  	
@@ -115,8 +115,8 @@
  		if ( jQuery().ColorPicker && $( '.section-typography, .section-border, .section-color' ).length ) {
  			$( '.section-typography, .section-border, .section-color' ).each( function () {
  				
- 				var option_id = $( this ).find( '.lok-color' ).attr( 'id' );
-				var color = $( this ).find( '.lok-color' ).val();
+ 				var option_id = $( this ).find( '.woo-color' ).attr( 'id' );
+				var color = $( this ).find( '.woo-color' ).val();
 				var picker_id = option_id += '_picker';
  				
  				if ( $( this ).hasClass( 'section-typography' ) || $( this ).hasClass( 'section-border' ) ) {
@@ -155,27 +155,27 @@
  		if ( $( 'input#title' ).length ) {
 			var val = $( 'input#title' ).attr( 'value' );
 			if(val == ''){
-				$( '.lok_metabox_fields .button-highlighted' ).after( '<em class="lok_red_note">Please add a Title before uploading a file</em>' );
+				$( '.woo_metabox_fields .button-highlighted' ).after( '<em class="woo_red_note">Please add a Title before uploading a file</em>' );
 			};
 		}
  	} // End setup_upload_titletest()
   
-  }; // End lokthemesCustomFields Object // Don't remove this, or the sky will fall on your head.
+  }; // End woothemesCustomFields Object // Don't remove this, or the sky will fall on your head.
 
 /**
- * Execute the above methods in the lokthemesCustomFields object.
+ * Execute the above methods in the woothemesCustomFields object.
  *
  * @since 4.8.0
  */
 	$(document).ready(function () {
 	
-		lokthemesCustomFields.adjust_form_encoding();
-		lokthemesCustomFields.setup_datepickers();
-		lokthemesCustomFields.setup_timefields();
-		lokthemesCustomFields.setup_wordcounters();
-		lokthemesCustomFields.setup_image_selectors();
-		lokthemesCustomFields.setup_colourpickers();
-		lokthemesCustomFields.setup_upload_titletest();
+		woothemesCustomFields.adjust_form_encoding();
+		woothemesCustomFields.setup_datepickers();
+		woothemesCustomFields.setup_timefields();
+		woothemesCustomFields.setup_wordcounters();
+		woothemesCustomFields.setup_image_selectors();
+		woothemesCustomFields.setup_colourpickers();
+		woothemesCustomFields.setup_upload_titletest();
 		
 	});
   

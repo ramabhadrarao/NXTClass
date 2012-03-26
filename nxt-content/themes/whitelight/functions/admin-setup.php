@@ -4,42 +4,42 @@
 
 TABLE OF CONTENTS
 
-- Redirect to "Theme Options" screen (hooked onto lok_theme_activate at 10).
+- Redirect to "Theme Options" screen (hooked onto woo_theme_activate at 10).
 - Flush rewrite rules to refresh permalinks for custom post types, etc.
 - Show Options Panel after activate
 - Admin Backend
 	- Setup Custom Navigation
-- Output HEAD - lokthemes_nxt_head()
+- Output HEAD - woothemes_nxt_head()
 	- Output alternative stylesheet
 	- Output custom favicon
 	- Load textdomains
 	- Output CSS from standarized styling options
 	- Output shortcodes stylesheet
 	- Output custom.css
-- Post Images from WP2.9+ integration
+- Post Images from nxt2.9+ integration
 - Enqueue comment reply script
 
 -------------------------------------------------------------------------------------*/
 
-define( 'THEME_FRAMEWORK', 'lokthemes' );
+define( 'THEME_FRAMEWORK', 'woothemes' );
 
 /*-----------------------------------------------------------------------------------*/
-/* Redirect to "Theme Options" screen (hooked onto lok_theme_activate at 10). */
+/* Redirect to "Theme Options" screen (hooked onto woo_theme_activate at 10). */
 /*-----------------------------------------------------------------------------------*/
-add_action( 'lok_theme_activate', 'lok_themeoptions_redirect', 10 );
+add_action( 'woo_theme_activate', 'woo_themeoptions_redirect', 10 );
 
-function lok_themeoptions_redirect () {
+function woo_themeoptions_redirect () {
 	// Do redirect
-	header( 'Location: ' . admin_url() . 'admin.php?page=lokthemes' );
-} // End lok_themeoptions_redirect()
+	header( 'Location: ' . admin_url() . 'admin.php?page=woothemes' );
+} // End woo_themeoptions_redirect()
 
 /*-----------------------------------------------------------------------------------*/
 /* Flush rewrite rules to refresh permalinks for custom post types, etc. */
 /*-----------------------------------------------------------------------------------*/
 
-function lok_flush_rewriterules () {
+function woo_flush_rewriterules () {
 	flush_rewrite_rules();
-} // End lok_flush_rewriterules()
+} // End woo_flush_rewriterules()
 
 /*-----------------------------------------------------------------------------------*/
 /* Add default options and show Options Panel after activate  */
@@ -48,25 +48,25 @@ global $pagenow;
 
 if ( is_admin() && isset( $_GET['activated'] ) && $pagenow == 'themes.php' ) {
 	// Call action that sets.
-	add_action( 'admin_head','lok_option_setup' );
+	add_action( 'admin_head','woo_option_setup' );
 	
 	// Flush rewrite rules.
-	add_action( 'admin_head', 'lok_flush_rewriterules', 9 );
+	add_action( 'admin_head', 'woo_flush_rewriterules', 9 );
 	
 	// Custom action for theme-setup (redirect is at priority 10).
-	do_action( 'lok_theme_activate' );
+	do_action( 'woo_theme_activate' );
 }
 
 
-if ( ! function_exists( 'lok_option_setup' ) ) {
-	function lok_option_setup(){
+if ( ! function_exists( 'woo_option_setup' ) ) {
+	function woo_option_setup(){
 
 		//Update EMPTY options
-		$lok_array = array();
-		add_option( 'lok_options', $lok_array );
+		$woo_array = array();
+		add_option( 'woo_options', $woo_array );
 
-		$template = get_option( 'lok_template' );
-		$saved_options = get_option( 'lok_options' );
+		$template = get_option( 'woo_template' );
+		$saved_options = get_option( 'woo_options' );
 
 		foreach ( (array) $template as $option ) {
 			if ($option['type'] != 'heading'){
@@ -81,80 +81,80 @@ if ( ! function_exists( 'lok_option_setup' ) ) {
 							$db_option = get_option($c_id);
 							if (!empty($db_option)){
 								update_option($c_id,$db_option);
-								$lok_array[$id] = $db_option;
+								$woo_array[$id] = $db_option;
 							} else {
-								$lok_array[$c_id] = $c_std;
+								$woo_array[$c_id] = $c_std;
 							}
 						}
 					} else {
 						update_option($id,$std);
-						$lok_array[$id] = $std;
+						$woo_array[$id] = $std;
 					}
 				} else { //So just store the old values over again.
-					$lok_array[$id] = $db_option;
+					$woo_array[$id] = $db_option;
 				}
 			}
 		}
 		
 		// Allow child themes/plugins to filter here.
-		$lok_array = apply_filters( 'lok_options_array', $lok_array );
+		$woo_array = apply_filters( 'woo_options_array', $woo_array );
 		
-		update_option( 'lok_options', $lok_array );
+		update_option( 'woo_options', $woo_array );
 	}
 }
 
 /*-----------------------------------------------------------------------------------*/
 /* Admin Backend */
 /*-----------------------------------------------------------------------------------*/
-if ( ! function_exists( 'lokthemes_admin_head' ) ) {
-	function lokthemes_admin_head() {
+if ( ! function_exists( 'woothemes_admin_head' ) ) {
+	function woothemes_admin_head() {
 	    //Setup Custom Navigation Menu
-		if ( function_exists( 'lok_custom_navigation_setup' ) ) {
-			lok_custom_navigation_setup();
+		if ( function_exists( 'woo_custom_navigation_setup' ) ) {
+			woo_custom_navigation_setup();
 		}
 	}
 }
-add_action( 'admin_head', 'lokthemes_admin_head', 10 );
+add_action( 'admin_head', 'woothemes_admin_head', 10 );
 
 
 /*-----------------------------------------------------------------------------------*/
-/* Output HEAD - lokthemes_nxt_head */
+/* Output HEAD - woothemes_nxt_head */
 /*-----------------------------------------------------------------------------------*/
-if ( ! function_exists( 'lokthemes_nxt_head' ) ) {
-	function lokthemes_nxt_head() {
+if ( ! function_exists( 'woothemes_nxt_head' ) ) {
+	function woothemes_nxt_head() {
 
-		do_action( 'lokthemes_nxt_head_before' );
+		do_action( 'woothemes_nxt_head_before' );
 
 		// Output alternative stylesheet
-		if ( function_exists( 'lok_output_alt_stylesheet' ) )
-			lok_output_alt_stylesheet();
+		if ( function_exists( 'woo_output_alt_stylesheet' ) )
+			woo_output_alt_stylesheet();
 
 		// Output custom favicon
-		if ( function_exists( 'lok_output_custom_favicon' ) )
-			lok_output_custom_favicon();
+		if ( function_exists( 'woo_output_custom_favicon' ) )
+			woo_output_custom_favicon();
 
 		// Output CSS from standarized styling options
-		if ( function_exists( 'lok_head_css' ) )
-			lok_head_css();
+		if ( function_exists( 'woo_head_css' ) )
+			woo_head_css();
 
 		// Output shortcodes stylesheet
-		if ( function_exists( 'lok_shortcode_stylesheet' ) )
-			lok_shortcode_stylesheet();
+		if ( function_exists( 'woo_shortcode_stylesheet' ) )
+			woo_shortcode_stylesheet();
 
 		// Output custom.css
-		if ( function_exists( 'lok_output_custom_css' ) )
-			lok_output_custom_css();
+		if ( function_exists( 'woo_output_custom_css' ) )
+			woo_output_custom_css();
 			
-		do_action( 'lokthemes_nxt_head_after' );
-	} // End lokthemes_nxt_head()
+		do_action( 'woothemes_nxt_head_after' );
+	} // End woothemes_nxt_head()
 }
-add_action( 'nxt_head', 'lokthemes_nxt_head', 10 );
+add_action( 'nxt_head', 'woothemes_nxt_head', 10 );
 
 /*-----------------------------------------------------------------------------------*/
-/* Output alternative stylesheet - lok_output_alt_stylesheet */
+/* Output alternative stylesheet - woo_output_alt_stylesheet */
 /*-----------------------------------------------------------------------------------*/
-if ( ! function_exists( 'lok_output_alt_stylesheet' ) ) {
-	function lok_output_alt_stylesheet() {
+if ( ! function_exists( 'woo_output_alt_stylesheet' ) ) {
+	function woo_output_alt_stylesheet() {
 
 		$style = '';
 
@@ -168,7 +168,7 @@ if ( ! function_exists( 'lok_output_alt_stylesheet' ) ) {
 		if ($style != '') {
 			echo '<link href="'. get_template_directory_uri() . '/styles/'. $style . '.css" rel="stylesheet" type="text/css" />' . "\n";
 		} else {
-			$style = get_option( 'lok_alt_stylesheet' );
+			$style = get_option( 'woo_alt_stylesheet' );
 			if( $style != '' ) {
 				// Sanitize value.
 				$style = strtolower( strip_tags( trim( $style ) ) );
@@ -178,59 +178,59 @@ if ( ! function_exists( 'lok_output_alt_stylesheet' ) ) {
 			}
 		}
 
-	} // End lok_output_alt_stylesheet()
+	} // End woo_output_alt_stylesheet()
 }
 
 /*-----------------------------------------------------------------------------------*/
-/* Output favicon link - lok_custom_favicon() */
+/* Output favicon link - woo_custom_favicon() */
 /*-----------------------------------------------------------------------------------*/
-if ( ! function_exists( 'lok_output_custom_favicon' ) ) {
-	function lok_output_custom_favicon() {
+if ( ! function_exists( 'woo_output_custom_favicon' ) ) {
+	function woo_output_custom_favicon() {
 		// Favicon
 		$favicon = '';
-		$favicon = get_option( 'lok_custom_favicon' );
+		$favicon = get_option( 'woo_custom_favicon' );
 		
 		// Allow child themes/plugins to filter here.
-		$favicon = apply_filters( 'lok_custom_favicon', $favicon );
+		$favicon = apply_filters( 'woo_custom_favicon', $favicon );
 		if( $favicon != '' ) {
 			echo "\n" . "<!-- Custom Favicon -->\n";
 	        echo '<link rel="shortcut icon" href="' .  esc_url( $favicon )  . '"/>' . "\n";
 	    }
-	} // End lok_output_custom_favicon()
+	} // End woo_output_custom_favicon()
 }
 
 /*-----------------------------------------------------------------------------------*/
-/* Load textdomain - lok_load_textdomain() */
+/* Load textdomain - woo_load_textdomain() */
 /*-----------------------------------------------------------------------------------*/
-if ( ! function_exists( 'lok_load_textdomain' ) ) {
-	function lok_load_textdomain() {
+if ( ! function_exists( 'woo_load_textdomain' ) ) {
+	function woo_load_textdomain() {
 
-		load_theme_textdomain( 'lokthemes' );
-		load_theme_textdomain( 'lokthemes', get_template_directory() . '/lang' );
+		load_theme_textdomain( 'woothemes' );
+		load_theme_textdomain( 'woothemes', get_template_directory() . '/lang' );
 		if ( function_exists( 'load_child_theme_textdomain' ) )
-			load_child_theme_textdomain( 'lokthemes' );
+			load_child_theme_textdomain( 'woothemes' );
 
 	}
 }
 
-add_action( 'init', 'lok_load_textdomain', 10 );
+add_action( 'init', 'woo_load_textdomain', 10 );
 
 /*-----------------------------------------------------------------------------------*/
 /* Output CSS from standarized options */
 /*-----------------------------------------------------------------------------------*/
-if ( ! function_exists( 'lok_head_css' ) ) {
-	function lok_head_css() {
+if ( ! function_exists( 'woo_head_css' ) ) {
+	function woo_head_css() {
 
 		$output = '';
-		$text_title = get_option( 'lok_texttitle' );
-		$tagline = get_option( 'lok_tagline' );
-	    $custom_css = get_option( 'lok_custom_css' );
+		$text_title = get_option( 'woo_texttitle' );
+		$tagline = get_option( 'woo_tagline' );
+	    $custom_css = get_option( 'woo_custom_css' );
 
-		$template = get_option( 'lok_template' );
+		$template = get_option( 'woo_template' );
 		if (is_array($template)) {
 			foreach($template as $option){
 				if(isset($option['id'])){
-					if($option['id'] == 'lok_texttitle') {
+					if($option['id'] == 'woo_texttitle') {
 						// Add CSS to output
 						if ( $text_title == 'true' ) {
 							$output .= '#logo img { display:none; } .site-title { display:block!important; }' . "\n";
@@ -256,16 +256,16 @@ if ( ! function_exists( 'lok_head_css' ) ) {
 			echo stripslashes( $output );
 		}
 
-	} // End lok_head_css()
+	} // End woo_head_css()
 }
 
 
 
 /*-----------------------------------------------------------------------------------*/
-/* Output custom.css - lok_custom_css() */
+/* Output custom.css - woo_custom_css() */
 /*-----------------------------------------------------------------------------------*/
-if ( ! function_exists( 'lok_output_custom_css' ) ) {
-	function lok_output_custom_css() {
+if ( ! function_exists( 'woo_output_custom_css' ) ) {
+	function woo_output_custom_css() {
 
 		$theme_dir = get_template_directory_uri();
 		
@@ -276,22 +276,22 @@ if ( ! function_exists( 'lok_output_custom_css' ) ) {
 		echo "\n" . "<!-- Custom Stylesheet -->\n";
 		echo '<link href="'. $theme_dir . '/custom.css" rel="stylesheet" type="text/css" />' . "\n";
 
-	} // End lok_output_custom_css()
+	} // End woo_output_custom_css()
 }
 
 /*-----------------------------------------------------------------------------------*/
-/* Post Images from WP2.9+ integration /*
+/* Post Images from nxt2.9+ integration /*
 /*-----------------------------------------------------------------------------------*/
 if( function_exists( 'add_theme_support' ) ) {
-	if( get_option( 'lok_post_image_support' ) == 'true' ) {
+	if( get_option( 'woo_post_image_support' ) == 'true' ) {
 		add_theme_support( 'post-thumbnails' );
 		// set height, width and crop if dynamic resize functionality isn't enabled
-		if ( get_option( 'lok_pis_resize' ) != 'true' ) {
-			$thumb_width = get_option( 'lok_thumb_w' );
-			$thumb_height = get_option( 'lok_thumb_h' );
-			$single_width = get_option( 'lok_single_w' );
-			$single_height = get_option( 'lok_single_h' );
-			$hard_crop = get_option( 'lok_pis_hard_crop' );
+		if ( get_option( 'woo_pis_resize' ) != 'true' ) {
+			$thumb_width = get_option( 'woo_thumb_w' );
+			$thumb_height = get_option( 'woo_thumb_h' );
+			$single_width = get_option( 'woo_single_w' );
+			$single_height = get_option( 'woo_single_h' );
+			$hard_crop = get_option( 'woo_pis_hard_crop' );
 			if($hard_crop == 'true') { $hard_crop = true; } else { $hard_crop = false; }
 			set_post_thumbnail_size( $thumb_width, $thumb_height, $hard_crop ); // Normal post thumbnails
 			add_image_size( 'single-post-thumbnail', $single_width, $single_height, $hard_crop );
@@ -303,10 +303,10 @@ if( function_exists( 'add_theme_support' ) ) {
 /*-----------------------------------------------------------------------------------*/
 /* Enqueue comment reply script */
 /*-----------------------------------------------------------------------------------*/
-if ( ! function_exists( 'lok_comment_reply' ) ) {
-	function lok_comment_reply() {
+if ( ! function_exists( 'woo_comment_reply' ) ) {
+	function woo_comment_reply() {
 		if ( is_singular() ) nxt_enqueue_script( 'comment-reply' );
-	} // End lok_comment_reply()
+	} // End woo_comment_reply()
 }
-add_action( 'get_header', 'lok_comment_reply', 10 );
+add_action( 'get_header', 'woo_comment_reply', 10 );
 ?>

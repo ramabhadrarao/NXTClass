@@ -15,7 +15,7 @@
 					'blog_area_page' => ''
 					);
 					
-	$settings = lok_get_dynamic_values( $settings );
+	$settings = woo_get_dynamic_values( $settings );
 	
 ?>			
 			<div class="home-blog fix">
@@ -55,12 +55,12 @@
 			<?php else : ?>
         	
         	    <article <?php post_class(); ?>>
-        	        <p><?php _e( 'Sorry, no posts matched your criteria.', 'lokthemes' ); ?></p>
+        	        <p><?php _e( 'Sorry, no posts matched your criteria.', 'woothemes' ); ?></p>
         	    </article><!-- /.post -->
         	
         	<?php endif; ?>
 			
-			<?php lok_pagenav(); ?>
+			<?php woo_pagenav(); ?>
         	        
 			</section><!-- /#main -->
 			

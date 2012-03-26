@@ -1,22 +1,22 @@
 <?php
 /*-----------------------------------------------------------------------------------*/
-/* Framework Settings page - lokthemes_framework_settings_page */
+/* Framework Settings page - woothemes_framework_settings_page */
 /*-----------------------------------------------------------------------------------*/
 
-function lokthemes_framework_settings_page() {
-    $themename =  get_option( 'lok_themename' );
-    $manualurl =  get_option( 'lok_manual' );
-	$shortname =  'framework_lok';
+function woothemes_framework_settings_page() {
+    $themename =  get_option( 'woo_themename' );
+    $manualurl =  get_option( 'woo_manual' );
+	$shortname =  'framework_woo';
 
     //Framework Version in Backend Head
-    $lok_framework_version = get_option( 'lok_framework_version' );
+    $woo_framework_version = get_option( 'woo_framework_version' );
 
     //Version in Backend Head
     $theme_data = get_theme_data( get_template_directory() . '/style.css' );
     $local_version = $theme_data['Version'];
 
     //GET themes update RSS feed and do magic
-	include_once(ABSPATH . WPINC . '/feed.php' );
+	include_once(ABSPATH . nxtINC . '/feed.php' );
 
 	$pos = strpos( $manualurl, 'documentation' );
 	$theme_slug = str_replace( "/", '', substr( $manualurl, ( $pos + 13 ) ) ); //13 for the word documentation
@@ -26,133 +26,133 @@ function lokthemes_framework_settings_page() {
 
 	$framework_options = array();
 
-	$framework_options[] = array( 	'name' => __( 'Admin Settings', 'lokthemes' ),
+	$framework_options[] = array( 	'name' => __( 'Admin Settings', 'woothemes' ),
 									'icon' => 'general',
 									'type' => 'heading' );
 
-	$framework_options[] = array( 	'name' => __( 'Super User (username)', 'lokthemes' ),
-									'desc' => sprintf( __( 'Enter your %s to hide the Framework Settings and Update Framework from other users. Can be reset from the %s under %s.', 'lokthemes' ), '<strong>' . __( 'username', 'lokthemes' ) . '</strong>', '<a href="' . admin_url( 'options.php' ) . '">' . __( 'WP options page', 'lokthemes' ) . '</a>', '<code>framework_lok_super_user</code>' ),
+	$framework_options[] = array( 	'name' => __( 'Super User (username)', 'woothemes' ),
+									'desc' => sprintf( __( 'Enter your %s to hide the Framework Settings and Update Framework from other users. Can be reset from the %s under %s.', 'woothemes' ), '<strong>' . __( 'username', 'woothemes' ) . '</strong>', '<a href="' . admin_url( 'options.php' ) . '">' . __( 'nxt options page', 'woothemes' ) . '</a>', '<code>framework_woo_super_user</code>' ),
 									'id' => $shortname . '_super_user',
 									'std' => '',
 									'class' => 'text',
 									'type' => 'text' );
 
-	$framework_options[] = array( 	'name' => __( 'Disable SEO Menu Item', 'lokthemes' ),
-									'desc' => sprintf( __( 'Disable the %s menu item in the theme menu.', 'lokthemes' ), '<strong>' . __( 'SEO', 'lokthemes' ) . '</strong>' ),
+	$framework_options[] = array( 	'name' => __( 'Disable SEO Menu Item', 'woothemes' ),
+									'desc' => sprintf( __( 'Disable the %s menu item in the theme menu.', 'woothemes' ), '<strong>' . __( 'SEO', 'woothemes' ) . '</strong>' ),
 									'id' => $shortname . '_seo_disable',
 									'std' => '',
 									'type' => 'checkbox' );
 
-	$framework_options[] = array( 	'name' => __( 'Disable Sidebar Manager Menu Item', 'lokthemes' ),
-									'desc' => sprintf( __( 'Disable the %s menu item in the theme menu.', 'lokthemes' ), '<strong>' . __( 'Sidebar Manager', 'lokthemes' ) . '</strong>' ),
+	$framework_options[] = array( 	'name' => __( 'Disable Sidebar Manager Menu Item', 'woothemes' ),
+									'desc' => sprintf( __( 'Disable the %s menu item in the theme menu.', 'woothemes' ), '<strong>' . __( 'Sidebar Manager', 'woothemes' ) . '</strong>' ),
 									'id' => $shortname . '_sbm_disable',
 									'std' => '',
 									'type' => 'checkbox' );
 
-	$framework_options[] = array( 	'name' => __( 'Disable Backup Settings Menu Item', 'lokthemes' ),
-									'desc' => sprintf( __( 'Disable the %s menu item in the theme menu.', 'lokthemes' ), '<strong>' . __( 'Backup Settings', 'lokthemes' ) . '</strong>' ),
+	$framework_options[] = array( 	'name' => __( 'Disable Backup Settings Menu Item', 'woothemes' ),
+									'desc' => sprintf( __( 'Disable the %s menu item in the theme menu.', 'woothemes' ), '<strong>' . __( 'Backup Settings', 'woothemes' ) . '</strong>' ),
 									'id' => $shortname . '_backupmenu_disable',
 									'std' => '',
 									'type' => 'checkbox' );
 
-	$framework_options[] = array( 	'name' => __( 'Disable Buy Themes Menu Item', 'lokthemes' ),
-									'desc' => sprintf( __( 'Disable the %s menu item in the theme menu.', 'lokthemes' ), '<strong>' . __( 'Buy Themes', 'lokthemes' ) . '</strong>' ),
+	$framework_options[] = array( 	'name' => __( 'Disable Buy Themes Menu Item', 'woothemes' ),
+									'desc' => sprintf( __( 'Disable the %s menu item in the theme menu.', 'woothemes' ), '<strong>' . __( 'Buy Themes', 'woothemes' ) . '</strong>' ),
 									'id' => $shortname . '_buy_themes_disable',
 									'std' => '',
 									'type' => 'checkbox' );
 
-	$framework_options[] = array( 	'name' => __( 'Enable Custom Navigation', 'lokthemes' ),
-									'desc' => sprintf( __( 'Enable the old %s menu item. Try to use %s instead, as this function is outdated.', 'lokthemes' ), '<strong>' . __( 'Custom Navigation', 'lokthemes' ) . '</strong>', '<a href="' . admin_url( 'nav-menus.php' ) . '">' . __( 'WP Menus', 'lokthemes' ) . '</a>' ),
-									'id' => $shortname . '_loknav',
+	$framework_options[] = array( 	'name' => __( 'Enable Custom Navigation', 'woothemes' ),
+									'desc' => sprintf( __( 'Enable the old %s menu item. Try to use %s instead, as this function is outdated.', 'woothemes' ), '<strong>' . __( 'Custom Navigation', 'woothemes' ) . '</strong>', '<a href="' . admin_url( 'nav-menus.php' ) . '">' . __( 'nxt Menus', 'woothemes' ) . '</a>' ),
+									'id' => $shortname . '_woonav',
 									'std' => '',
 									'type' => 'checkbox' );
 
-	$framework_options[] = array( 	'name' => __( 'Theme Update Notification', 'lokthemes' ),
-									'desc' => __( 'This will enable notices on your theme options page that there is an update available for your theme.', 'lokthemes' ),
+	$framework_options[] = array( 	'name' => __( 'Theme Update Notification', 'woothemes' ),
+									'desc' => __( 'This will enable notices on your theme options page that there is an update available for your theme.', 'woothemes' ),
 									'id' => $shortname . '_theme_version_checker',
 									'std' => '',
 									'type' => 'checkbox' );
 									
-	$framework_options[] = array( 	'name' => __( 'lokFramework Update Notification', 'lokthemes' ),
-									'desc' => __( 'This will enable notices on your theme options page that there is an update available for the lokFramework.', 'lokthemes' ),
+	$framework_options[] = array( 	'name' => __( 'WooFramework Update Notification', 'woothemes' ),
+									'desc' => __( 'This will enable notices on your theme options page that there is an update available for the WooFramework.', 'woothemes' ),
 									'id' => $shortname . '_framework_version_checker',
 									'std' => '',
 									'type' => 'checkbox' );
 
-	$framework_options[] = array( 	'name' => __( 'Theme Settings', 'lokthemes' ),
+	$framework_options[] = array( 	'name' => __( 'Theme Settings', 'woothemes' ),
 									'icon' => 'general',
 									'type' => 'heading' );
 
-	$framework_options[] = array( 	'name' => __( 'Remove Generator Meta Tags', 'lokthemes' ),
-									'desc' => __( 'This disables the output of generator meta tags in the HEAD section of your site.', 'lokthemes' ),
+	$framework_options[] = array( 	'name' => __( 'Remove Generator Meta Tags', 'woothemes' ),
+									'desc' => __( 'This disables the output of generator meta tags in the HEAD section of your site.', 'woothemes' ),
 									'id' => $shortname . '_disable_generator',
 									'std' => '',
 									'type' => 'checkbox' );
 
-	$framework_options[] = array( 	'name' => __( 'Image Placeholder', 'lokthemes' ),
-									'desc' => __( 'Set a default image placeholder for your thumbnails. Use this if you want a default image to be shown if you haven\'t added a custom image to your post.', 'lokthemes' ),
+	$framework_options[] = array( 	'name' => __( 'Image Placeholder', 'woothemes' ),
+									'desc' => __( 'Set a default image placeholder for your thumbnails. Use this if you want a default image to be shown if you haven\'t added a custom image to your post.', 'woothemes' ),
 									'id' => $shortname . '_default_image',
 									'std' => '',
 									'type' => 'upload' );
 
-	$framework_options[] = array( 	'name' => __( 'Disable Shortcodes Stylesheet', 'lokthemes' ),
-									'desc' => __( 'This disables the output of shortcodes.css in the HEAD section of your site.', 'lokthemes' ),
+	$framework_options[] = array( 	'name' => __( 'Disable Shortcodes Stylesheet', 'woothemes' ),
+									'desc' => __( 'This disables the output of shortcodes.css in the HEAD section of your site.', 'woothemes' ),
 									'id' => $shortname . '_disable_shortcodes',
 									'std' => '',
 									'type' => 'checkbox' );
 
-	$framework_options[] = array( 	'name' => __( 'Output "Tracking Code" Option in Header', 'lokthemes' ),
-									'desc' => sprintf( __( 'This will output the %s option in your header instead of the footer of your website.', 'lokthemes' ), '<strong>' . __( 'Tracking Code', 'lokthemes' ) . '</strong>' ),
+	$framework_options[] = array( 	'name' => __( 'Output "Tracking Code" Option in Header', 'woothemes' ),
+									'desc' => sprintf( __( 'This will output the %s option in your header instead of the footer of your website.', 'woothemes' ), '<strong>' . __( 'Tracking Code', 'woothemes' ) . '</strong>' ),
 									'id' => $shortname . '_move_tracking_code',
 									'std' => 'false',
 									'type' => 'checkbox' );
 
-	$framework_options[] = array( 	'name' => __( 'Branding', 'lokthemes' ),
+	$framework_options[] = array( 	'name' => __( 'Branding', 'woothemes' ),
 									'icon' => 'misc',
 									'type' => 'heading' );
 
-	$framework_options[] = array( 	'name' => __( 'Options panel header', 'lokthemes' ),
-									'desc' => __( 'Change the header image for the lokThemes Backend.', 'lokthemes' ),
+	$framework_options[] = array( 	'name' => __( 'Options panel header', 'woothemes' ),
+									'desc' => __( 'Change the header image for the WooThemes Backend.', 'woothemes' ),
 									'id' => $shortname . '_backend_header_image',
 									'std' => '',
 									'type' => 'upload' );
 
-	$framework_options[] = array( 	'name' => __( 'Options panel icon', 'lokthemes' ),
-									'desc' => __( 'Change the icon image for the NXTClass backend sidebar.', 'lokthemes' ),
+	$framework_options[] = array( 	'name' => __( 'Options panel icon', 'woothemes' ),
+									'desc' => __( 'Change the icon image for the NXTClass backend sidebar.', 'woothemes' ),
 									'id' => $shortname . '_backend_icon',
 									'std' => '',
 									'type' => 'upload' );
 
-	$framework_options[] = array( 	'name' => __( 'NXTClass login logo', 'lokthemes' ),
-									'desc' => __( 'Change the logo image for the NXTClass login page.', 'lokthemes' ),
+	$framework_options[] = array( 	'name' => __( 'NXTClass login logo', 'woothemes' ),
+									'desc' => __( 'Change the logo image for the NXTClass login page.', 'woothemes' ),
 									'id' => $shortname . '_custom_login_logo',
 									'std' => '',
 									'type' => 'upload' );
 
-	$framework_options[] = array( 	'name' => __( 'NXTClass login URL', 'lokthemes' ),
-									'desc' => __( 'Change the URL that the logo image on the NXTClass login page links to.', 'lokthemes' ),
+	$framework_options[] = array( 	'name' => __( 'NXTClass login URL', 'woothemes' ),
+									'desc' => __( 'Change the URL that the logo image on the NXTClass login page links to.', 'woothemes' ),
 									'id' => $shortname . '_custom_login_logo_url',
 									'std' => '',
 									'class' => 'text',
 									'type' => 'text' );
 									
-	$framework_options[] = array( 	'name' => __( 'NXTClass login logo Title', 'lokthemes' ),
-									'desc' => __( 'Change the title of the logo image on the NXTClass login page.', 'lokthemes' ),
+	$framework_options[] = array( 	'name' => __( 'NXTClass login logo Title', 'woothemes' ),
+									'desc' => __( 'Change the title of the logo image on the NXTClass login page.', 'woothemes' ),
 									'id' => $shortname . '_custom_login_logo_title',
 									'std' => '',
 									'class' => 'text',
 									'type' => 'text' );
 
 /*
-	$framework_options[] = array( 	'name' => __( 'Font Stacks (Beta)', 'lokthemes' ),
+	$framework_options[] = array( 	'name' => __( 'Font Stacks (Beta)', 'woothemes' ),
 									'icon' => 'typography',
 									'type' => 'heading' );
 
-	$framework_options[] = array( 	'name' => __( 'Font Stack Builder', 'lokthemes' ),
+	$framework_options[] = array( 	'name' => __( 'Font Stack Builder', 'woothemes' ),
 									'desc' => __( 'Use the font stack builder to add your own custom font stacks to your theme.
 									To create a new stack, fill in the name and a CSS ready font stack.
 									Once you have added a stack you can select it from the font menu on any of the
-									Typography settings in your theme options.', 'lokthemes' ),
+									Typography settings in your theme options.', 'woothemes' ),
 									'id' => $shortname . '_font_stack',
 									'std' => 'Added Font Stacks',
 									'type' => 'string_builder" );
@@ -162,18 +162,18 @@ function lokthemes_framework_settings_page() {
 
 	if ( $nxt_version >= '3.1' ) {
 
-	$framework_options[] = array( 	'name' => __( 'NXTClass Toolbar', 'lokthemes' ),
+	$framework_options[] = array( 	'name' => __( 'NXTClass Toolbar', 'woothemes' ),
 									'icon' => 'header',
 									'type' => 'heading' );
 
-	$framework_options[] = array( 	'name' => __( 'Disable NXTClass Toolbar', 'lokthemes' ),
-									'desc' => __( 'Disable the NXTClass Toolbar.', 'lokthemes' ),
+	$framework_options[] = array( 	'name' => __( 'Disable NXTClass Toolbar', 'woothemes' ),
+									'desc' => __( 'Disable the NXTClass Toolbar.', 'woothemes' ),
 									'id' => $shortname . '_admin_bar_disable',
 									'std' => '',
 									'type' => 'checkbox' );
 
-	$framework_options[] = array( 	'name' => __( 'Enable the lokFramework Toolbar enhancements', 'lokthemes' ),
-									'desc' => __( 'Enable several lokFramework-specific enhancements to the NXTClass Toolbar, such as custom navigation items for "Theme Options".', 'lokthemes' ),
+	$framework_options[] = array( 	'name' => __( 'Enable the WooFramework Toolbar enhancements', 'woothemes' ),
+									'desc' => __( 'Enable several WooFramework-specific enhancements to the NXTClass Toolbar, such as custom navigation items for "Theme Options".', 'woothemes' ),
 									'id' => $shortname . '_admin_bar_enhancements',
 									'std' => '',
 									'type' => 'checkbox' );
@@ -181,73 +181,73 @@ function lokthemes_framework_settings_page() {
 	}
 
 	// PressTrends Integration
-	if ( defined( 'lok_PRESSTRENDS_THEMEKEY' ) ) {
-		$framework_options[] = array( 	'name' => __( 'PressTrends', 'lokthemes' ),
+	if ( defined( 'WOO_PRESSTRENDS_THEMEKEY' ) ) {
+		$framework_options[] = array( 	'name' => __( 'PressTrends', 'woothemes' ),
 										'icon' => 'presstrends',
 										'type' => 'heading' );
 									
-		$framework_options[] = array( 	'name' => __( 'Disable PressTrends Tracking', 'lokthemes' ),
-										'desc' => __( 'Disable sending of usage data to PressTrends.', 'lokthemes' ),
+		$framework_options[] = array( 	'name' => __( 'Disable PressTrends Tracking', 'woothemes' ),
+										'desc' => __( 'Disable sending of usage data to PressTrends.', 'woothemes' ),
 										'id' => $shortname . '_presstrends_disable',
 										'std' => 'false',
 										'type' => 'checkbox' );
 	
-		$framework_options[] = array( 	'name' => __( 'What is PressTrends?', 'lokthemes' ),
+		$framework_options[] = array( 	'name' => __( 'What is PressTrends?', 'woothemes' ),
 										'desc' => '',
 										'id' => $shortname . '_presstrends_info',
-										'std' => sprintf( __( 'PressTrends is a simple usage tracker that allows us to see how our customers are using lokThemes themes - so that we can help improve them for you. %sNone%s of your personal data is sent to PressTrends.%sFor more information, please view the PressTrends %s.', 'lokthemes' ), '<strong>', '</strong>', '<br /><br />', '<a href="http://presstrends.io/privacy" target="_blank">' . __( 'privacy policy', 'lokthemes' ) . '</a>' ),
+										'std' => sprintf( __( 'PressTrends is a simple usage tracker that allows us to see how our customers are using WooThemes themes - so that we can help improve them for you. %sNone%s of your personal data is sent to PressTrends.%sFor more information, please view the PressTrends %s.', 'woothemes' ), '<strong>', '</strong>', '<br /><br />', '<a href="http://presstrends.io/privacy" target="_blank">' . __( 'privacy policy', 'woothemes' ) . '</a>' ),
 										'type' => 'info' );
 	}
 
-    update_option( 'lok_framework_template', $framework_options );
+    update_option( 'woo_framework_template', $framework_options );
 
 	?>
 
-    <div class="wrap" id="lok_container">
-    <div id="lok-popup-save" class="lok-save-popup"><div class="lok-save-save"><?php _e( 'Options Updated', 'lokthemes' ); ?></div></div>
-    <div id="lok-popup-reset" class="lok-save-popup"><div class="lok-save-reset"><?php _e( 'Options Reset', 'lokthemes' ); ?></div></div>
-        <form action='' enctype="multipart/form-data" id="lokform" method="post">
+    <div class="wrap" id="woo_container">
+    <div id="woo-popup-save" class="woo-save-popup"><div class="woo-save-save"><?php _e( 'Options Updated', 'woothemes' ); ?></div></div>
+    <div id="woo-popup-reset" class="woo-save-popup"><div class="woo-save-reset"><?php _e( 'Options Reset', 'woothemes' ); ?></div></div>
+        <form action='' enctype="multipart/form-data" id="wooform" method="post">
         <?php
 	    	// Add nonce for added security.
-	    	if ( function_exists( 'nxt_nonce_field' ) ) { nxt_nonce_field( 'lokframework-framework-options-update' ); } // End IF Statement
+	    	if ( function_exists( 'nxt_nonce_field' ) ) { nxt_nonce_field( 'wooframework-framework-options-update' ); } // End IF Statement
 
-	    	$lok_nonce = '';
+	    	$woo_nonce = '';
 
-	    	if ( function_exists( 'nxt_create_nonce' ) ) { $lok_nonce = nxt_create_nonce( 'lokframework-framework-options-update' ); } // End IF Statement
+	    	if ( function_exists( 'nxt_create_nonce' ) ) { $woo_nonce = nxt_create_nonce( 'wooframework-framework-options-update' ); } // End IF Statement
 
-	    	if ( $lok_nonce == '' ) {} else {
+	    	if ( $woo_nonce == '' ) {} else {
 
 	    ?>
-	    	<input type="hidden" name="_ajax_nonce" value="<?php echo $lok_nonce; ?>" />
+	    	<input type="hidden" name="_ajax_nonce" value="<?php echo $woo_nonce; ?>" />
 	    <?php
 
 	    	} // End IF Statement
 	    ?>
             <div id="header">
                 <div class="logo">
-                <?php if( get_option( 'framework_lok_backend_header_image' ) ) { ?>
-                <img alt="" src="<?php echo get_option( 'framework_lok_backend_header_image' ); ?>"/>
+                <?php if( get_option( 'framework_woo_backend_header_image' ) ) { ?>
+                <img alt="" src="<?php echo get_option( 'framework_woo_backend_header_image' ); ?>"/>
                 <?php } else { ?>
-                <img alt="lokThemes" src="<?php echo get_template_directory_uri(); ?>/functions/images/logo.png"/>
+                <img alt="WooThemes" src="<?php echo get_template_directory_uri(); ?>/functions/images/logo.png"/>
                 <?php } ?>
                 </div>
                 <div class="theme-info">
                     <span class="theme"><?php echo $themename; ?> <?php echo $local_version; ?></span>
-                    <span class="framework"><?php printf( __( 'Framework %s', 'lokthemes' ), $lok_framework_version ); ?></span>
+                    <span class="framework"><?php printf( __( 'Framework %s', 'woothemes' ), $woo_framework_version ); ?></span>
                 </div>
                 <div class="clear"></div>
             </div>
             <div id="support-links">
                 <ul>
-                    <li class="changelog"><a title="Theme Changelog" href="<?php echo $manualurl; ?>#Changelog"><?php _e( 'View Changelog', 'lokthemes' ); ?></a></li>
-                    <li class="docs"><a title="Theme Documentation" href="<?php echo $manualurl; ?>"><?php _e( 'View Themedocs', 'lokthemes' ); ?></a></li>
-                    <li class="forum"><a href="http://www.lokthemes.com/support-forum" target="_blank"><?php _e( 'Visit Forum', 'lokthemes' ); ?></a></li>
-                    <li class="right"><img style="display:none" src="<?php echo get_template_directory_uri(); ?>/functions/images/loading-top.gif" class="ajax-loading-img ajax-loading-img-top" alt="<?php esc_attr_e( 'Working...', 'lokthemes' ); ?>" /><a href="#" id="expand_options">[+]</a> <input type="submit" value="<?php esc_attr_e( 'Save All Changes', 'lokthemes' ); ?>" class="button submit-button" /></li>
+                    <li class="changelog"><a title="Theme Changelog" href="<?php echo $manualurl; ?>#Changelog"><?php _e( 'View Changelog', 'woothemes' ); ?></a></li>
+                    <li class="docs"><a title="Theme Documentation" href="<?php echo $manualurl; ?>"><?php _e( 'View Themedocs', 'woothemes' ); ?></a></li>
+                    <li class="forum"><a href="http://www.woothemes.com/support-forum" target="_blank"><?php _e( 'Visit Forum', 'woothemes' ); ?></a></li>
+                    <li class="right"><img style="display:none" src="<?php echo get_template_directory_uri(); ?>/functions/images/loading-top.gif" class="ajax-loading-img ajax-loading-img-top" alt="<?php esc_attr_e( 'Working...', 'woothemes' ); ?>" /><a href="#" id="expand_options">[+]</a> <input type="submit" value="<?php esc_attr_e( 'Save All Changes', 'woothemes' ); ?>" class="button submit-button" /></li>
                 </ul>
             </div>
-            <?php $return = lokthemes_machine( $framework_options ); ?>
+            <?php $return = woothemes_machine( $framework_options ); ?>
             <div id="main">
-                <div id="lok-nav">
+                <div id="woo-nav">
                     <ul>
                         <?php echo $return[1]; ?>
                     </ul>
@@ -259,31 +259,31 @@ function lokthemes_framework_settings_page() {
 
             </div>
             <div class="save_bar_top">
-            <input type="hidden" name="lok_save" value="save" />
-            <img style="display:none" src="<?php echo get_template_directory_uri(); ?>/functions/images/loading-bottom.gif" class="ajax-loading-img ajax-loading-img-bottom" alt="<?php esc_attr_e( 'Working...', 'lokthemes' ); ?>" />
-            <input type="submit" value="<?php esc_attr_e( 'Save All Changes', 'lokthemes' ); ?>" class="button submit-button" />
+            <input type="hidden" name="woo_save" value="save" />
+            <img style="display:none" src="<?php echo get_template_directory_uri(); ?>/functions/images/loading-bottom.gif" class="ajax-loading-img ajax-loading-img-bottom" alt="<?php esc_attr_e( 'Working...', 'woothemes' ); ?>" />
+            <input type="submit" value="<?php esc_attr_e( 'Save All Changes', 'woothemes' ); ?>" class="button submit-button" />
             </form>
 
-            <form action="<?php echo esc_attr( $_SERVER['REQUEST_URI'] ) ?>" method="post" style="display:inline" id="lokform-reset">
+            <form action="<?php echo esc_attr( $_SERVER['REQUEST_URI'] ) ?>" method="post" style="display:inline" id="wooform-reset">
             <?php
 		    	// Add nonce for added security.
-		    	if ( function_exists( 'nxt_nonce_field' ) ) { nxt_nonce_field( 'lokframework-framework-options-reset' ); } // End IF Statement
+		    	if ( function_exists( 'nxt_nonce_field' ) ) { nxt_nonce_field( 'wooframework-framework-options-reset' ); } // End IF Statement
 
-		    	$lok_nonce = '';
+		    	$woo_nonce = '';
 
-		    	if ( function_exists( 'nxt_create_nonce' ) ) { $lok_nonce = nxt_create_nonce( 'lokframework-framework-options-reset' ); } // End IF Statement
+		    	if ( function_exists( 'nxt_create_nonce' ) ) { $woo_nonce = nxt_create_nonce( 'wooframework-framework-options-reset' ); } // End IF Statement
 
-		    	if ( $lok_nonce == '' ) {} else {
+		    	if ( $woo_nonce == '' ) {} else {
 
 		    ?>
-		    	<input type="hidden" name="_ajax_nonce" value="<?php echo $lok_nonce; ?>" />
+		    	<input type="hidden" name="_ajax_nonce" value="<?php echo $woo_nonce; ?>" />
 		    <?php
 
 		    	} // End IF Statement
 		    ?>
             <span class="submit-footer-reset">
-<!--             <input name="reset" type="submit" value="<?php esc_attr_e( 'Reset Options', 'lokthemes' ); ?>" class="button submit-button reset-button" onclick="return confirm( '<?php esc_attr_e( 'Click OK to reset. Any settings will be lost!', 'lokthemes' ); ?>' );" /> -->
-            <input type="hidden" name="lok_save" value="reset" />
+<!--             <input name="reset" type="submit" value="<?php esc_attr_e( 'Reset Options', 'woothemes' ); ?>" class="button submit-button reset-button" onclick="return confirm( '<?php esc_attr_e( 'Click OK to reset. Any settings will be lost!', 'woothemes' ); ?>' );" /> -->
+            <input type="hidden" name="woo_save" value="reset" />
             </span>
         	</form>
 

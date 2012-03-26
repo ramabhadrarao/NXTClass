@@ -10,12 +10,12 @@
   styleSelect = {
     init: function () {
       $( '.select_wrapper').each(function () {
-        $(this).prepend( '<span>' + $(this).find( '.lok-input option:selected').text() + '</span>' );
+        $(this).prepend( '<span>' + $(this).find( '.woo-input option:selected').text() + '</span>' );
       });
-      $( 'select.lok-input').live( 'change', function () {
+      $( 'select.woo-input').live( 'change', function () {
         $(this).prev( 'span').replaceWith( '<span>' + $(this).find( 'option:selected').text() + '</span>' );
       });
-      $( 'select.lok-input').bind($.browser.msie ? 'click' : 'change', function(event) {
+      $( 'select.woo-input').bind($.browser.msie ? 'click' : 'change', function(event) {
         $(this).prev( 'span').replaceWith( '<span>' + $(this).find( 'option:selected').text() + '</span>' );
       }); 
     }

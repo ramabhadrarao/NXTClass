@@ -61,6 +61,9 @@ define('NONCE_SALT',       'put your unique phrase here');
  */
 $table_prefix  = 'nxt_';
 
+define ('nxtLANG', 'en');define('nxt_ALLOW_MULTISITE', false);
+
+define( 'BP_DISABLE_ADMIN_BAR', true );
 /**
  * NXTClass Localized Language, defaults to English.
  *

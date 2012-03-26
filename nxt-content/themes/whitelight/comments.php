@@ -6,7 +6,7 @@
  *
  * External functions are used to display the various types of comments.
  *
- * @package lokFramework
+ * @package WooFramework
  * @subpackage Template
  */
 
@@ -16,7 +16,7 @@ if ( ! empty( $_SERVER['SCRIPT_FILENAME'] ) && 'comments.php' == basename( $_SER
 }
 
 if ( post_password_required() ) { ?>
-	<p class="nocomments"><?php _e( 'This post is password protected. Enter the password to view comments.', 'lokthemes' ); ?></p>
+	<p class="nocomments"><?php _e( 'This post is password protected. Enter the password to view comments.', 'woothemes' ); ?></p>
 <?php return; } ?>
 
 <?php $comments_by_type = &separate_comments( $comments ); ?>    
@@ -28,7 +28,7 @@ if ( post_password_required() ) { ?>
 <div id="comments">
 
 	<?php if ( ! empty( $comments_by_type['comment'] ) ) { ?>
-		<h3><?php comments_number( __( 'No Responses', 'lokthemes' ), __( 'One Response', 'lokthemes' ), __( '% Responses', 'lokthemes' ) ); ?> <?php _e( 'to', 'lokthemes' ); ?> &#8220;<?php the_title(); ?>&#8221;</h3>
+		<h3><?php comments_number( __( 'No Responses', 'woothemes' ), __( 'One Response', 'woothemes' ), __( '% Responses', 'woothemes' ) ); ?> <?php _e( 'to', 'woothemes' ); ?> &#8220;<?php the_title(); ?>&#8221;</h3>
 
 		<ol class="commentlist">
 	
@@ -44,7 +44,7 @@ if ( post_password_required() ) { ?>
 		    
 	<?php if ( ! empty( $comments_by_type['pings'] ) ) { ?>
     		
-        <h3 id="pings"><?php _e( 'Trackbacks/Pingbacks', 'lokthemes' ); ?></h3>
+        <h3 id="pings"><?php _e( 'Trackbacks/Pingbacks', 'woothemes' ); ?></h3>
     
         <ol class="pinglist">
             <?php nxt_list_comments( 'type=pings&callback=list_pings' ); ?>
@@ -60,8 +60,8 @@ if ( post_password_required() ) { ?>
 
 	<?php 
 		// If there are no comments and comments are closed, let's leave a little note, shall we?
-		if ( ! comments_open() && is_singular() ) { ?><h5 class="nocomments"><?php _e( 'Comments are closed.', 'lokthemes' ); ?></h5><?php }
-		else { ?><h5 class="nocomments"><?php _e( 'No comments yet.', 'lokthemes' ); ?></h5><?php }
+		if ( ! comments_open() && is_singular() ) { ?><h5 class="nocomments"><?php _e( 'Comments are closed.', 'woothemes' ); ?></h5><?php }
+		else { ?><h5 class="nocomments"><?php _e( 'No comments yet.', 'woothemes' ); ?></h5><?php }
 	?>
 
 </div> <!-- /#comments_wrap -->

@@ -22,7 +22,7 @@
 					'featured_opacity' => '0.5'
 					);
 					
-	$settings = lok_get_dynamic_values( $settings );
+	$settings = woo_get_dynamic_values( $settings );
 	
 	$count = 0;
 ?>
@@ -55,9 +55,9 @@
 
     	    		<?php
 	    	    		if ( $slidertype == "full" ) {
-	    	    			$has_embed = lok_embed( 'width=800&class=slide-video' );
+	    	    			$has_embed = woo_embed( 'width=800&class=slide-video' );
 	    	    		} else {
-	    	    			$has_embed = lok_embed( 'width=960&height=' . $settings['featured_height'] . '&class=slide-video-carousel' );
+	    	    			$has_embed = woo_embed( 'width=960&height=' . $settings['featured_height'] . '&class=slide-video-carousel' );
 	    	    		}
 	        			if ( $has_embed ) {
 	        				echo $has_embed; 
@@ -68,9 +68,9 @@
 	        				<?php }
 	        				
 	        				if ( $slidertype != "full" ) {
-	        					lok_image( 'width=960&height=' . $settings['featured_height'] . '&class=slide-image&link=img&noheight=true' );
+	        					woo_image( 'width=960&height=' . $settings['featured_height'] . '&class=slide-image&link=img&noheight=true' );
 	        				} else {
-	        					lok_image( 'width=2560&height=' . $settings['featured_height'] . '&class=slide-image full&link=img&noheight=true' );
+	        					woo_image( 'width=2560&height=' . $settings['featured_height'] . '&class=slide-image full&link=img&noheight=true' );
 	        				}
     	    				
     	    				if ( isset($url) && $url != '' ) { ?></a><?php }
@@ -87,7 +87,7 @@
 	    	    				<?php if ( isset($url) && $url != '' ) { ?><a href="<?php echo $url ?>" rel="bookmark" title="<?php the_title_attribute(); ?>"><?php } ?>
 	    	    					<?php
 	    	    						$slide_title = get_the_title();
-	    	    						echo lok_text_trim ( $slide_title, 25 );
+	    	    						echo woo_text_trim ( $slide_title, 25 );
 	    	    					?>
 	    	    				<?php if ( isset($url) && $url != '' ) { ?></a><?php } ?>
 	    	    			</h1>
@@ -95,7 +95,7 @@
 	    	    			<div class="entry">
 	    	    				<?php
 	    	    					$slide_excerpt = get_the_excerpt();
-	    	    					echo lok_text_trim ( $slide_excerpt, 25 );
+	    	    					echo woo_text_trim ( $slide_excerpt, 25 );
 	    	    				?>
 	    	    			</div>
 	    	    		

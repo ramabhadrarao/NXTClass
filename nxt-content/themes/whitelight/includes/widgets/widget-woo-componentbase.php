@@ -3,21 +3,21 @@
 
 CLASS INFORMATION
 
-Description: A custom lokThemes Component widget.
+Description: A custom WooThemes Component widget.
 Date Created: 2011-07-27.
 Last Modified: 2011-07-27.
-Author: lokThemes.
+Author: WooThemes.
 Since: 1.0.0
 
 
 TABLE OF CONTENTS
 
-- var $lok_widget_cssclass
-- var $lok_widget_description
-- var $lok_widget_idbase
-- var $lok_widget_title
-- var $lok_widget_component
-- var $lok_widget_componentslist
+- var $woo_widget_cssclass
+- var $woo_widget_description
+- var $woo_widget_idbase
+- var $woo_widget_title
+- var $woo_widget_component
+- var $woo_widget_componentslist
 
 - function (constructor)
 - function widget ()
@@ -28,14 +28,14 @@ TABLE OF CONTENTS
 
 -----------------------------------------------------------------------------------*/
 
-class lok_Widget_Component extends WP_Widget {
+class Woo_Widget_Component extends nxt_Widget {
 
-	var $lok_widget_cssclass;
-	var $lok_widget_description;
-	var $lok_widget_idbase;
-	var $lok_widget_title;
-	var $lok_widget_component;
-	var $lok_widget_componentslist;
+	var $woo_widget_cssclass;
+	var $woo_widget_description;
+	var $woo_widget_idbase;
+	var $woo_widget_title;
+	var $woo_widget_component;
+	var $woo_widget_componentslist;
 	
 	var $widget_ops = array();
 	var $control_ops = array();
@@ -47,30 +47,30 @@ class lok_Widget_Component extends WP_Widget {
 	  * The constructor. Sets up the widget.
 	----------------------------------------*/
 	
-	function lok_Widget_Component () {
+	function Woo_Widget_Component () {
 		
 		/* Widget variable settings. */
 
-		$this->lok_widget_cssclass = 'widget_lok_component';
-		$this->lok_widget_idbase = 'lok_component';
-		$this->lok_widget_componenttitle = __( 'Component', 'lokthemes' );
-		$this->lok_widget_title = __('lok - ', 'lokthemes' ) . $this->lok_widget_componenttitle;
-		$this->lok_widget_description = sprintf( __( 'This is a lokThemes standardized component widget for loading components into a custom layout.', 'lokthemes' ) );
+		$this->woo_widget_cssclass = 'widget_woo_component';
+		$this->woo_widget_idbase = 'woo_component';
+		$this->woo_widget_componenttitle = __( 'Component', 'woothemes' );
+		$this->woo_widget_title = __('Woo - ', 'woothemes' ) . $this->woo_widget_componenttitle;
+		$this->woo_widget_description = sprintf( __( 'This is a WooThemes standardized component widget for loading components into a custom layout.', 'woothemes' ) );
 		
-		$this->lok_widget_componentslist = array(
-												'features' => __( 'Features', 'lokthemes' ), 
-												'portfolio' => __( 'Portfolio', 'lokthemes' ),
-												'blog' => __( 'Blog', 'lokthemes' )
+		$this->woo_widget_componentslist = array(
+												'features' => __( 'Features', 'woothemes' ), 
+												'portfolio' => __( 'Portfolio', 'woothemes' ),
+												'blog' => __( 'Blog', 'woothemes' )
 												);
 		
 		/* Widget settings. */
-		$this->widget_ops = array( 'classname' => $this->lok_widget_cssclass, 'description' => $this->lok_widget_description );
+		$this->widget_ops = array( 'classname' => $this->woo_widget_cssclass, 'description' => $this->woo_widget_description );
 
 		/* Widget control settings. */
-		$this->control_ops = array( 'width' => 250, 'height' => 350, 'id_base' => $this->lok_widget_idbase );
+		$this->control_ops = array( 'width' => 250, 'height' => 350, 'id_base' => $this->woo_widget_idbase );
 
 		/* Create the widget. */
-		$this->WP_Widget( $this->lok_widget_idbase, $this->lok_widget_title, $this->widget_ops, $this->control_ops );
+		$this->nxt_Widget( $this->woo_widget_idbase, $this->woo_widget_title, $this->widget_ops, $this->control_ops );
 		
 	} // End Constructor
 
@@ -141,16 +141,16 @@ class lok_Widget_Component extends WP_Widget {
 ?>
 		<!-- Widget Example Select: Select Input -->
 		<p>
-			<label for="<?php echo $this->get_field_id( 'component' ); ?>"><?php _e( 'Component:', 'lokthemes' ); ?></label>
+			<label for="<?php echo $this->get_field_id( 'component' ); ?>"><?php _e( 'Component:', 'woothemes' ); ?></label>
 			<select name="<?php echo $this->get_field_name( 'component' ); ?>" class="widefat" id="<?php echo $this->get_field_id( 'component' ); ?>">
-			<?php foreach ( $this->lok_widget_componentslist as $k => $v ) { ?>
+			<?php foreach ( $this->woo_widget_componentslist as $k => $v ) { ?>
 				<option value="<?php echo $k; ?>"<?php selected( $instance['component'], $k ); ?>><?php echo $v; ?></option>
 			<?php } ?>       
 			</select>
 		</p>
 <?php
    
-   		echo sprintf( __( 'All options for the components are set on the %1$s screen.', 'lokthemes' ), '<a href="' . admin_url( 'admin.php?page=lokthemes' ) . '">' . __( 'Theme Options', 'lokthemes' ) . '</a>' );
+   		echo sprintf( __( 'All options for the components are set on the %1$s screen.', 'woothemes' ), '<a href="' . admin_url( 'admin.php?page=woothemes' ) . '">' . __( 'Theme Options', 'woothemes' ) . '</a>' );
    
 	} // End form()
 	
@@ -163,5 +163,5 @@ class lok_Widget_Component extends WP_Widget {
   * Registers this widget.
 ----------------------------------------*/
 
-add_action( 'widgets_init', create_function( '', 'return register_widget("lok_Widget_Component");' ), 1 );
+add_action( 'widgets_init', create_function( '', 'return register_widget("Woo_Widget_Component");' ), 1 );
 ?>

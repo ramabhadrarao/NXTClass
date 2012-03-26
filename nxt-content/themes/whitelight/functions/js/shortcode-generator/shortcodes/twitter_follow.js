@@ -1,9 +1,9 @@
-lokShortcodeMeta={
+wooShortcodeMeta={
 	attributes:[
 		{
 			label:"Twitter Username",
 			id:"username",
-			help:"Place your twitter username here. This would be http://twitter.com/<strong>lokthemes</strong>."
+			help:"Place your twitter username here. This would be http://twitter.com/<strong>woothemes</strong>."
 		}, 
 		{
 			label:"Button Color",

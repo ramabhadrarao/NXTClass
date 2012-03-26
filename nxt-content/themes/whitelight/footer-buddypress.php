@@ -1,3 +1,5 @@
+</div>
+    </div><!-- /#content -->
 <?php
 /**
  * Footer Template

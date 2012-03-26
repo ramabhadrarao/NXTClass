@@ -4,11 +4,11 @@
  *
  * The blog page template displays the "blog-style" template on a sub-page. 
  *
- * @package lokFramework
+ * @package WooFramework
  * @subpackage Template
  */
 
- global $lok_options;
+ global $woo_options;
  get_header();
  
 /**
@@ -23,16 +23,16 @@
 					'thumb_align' => 'alignleft'
 					);
 					
-	$settings = lok_get_dynamic_values( $settings );
+	$settings = woo_get_dynamic_values( $settings );
 ?>
     <!-- #content Starts -->
     <div id="content">
     
     	<div class="col-full">
     	
-    		<?php if ( isset( $lok_options['lok_breadcrumbs_show'] ) && $lok_options['lok_breadcrumbs_show'] == 'true' ) { ?>
+    		<?php if ( isset( $woo_options['woo_breadcrumbs_show'] ) && $woo_options['woo_breadcrumbs_show'] == 'true' ) { ?>
 				<section id="breadcrumbs">
-					<?php lok_breadcrumbs(); ?>
+					<?php woo_breadcrumbs(); ?>
 				</section><!--/#breadcrumbs -->
 			<?php } ?> 
     
@@ -47,9 +47,9 @@
 	        						'paged' => $paged
 	        					);
 	        	
-	        	$query_args = apply_filters( 'lok_blog_template_query_args', $query_args ); // Do not remove. Used to exclude categories from displaying here.
+	        	$query_args = apply_filters( 'woo_blog_template_query_args', $query_args ); // Do not remove. Used to exclude categories from displaying here.
 	        	
-	        	remove_filter( 'pre_get_posts', 'lok_exclude_categories_homepage' );
+	        	remove_filter( 'pre_get_posts', 'woo_exclude_categories_homepage' );
 	        	
 	        	query_posts( $query_args );
 	        	
@@ -71,11 +71,11 @@
 	        	} else {
 	        ?>
 	            <article <?php post_class(); ?>>
-	                <p><?php _e( 'Sorry, no posts matched your criteria.', 'lokthemes' ); ?></p>
+	                <p><?php _e( 'Sorry, no posts matched your criteria.', 'woothemes' ); ?></p>
 	            </article><!-- /.post -->
 	        <?php } // End IF Statement ?>  
 	    
-	            <?php lok_pagenav(); ?>
+	            <?php woo_pagenav(); ?>
 				<?php nxt_reset_query(); ?>                
 	
 	        </section><!-- /#main -->

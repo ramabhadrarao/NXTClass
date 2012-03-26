@@ -64,7 +64,7 @@ a:hover {
   border-color: #fff transparent transparent transparent;
 }
 /* --- HEADER --- */#header {
-  background: #ffffff url(light-lokd/bg-tile.png) repeat left top;
+  background: #ffffff url(light-wood/bg-tile.png) repeat left top;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
   -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
@@ -149,7 +149,7 @@ a:hover {
 }
 .home-section header a.more {
   color: #222222;
-  background: url(light-lokd/ico-more.png) no-repeat left top;
+  background: url(light-wood/ico-more.png) no-repeat left top;
 }
 .home-section#features li h2 a {
   color: #222222;
@@ -320,7 +320,7 @@ article.type-features .post-more a:link, article.type-features .post-more a:visi
   border: 1px solid #e1e1e1;
 }
 #post-author .profile-link .meta-nav {
-  background: url(light-lokd/ico-more.png) no-repeat left center;
+  background: url(light-wood/ico-more.png) no-repeat left center;
 }
 .entry table {
   border: 1px solid #e1e1e1;
@@ -352,18 +352,18 @@ article.type-features .post-more a:link, article.type-features .post-more a:visi
   color: #000000;
 }
 .nav-entries .nav-prev .meta-nav, #post-entries .nav-prev .meta-nav {
-  background: url(light-lokd/ico-previous.png) no-repeat left center;
+  background: url(light-wood/ico-previous.png) no-repeat left center;
 }
 .nav-entries .nav-next .meta-nav, #post-entries .nav-next .meta-nav {
-  background: url(light-lokd/ico-more.png) no-repeat right center;
+  background: url(light-wood/ico-more.png) no-repeat right center;
 }
-.lok-pagination {
+.woo-pagination {
   border-top: 1px solid #e1e1e1;
 }
-.lok-pagination .page-numbers {
+.woo-pagination .page-numbers {
   color: #555555;
 }
-.lok-pagination .page-numbers.current {
+.woo-pagination .page-numbers.current {
   background: #000000;
   border-color: #2f2f2f;
   color: #fff;
@@ -388,10 +388,10 @@ article.type-features .post-more a:link, article.type-features .post-more a:visi
 .widget_recent_comments ul li {
   border-bottom: 1px solid #e9e9e9;
 }
-.widget_lok_flickr a img {
+.widget_woo_flickr a img {
   border: 1px solid #e1e1e1;
 }
-.widget_lok_flickr a:hover img {
+.widget_woo_flickr a:hover img {
   border-color: #c8c8c8;
 }
 #nxt-calendar th, #nxt-calendar td {
@@ -400,20 +400,20 @@ article.type-features .post-more a:link, article.type-features .post-more a:visi
 #nxt-calendar td {
   color: #6f6f6f;
 }
-.widget_lok_blogauthorinfo .avatar {
+.widget_woo_blogauthorinfo .avatar {
   border: 1px solid #e1e1e1;
 }
-.widget_lok_twitter ul li {
+.widget_woo_twitter ul li {
   border-bottom: 1px solid #e9e9e9;
 }
-.widget_lok_twitter ul li .time {
+.widget_woo_twitter ul li .time {
   color: #6f6f6f;
 }
-.widget_lok_twitter p {
-  background: url(light-lokd/ico-more.png) no-repeat right 10px;
+.widget_woo_twitter p {
+  background: url(light-wood/ico-more.png) no-repeat right 10px;
   color: #6f6f6f;
 }
-.widget_lok_twitter p a {
+.widget_woo_twitter p a {
   color: #222222;
 }
 .widget_tag_cloud .tagcloud a, .widget_product_tag_cloud .tagcloud a {
@@ -426,19 +426,19 @@ article.type-features .post-more a:link, article.type-features .post-more a:visi
 .widget_tag_cloud .tagcloud a:hover, .widget_product_tag_cloud .tagcloud a:hover {
   background: #c8c8c8;
 }
-.widget_lok_subscribe #connect .social {
+.widget_woo_subscribe #connect .social {
   border-top: 1px dotted #e1e1e1;
 }
-.widget_lok_embedwidget ul li a {
+.widget_woo_embedwidget ul li a {
   color: #555555;
 }
-.widget_lok_embedwidget ul li.active a {
+.widget_woo_embedwidget ul li.active a {
   color: #000000;
 }
-#tabs ul.lokTabs li {
+#tabs ul.wooTabs li {
   color: #fff;
 }
-#tabs ul.lokTabs li a {
+#tabs ul.wooTabs li a {
   color: #6f6f6f;
 }
 #tabs .inside {
@@ -480,7 +480,7 @@ article.type-features .post-more a:link, article.type-features .post-more a:visi
 #footer-widgets .searchform, #footer-widgets #searchform {
   background: #fff;
 }
-#footer-widgets .widget_lok_twitter ul li {
+#footer-widgets .widget_woo_twitter ul li {
   border-bottom: 1px solid #d5c0a3;
 }
 #footer-widgets #tabs .inside {
@@ -502,16 +502,16 @@ article.type-features .post-more a:link, article.type-features .post-more a:visi
 #footer-widgets #tabs .inside li img.avatar:hover, #footer-widgets #tabs .inside li img.thumbnail:hover {
   background: #555555;
 }
-#footer-widgets .widget_lok_subscribe #connect .social {
+#footer-widgets .widget_woo_subscribe #connect .social {
   border-top: 1px dotted #d5c0a3;
 }
-#footer-widgets .widget_lok_blogauthorinfo .avatar {
+#footer-widgets .widget_woo_blogauthorinfo .avatar {
   border: 1px solid #d5c0a3;
 }
-#footer-widgets .widget_lok_flickr a img {
+#footer-widgets .widget_woo_flickr a img {
   border: 1px solid #804e11;
 }
-#footer-widgets .widget_lok_flickr a:hover img {
+#footer-widgets .widget_woo_flickr a:hover img {
   border-color: #555555;
 }
 #footer-widgets .widget_tag_cloud .tagcloud a, #footer-widgets .widget_product_tag_cloud .tagcloud a {
@@ -721,7 +721,7 @@ button.button:active {
     border-left: 1px solid #e1e1e1;
   }
 }
-/* --- lokCOMMERCE --- */
+/* --- WOOCOMMERCE --- */
 .mini-cart a.cart-parent {
   background: #000000;
 }
@@ -731,18 +731,18 @@ button.button:active {
 .onsale {
   background: #ce1b1b;
 }
-.lokcommerce_message,
+.woocommerce_message,
 p.info,
 li.info,
-.lokcommerce_error {
+.woocommerce_error {
   border: 1px solid #e1e1e1;
 }
-.lokcommerce_message {
+.woocommerce_message {
   border-color: #e1e1e1;
   background-color: #f5f0e9;
   border: 1px solid #e1e1e1;
 }
-.lokcommerce_message .button {
+.woocommerce_message .button {
   border: 1px solid #000000;
   background: #000000;
   background: -webkit-gradient(linear, left top, left bottom, from(#000000), to(#000000));
@@ -752,7 +752,7 @@ li.info,
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#000000,endColorstr=#000000);
   -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#000000, endColorstr=#000000)";
 }
-.lokcommerce_message .button:hover {
+.woocommerce_message .button:hover {
   background: #1a1a1a;
   background: -webkit-gradient(linear, left top, left bottom, from(#1a1a1a), to(#000000));
   background: -webkit-linear-gradient(#1a1a1a, #000000);
@@ -767,10 +767,10 @@ ul.products li.product a.button {
 .single-product .summary .price {
   color: #000000;
 }
-.single-product .lokcommerce_tabs ul.tabs {
+.single-product .woocommerce_tabs ul.tabs {
   background: #f5f0e9 url(../images/bg-texture.png) repeat left top;
 }
-.single-product .lokcommerce_tabs ul.tabs li.active a {
+.single-product .woocommerce_tabs ul.tabs li.active a {
   background: #e5d8c6 url(../images/bg-texture.png) repeat left top;
   color: #261705;
 }

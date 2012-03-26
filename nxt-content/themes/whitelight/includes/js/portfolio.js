@@ -34,7 +34,7 @@ jQuery(document).ready(function($){
 				// Move the "last" CSS class appropriately.
 				var itemSelector = '.' + currentHash;
 
-				lok_move_last_class( itemSelector, '#portfolio', 4 );
+				woo_move_last_class( itemSelector, '#portfolio', 4 );
 				
 				// Select the appropriate item in the category menu.
 				jQuery( '.port-cat a.current' ).removeClass( 'current' );
@@ -65,7 +65,7 @@ jQuery(document).ready(function($){
 			itemSelector = '.' + clicked_cat;
 		}
 		
-		lok_move_last_class( itemSelector, '#portfolio', 4 );
+		woo_move_last_class( itemSelector, '#portfolio', 4 );
 		
 		if( clicked_cat == 'all' ) {
 			jQuery('#portfolio .portfolio-item').hide().fadeIn(200);
@@ -96,7 +96,7 @@ jQuery(document).ready(function($){
 });
 
 /**
- * lok_move_last_class function.
+ * woo_move_last_class function.
  *
  * @description Move the "last" CSS class according to the number of items per row.
  * @access public
@@ -105,11 +105,11 @@ jQuery(document).ready(function($){
  * @param int perRow
  * @return void
  */
-function lok_move_last_class ( itemSelector, containerSelector, perRow ) {
+function woo_move_last_class ( itemSelector, containerSelector, perRow ) {
 	jQuery( containerSelector + ' .last' ).removeClass( 'last' );
 	jQuery( containerSelector + ' ' + itemSelector ).each( function ( i ) {
 		if ( i % ( perRow - 1 ) == 0 && i > 0 ) {
 			jQuery( this ).addClass( 'last' );
 		}
 	});
-} // End lok_move_last_class()
+} // End woo_move_last_class()

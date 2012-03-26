@@ -2,7 +2,7 @@
 
 FILE INFORMATION
 
-Description: JavaScript used on lokFramework shortcodes.
+Description: JavaScript used on WooFramework shortcodes.
 Date Created: 2011-01-24.
 Author: Matty.
 Since: 3.5.0

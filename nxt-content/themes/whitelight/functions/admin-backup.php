@@ -1,6 +1,6 @@
 <?php
 /**
- * lokThemes Theme Options Backup
+ * WooThemes Theme Options Backup
  *
  * Backup your "Theme Options" to a downloadable text file.
  *
@@ -8,7 +8,7 @@
  * @author Matty
  * @since 4.5.0
  *
- * @package lokFramework
+ * @package WooFramework
  * @subpackage Module
  * 
  *-----------------------------------------------------------------------------------
@@ -18,7 +18,7 @@
  - var $admin_page
  - var $token
  
- - function lokThemes_Backup () (Constructor)
+ - function WooThemes_Backup () (Constructor)
  - function init ()
  - function register_admin_screen ()
  - function admin_screen ()
@@ -31,17 +31,17 @@
  - function add_single_to_export_query ()
  - function construct_database_query ()
 
- - Create $lok_backup Object
+ - Create $woo_backup Object
 -----------------------------------------------------------------------------------*/
 
-class lokThemes_Backup {
+class WooThemes_Backup {
 	
 	var $admin_page;
 	var $token;
 	
-	function lokThemes_Backup () {
+	function WooThemes_Backup () {
 		$this->admin_page = '';
-		$this->token = 'lokthemes-backup';
+		$this->token = 'woothemes-backup';
 	} // End Constructor
 	
 	/**
@@ -53,7 +53,7 @@ class lokThemes_Backup {
 	 */
 	
 	function init () {
-		if ( is_admin() && ( get_option( 'framework_lok_backupmenu_disable' ) != 'true' ) ) {
+		if ( is_admin() && ( get_option( 'framework_woo_backupmenu_disable' ) != 'true' ) ) {
 			// Register the admin screen.
 			add_action( 'admin_menu', array( &$this, 'register_admin_screen' ), 20 );
 			add_action( 'admin_menu', array( &$this, 'move_admin_menu' ), 99 );
@@ -70,7 +70,7 @@ class lokThemes_Backup {
 	
 	function register_admin_screen () {
 			
-		$this->admin_page = add_submenu_page('lokthemes', __( 'lokThemes Settings Backup', 'lokthemes' ), __( 'Backup Settings', 'lokthemes' ), 'manage_options', $this->token, array( &$this, 'admin_screen' ) );
+		$this->admin_page = add_submenu_page('woothemes', __( 'WooThemes Settings Backup', 'woothemes' ), __( 'Backup Settings', 'woothemes' ), 'manage_options', $this->token, array( &$this, 'admin_screen' ) );
 			
 		// Admin screen logic.
 		add_action( 'load-' . $this->admin_page, array( &$this, 'admin_screen_logic' ) );
@@ -100,42 +100,42 @@ class lokThemes_Backup {
 ?>
 	<div class="wrap">
 		<?php screen_icon( 'tools' ); ?>	
-		<h2><?php _e( 'Backup Settings', 'lokthemes' ); ?></h2>
+		<h2><?php _e( 'Backup Settings', 'woothemes' ); ?></h2>
 		
-		<h3><?php _e( 'Import Settings', 'lokthemes' ); ?></h3>
+		<h3><?php _e( 'Import Settings', 'woothemes' ); ?></h3>
 		
-		<p><?php _e( 'If you have settings in a backup file on your computer, the lokFramework can import those into this site. To get started, upload your backup file to import from below.', 'lokthemes' ); ?></p>
+		<p><?php _e( 'If you have settings in a backup file on your computer, the WooFramework can import those into this site. To get started, upload your backup file to import from below.', 'woothemes' ); ?></p>
 
 		<div class="form-wrap">
 			<form enctype="multipart/form-data" method="post" action="<?php echo admin_url( 'admin.php?page=' . $this->token ); ?>">
-				<?php nxt_nonce_field( 'lokthemes-backup-import' ); ?>
-				<label for="lokthemes-import-file"><?php printf( __( 'Upload File: (Maximum Size: %s)', 'lokthemes' ), ini_get( 'post_max_size' ) ); ?></label>
-				<input type="file" id="lokthemes-import-file" name="lokthemes-import-file" size="25" />
-				<input type="hidden" name="lokthemes-backup-import" value="1" />
-				<input type="submit" class="button" value="<?php _e( 'Upload File and Import', 'lokthemes' ); ?>" />
+				<?php nxt_nonce_field( 'woothemes-backup-import' ); ?>
+				<label for="woothemes-import-file"><?php printf( __( 'Upload File: (Maximum Size: %s)', 'woothemes' ), ini_get( 'post_max_size' ) ); ?></label>
+				<input type="file" id="woothemes-import-file" name="woothemes-import-file" size="25" />
+				<input type="hidden" name="woothemes-backup-import" value="1" />
+				<input type="submit" class="button" value="<?php _e( 'Upload File and Import', 'woothemes' ); ?>" />
 			</form>
 		</div><!--/.form-wrap-->
 		
-		<h3><?php _e( 'Export Settings', 'lokthemes' ); ?></h3>
+		<h3><?php _e( 'Export Settings', 'woothemes' ); ?></h3>
 		
-		<p><?php _e( 'When you click the button below, the lokFramework will create a text file for you to save to your computer.', 'lokthemes' ); ?></p>
-		<p><?php echo sprintf( __( 'This text file can be used to restore your settings here on "%s", or to easily setup another website with the same settings".', 'lokthemes' ), get_bloginfo( 'name' ) ); ?></p>
+		<p><?php _e( 'When you click the button below, the WooFramework will create a text file for you to save to your computer.', 'woothemes' ); ?></p>
+		<p><?php echo sprintf( __( 'This text file can be used to restore your settings here on "%s", or to easily setup another website with the same settings".', 'woothemes' ), get_bloginfo( 'name' ) ); ?></p>
 			
 		<form method="post" action="<?php echo admin_url( 'admin.php?page=' . $this->token ); ?>">
-			<?php nxt_nonce_field( 'lokthemes-backup-export' ); ?>
-			<p><label><input type="radio" name="export-type" value="all"<?php checked( 'all', $export_type ); ?>> <?php _e( 'All Settings', 'lokthemes' ); ?></label>
-<span class="description"><?php _e( 'This will contain all of the options listed below.', 'lokthemes' ); ?></span></p>
+			<?php nxt_nonce_field( 'woothemes-backup-export' ); ?>
+			<p><label><input type="radio" name="export-type" value="all"<?php checked( 'all', $export_type ); ?>> <?php _e( 'All Settings', 'woothemes' ); ?></label>
+<span class="description"><?php _e( 'This will contain all of the options listed below.', 'woothemes' ); ?></span></p>
 
-			<p><label for="content"><input type="radio" name="export-type" value="theme"<?php checked( 'theme', $export_type ); ?>> <?php _e( 'Theme Options', 'lokthemes' ); ?></label></p>
+			<p><label for="content"><input type="radio" name="export-type" value="theme"<?php checked( 'theme', $export_type ); ?>> <?php _e( 'Theme Options', 'woothemes' ); ?></label></p>
 			
-			<p><label for="content"><input type="radio" name="export-type" value="seo"<?php checked( 'seo', $export_type ); ?>> <?php _e( 'SEO Settings', 'lokthemes' ); ?></label></p>
+			<p><label for="content"><input type="radio" name="export-type" value="seo"<?php checked( 'seo', $export_type ); ?>> <?php _e( 'SEO Settings', 'woothemes' ); ?></label></p>
 			
-			<p><label for="content"><input type="radio" name="export-type" value="sidebar"<?php checked( 'sidebar', $export_type ); ?>> <?php _e( 'Sidebar Manager', 'lokthemes' ); ?> <span class="description"><?php _e( 'This will contain only the custom sidebars themselves and not the widgets within them', 'lokthemes' ); ?></span></label></p>
+			<p><label for="content"><input type="radio" name="export-type" value="sidebar"<?php checked( 'sidebar', $export_type ); ?>> <?php _e( 'Sidebar Manager', 'woothemes' ); ?> <span class="description"><?php _e( 'This will contain only the custom sidebars themselves and not the widgets within them', 'woothemes' ); ?></span></label></p>
 			
-			<p><label for="content"><input type="radio" name="export-type" value="framework"<?php checked( 'framework', $export_type ); ?>> <?php _e( 'Framework Settings', 'lokthemes' ); ?></label></p>
+			<p><label for="content"><input type="radio" name="export-type" value="framework"<?php checked( 'framework', $export_type ); ?>> <?php _e( 'Framework Settings', 'woothemes' ); ?></label></p>
 			
-			<input type="hidden" name="lokthemes-backup-export" value="1" />
-			<input type="submit" class="button" value="<?php _e( 'Download Export File', 'lokthemes' ); ?>" />
+			<input type="hidden" name="woothemes-backup-export" value="1" />
+			<input type="submit" class="button" value="<?php _e( 'Download Export File', 'woothemes' ); ?>" />
 		</form>
 		
 	</div><!--/.wrap-->
@@ -158,16 +158,16 @@ class lokThemes_Backup {
 		if ( $this->admin_page == $screen->id ) {
 		
 		$contextual_help =
-		  '<h3>' . __( 'Welcome to the lokThemes Backup Manager.', 'lokthemes' ) . '</h3>' .
-		  '<p>' . __( 'Here are a few notes on using this screen.', 'lokthemes' ) . '</p>' .
-		  '<p>' . __( 'The backup manager allows you to backup or restore your "Theme Options" and other settings to or from a text file.', 'lokthemes' ) . '</p>' .
-		  '<p>' . __( 'To create a backup, simply select the setting type you\'d like to backup (or "All Settings") and hit the "Download Export File" button.', 'lokthemes' ) . '</p>' .
-		  '<p>' . __( 'To restore your settings from a backup, browse your computer for the file (under the "Import Settings" heading) and hit the "Upload File and Import" button. This will restore only the settings that have changed since the backup.', 'lokthemes' ) . '</p>' .
+		  '<h3>' . __( 'Welcome to the WooThemes Backup Manager.', 'woothemes' ) . '</h3>' .
+		  '<p>' . __( 'Here are a few notes on using this screen.', 'woothemes' ) . '</p>' .
+		  '<p>' . __( 'The backup manager allows you to backup or restore your "Theme Options" and other settings to or from a text file.', 'woothemes' ) . '</p>' .
+		  '<p>' . __( 'To create a backup, simply select the setting type you\'d like to backup (or "All Settings") and hit the "Download Export File" button.', 'woothemes' ) . '</p>' .
+		  '<p>' . __( 'To restore your settings from a backup, browse your computer for the file (under the "Import Settings" heading) and hit the "Upload File and Import" button. This will restore only the settings that have changed since the backup.', 'woothemes' ) . '</p>' .
 		  
-		  '<p><strong>' . __( 'Please note that only valid backup files generated through the lokThemes Backup Manager should be imported.', 'lokthemes' ) . '</strong></p>' .
+		  '<p><strong>' . __( 'Please note that only valid backup files generated through the WooThemes Backup Manager should be imported.', 'woothemes' ) . '</strong></p>' .
 
-		  '<p><strong>' . __( 'Looking for assistance?', 'lokthemes' ) . '</strong></p>' .
-		  '<p>' . sprintf( __( 'Please post your query on the %slokThemes Support Forums%s where we will do our best to assist you further.', 'lokthemes' ), '<a href="http://www.lokthemes.com/support=forum/" target="_blank">', '</a>' ) . '</p>';
+		  '<p><strong>' . __( 'Looking for assistance?', 'woothemes' ) . '</strong></p>' .
+		  '<p>' . sprintf( __( 'Please post your query on the %sWooThemes Support Forums%s where we will do our best to assist you further.', 'woothemes' ), '<a href="http://www.woothemes.com/support=forum/" target="_blank">', '</a>' ) . '</p>';
 		
 		} // End IF Statement
 		
@@ -187,16 +187,16 @@ class lokThemes_Backup {
 	
 		if ( ! isset( $_GET['page'] ) || ( $_GET['page'] != $this->token ) ) { return; }
 	
-		echo '<div id="import-notice" class="updated"><p>' . sprintf( __( 'Please note that this backup manager backs up only your settings and not your content. To backup your content, please use the %sNXTClass Export Tool%s.', 'lokthemes' ), '<a href="' . admin_url( 'export.php' ) . '">', '</a>' ) . '</p></div><!--/#import-notice .message-->' . "\n";
+		echo '<div id="import-notice" class="updated"><p>' . sprintf( __( 'Please note that this backup manager backs up only your settings and not your content. To backup your content, please use the %sNXTClass Export Tool%s.', 'woothemes' ), '<a href="' . admin_url( 'export.php' ) . '">', '</a>' ) . '</p></div><!--/#import-notice .message-->' . "\n";
 			
 		if ( isset( $_GET['error'] ) && $_GET['error'] == 'true' ) {
-			echo '<div id="message" class="error"><p>' . __( 'There was a problem importing your settings. Please Try again.', 'lokthemes' ) . '</p></div>';
+			echo '<div id="message" class="error"><p>' . __( 'There was a problem importing your settings. Please Try again.', 'woothemes' ) . '</p></div>';
 		} else if ( isset( $_GET['error-export'] ) && $_GET['error-export'] == 'true' ) {  
-			echo '<div id="message" class="error"><p>' . __( 'There was a problem exporting your settings. Please Try again.', 'lokthemes' ) . '</p></div>';
+			echo '<div id="message" class="error"><p>' . __( 'There was a problem exporting your settings. Please Try again.', 'woothemes' ) . '</p></div>';
 		} else if ( isset( $_GET['invalid'] ) && $_GET['invalid'] == 'true' ) {  
-			echo '<div id="message" class="error"><p>' . __( 'The import file you\'ve provided is invalid. Please try again.', 'lokthemes' ) . '</p></div>';
+			echo '<div id="message" class="error"><p>' . __( 'The import file you\'ve provided is invalid. Please try again.', 'woothemes' ) . '</p></div>';
 		} else if ( isset( $_GET['imported'] ) && $_GET['imported'] == 'true' ) {  
-			echo '<div id="message" class="updated"><p>' . sprintf( __( 'Settings successfully imported. | Return to %sTheme Options%s', 'lokthemes' ), '<a href="' . admin_url( 'admin.php?page=lokthemes' ) . '">', '</a>' ) . '</p></div>';
+			echo '<div id="message" class="updated"><p>' . sprintf( __( 'Settings successfully imported. | Return to %sTheme Options%s', 'woothemes' ), '<a href="' . admin_url( 'admin.php?page=woothemes' ) . '">', '</a>' ) . '</p></div>';
 		} // End IF Statement
 		
 	} // End admin_notices()
@@ -211,11 +211,11 @@ class lokThemes_Backup {
 	
 	function admin_screen_logic () {
 		
-		if ( ! isset( $_POST['lokthemes-backup-export'] ) && isset( $_POST['lokthemes-backup-import'] ) && ( $_POST['lokthemes-backup-import'] == true ) ) {
+		if ( ! isset( $_POST['woothemes-backup-export'] ) && isset( $_POST['woothemes-backup-import'] ) && ( $_POST['woothemes-backup-import'] == true ) ) {
 			$this->import();
 		}
 		
-		if ( ! isset( $_POST['lokthemes-backup-import'] ) && isset( $_POST['lokthemes-backup-export'] ) && ( $_POST['lokthemes-backup-export'] == true ) ) {
+		if ( ! isset( $_POST['woothemes-backup-import'] ) && isset( $_POST['woothemes-backup-export'] ) && ( $_POST['woothemes-backup-export'] == true ) ) {
 			$this->export();
 		}
 
@@ -232,32 +232,32 @@ class lokThemes_Backup {
 	function move_admin_menu () {
 		global $submenu;
 	
-		if ( ! array_key_exists( 'lokthemes', $submenu ) ) { return ; }
+		if ( ! array_key_exists( 'woothemes', $submenu ) ) { return ; }
 		
 		$items_to_move = array();
 		$first_item = array();
 		$below_items = array();
 		
-		foreach ( $submenu['lokthemes'] as $k => $s ) {
-			if ( in_array( $s[2], array( 'lokthemes-backup' ) ) ) {
+		foreach ( $submenu['woothemes'] as $k => $s ) {
+			if ( in_array( $s[2], array( 'woothemes-backup' ) ) ) {
 				$items_to_move[] = $s;
-				unset( $submenu['lokthemes'][$k] );
+				unset( $submenu['woothemes'][$k] );
 			}
 			
-			if ( in_array( $s[2], array( 'lokthemes_themes', 'lokthemes_timthumb_update' ) ) ) {
+			if ( in_array( $s[2], array( 'woothemes_themes', 'woothemes_timthumb_update' ) ) ) {
 				$below_items[] = $s;
-				unset( $submenu['lokthemes'][$k] );
+				unset( $submenu['woothemes'][$k] );
 			}
 			
-			if ( $k == 0 ) { $first_item[] = $s; unset( $submenu['lokthemes'][$k]); }
+			if ( $k == 0 ) { $first_item[] = $s; unset( $submenu['woothemes'][$k]); }
 		}
 		
 		sort( $items_to_move );
 		
-		$remaining_items = $submenu['lokthemes'];
+		$remaining_items = $submenu['woothemes'];
 		
 		// Grab the first item and unset it from the main array.
-		$submenu['lokthemes'] = array_merge( $first_item, $remaining_items, $items_to_move, $below_items );
+		$submenu['woothemes'] = array_merge( $first_item, $remaining_items, $items_to_move, $below_items );
 	} // End move_admin_menu()
 	
 	/**
@@ -269,32 +269,32 @@ class lokThemes_Backup {
 	 */
 	 
 	function import() {
-		check_admin_referer( 'lokthemes-backup-import' ); // Security check.
+		check_admin_referer( 'woothemes-backup-import' ); // Security check.
 		
-		if ( ! isset( $_FILES['lokthemes-import-file'] ) ) { return; } // We can't import the settings without a settings file.
+		if ( ! isset( $_FILES['woothemes-import-file'] ) ) { return; } // We can't import the settings without a settings file.
 		
 		// Extract file contents
-		$upload = file_get_contents( $_FILES['lokthemes-import-file']['tmp_name'] );
+		$upload = file_get_contents( $_FILES['woothemes-import-file']['tmp_name'] );
 		
 		// Decode the JSON from the uploaded file
 		$options = json_decode( $upload, true );
 		
 		// Check for errors
-		if ( ! $options || $_FILES['lokthemes-import-file']['error'] ) {
+		if ( ! $options || $_FILES['woothemes-import-file']['error'] ) {
 			nxt_redirect( admin_url( 'admin.php?page=' . $this->token . '&error=true' ) );
 			exit;
 		}
 		
 		// Make sure this is a valid backup file.
-		if ( ! isset( $options['lokthemes-backup-validator'] ) ) {
+		if ( ! isset( $options['woothemes-backup-validator'] ) ) {
 			nxt_redirect( admin_url( 'admin.php?page=' . $this->token . '&invalid=true' ) );
 			exit;
 		} else {
-			unset( $options['lokthemes-backup-validator'] ); // Now that we've checked it, we don't need the field anymore.
+			unset( $options['woothemes-backup-validator'] ); // Now that we've checked it, we don't need the field anymore.
 		}
 		
 		// Make sure the options are saved to the global options collection as well.
-		$lok_options = get_option( 'lok_options' );
+		$woo_options = get_option( 'woo_options' );
 
 		$has_updated = false; // If this is set to true at any stage, we update the main options collection.
 		
@@ -308,16 +308,16 @@ class lokThemes_Backup {
 				update_option( $key, $settings );
 			}
 			
-			if ( is_array( $lok_options ) ) {
-				if ( isset( $lok_options[$key] ) && $lok_options[$key] != $settings ) {
-					$lok_options[$key] = $settings;
+			if ( is_array( $woo_options ) ) {
+				if ( isset( $woo_options[$key] ) && $woo_options[$key] != $settings ) {
+					$woo_options[$key] = $settings;
 					$has_updated = true;
 				}
 			}
 		}
 		
 		if ( $has_updated == true ) {
-			update_option( 'lok_options', $lok_options );
+			update_option( 'woo_options', $woo_options );
 		}
 		
 		// Redirect, add success flag to the URI
@@ -337,7 +337,7 @@ class lokThemes_Backup {
 	 
 	function export() {
 		global $nxtdb;
-		check_admin_referer( 'lokthemes-backup-export' ); // Security check.
+		check_admin_referer( 'woothemes-backup-export' ); // Security check.
 		
 		$export_options = array( 'all', 'theme', 'seo', 'sidebar', 'framework' );		
 		
@@ -371,7 +371,7 @@ class lokThemes_Backup {
 		if ( ! $settings ) { return; }
 	
 		// Add our custom marker, to ensure only valid files are imported successfully.
-		$settings['lokthemes-backup-validator'] = date( 'Y-m-d h:i:s' );
+		$settings['woothemes-backup-validator'] = date( 'Y-m-d h:i:s' );
 	
 		// Generate the export file.
 	    $output = json_encode( (array)$settings );
@@ -503,7 +503,7 @@ class lokThemes_Backup {
 			case 'all':
 				
 				// Theme Options
-				$options = get_option( 'lok_template' );
+				$options = get_option( 'woo_template' );
 				
 				if ( is_array( $options ) ) {
 					$query = $this->add_to_export_query( $options, $count );
@@ -513,7 +513,7 @@ class lokThemes_Backup {
 				}
 				
 				// SEO Settings
-				$options = get_option( 'lok_seo_template' );
+				$options = get_option( 'woo_seo_template' );
 				
 				if ( is_array( $options ) ) {
 					$query = $this->add_to_export_query( $options, $count );
@@ -524,7 +524,7 @@ class lokThemes_Backup {
 				
 				// Sidebar Manager
 				
-				$option_id = 'sbm_lok_sbm_options';
+				$option_id = 'sbm_woo_sbm_options';
 				
 				$query = $this->add_single_to_export_query( $option_id, $count );
 				
@@ -532,12 +532,12 @@ class lokThemes_Backup {
 				$count = $query['count'];
 				
 				// Framework Settings
-				$options = get_option( 'lok_framework_template' );
+				$options = get_option( 'woo_framework_template' );
 				
 				if ( is_array( $options ) ) {
-					// Remove the "framework_lok_export_options" and "framework_lok_import_options" items before constructing the query.
+					// Remove the "framework_woo_export_options" and "framework_woo_import_options" items before constructing the query.
 					foreach ( (array) $options as $k => $v ) {
-						if ( isset( $options[$k]['id'] ) && in_array( $options[$k]['id'], array( 'framework_lok_import_options', 'framework_lok_export_options' ) ) ) {
+						if ( isset( $options[$k]['id'] ) && in_array( $options[$k]['id'], array( 'framework_woo_import_options', 'framework_woo_export_options' ) ) ) {
 							unset( $options[$k] );
 						}
 					}
@@ -552,7 +552,7 @@ class lokThemes_Backup {
 			// Theme Options
 			case 'theme':
 			
-				$options = get_option( 'lok_template' );
+				$options = get_option( 'woo_template' );
 				
 				if ( is_array( $options ) ) {
 					$query = $this->add_to_export_query( $options, $count );
@@ -566,7 +566,7 @@ class lokThemes_Backup {
 			// SEO Settings
 			case 'seo':
 			
-				$options = get_option( 'lok_seo_template' );
+				$options = get_option( 'woo_seo_template' );
 				
 				if ( is_array( $options ) ) {
 					$query = $this->add_to_export_query( $options, $count );
@@ -580,7 +580,7 @@ class lokThemes_Backup {
 			// Sidebar Manager
 			case 'sidebar':
 			
-				$option_id = 'sbm_lok_sbm_options';
+				$option_id = 'sbm_woo_sbm_options';
 				
 				$query = $this->add_single_to_export_query( $option_id, $count );
 				
@@ -592,12 +592,12 @@ class lokThemes_Backup {
 			// Framework Settings
 			case 'framework':
 			
-				$options = get_option( 'lok_framework_template' );
+				$options = get_option( 'woo_framework_template' );
 				
 				if ( is_array( $options ) ) {
-					// Remove the "framework_lok_export_options" and "framework_lok_import_options" items before constructing the query.
+					// Remove the "framework_woo_export_options" and "framework_woo_import_options" items before constructing the query.
 					foreach ( (array) $options as $k => $v ) {
-						if ( isset( $options[$k]['id'] ) && in_array( $options[$k]['id'], array( 'framework_lok_import_options', 'framework_lok_export_options' ) ) ) {
+						if ( isset( $options[$k]['id'] ) && in_array( $options[$k]['id'], array( 'framework_woo_import_options', 'framework_woo_export_options' ) ) ) {
 							unset( $options[$k] );
 						}
 					}
@@ -612,7 +612,7 @@ class lokThemes_Backup {
 		}
 		
 		// Allow child themes/plugins to add their own data to the exporter.
-		$query_inner = apply_filters( 'lokframework_export_query_inner', $query_inner );
+		$query_inner = apply_filters( 'wooframework_export_query_inner', $query_inner );
 		
 		if ( $query_inner != '' ) {
 			$query = 'SELECT option_name, option_value FROM ' . $nxtdb->options . ' WHERE ' . $query_inner;
@@ -624,12 +624,12 @@ class lokThemes_Backup {
 } // End Class
 
 /**
- * Create $lok_backup Object.
+ * Create $woo_backup Object.
  *
  * @since 1.0.0
- * @uses lokThemes_Backup
+ * @uses WooThemes_Backup
  */
 
-$lok_backup = new lokThemes_Backup();
-$lok_backup->init();
+$woo_backup = new WooThemes_Backup();
+$woo_backup->init();
 ?>

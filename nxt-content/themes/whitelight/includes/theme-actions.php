@@ -11,7 +11,7 @@ TABLE OF CONTENTS
 - Add custom styling to HEAD
 - Add custom typograhpy to HEAD
 - Add layout to body_class output
-- lok_feedburner_link
+- woo_feedburner_link
 - Load responsive IE scripts
 
 -----------------------------------------------------------------------------------*/
@@ -25,7 +25,7 @@ TABLE OF CONTENTS
  * This is the general theme setup, where we add_theme_support(), create global variables
  * and setup default generic filters and actions to be used across our theme.
  *
- * @package lokFramework
+ * @package WooFramework
  * @subpackage Logic
  */
 
@@ -45,17 +45,17 @@ if ( ! isset( $content_width ) ) $content_width = 640;
  * before the init hook. The init hook is too late for some features, such as indicating
  * support for post thumbnails.
  *
- * To override lokthemes_setup() in a child theme, add your own lokthemes_setup to your child theme's
+ * To override woothemes_setup() in a child theme, add your own woothemes_setup to your child theme's
  * functions.php file.
  *
  * @uses add_theme_support() To add support for automatic feed links.
  * @uses add_editor_style() To style the visual editor.
  */
 
-add_action( 'after_setup_theme', 'lokthemes_setup' );
+add_action( 'after_setup_theme', 'woothemes_setup' );
 
-if ( ! function_exists( 'lokthemes_setup' ) ) {
-	function lokthemes_setup () {
+if ( ! function_exists( 'woothemes_setup' ) ) {
+	function woothemes_setup () {
 
 		// This theme styles the visual editor with editor-style.css to match the theme style.
 		if ( locate_template( 'editor-style.css' ) != '' ) { add_editor_style(); }
@@ -83,11 +83,11 @@ global $default_google_fonts;
 $default_google_fonts = array( 'Signika' );
 
 // add the function to the init hook
-add_action( 'init', 'lok_add_googlefonts', 20 );
+add_action( 'init', 'woo_add_googlefonts', 20 );
  
 // add a font to the $google_fonts variable
-if ( ! function_exists( 'lok_add_googlefonts' ) ) {
-	function lok_add_googlefonts () {
+if ( ! function_exists( 'woo_add_googlefonts' ) ) {
+	function woo_add_googlefonts () {
 	    global $google_fonts;
 	    $google_fonts[] = array( 'name' => 'Signika', 'variant' => ':300,400,600');
 	}
@@ -97,24 +97,24 @@ if ( ! function_exists( 'lok_add_googlefonts' ) ) {
 /* Load layout.css in the <head> */
 /*-----------------------------------------------------------------------------------*/
 
-if ( ! is_admin() ) { add_action( 'get_header', 'lok_load_frontend_css', 10 ); }
+if ( ! is_admin() ) { add_action( 'get_header', 'woo_load_frontend_css', 10 ); }
 
-if ( ! function_exists( 'lok_load_frontend_css' ) ) {
-	function lok_load_frontend_css () {
-		nxt_register_style( 'lok-layout', get_template_directory_uri() . '/css/layout.css' );
+if ( ! function_exists( 'woo_load_frontend_css' ) ) {
+	function woo_load_frontend_css () {
+		nxt_register_style( 'woo-layout', get_template_directory_uri() . '/css/layout.css' );
 		
-		nxt_enqueue_style( 'lok-layout' );
-	} // End lok_load_frontend_css()
+		nxt_enqueue_style( 'woo-layout' );
+	} // End woo_load_frontend_css()
 }
 
 /*-----------------------------------------------------------------------------------*/
 /* Load responsive <meta> tags in the <head> */
 /*-----------------------------------------------------------------------------------*/
 
-add_action( 'nxt_head', 'lok_load_responsive_meta_tags', 10 );
+add_action( 'nxt_head', 'woo_load_responsive_meta_tags', 10 );
 
-if ( ! function_exists( 'lok_load_responsive_meta_tags' ) ) {
-	function lok_load_responsive_meta_tags () {
+if ( ! function_exists( 'woo_load_responsive_meta_tags' ) ) {
+	function woo_load_responsive_meta_tags () {
 		$html = '';
 		
 		$html .= "\n" . '<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame -->' . "\n";
@@ -124,18 +124,18 @@ if ( ! function_exists( 'lok_load_responsive_meta_tags' ) ) {
 		$html .= '<meta content="initial-scale=1.0" name="vienxtort"/>' . "\n" . "\n";
 		
 		echo $html;
-	} // End lok_load_responsive_meta_tags()
+	} // End woo_load_responsive_meta_tags()
 }
 
 /*-----------------------------------------------------------------------------------*/
 /* Add Google Maps to HEAD */
 /*-----------------------------------------------------------------------------------*/
 
-add_action( 'lok_head', 'lok_google_maps', 10 ); // Add custom styling to HEAD
+add_action( 'woo_head', 'woo_google_maps', 10 ); // Add custom styling to HEAD
 
-if ( ! function_exists( 'lok_google_maps' ) ) {
+if ( ! function_exists( 'woo_google_maps' ) ) {
 	
-	function lok_google_maps() {
+	function woo_google_maps() {
 		if ( is_page_template( 'template-contact.php' ) ) { ?>
 			<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 		<?php 
@@ -148,10 +148,10 @@ if ( ! function_exists( 'lok_google_maps' ) ) {
 /* Add Custom Styling to HEAD */
 /*-----------------------------------------------------------------------------------*/
 
-add_action( 'lok_head', 'lok_custom_styling', 10 ); // Add custom styling to HEAD
+add_action( 'woo_head', 'woo_custom_styling', 10 ); // Add custom styling to HEAD
 
-if ( ! function_exists( 'lok_custom_styling' ) ) {
-	function lok_custom_styling() {
+if ( ! function_exists( 'woo_custom_styling' ) ) {
+	function woo_custom_styling() {
 	
 		$output = '';
 		// Get options
@@ -177,7 +177,7 @@ if ( ! function_exists( 'lok_custom_styling' ) ) {
 						'button_color' => '',
 						'navhover_color' => ''
 						);
-		$settings = lok_get_dynamic_values( $settings );
+		$settings = woo_get_dynamic_values( $settings );
 		
 			
 		// Add CSS to output
@@ -269,70 +269,70 @@ if ( ! function_exists( 'lok_custom_styling' ) ) {
 		// Output styles
 		if ( isset( $output ) && $output != '' ) {
 			$output = strip_tags( $output );
-			$output = "<!-- lok Custom Styling -->\n<style type=\"text/css\">\n" . $output . "</style>\n";
+			$output = "<!-- Woo Custom Styling -->\n<style type=\"text/css\">\n" . $output . "</style>\n";
 			echo $output;
 		}
 			
-	} // End lok_custom_styling()
+	} // End woo_custom_styling()
 }
 
 /*-----------------------------------------------------------------------------------*/
 /* Add custom typograhpy to HEAD */
 /*-----------------------------------------------------------------------------------*/
 
-add_action( 'lok_head','lok_custom_typography', 10 ); // Add custom typography to HEAD
+add_action( 'woo_head','woo_custom_typography', 10 ); // Add custom typography to HEAD
 
-if ( ! function_exists( 'lok_custom_typography' ) ) {
-	function lok_custom_typography() {
+if ( ! function_exists( 'woo_custom_typography' ) ) {
+	function woo_custom_typography() {
 	
 		// Get options
-		global $lok_options;
+		global $woo_options;
 				
 		// Reset	
 		$output = '';
 		$default_google_font = false;
 		
 		// Add Text title and tagline if text title option is enabled
-		if ( isset( $lok_options['lok_texttitle'] ) && $lok_options['lok_texttitle'] == 'true' ) {		
+		if ( isset( $woo_options['woo_texttitle'] ) && $woo_options['woo_texttitle'] == 'true' ) {		
 			
-			if ( $lok_options['lok_font_site_title'] )
-				$output .= '#header .site-title a {'.lok_generate_font_css($lok_options['lok_font_site_title']).'}' . "\n";	
-			if ( $lok_options['lok_tagline'] == "true" AND $lok_options['lok_font_tagline'] ) 
-				$output .= '#header .site-description {'.lok_generate_font_css($lok_options[ 'lok_font_tagline']).'}' . "\n";	
+			if ( $woo_options['woo_font_site_title'] )
+				$output .= '#header .site-title a {'.woo_generate_font_css($woo_options['woo_font_site_title']).'}' . "\n";	
+			if ( $woo_options['woo_tagline'] == "true" AND $woo_options['woo_font_tagline'] ) 
+				$output .= '#header .site-description {'.woo_generate_font_css($woo_options[ 'woo_font_tagline']).'}' . "\n";	
 		}
 
-		if ( isset( $lok_options['lok_typography'] ) && $lok_options['lok_typography'] == 'true' ) {
+		if ( isset( $woo_options['woo_typography'] ) && $woo_options['woo_typography'] == 'true' ) {
 			
-			if ( isset( $lok_options['lok_font_body'] ) && $lok_options['lok_font_body'] )
-				$output .= 'body { '.lok_generate_font_css($lok_options['lok_font_body'], '1.5').' }' . "\n";	
+			if ( isset( $woo_options['woo_font_body'] ) && $woo_options['woo_font_body'] )
+				$output .= 'body { '.woo_generate_font_css($woo_options['woo_font_body'], '1.5').' }' . "\n";	
 
-			if ( isset( $lok_options['lok_font_nav'] ) && $lok_options['lok_font_nav'] )
-				$output .= '#navigation, #navigation .nav a { '.lok_generate_font_css($lok_options['lok_font_nav'], '1.4').' }' . "\n";	
+			if ( isset( $woo_options['woo_font_nav'] ) && $woo_options['woo_font_nav'] )
+				$output .= '#navigation, #navigation .nav a { '.woo_generate_font_css($woo_options['woo_font_nav'], '1.4').' }' . "\n";	
 
-			if ( isset( $lok_options['lok_font_intro_section'] ) && $lok_options['lok_font_intro_section'] )
-				$output .= '#intro h1 { '.lok_generate_font_css($lok_options[ 'lok_font_intro_section' ], '1.3').' }' . "\n";
+			if ( isset( $woo_options['woo_font_intro_section'] ) && $woo_options['woo_font_intro_section'] )
+				$output .= '#intro h1 { '.woo_generate_font_css($woo_options[ 'woo_font_intro_section' ], '1.3').' }' . "\n";
 			
-			if ( isset( $lok_options['lok_font_page_title'] ) && $lok_options['lok_font_page_title'] )
-				$output .= '.page header h1 { '.lok_generate_font_css($lok_options[ 'lok_font_page_title' ], '1.2').' }' . "\n";
+			if ( isset( $woo_options['woo_font_page_title'] ) && $woo_options['woo_font_page_title'] )
+				$output .= '.page header h1 { '.woo_generate_font_css($woo_options[ 'woo_font_page_title' ], '1.2').' }' . "\n";
 
-			if ( isset( $lok_options['lok_font_post_title'] ) && $lok_options['lok_font_post_title'] )
-				$output .= '.post header h1, .post header h1 a:link, .post header h1 a:visited { '.lok_generate_font_css($lok_options[ 'lok_font_post_title' ], '1.2').' }' . "\n";	
+			if ( isset( $woo_options['woo_font_post_title'] ) && $woo_options['woo_font_post_title'] )
+				$output .= '.post header h1, .post header h1 a:link, .post header h1 a:visited { '.woo_generate_font_css($woo_options[ 'woo_font_post_title' ], '1.2').' }' . "\n";	
 		
-			if ( isset( $lok_options['lok_font_post_meta'] ) && $lok_options['lok_font_post_meta'] )
-				$output .= '.post-meta { '.lok_generate_font_css($lok_options[ 'lok_font_post_meta' ]).' }' . "\n";	
+			if ( isset( $woo_options['woo_font_post_meta'] ) && $woo_options['woo_font_post_meta'] )
+				$output .= '.post-meta { '.woo_generate_font_css($woo_options[ 'woo_font_post_meta' ]).' }' . "\n";	
 
-			if ( isset( $lok_options['lok_font_post_entry'] ) && $lok_options['lok_font_post_entry'] )
-				$output .= '.entry, .entry p { '.lok_generate_font_css($lok_options[ 'lok_font_post_entry' ], '1.5').' } h1, h2, h3, h4, h5, h6 { font-family: '.stripslashes($lok_options[ 'lok_font_post_entry' ]['face']).', arial, sans-serif; }'  . "\n";	
+			if ( isset( $woo_options['woo_font_post_entry'] ) && $woo_options['woo_font_post_entry'] )
+				$output .= '.entry, .entry p { '.woo_generate_font_css($woo_options[ 'woo_font_post_entry' ], '1.5').' } h1, h2, h3, h4, h5, h6 { font-family: '.stripslashes($woo_options[ 'woo_font_post_entry' ]['face']).', arial, sans-serif; }'  . "\n";	
 
-			if ( isset( $lok_options['lok_font_widget_titles'] ) && $lok_options['lok_font_widget_titles'] )
-				$output .= '.widget h3 { '.lok_generate_font_css($lok_options[ 'lok_font_widget_titles' ]).' }'  . "\n";
+			if ( isset( $woo_options['woo_font_widget_titles'] ) && $woo_options['woo_font_widget_titles'] )
+				$output .= '.widget h3 { '.woo_generate_font_css($woo_options[ 'woo_font_widget_titles' ]).' }'  . "\n";
 				
-			if ( isset( $lok_options['lok_font_widget_titles'] ) && $lok_options['lok_font_widget_titles'] )
-				$output .= '.widget h3 { '.lok_generate_font_css($lok_options[ 'lok_font_widget_titles' ]).' }'  . "\n";
+			if ( isset( $woo_options['woo_font_widget_titles'] ) && $woo_options['woo_font_widget_titles'] )
+				$output .= '.widget h3 { '.woo_generate_font_css($woo_options[ 'woo_font_widget_titles' ]).' }'  . "\n";
 				
 			// Component titles
-			if ( isset( $lok_options['lok_font_component_titles'] ) && $lok_options['lok_font_component_titles'] )
-				$output .= '.component h2.component-title { '.lok_generate_font_css($lok_options[ 'lok_font_component_titles' ]).' }'  . "\n";	
+			if ( isset( $woo_options['woo_font_component_titles'] ) && $woo_options['woo_font_component_titles'] )
+				$output .= '.component h2.component-title { '.woo_generate_font_css($woo_options[ 'woo_font_component_titles' ]).' }'  . "\n";	
 
 		// Add default typography Google Font
 		} else {
@@ -344,7 +344,7 @@ if ( ! function_exists( 'lok_custom_typography' ) ) {
 				$count = 0;
 				foreach ( $default_google_fonts as $font ) {
 					$count++;
-					$lok_options[ 'lok_default_google_font_'.$count ] = array( 'face' => $font );
+					$woo_options[ 'woo_default_google_font_'.$count ] = array( 'face' => $font );
 				}
 				$default_google_font = true;
 
@@ -356,25 +356,25 @@ if ( ! function_exists( 'lok_custom_typography' ) ) {
 		if (isset($output) && $output != '') {
 		
 			// Load Google Fonts stylesheet in HEAD
-			if (function_exists( 'lok_google_webfonts')) lok_google_webfonts();
+			if (function_exists( 'woo_google_webfonts')) woo_google_webfonts();
 			
-			$output = "\n" . "<!-- lok Custom Typography -->\n<style type=\"text/css\">\n" . $output . "</style>\n";
+			$output = "\n" . "<!-- Woo Custom Typography -->\n<style type=\"text/css\">\n" . $output . "</style>\n";
 			echo $output;
 		
 		// Check if default google font is set and load Google Fonts stylesheet in HEAD
 		} elseif ( $default_google_font ) {
 		
 			// Enable Google Fonts stylesheet in HEAD
-			if (function_exists( 'lok_google_webfonts')) lok_google_webfonts();
+			if (function_exists( 'woo_google_webfonts')) woo_google_webfonts();
 
 		}
 			
-	} // End lok_custom_typography()
+	} // End woo_custom_typography()
 }
 
 // Returns proper font css output
-if (!function_exists( 'lok_generate_font_css')) {
-	function lok_generate_font_css($option, $em = '1') {
+if (!function_exists( 'woo_generate_font_css')) {
+	function woo_generate_font_css($option, $em = '1') {
 
 		// Test if font-face is a Google font
 		global $google_fonts;
@@ -394,25 +394,25 @@ if (!function_exists( 'lok_generate_font_css')) {
 }
 
 // Output stylesheet and custom.css after custom styling
-remove_action( 'nxt_head', 'lokthemes_nxt_head' );
-add_action( 'lok_head', 'lokthemes_nxt_head' );
+remove_action( 'nxt_head', 'woothemes_nxt_head' );
+add_action( 'woo_head', 'woothemes_nxt_head' );
 
 
 /*-----------------------------------------------------------------------------------*/
 /* Add layout to body_class output */
 /*-----------------------------------------------------------------------------------*/
 
-add_filter( 'body_class','lok_layout_body_class', 10 );		// Add layout to body_class output
+add_filter( 'body_class','woo_layout_body_class', 10 );		// Add layout to body_class output
 
-if ( ! function_exists( 'lok_layout_body_class' ) ) {
-	function lok_layout_body_class( $classes ) {
+if ( ! function_exists( 'woo_layout_body_class' ) ) {
+	function woo_layout_body_class( $classes ) {
 		
-		global $lok_options;
+		global $woo_options;
 		
 		$layout = 'two-col-left';
 		
-		if ( isset( $lok_options['lok_site_layout'] ) && ( $lok_options['lok_site_layout'] != '' ) ) {
-			$layout = $lok_options['lok_site_layout'];
+		if ( isset( $woo_options['woo_site_layout'] ) && ( $woo_options['woo_site_layout'] != '' ) ) {
+			$layout = $woo_options['woo_site_layout'];
 		}
 
 		// Set main layout on post or page
@@ -423,55 +423,55 @@ if ( ! function_exists( 'lok_layout_body_class' ) ) {
 				$layout = $single;
 		}
 		
-		// Add layout to $lok_options array for use in theme
-		$lok_options['lok_layout'] = $layout;
+		// Add layout to $woo_options array for use in theme
+		$woo_options['woo_layout'] = $layout;
 		
 		// Add classes to body_class() output 
 		$classes[] = $layout;
 		return $classes;						
 					
-	} // End lok_layout_body_class()
+	} // End woo_layout_body_class()
 }
 
 
 /*-----------------------------------------------------------------------------------*/
-/* lok_feedburner_link() */
+/* woo_feedburner_link() */
 /*-----------------------------------------------------------------------------------*/
 /**
- * lok_feedburner_link()
+ * woo_feedburner_link()
  *
  * Replace the default RSS feed link with the Feedburner URL, if one
  * has been provided by the user.
  *
- * @package lokFramework
+ * @package WooFramework
  * @subpackage Filters
  */
 
-add_filter( 'feed_link', 'lok_feedburner_link', 10 );
+add_filter( 'feed_link', 'woo_feedburner_link', 10 );
 
-function lok_feedburner_link ( $output, $feed = null ) {
+function woo_feedburner_link ( $output, $feed = null ) {
 
-	global $lok_options;
+	global $woo_options;
 
 	$default = get_default_feed();
 
 	if ( ! $feed ) $feed = $default;
 
-	if ( isset($lok_options[ 'lok_feed_url']) && $lok_options[ 'lok_feed_url' ] && ( $feed == $default ) && ( ! stristr( $output, 'comments' ) ) ) $output = esc_url( $lok_options[ 'lok_feed_url' ] );
+	if ( isset($woo_options[ 'woo_feed_url']) && $woo_options[ 'woo_feed_url' ] && ( $feed == $default ) && ( ! stristr( $output, 'comments' ) ) ) $output = esc_url( $woo_options[ 'woo_feed_url' ] );
 
 	return $output;
 
-} // End lok_feedburner_link()
+} // End woo_feedburner_link()
 
 
 /*-----------------------------------------------------------------------------------*/
 /* Load responsive IE scripts */
 /*-----------------------------------------------------------------------------------*/
 
-add_action( 'nxt_footer', 'lok_load_responsive_IE_footer', 10 );
+add_action( 'nxt_footer', 'woo_load_responsive_IE_footer', 10 );
 
-if ( ! function_exists( 'lok_load_responsive_IE_footer' ) ) {
-	function lok_load_responsive_IE_footer () {
+if ( ! function_exists( 'woo_load_responsive_IE_footer' ) ) {
+	function woo_load_responsive_IE_footer () {
 		$html = '';
 		echo '<!--[if lt IE 9]>'. "\n";
 		echo '<script src="' . get_template_directory_uri() . '/includes/js/respond-IE.js"></script>'. "\n";

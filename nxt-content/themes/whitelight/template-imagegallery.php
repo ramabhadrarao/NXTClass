@@ -5,11 +5,11 @@
  * The image gallery page template displays a styled
  * image grid of a maximum of 60 posts with images attached.
  *
- * @package lokFramework
+ * @package WooFramework
  * @subpackage Template
  */
  
- global $lok_options;
+ global $woo_options;
  get_header();
 ?>
        
@@ -17,9 +17,9 @@
     
     	<div class="page col-full">
     	
-    		<?php if ( isset( $lok_options['lok_breadcrumbs_show'] ) && $lok_options['lok_breadcrumbs_show'] == 'true' ) { ?>
+    		<?php if ( isset( $woo_options['woo_breadcrumbs_show'] ) && $woo_options['woo_breadcrumbs_show'] == 'true' ) { ?>
 				<section id="breadcrumbs">
-					<?php lok_breadcrumbs(); ?>
+					<?php woo_breadcrumbs(); ?>
 				</section><!--/#breadcrumbs -->
 			<?php } ?> 
     
@@ -43,7 +43,7 @@
 	                		if ( have_posts() ) {
 	                			while ( have_posts() ) { the_post();
 	                			$nxt_query->is_home = false;
-	                				lok_image( 'single=true&class=thumbnail alignleft' );
+	                				woo_image( 'single=true&class=thumbnail alignleft' );
 	                			}
 	                		}
 	                	?>	

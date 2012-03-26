@@ -108,5 +108,15 @@
 		// Featured Slider
 		if ( ( is_home() || is_front_page() ) && !$paged && isset( $woo_options['woo_featured'] ) && $woo_options['woo_featured'] == 'true' ) 
 			get_template_part ( 'includes/featured' ); 
+	  global $woo_options;
 	?>	
-	<div id="primary">
+	<div id="content">
+    	<div class="page col-full">
+    	
+    		<?php if ( isset( $woo_options['woo_breadcrumbs_show'] ) && $woo_options['woo_breadcrumbs_show'] == 'true' && !is_front_page() ) { ?>
+				<section id="breadcrumbs">
+					<?php woo_breadcrumbs(); ?>
+				</section><!--/#breadcrumbs -->
+			<?php } ?> 
+    	
+			<section id="main" class="col-left">

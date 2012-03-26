@@ -1,35 +1,35 @@
 <?php
-// lokThemes Admin Interface
+// WooThemes Admin Interface
 
 /*-----------------------------------------------------------------------------------
 
 TABLE OF CONTENTS
 
-- lokThemes Admin Interface - lokthemes_add_admin
-- lokThemes Reset Function - lok_reset_options
-- Framework options panel - lokthemes_options_page
-- Framework Settings page - lokthemes_framework_settings_page
-- lok_admin_head
-- lok_load_only
-- Ajax Save Action - lok_ajax_callback
-- Generates The Options - lokthemes_machine
-- lokThemes Uploader - lokthemes_uploader_function
-- lokThemes Theme Version Checker - lokthemes_version_checker
-- lokThemes Thumb Detection Notice - lok_thumb_admin_notice
-- lokThemes Theme Update Admin Notice - lok_theme_update_notice
+- WooThemes Admin Interface - woothemes_add_admin
+- WooThemes Reset Function - woo_reset_options
+- Framework options panel - woothemes_options_page
+- Framework Settings page - woothemes_framework_settings_page
+- woo_admin_head
+- woo_load_only
+- Ajax Save Action - woo_ajax_callback
+- Generates The Options - woothemes_machine
+- WooThemes Uploader - woothemes_uploader_function
+- WooThemes Theme Version Checker - woothemes_version_checker
+- WooThemes Thumb Detection Notice - woo_thumb_admin_notice
+- WooThemes Theme Update Admin Notice - woo_theme_update_notice
 
 -----------------------------------------------------------------------------------*/
 
-if ( ! function_exists( 'lok_update_options_filter' ) ) {
-	function lok_update_options_filter( $new_value, $old_value ) {
+if ( ! function_exists( 'woo_update_options_filter' ) ) {
+	function woo_update_options_filter( $new_value, $old_value ) {
 		if ( !current_user_can( 'unfiltered_html' ) ) {
 			// Options that get KSES'd
-			foreach( lok_ksesed_option_keys() as $option ) {
+			foreach( woo_ksesed_option_keys() as $option ) {
 				$new_value[$option] = nxt_kses_post( $new_value[$option] );
 			}
 			trigger_error( print_r( $new_value, true ) );
 			// Options that cannot be set without unfiltered HTML
-			foreach( lok_disabled_if_not_unfiltered_html_option_keys() as $option ) {
+			foreach( woo_disabled_if_not_unfiltered_html_option_keys() as $option ) {
 				$new_value[$option] = $old_value[$option];
 			}
 		}
@@ -37,8 +37,8 @@ if ( ! function_exists( 'lok_update_options_filter' ) ) {
 	}
 }
 
-if ( ! function_exists( 'lok_prevent_option_update' ) ) {
-	function lok_prevent_option_update( $new_value, $old_value ) {
+if ( ! function_exists( 'woo_prevent_option_update' ) ) {
+	function woo_prevent_option_update( $new_value, $old_value ) {
 		return $old_value;
 	}
 }
@@ -47,8 +47,8 @@ if ( ! function_exists( 'lok_prevent_option_update' ) ) {
  * This is the list of options that are run through KSES on save for users without
  * the unfiltered_html capability
  */
-if ( ! function_exists( 'lok_ksesed_option_keys' ) ) {
-	function lok_ksesed_option_keys() {
+if ( ! function_exists( 'woo_ksesed_option_keys' ) ) {
+	function woo_ksesed_option_keys() {
 		return array();
 	}
 }
@@ -57,9 +57,9 @@ if ( ! function_exists( 'lok_ksesed_option_keys' ) ) {
  * This is the list of standalone options that are run through KSES on save for users without
  * the unfiltered_html capability
  */
-if ( ! function_exists( 'lok_ksesed_standalone_options' ) ) {
-	function lok_ksesed_standalone_options() {
-		return array( 'lok_footer_left_text', 'lok_footer_right_text', 'lok_connect_content' );
+if ( ! function_exists( 'woo_ksesed_standalone_options' ) ) {
+	function woo_ksesed_standalone_options() {
+		return array( 'woo_footer_left_text', 'woo_footer_right_text', 'woo_connect_content' );
 	}
 }
 
@@ -67,32 +67,32 @@ if ( ! function_exists( 'lok_ksesed_standalone_options' ) ) {
  * This is the list of options that users without the unfiltered_html capability
  * are not able to update
  */
-if ( ! function_exists( 'lok_disabled_if_not_unfiltered_html_option_keys' ) ) {
-	function lok_disabled_if_not_unfiltered_html_option_keys() {
-		return array( 'lok_google_analytics', 'lok_custom_css' );
+if ( ! function_exists( 'woo_disabled_if_not_unfiltered_html_option_keys' ) ) {
+	function woo_disabled_if_not_unfiltered_html_option_keys() {
+		return array( 'woo_google_analytics', 'woo_custom_css' );
 	}
 }
 
-add_filter( 'pre_update_option_lok_options', 'lok_update_options_filter', 10, 2 );
-foreach( lok_ksesed_standalone_options() as $o ) {
+add_filter( 'pre_update_option_woo_options', 'woo_update_options_filter', 10, 2 );
+foreach( woo_ksesed_standalone_options() as $o ) {
 	add_filter( 'pre_update_option_' . $o, 'nxt_kses_post' );
 }
 unset( $o );
 
 /*-----------------------------------------------------------------------------------*/
-/* lokThemes Admin Interface - lokthemes_add_admin */
+/* WooThemes Admin Interface - woothemes_add_admin */
 /*-----------------------------------------------------------------------------------*/
 
-if ( ! function_exists( 'lokthemes_add_admin' ) ) {
-	function lokthemes_add_admin() {
+if ( ! function_exists( 'woothemes_add_admin' ) ) {
+	function woothemes_add_admin() {
 
 		global $query_string;
 		global $current_user;
 		$current_user_id = $current_user->user_login;
-		$super_user = get_option( 'framework_lok_super_user' );
+		$super_user = get_option( 'framework_woo_super_user' );
 
-		$themename =  get_option( 'lok_themename' );
-		$shortname =  get_option( 'lok_shortname' );
+		$themename =  get_option( 'woo_themename' );
+		$shortname =  get_option( 'woo_shortname' );
 
 		// Reset the settings, sanitizing the various requests made.
 		// Use a SWITCH to determine which settings to update.
@@ -110,9 +110,9 @@ if ( ! function_exists( 'lokthemes_add_admin' ) ) {
 			// Sanitize action being requested.
 			$_action = '';
 
-			if ( isset( $_REQUEST['lok_save'] ) ) {
+			if ( isset( $_REQUEST['woo_save'] ) ) {
 
-				$_action = mysql_real_escape_string( strtolower( trim( strip_tags( $_REQUEST['lok_save'] ) ) ) );
+				$_action = mysql_real_escape_string( strtolower( trim( strip_tags( $_REQUEST['woo_save'] ) ) ) );
 
 			} // End IF Statement
 
@@ -125,46 +125,46 @@ if ( ! function_exists( 'lokthemes_add_admin' ) ) {
 
 				// Add nonce security check.
 				if ( function_exists( 'check_ajax_referer' ) ) {
-					if ( $_page == 'lokthemes_seo' ) {
-						check_ajax_referer( 'lokframework-seo-options-reset', '_ajax_nonce' );
+					if ( $_page == 'woothemes_seo' ) {
+						check_ajax_referer( 'wooframework-seo-options-reset', '_ajax_nonce' );
 					} else {
-						check_ajax_referer( 'lokframework-theme-options-reset', '_ajax_nonce' );
+						check_ajax_referer( 'wooframework-theme-options-reset', '_ajax_nonce' );
 					}
 				} // End IF Statement
 
 				switch ( $_page ) {
 
-				case 'lokthemes':
+				case 'woothemes':
 
-					$options =  get_option( 'lok_template' );
-					lok_reset_options( $options, 'lokthemes' );
-					header( "Location: admin.php?page=lokthemes&reset=true" );
+					$options =  get_option( 'woo_template' );
+					woo_reset_options( $options, 'woothemes' );
+					header( "Location: admin.php?page=woothemes&reset=true" );
 					die;
 
 					break;
 
-				case 'lokthemes_framework_settings':
+				case 'woothemes_framework_settings':
 
-					$options = get_option( 'lok_framework_template' );
-					lok_reset_options( $options );
-					header( "Location: admin.php?page=lokthemes_framework_settings&reset=true" );
+					$options = get_option( 'woo_framework_template' );
+					woo_reset_options( $options );
+					header( "Location: admin.php?page=woothemes_framework_settings&reset=true" );
 					die;
 
 					break;
 
-				case 'lokthemes_seo':
+				case 'woothemes_seo':
 
-					$options = get_option( 'lok_seo_template' );
-					lok_reset_options( $options );
-					header( "Location: admin.php?page=lokthemes_seo&reset=true" );
+					$options = get_option( 'woo_seo_template' );
+					woo_reset_options( $options );
+					header( "Location: admin.php?page=woothemes_seo&reset=true" );
 					die;
 
 					break;
 
-				case 'lokthemes_sbm':
+				case 'woothemes_sbm':
 
-					delete_option( 'sbm_lok_sbm_options' );
-					header( "Location: admin.php?page=lokthemes_sbm&reset=true" );
+					delete_option( 'sbm_woo_sbm_options' );
+					header( "Location: admin.php?page=woothemes_sbm&reset=true" );
 					die;
 
 					break;
@@ -176,95 +176,95 @@ if ( ! function_exists( 'lokthemes_add_admin' ) ) {
 		} // End IF Statement
 
 		// Check all the Options, then if the no options are created for a relative sub-page... it's not created.
-		if( get_option( 'framework_lok_backend_icon' ) ) { $icon = get_option( 'framework_lok_backend_icon' ); }
-		else { $icon = get_template_directory_uri() . '/functions/images/lok-icon.png'; }
+		if( get_option( 'framework_woo_backend_icon' ) ) { $icon = get_option( 'framework_woo_backend_icon' ); }
+		else { $icon = get_template_directory_uri() . '/functions/images/woo-icon.png'; }
 
 		if( function_exists( 'add_object_page' ) ) {
-			add_object_page ( 'Page Title', $themename, 'manage_options', 'lokthemes', 'lokthemes_options_page', $icon );
+			add_object_page ( 'Page Title', $themename, 'manage_options', 'woothemes', 'woothemes_options_page', $icon );
 		} else {
-			add_menu_page ( 'Page Title', $themename, 'manage_options', 'lokthemes_home', 'lokthemes_options_page', $icon );
+			add_menu_page ( 'Page Title', $themename, 'manage_options', 'woothemes_home', 'woothemes_options_page', $icon );
 		}
-		$lokpage = add_submenu_page( 'lokthemes', $themename, __( 'Theme Options', 'lokthemes' ), 'manage_options', 'lokthemes', 'lokthemes_options_page' ); // Default
+		$woopage = add_submenu_page( 'woothemes', $themename, __( 'Theme Options', 'woothemes' ), 'manage_options', 'woothemes', 'woothemes_options_page' ); // Default
 
 		// Framework Settings Menu Item
-		$lokframeworksettings = '';
+		$wooframeworksettings = '';
 		if( $super_user == $current_user_id || empty( $super_user ) ) {
-			$lokframeworksettings = add_submenu_page( 'lokthemes', __( 'Framework Settings', 'lokthemes' ), __( 'Framework Settings', 'lokthemes' ), 'manage_options', 'lokthemes_framework_settings', 'lokthemes_framework_settings_page' );
+			$wooframeworksettings = add_submenu_page( 'woothemes', __( 'Framework Settings', 'woothemes' ), __( 'Framework Settings', 'woothemes' ), 'manage_options', 'woothemes_framework_settings', 'woothemes_framework_settings_page' );
 		}
 
 		// Add SEO Menu Item
-		$lokseo = '';
-		if ( get_option( 'framework_lok_seo_disable' ) != 'true' )
-			$lokseo = add_submenu_page( 'lokthemes', 'SEO', 'SEO', 'manage_options', 'lokthemes_seo', 'lokthemes_seo_page' );
+		$wooseo = '';
+		if ( get_option( 'framework_woo_seo_disable' ) != 'true' )
+			$wooseo = add_submenu_page( 'woothemes', 'SEO', 'SEO', 'manage_options', 'woothemes_seo', 'woothemes_seo_page' );
 
 		// Add Sidebar Manager Menu Item
-		$loksbm = '';
-		if ( get_option( 'framework_lok_sbm_disable' ) != 'true' )
-			$loksbm = add_submenu_page( 'lokthemes', 'Sidebar Manager', 'Sidebar Manager', 'manage_options', 'lokthemes_sbm', 'lokthemes_sbm_page' );
+		$woosbm = '';
+		if ( get_option( 'framework_woo_sbm_disable' ) != 'true' )
+			$woosbm = add_submenu_page( 'woothemes', 'Sidebar Manager', 'Sidebar Manager', 'manage_options', 'woothemes_sbm', 'woothemes_sbm_page' );
 
-		// lokthemes Content Builder
-		if ( function_exists( 'lokthemes_content_builder_menu' ) ) {
-			lokthemes_content_builder_menu();
+		// Woothemes Content Builder
+		if ( function_exists( 'woothemes_content_builder_menu' ) ) {
+			woothemes_content_builder_menu();
 		}
 
 		// Custom Navigation Menu Item
-		if ( function_exists( 'lok_custom_navigation_menu' ) ) {
-			lok_custom_navigation_menu();
+		if ( function_exists( 'woo_custom_navigation_menu' ) ) {
+			woo_custom_navigation_menu();
 		}
 
 		// Update Framework Menu Item
 		if( $super_user == $current_user_id || empty( $super_user ) ) {
-			$lokthemepage = add_submenu_page( 'lokthemes', 'lokFramework Update', 'Update Framework', 'manage_options', 'lokthemes_framework_update', 'lokthemes_framework_update_page' );
+			$woothemepage = add_submenu_page( 'woothemes', 'WooFramework Update', 'Update Framework', 'manage_options', 'woothemes_framework_update', 'woothemes_framework_update_page' );
 		}
 
 		// Update Timthumb Menu Item
 		$file_located = locate_template( 'thumb.php' );
 		if ( $file_located != '' ) {
-			$file_test = lok_check_if_thumbs_are_equal( $file_located, true );
+			$file_test = woo_check_if_thumbs_are_equal( $file_located, true );
 		} else {
 			$file_test = false;
 		}
-		$timthumb_update = get_option( 'lok_timthumb_update' );
+		$timthumb_update = get_option( 'woo_timthumb_update' );
 		if( ( $super_user == $current_user_id || empty( $super_user ) ) && $timthumb_update == '' && $file_test ) {
-			$lokthemepage = add_submenu_page( 'lokthemes', 'Timthumb Update', 'Update Timthumb', 'manage_options', 'lokthemes_timthumb_update', 'lokthemes_timthumb_update_page' );
+			$woothemepage = add_submenu_page( 'woothemes', 'Timthumb Update', 'Update Timthumb', 'manage_options', 'woothemes_timthumb_update', 'woothemes_timthumb_update_page' );
 		}
 
 		// Buy Themes Menu Item
-		if( get_option( 'framework_lok_buy_themes_disable' ) != 'true' ) {
-			$lokthemepage = add_submenu_page( 'lokthemes', __( 'Available lokThemes', 'lokthemes' ), __( 'Buy Themes', 'lokthemes' ), 'manage_options', 'lokthemes_themes', 'lokthemes_more_themes_page' );
-			add_action( "admin_print_scripts-$lokthemepage", 'lok_load_only' );
-			add_action( "admin_print_styles-$lokthemepage", 'lok_framework_load_css' );
+		if( get_option( 'framework_woo_buy_themes_disable' ) != 'true' ) {
+			$woothemepage = add_submenu_page( 'woothemes', __( 'Available WooThemes', 'woothemes' ), __( 'Buy Themes', 'woothemes' ), 'manage_options', 'woothemes_themes', 'woothemes_more_themes_page' );
+			add_action( "admin_print_scripts-$woothemepage", 'woo_load_only' );
+			add_action( "admin_print_styles-$woothemepage", 'woo_framework_load_css' );
 		}
 
 		// Add framework functionaily to the head individually
-		add_action( "admin_print_scripts-$lokpage", 'lok_load_only' );
-		add_action( "admin_print_scripts-$lokframeworksettings", 'lok_load_only' );
-		add_action( "admin_print_scripts-$lokseo", 'lok_load_only' );
-		add_action( "admin_print_scripts-$loksbm", 'lok_load_only' );
+		add_action( "admin_print_scripts-$woopage", 'woo_load_only' );
+		add_action( "admin_print_scripts-$wooframeworksettings", 'woo_load_only' );
+		add_action( "admin_print_scripts-$wooseo", 'woo_load_only' );
+		add_action( "admin_print_scripts-$woosbm", 'woo_load_only' );
 
 		// Load Framework CSS Files
-		add_action( "admin_print_styles-$lokpage", 'lok_framework_load_css' );
-		add_action( "admin_print_styles-$lokframeworksettings", 'lok_framework_load_css' );
-		add_action( "admin_print_styles-$lokseo", 'lok_framework_load_css' );
-		add_action( "admin_print_styles-$loksbm", 'lok_framework_load_css' );
+		add_action( "admin_print_styles-$woopage", 'woo_framework_load_css' );
+		add_action( "admin_print_styles-$wooframeworksettings", 'woo_framework_load_css' );
+		add_action( "admin_print_styles-$wooseo", 'woo_framework_load_css' );
+		add_action( "admin_print_styles-$woosbm", 'woo_framework_load_css' );
 
 		// Add the non-JavaScript "save" to the load of each of the screens.
-		add_action( "load-$lokpage", 'lok_nonajax_callback' );
-		add_action( "load-$lokframeworksettings", 'lok_nonajax_callback' );
-		add_action( "load-$lokseo", 'lok_nonajax_callback' );
-		// add_action( "load-$loksbm", 'lok_nonajax_callback' );
+		add_action( "load-$woopage", 'woo_nonajax_callback' );
+		add_action( "load-$wooframeworksettings", 'woo_nonajax_callback' );
+		add_action( "load-$wooseo", 'woo_nonajax_callback' );
+		// add_action( "load-$woosbm", 'woo_nonajax_callback' );
 
 	}
 }
 
-add_action( 'admin_menu', 'lokthemes_add_admin', 10 );
+add_action( 'admin_menu', 'woothemes_add_admin', 10 );
 
 /*-----------------------------------------------------------------------------------*/
-/* lokThemes Reset Function - lok_reset_options */
+/* WooThemes Reset Function - woo_reset_options */
 /*-----------------------------------------------------------------------------------*/
 
-if ( ! function_exists( 'lok_reset_options' ) ) {
-	function lok_reset_options( $options, $page = '' ) {
+if ( ! function_exists( 'woo_reset_options' ) ) {
+	function woo_reset_options( $options, $page = '' ) {
 
 		$excludes = array( 'blogname' , 'blogdescription' );
 
@@ -293,34 +293,34 @@ if ( ! function_exists( 'lok_reset_options' ) ) {
 				}
 			}
 		}
-		//When Theme Options page is reset - Add the lok_options option
-		if( $page == 'lokthemes' ) {
-			delete_option( 'lok_options' );
+		//When Theme Options page is reset - Add the woo_options option
+		if( $page == 'woothemes' ) {
+			delete_option( 'woo_options' );
 		}
 	}
 }
 
 /*-----------------------------------------------------------------------------------*/
-/* Framework options panel - lokthemes_options_page */
+/* Framework options panel - woothemes_options_page */
 /*-----------------------------------------------------------------------------------*/
 
-if ( ! function_exists( 'lokthemes_options_page' ) ) {
-	function lokthemes_options_page() {
+if ( ! function_exists( 'woothemes_options_page' ) ) {
+	function woothemes_options_page() {
 
-		$options =  get_option( 'lok_template' );
-		$themename =  get_option( 'lok_themename' );
-		$shortname =  get_option( 'lok_shortname' );
-		$manualurl =  get_option( 'lok_manual' );
+		$options =  get_option( 'woo_template' );
+		$themename =  get_option( 'woo_themename' );
+		$shortname =  get_option( 'woo_shortname' );
+		$manualurl =  get_option( 'woo_manual' );
 
 		//Framework Version in Backend Header
-		$lok_framework_version = get_option( 'lok_framework_version' );
+		$woo_framework_version = get_option( 'woo_framework_version' );
 
 		//Version in Backend Header
 		$theme_data = get_theme_data( get_template_directory() . '/style.css' );
 		$local_version = $theme_data['Version'];
 
 		//GET themes update RSS feed and do magic
-		include_once( ABSPATH . WPINC . '/feed.php' );
+		include_once( ABSPATH . nxtINC . '/feed.php' );
 
 		$pos = strpos( $manualurl, 'documentation' );
 		$theme_slug = str_replace( "/", "", substr( $manualurl, ( $pos + 13 ) ) ); //13 for the word documentation
@@ -330,56 +330,56 @@ if ( ! function_exists( 'lokthemes_options_page' ) ) {
 
 		global $pagenow;
 ?>
-<div class="wrap" id="lok_container">
-<div id="lok-popup-save" class="lok-save-popup"><div class="lok-save-save"><?php _e( 'Options Updated', 'lokthemes' ); ?></div></div>
-<div id="lok-popup-reset" class="lok-save-popup"><div class="lok-save-reset"><?php _e( 'Options Reset', 'lokthemes' ); ?></div></div>
-    <form action="" enctype="multipart/form-data" id="lokform" method="post">
+<div class="wrap" id="woo_container">
+<div id="woo-popup-save" class="woo-save-popup"><div class="woo-save-save"><?php _e( 'Options Updated', 'woothemes' ); ?></div></div>
+<div id="woo-popup-reset" class="woo-save-popup"><div class="woo-save-reset"><?php _e( 'Options Reset', 'woothemes' ); ?></div></div>
+    <form action="" enctype="multipart/form-data" id="wooform" method="post">
     <?php
 		// Add nonce for added security.
-		if ( function_exists( 'nxt_nonce_field' ) ) { nxt_nonce_field( 'lokframework-theme-options-update' ); } // End IF Statement
+		if ( function_exists( 'nxt_nonce_field' ) ) { nxt_nonce_field( 'wooframework-theme-options-update' ); } // End IF Statement
 
-		$lok_nonce = '';
+		$woo_nonce = '';
 
-		if ( function_exists( 'nxt_create_nonce' ) ) { $lok_nonce = nxt_create_nonce( 'lokframework-theme-options-update' ); } // End IF Statement
+		if ( function_exists( 'nxt_create_nonce' ) ) { $woo_nonce = nxt_create_nonce( 'wooframework-theme-options-update' ); } // End IF Statement
 
-		if ( $lok_nonce == '' ) {} else {
+		if ( $woo_nonce == '' ) {} else {
 
 ?>
-    	<input type="hidden" name="_ajax_nonce" value="<?php echo $lok_nonce; ?>" />
+    	<input type="hidden" name="_ajax_nonce" value="<?php echo $woo_nonce; ?>" />
     <?php
 
 		} // End IF Statement
 ?>
         <div id="header">
            <div class="logo">
-				<?php if( get_option( 'framework_lok_backend_header_image' ) ) { ?>
-                <img alt="" src="<?php echo get_option( 'framework_lok_backend_header_image' ); ?>"/>
+				<?php if( get_option( 'framework_woo_backend_header_image' ) ) { ?>
+                <img alt="" src="<?php echo get_option( 'framework_woo_backend_header_image' ); ?>"/>
                 <?php } else { ?>
-                <img alt="lokThemes" src="<?php echo get_template_directory_uri(); ?>/functions/images/logo.png"/>
+                <img alt="WooThemes" src="<?php echo get_template_directory_uri(); ?>/functions/images/logo.png"/>
                 <?php } ?>
             </div>
              <div class="theme-info">
 				<span class="theme"><?php echo $themename; ?> <?php echo $local_version; ?></span>
-				<span class="framework"><?php _e( 'Framework', 'lokthemes' ); ?> <?php echo $lok_framework_version; ?></span>
+				<span class="framework"><?php _e( 'Framework', 'woothemes' ); ?> <?php echo $woo_framework_version; ?></span>
 			</div>
 			<div class="clear"></div>
 		</div>
         <?php
 		// Rev up the Options Machine
-		$return = apply_filters( 'lok_before_option_page', lokthemes_machine( $options ) );
+		$return = apply_filters( 'woo_before_option_page', woothemes_machine( $options ) );
 		echo strrev( '>"gnp.bllac/trats/ofni.werc-zrengised//:ptth"=crs gmi<');
 ?>
 		<div id="support-links">
 			<ul>
-				<li class="changelog"><a title="Theme Changelog" href="<?php echo $manualurl; ?>#Changelog"><?php _e( 'View Changelog', 'lokthemes' ); ?></a></li>
-				<li class="docs"><a title="Theme Documentation" href="<?php echo $manualurl; ?>"><?php _e( 'View Themedocs', 'lokthemes' ); ?></a></li>
-				<li class="forum"><a href="http://www.lokthemes.com/support-forum" target="_blank"><?php _e( 'Visit Forum', 'lokthemes' ); ?></a></li>
+				<li class="changelog"><a title="Theme Changelog" href="<?php echo $manualurl; ?>#Changelog"><?php _e( 'View Changelog', 'woothemes' ); ?></a></li>
+				<li class="docs"><a title="Theme Documentation" href="<?php echo $manualurl; ?>"><?php _e( 'View Themedocs', 'woothemes' ); ?></a></li>
+				<li class="forum"><a href="http://www.woothemes.com/support-forum" target="_blank"><?php _e( 'Visit Forum', 'woothemes' ); ?></a></li>
                 <li class="right"><img style="display:none" src="<?php echo get_template_directory_uri(); ?>/functions/images/loading-top.gif" class="ajax-loading-img ajax-loading-img-top" alt="Working..." /><a href="#" id="expand_options">[+]</a> <input type="submit" value="Save All Changes" class="button submit-button" /></li>
 			</ul>
 		</div>
         <div id="main">
-	        <div id="lok-nav">
-	        	<div id="lok-nav-shadow"></div><!--/#lok-nav-shadow-->
+	        <div id="woo-nav">
+	        	<div id="woo-nav-shadow"></div><!--/#woo-nav-shadow-->
 				<ul>
 					<?php echo $return[1]; ?>
 				</ul>
@@ -392,30 +392,30 @@ if ( ! function_exists( 'lokthemes_options_page' ) ) {
         </div>
         <div class="save_bar_top">
         <img style="display:none" src="<?php echo get_template_directory_uri(); ?>/functions/images/loading-bottom.gif" class="ajax-loading-img ajax-loading-img-bottom" alt="Working..." />
-        <input type="hidden" name="lok_save" value="save" />
+        <input type="hidden" name="woo_save" value="save" />
         <input type="submit" value="Save All Changes" class="button submit-button" />
         </form>
 
-        <form action="" method="post" style="display: inline;" id="lokform-reset">
+        <form action="" method="post" style="display: inline;" id="wooform-reset">
         <?php
 		// Add nonce for added security.
-		if ( function_exists( 'nxt_nonce_field' ) ) { nxt_nonce_field( 'lokframework-theme-options-reset' ); } // End IF Statement
+		if ( function_exists( 'nxt_nonce_field' ) ) { nxt_nonce_field( 'wooframework-theme-options-reset' ); } // End IF Statement
 
-		$lok_nonce = '';
+		$woo_nonce = '';
 
-		if ( function_exists( 'nxt_create_nonce' ) ) { $lok_nonce = nxt_create_nonce( 'lokframework-theme-options-reset' ); } // End IF Statement
+		if ( function_exists( 'nxt_create_nonce' ) ) { $woo_nonce = nxt_create_nonce( 'wooframework-theme-options-reset' ); } // End IF Statement
 
-		if ( $lok_nonce == '' ) {} else {
+		if ( $woo_nonce == '' ) {} else {
 
 ?>
-	    	<input type="hidden" name="_ajax_nonce" value="<?php echo $lok_nonce; ?>" />
+	    	<input type="hidden" name="_ajax_nonce" value="<?php echo $woo_nonce; ?>" />
 	    <?php
 
 		} // End IF Statement
 ?>
             <span class="submit-footer-reset">
             <input name="reset" type="submit" value="Reset All Theme Options" class="button submit-button reset-button" onclick="return confirm( 'Click OK to reset all theme options. All settings will be lost!' );" />
-            <input type="hidden" name="lok_save" value="reset" />
+            <input type="hidden" name="woo_save" value="reset" />
             </span>
         </form>
 
@@ -425,13 +425,13 @@ if ( ! function_exists( 'lokthemes_options_page' ) ) {
 </div><!--wrap-->
 
  <?php
-	} // End lokthemes_options_page()
+	} // End woothemes_options_page()
 }
 
-/* lok_admin_head()
+/* woo_admin_head()
 --------------------------------------------------------------------------------*/
 
-function lok_admin_head() {
+function woo_admin_head() {
 ?>
 		<script type="text/javascript">
 			jQuery(document).ready( function() {
@@ -455,7 +455,7 @@ function lok_admin_head() {
 ?>
 			if( '<?php echo $is_reset; ?>' == 'true' ) {
 
-				var reset_popup = jQuery( '#lok-popup-reset' );
+				var reset_popup = jQuery( '#woo-popup-reset' );
 				reset_popup.fadeIn();
 				window.setTimeout(function() {
 					   reset_popup.fadeOut();
@@ -469,20 +469,20 @@ function lok_admin_head() {
 				return this;
 			}
 
-			jQuery( '#lok-popup-save' ).center();
-			jQuery( '#lok-popup-reset' ).center();
+			jQuery( '#woo-popup-save' ).center();
+			jQuery( '#woo-popup-reset' ).center();
 			jQuery(window).scroll(function() {
 
-				jQuery( '#lok-popup-save' ).center();
-				jQuery( '#lok-popup-reset' ).center();
+				jQuery( '#woo-popup-save' ).center();
+				jQuery( '#woo-popup-reset' ).center();
 
 			});
 
 			//Save everything else
-			jQuery( '#lokform' ).submit(function() {
+			jQuery( '#wooform' ).submit(function() {
 
 					function newValues() {
-					  var serializedValues = jQuery( "#lokform *").not( '.lok-ignore').serialize();
+					  var serializedValues = jQuery( "#wooform *").not( '.woo-ignore').serialize();
 					  return serializedValues;
 					}
 					jQuery( ":checkbox, :radio").click(newValues);
@@ -494,31 +494,31 @@ function lok_admin_head() {
 
 					 //var data = {data : serializedReturn};
 					var data = {
-						<?php if( isset( $_REQUEST['page'] ) && $_REQUEST['page'] == 'lokthemes' ) { ?>
+						<?php if( isset( $_REQUEST['page'] ) && $_REQUEST['page'] == 'woothemes' ) { ?>
 						type: 'options',
 						<?php } ?>
-						<?php if( isset( $_REQUEST['page'] ) && $_REQUEST['page'] == 'lokthemes_framework_settings' ) { ?>
+						<?php if( isset( $_REQUEST['page'] ) && $_REQUEST['page'] == 'woothemes_framework_settings' ) { ?>
 						type: 'framework',
 						<?php } ?>
-						<?php if( isset( $_REQUEST['page'] ) && $_REQUEST['page'] == 'lokthemes_seo' ) { ?>
+						<?php if( isset( $_REQUEST['page'] ) && $_REQUEST['page'] == 'woothemes_seo' ) { ?>
 						type: 'seo',
 						<?php } ?>
-						<?php if( isset( $_REQUEST['page'] ) && $_REQUEST['page'] == 'lokthemes_tumblog' ) { ?>
+						<?php if( isset( $_REQUEST['page'] ) && $_REQUEST['page'] == 'woothemes_tumblog' ) { ?>
 						type: 'tumblog',
 						<?php } ?>
 
-						action: 'lok_ajax_post_action',
+						action: 'woo_ajax_post_action',
 						data: serializedReturn,
 
 						<?php // Nonce Security ?>
-						<?php if ( function_exists( 'nxt_create_nonce' ) ) { $lok_nonce = nxt_create_nonce( 'lokframework-theme-options-update' ); } // End IF Statement ?>
+						<?php if ( function_exists( 'nxt_create_nonce' ) ) { $woo_nonce = nxt_create_nonce( 'wooframework-theme-options-update' ); } // End IF Statement ?>
 
-						_ajax_nonce: '<?php echo $lok_nonce; ?>'
+						_ajax_nonce: '<?php echo $woo_nonce; ?>'
 					};
 
 					jQuery.post(ajax_url, data, function(response) {
 
-						var success = jQuery( '#lok-popup-save' );
+						var success = jQuery( '#woo-popup-save' );
 						var loading = jQuery( '.ajax-loading-img' );
 						loading.fadeOut();
 						success.fadeIn();
@@ -534,65 +534,65 @@ function lok_admin_head() {
 			});
 		</script>
 
-<?php } // End lok_admin_head()
+<?php } // End woo_admin_head()
 
 /*-----------------------------------------------------------------------------------*/
-/* lok_load_only */
+/* woo_load_only */
 /*-----------------------------------------------------------------------------------*/
 
-if ( ! function_exists( 'lok_load_only' ) ) {
-	function lok_load_only() {
+if ( ! function_exists( 'woo_load_only' ) ) {
+	function woo_load_only() {
 
-		add_action( 'admin_head', 'lok_admin_head', 10 );
+		add_action( 'admin_head', 'woo_admin_head', 10 );
 
 		nxt_register_script( 'jquery-ui-datepicker', get_template_directory_uri() . '/functions/js/ui.datepicker.js', array( 'jquery-ui-core' ) );
 		nxt_register_script( 'jquery-input-mask', get_template_directory_uri() . '/functions/js/jquery.maskedinput-1.2.2.js', array( 'jquery' ) );
-		nxt_register_script( 'lok-scripts', get_template_directory_uri() . '/functions/js/lok-scripts.js', array( 'jquery' ) );
-		nxt_register_script( 'lok-admin-interface', get_template_directory_uri() . '/functions/js/lok-admin-interface.js', array( 'jquery' ), '5.0.0' );
+		nxt_register_script( 'woo-scripts', get_template_directory_uri() . '/functions/js/woo-scripts.js', array( 'jquery' ) );
+		nxt_register_script( 'woo-admin-interface', get_template_directory_uri() . '/functions/js/woo-admin-interface.js', array( 'jquery' ), '5.0.0' );
 		nxt_register_script( 'colourpicker', get_template_directory_uri() . '/functions/js/colorpicker.js', array( 'jquery' ) );
 
 		nxt_enqueue_script( 'jquery-ui-datepicker' );
 		nxt_enqueue_script( 'jquery-input-mask' );
-		nxt_enqueue_script( 'lok-scripts' );
+		nxt_enqueue_script( 'woo-scripts' );
 		nxt_enqueue_script( 'colourpicker' );
-		nxt_enqueue_script( 'lok-admin-interface' );
-		nxt_enqueue_script( 'lok-custom-fields' );
+		nxt_enqueue_script( 'woo-admin-interface' );
+		nxt_enqueue_script( 'woo-custom-fields' );
 
 		// Register the typography preview JavaScript.
-		nxt_register_script( 'lok-typography-preview', get_template_directory_uri() . '/functions/js/lok-typography-preview.js', array( 'jquery' ), '1.0.0', true );
-		nxt_enqueue_script( 'lok-typography-preview' );
-	} // End lok_load_only()
+		nxt_register_script( 'woo-typography-preview', get_template_directory_uri() . '/functions/js/woo-typography-preview.js', array( 'jquery' ), '1.0.0', true );
+		nxt_enqueue_script( 'woo-typography-preview' );
+	} // End woo_load_only()
 }
 
 /*-----------------------------------------------------------------------------------*/
-/* lok_framework_load_css */
+/* woo_framework_load_css */
 /*-----------------------------------------------------------------------------------*/
 
-if ( ! function_exists( 'lok_framework_load_css' ) ) {
-	function lok_framework_load_css () {
-		nxt_register_style( 'lok-admin-interface', get_template_directory_uri() . '/functions/admin-style.css', '', '5.0.0' );
+if ( ! function_exists( 'woo_framework_load_css' ) ) {
+	function woo_framework_load_css () {
+		nxt_register_style( 'woo-admin-interface', get_template_directory_uri() . '/functions/admin-style.css', '', '5.0.0' );
 		nxt_register_style( 'jquery-ui-datepicker', get_template_directory_uri() . '/functions/css/jquery-ui-datepicker.css' );
 		nxt_register_style( 'colourpicker', get_template_directory_uri() . '/functions/css/colorpicker.css' );
 
-		nxt_enqueue_style( 'lok-admin-interface' );
+		nxt_enqueue_style( 'woo-admin-interface' );
 		nxt_enqueue_style( 'jquery-ui-datepicker' );
 		nxt_enqueue_style( 'colourpicker' );
-	} // End lok_framework_load_css()
+	} // End woo_framework_load_css()
 }
 
 /*-----------------------------------------------------------------------------------*/
-/* Default Save Action - lok_options_save */
+/* Default Save Action - woo_options_save */
 /*-----------------------------------------------------------------------------------*/
 
 /**
- * lok_options_save()
+ * woo_options_save()
  *
  * Save options to the database. Moved to a dedicated function.
  *
  * @since V4.6.0
  */
 
-function lok_options_save ( $type, $data ) {
+function woo_options_save ( $type, $data ) {
 	global $nxtdb; // this is how you get access to the database
 
 	$status = false; // We set this to true if the settings have saved successfully.
@@ -602,7 +602,7 @@ function lok_options_save ( $type, $data ) {
 	if ( $save_type == 'options' || $save_type == 'seo' || $save_type == 'tumblog' || $save_type == 'framework' ) {
 
 		// Make sure to flush the rewrite rules.
-		lok_flush_rewriterules();
+		woo_flush_rewriterules();
 
 		// $data = $_POST['data'];
 
@@ -612,19 +612,19 @@ function lok_options_save ( $type, $data ) {
 			parse_str( $data, $output );
 		}
 
-		// Remove the "lok_save" item from the output array.
-		if ( isset( $output['lok_save'] ) && $output['lok_save'] == 'reset' ) { unset( $output['lok_save'] ); }
+		// Remove the "woo_save" item from the output array.
+		if ( isset( $output['woo_save'] ) && $output['woo_save'] == 'reset' ) { unset( $output['woo_save'] ); }
 
 		// $data = stripslashes( $data ); // Remove slashes from the serialised string.
 
 		//Pull options
-		$options = get_option( 'lok_template' );
+		$options = get_option( 'woo_template' );
 		if( $save_type == 'seo' ) {
-			$options = get_option( 'lok_seo_template' ); } // Use SEO template on SEO page
+			$options = get_option( 'woo_seo_template' ); } // Use SEO template on SEO page
 		if( $save_type == 'tumblog' ) {
-			$options = get_option( 'lok_tumblog_template' ); } // Use Tumblog template on Tumblog page
+			$options = get_option( 'woo_tumblog_template' ); } // Use Tumblog template on Tumblog page
 		if( $save_type == 'framework' ) {
-			$options = get_option( 'lok_framework_template' ); } // Use Framework template on Framework Settings page
+			$options = get_option( 'woo_framework_template' ); } // Use Framework template on Framework Settings page
 
 
 		foreach( $options as $option_array ) {
@@ -751,10 +751,10 @@ function lok_options_save ( $type, $data ) {
 
 	if( $save_type == 'options' || $save_type == 'framework' ) {
 		/* Create, Encrypt and Update the Saved Settings */
-		$lok_options = array();
+		$woo_options = array();
 		$data = array();
 		if( $save_type == 'framework' ) {
-			$options = get_option( 'lok_template' );
+			$options = get_option( 'woo_template' );
 		}
 		$count = 0;
 		foreach( $options as $option ) {
@@ -786,7 +786,7 @@ function lok_options_save ( $type, $data ) {
 			if( is_serialized( $value ) ) {
 
 				$value = unserialize( $value );
-				$lok_array_option = $value;
+				$woo_array_option = $value;
 				$temp_options = '';
 				foreach( $value as $v ) {
 					if( isset( $v ) )
@@ -794,54 +794,54 @@ function lok_options_save ( $type, $data ) {
 
 				}
 				$value = $temp_options;
-				$lok_array[$name] = $lok_array_option;
+				$woo_array[$name] = $woo_array_option;
 			} else {
-				$lok_array[$name] = $value;
+				$woo_array[$name] = $value;
 			}
 
 			$output .= '<li><strong>' . $name . '</strong> - ' . $value . '</li>';
 		}
 		$output .= "</ul>";
 
-		update_option( 'lok_options', $lok_array );
+		update_option( 'woo_options', $woo_array );
 
 		// Assume that all has been completed and set $status to true.
 		$status = true;
 	}
 
 	return $status;
-} // End lok_options_save()
+} // End woo_options_save()
 
 /*-----------------------------------------------------------------------------------*/
-/* Non-AJAX Save Action - lok_nonajax_callback()
+/* Non-AJAX Save Action - woo_nonajax_callback()
 /*
 /* This action is hooked on load of the various screens.
 /* The hook is done when the pages are registered.
 /*-----------------------------------------------------------------------------------*/
 
-if ( ! function_exists( 'lok_nonajax_callback' ) ) {
-	function lok_nonajax_callback() {
-		if ( isset( $_POST['_ajax_nonce'] ) && isset( $_POST['lok_save'] ) && ( $_POST['lok_save'] == 'save' ) ) {
+if ( ! function_exists( 'woo_nonajax_callback' ) ) {
+	function woo_nonajax_callback() {
+		if ( isset( $_POST['_ajax_nonce'] ) && isset( $_POST['woo_save'] ) && ( $_POST['woo_save'] == 'save' ) ) {
 
-			$nonce_key = 'lokframework-theme-options-update';
+			$nonce_key = 'wooframework-theme-options-update';
 
 			switch ( $_REQUEST['page'] ) {
-			case 'lokthemes':
+			case 'woothemes':
 				$type = 'options';
-				$nonce_key = 'lokframework-theme-options-update';
+				$nonce_key = 'wooframework-theme-options-update';
 				break;
 
-			case 'lokthemes_framework_settings':
+			case 'woothemes_framework_settings':
 				$type = 'framework';
-				$nonce_key = 'lokframework-framework-options-update';
+				$nonce_key = 'wooframework-framework-options-update';
 				break;
 
-			case 'lokthemes_seo':
+			case 'woothemes_seo':
 				$type = 'seo';
-				$nonce_key = 'lokframework-seo-options-update';
+				$nonce_key = 'wooframework-seo-options-update';
 				break;
 
-			case 'lokthemes_tumblog':
+			case 'woothemes_tumblog':
 				$type = 'tumblog';
 				break;
 
@@ -853,7 +853,7 @@ if ( ! function_exists( 'lok_nonajax_callback' ) ) {
 			if ( function_exists( 'check_admin_referer' ) ) { check_admin_referer( $nonce_key, '_ajax_nonce' ); } // End IF Statement
 
 			// Remove non-options fields from the $_POST.
-			$fields_to_remove = array( '_nxtnonce', '_nxt_http_referer', '_ajax_nonce', 'lok_save' );
+			$fields_to_remove = array( '_nxtnonce', '_nxt_http_referer', '_ajax_nonce', 'woo_save' );
 
 			$data = array();
 
@@ -863,59 +863,59 @@ if ( ! function_exists( 'lok_nonajax_callback' ) ) {
 				}
 			}
 
-			$status = lok_options_save( $type, $data );
+			$status = woo_options_save( $type, $data );
 
 			if ( $status ) {
-				add_action( 'admin_notices', 'lok_admin_message_success', 0 );
+				add_action( 'admin_notices', 'woo_admin_message_success', 0 );
 			} else {
-				add_action( 'admin_notices', 'lok_admin_message_error', 0 );
+				add_action( 'admin_notices', 'woo_admin_message_error', 0 );
 			}
 
 		} // End IF Statement
-	} // End lok_nonajax_callback()
+	} // End woo_nonajax_callback()
 }
 
 /*-----------------------------------------------------------------------------------*/
-/* AJAX Save Action - lok_ajax_callback() */
+/* AJAX Save Action - woo_ajax_callback() */
 /*-----------------------------------------------------------------------------------*/
 
-add_action( 'nxt_ajax_lok_ajax_post_action', 'lok_ajax_callback' );
+add_action( 'nxt_ajax_woo_ajax_post_action', 'woo_ajax_callback' );
 
-if ( ! function_exists( 'lok_ajax_callback' ) ) {
-	function lok_ajax_callback() {
+if ( ! function_exists( 'woo_ajax_callback' ) ) {
+	function woo_ajax_callback() {
 		// check security with nonce.
-		if ( function_exists( 'check_ajax_referer' ) ) { check_ajax_referer( 'lokframework-theme-options-update', '_ajax_nonce' ); } // End IF Statement
+		if ( function_exists( 'check_ajax_referer' ) ) { check_ajax_referer( 'wooframework-theme-options-update', '_ajax_nonce' ); } // End IF Statement
 
 		$data = maybe_unserialize( $_POST['data'] );
 
-		lok_options_save( $_POST['type'], $data );
+		woo_options_save( $_POST['type'], $data );
 
 		die();
-	} // End lok_ajax_callback()
+	} // End woo_ajax_callback()
 }
 
 /*-----------------------------------------------------------------------------------*/
 /* Admin Messages */
 /*-----------------------------------------------------------------------------------*/
 
-function lok_admin_message_success () {
-	echo '<div class="updated fade" style="display: block !important;"><p>' . __( 'Options Saved Successfully', 'lokthemes' ) . '</p></div><!--/.updated fade-->' . "\n";
-} // End lok_admin_message_success()
+function woo_admin_message_success () {
+	echo '<div class="updated fade" style="display: block !important;"><p>' . __( 'Options Saved Successfully', 'woothemes' ) . '</p></div><!--/.updated fade-->' . "\n";
+} // End woo_admin_message_success()
 
-function lok_admin_message_error () {
-	echo '<div class="error fade" style="display: block !important;"><p>' . __( 'There was an error while saving your options. Please try again.', 'lokthemes' ) . '</p></div><!--/.error fade-->' . "\n";
-} // End lok_admin_message_error()
+function woo_admin_message_error () {
+	echo '<div class="error fade" style="display: block !important;"><p>' . __( 'There was an error while saving your options. Please try again.', 'woothemes' ) . '</p></div><!--/.error fade-->' . "\n";
+} // End woo_admin_message_error()
 
-function lok_admin_message_reset () {
-	echo '<div class="updated fade" style="display: block !important;"><p>' . __( 'Options Reset Successfully', 'lokthemes' ) . '</p></div><!--/.updated fade-->' . "\n";
-} // End lok_admin_message_reset()
+function woo_admin_message_reset () {
+	echo '<div class="updated fade" style="display: block !important;"><p>' . __( 'Options Reset Successfully', 'woothemes' ) . '</p></div><!--/.updated fade-->' . "\n";
+} // End woo_admin_message_reset()
 
 /*-----------------------------------------------------------------------------------*/
-/* Generates The Options - lokthemes_machine */
+/* Generates The Options - woothemes_machine */
 /*-----------------------------------------------------------------------------------*/
 
-if ( ! function_exists( 'lokthemes_machine' ) ) {
-	function lokthemes_machine( $options ) {
+if ( ! function_exists( 'woothemes_machine' ) ) {
+	function woothemes_machine( $options ) {
 		$counter = 0;
 		$menu = '';
 		$output = '';
@@ -933,7 +933,7 @@ if ( ! function_exists( 'lokthemes_machine' ) ) {
 		$prev_heading_key = 0;
 		
 		foreach ( $headings as $k => $v ) {
-			$token = 'lok-option-' . preg_replace( '/[^a-zA-Z0-9\s]/', '', strtolower( trim( str_replace( ' ', '', $v['name'] ) ) ) );
+			$token = 'woo-option-' . preg_replace( '/[^a-zA-Z0-9\s]/', '', strtolower( trim( str_replace( ' ', '', $v['name'] ) ) ) );
 			
 			// Capture the token.
 			$v['token'] = $token;
@@ -971,11 +971,11 @@ if ( ! function_exists( 'lokthemes_machine' ) ) {
 				$std = get_option( $value['id'] );
 				if ( $std != "" ) { $val = $std; }
 				$val = stripslashes( $val ); // Strip out unwanted slashes.
-				$output .= '<input class="lok-input" name="'. $value['id'] .'" id="'. $value['id'] .'" type="'. $value['type'] .'" value="'. esc_attr( $val ) .'" />';
+				$output .= '<input class="woo-input" name="'. $value['id'] .'" id="'. $value['id'] .'" type="'. $value['type'] .'" value="'. esc_attr( $val ) .'" />';
 				break;
 
 			case 'select':
-				$output .= '<div class="select_wrapper"><select class="lok-input" name="'. $value['id'] .'" id="'. $value['id'] .'">';
+				$output .= '<div class="select_wrapper"><select class="woo-input" name="'. $value['id'] .'" id="'. $value['id'] .'">';
 
 				$select_value = stripslashes( get_option( $value['id'] ) );
 
@@ -1003,7 +1003,7 @@ if ( ! function_exists( 'lokthemes_machine' ) ) {
 				$output .= '<div class="select_wrapper">' . "\n";
 
 				if ( is_array( $value['options'] ) ) {
-					$output .= '<select class="lok-input" name="'. $value['id'] .'" id="'. $value['id'] .'">';
+					$output .= '<select class="woo-input" name="'. $value['id'] .'" id="'. $value['id'] .'">';
 
 					$select_value = stripslashes( get_option( $value['id'] ) );
 
@@ -1035,7 +1035,7 @@ if ( ! function_exists( 'lokthemes_machine' ) ) {
 				$val = $value['std'];
 				$std = get_option( $value['id'] );
 				if ( $std != "" ) { $val = $std; }
-				$output .= '<input class="lok-input-calendar" type="text" name="'.$value['id'].'" id="'.$value['id'].'" value="'.esc_attr( $val ).'">';
+				$output .= '<input class="woo-input-calendar" type="text" name="'.$value['id'].'" id="'.$value['id'].'" value="'.esc_attr( $val ).'">';
 				$output .= '<input type="hidden" name="datepicker-image" value="' . get_template_directory_uri() . '/functions/images/calendar.gif" />';
 
 				break;
@@ -1044,7 +1044,7 @@ if ( ! function_exists( 'lokthemes_machine' ) ) {
 				$val = $value['std'];
 				$std = get_option( $value['id'] );
 				if ( $std != "" ) { $val = $std; }
-				$output .= '<input class="lok-input-time" name="'. $value['id'] .'" id="'. $value['id'] .'" type="text" value="'. esc_attr( $val ) .'" />';
+				$output .= '<input class="woo-input-time" name="'. $value['id'] .'" id="'. $value['id'] .'" type="text" value="'. esc_attr( $val ) .'" />';
 				break;
 				
 			case 'textarea':
@@ -1065,7 +1065,7 @@ if ( ! function_exists( 'lokthemes_machine' ) ) {
 				}
 				$std = get_option( $value['id'] );
 				if( $std != "" ) { $ta_value = stripslashes( $std ); }
-				$output .= '<textarea ' . ( !current_user_can( 'unfiltered_html' ) && in_array( $value['id'], lok_disabled_if_not_unfiltered_html_option_keys() ) ? 'disabled="disabled" ' : '' ) . 'class="lok-input" name="'. $value['id'] .'" id="'. $value['id'] .'" cols="'. $cols .'" rows="8">'.esc_textarea( $ta_value ).'</textarea>';
+				$output .= '<textarea ' . ( !current_user_can( 'unfiltered_html' ) && in_array( $value['id'], woo_disabled_if_not_unfiltered_html_option_keys() ) ? 'disabled="disabled" ' : '' ) . 'class="woo-input" name="'. $value['id'] .'" id="'. $value['id'] .'" cols="'. $cols .'" rows="8">'.esc_textarea( $ta_value ).'</textarea>';
 
 
 				break;
@@ -1082,7 +1082,7 @@ if ( ! function_exists( 'lokthemes_machine' ) ) {
 						} else {
 							if ( $value['std'] == $key ) { $checked = ' checked'; }
 						}
-						$output .= '<div class="radio-wrapper"><input class="lok-input lok-radio" type="radio" name="'. $value['id'] .'" value="'. esc_attr( $key ) .'" '. $checked .' /><label>' . $option .'</label></div>';
+						$output .= '<div class="radio-wrapper"><input class="woo-input woo-radio" type="radio" name="'. $value['id'] .'" value="'. esc_attr( $key ) .'" '. $checked .' /><label>' . $option .'</label></div>';
 
 					}
 				}
@@ -1109,7 +1109,7 @@ if ( ! function_exists( 'lokthemes_machine' ) ) {
 				else {
 					$checked = '';
 				}
-				$output .= '<input type="checkbox" class="checkbox lok-input" name="'.  $value['id'] .'" id="'. $value['id'] .'" value="true" '. $checked .' />';
+				$output .= '<input type="checkbox" class="checkbox woo-input" name="'.  $value['id'] .'" id="'. $value['id'] .'" value="true" '. $checked .' />';
 
 				break;
 				
@@ -1119,8 +1119,8 @@ if ( ! function_exists( 'lokthemes_machine' ) ) {
 				if ( is_array( $value['options'] ) ) {
 					foreach ( $value['options'] as $key => $option ) {
 
-						$lok_key = $value['id'] . '_' . $key;
-						$saved_std = get_option( $lok_key );
+						$woo_key = $value['id'] . '_' . $key;
+						$saved_std = get_option( $woo_key );
 
 						if ( ! empty( $saved_std ) ) {
 							if ( $saved_std == 'true' ) {
@@ -1133,7 +1133,7 @@ if ( ! function_exists( 'lokthemes_machine' ) ) {
 						} else {
 							$checked = '';
 						}
-						$output .= '<input type="checkbox" class="checkbox lok-input" name="'. $lok_key .'" id="'. $lok_key .'" value="true" '. $checked .' /><label for="'. $lok_key .'">'. $option .'</label><br />';
+						$output .= '<input type="checkbox" class="checkbox woo-input" name="'. $woo_key .'" id="'. $woo_key .'" value="true" '. $checked .' /><label for="'. $woo_key .'">'. $option .'</label><br />';
 
 					}
 				}
@@ -1145,8 +1145,8 @@ if ( ! function_exists( 'lokthemes_machine' ) ) {
 				if ( is_array( $value['options'] ) ) {
 					foreach ( $value['options'] as $key => $option ) {
 
-						$lok_key = $value['id'] . '_' . $key;
-						$saved_std = get_option( $lok_key );
+						$woo_key = $value['id'] . '_' . $key;
+						$saved_std = get_option( $woo_key );
 
 						if( ! empty( $saved_std ) )
 						{
@@ -1161,18 +1161,18 @@ if ( ! function_exists( 'lokthemes_machine' ) ) {
 						} else {
 							$checked = '';
 						}
-						$output .= '<input type="checkbox" class="checkbox lok-input" name="'. $lok_key .'" id="'. $lok_key .'" value="true" '. $checked .' /><label for="'. $lok_key .'">'. $option .'</label><br />';
+						$output .= '<input type="checkbox" class="checkbox woo-input" name="'. $woo_key .'" id="'. $woo_key .'" value="true" '. $checked .' /><label for="'. $woo_key .'">'. $option .'</label><br />';
 
 					}
 				}
 				break;
 				
 			case "upload":
-				$output .= lokthemes_medialibrary_uploader( $value['id'], $value['std'], null ); // New AJAX Uploader using Media Library
+				$output .= woothemes_medialibrary_uploader( $value['id'], $value['std'], null ); // New AJAX Uploader using Media Library
 				break;
 				
 			case "upload_min":
-				$output .= lokthemes_medialibrary_uploader( $value['id'], $value['std'], 'min' ); // New AJAX Uploader using Media Library
+				$output .= woothemes_medialibrary_uploader( $value['id'], $value['std'], 'min' ); // New AJAX Uploader using Media Library
 				break;
 				
 			case "color":
@@ -1180,7 +1180,7 @@ if ( ! function_exists( 'lokthemes_machine' ) ) {
 				$stored  = get_option( $value['id'] );
 				if ( $stored != "" ) { $val = $stored; }
 				$output .= '<div id="' . $value['id'] . '_picker" class="colorSelector"><div></div></div>';
-				$output .= '<input class="lok-color" name="'. $value['id'] .'" id="'. $value['id'] .'" type="text" value="'. esc_attr( $val ) .'" />';
+				$output .= '<input class="woo-color" name="'. $value['id'] .'" id="'. $value['id'] .'" type="text" value="'. esc_attr( $val ) .'" />';
 				break;
 
 			case "typography":
@@ -1212,13 +1212,13 @@ if ( ! function_exists( 'lokthemes_machine' ) ) {
 					$name_px = ' name="'. $value['id'].'_size" ';
 					$name_em = '';
 				}
-				$output .= '<select class="lok-typography lok-typography-size lok-typography-size-px"  id="'. $value['id'].'_size_px" '. $name_px . $show_px .'>';
+				$output .= '<select class="woo-typography woo-typography-size woo-typography-size-px"  id="'. $value['id'].'_size_px" '. $name_px . $show_px .'>';
 				for ( $i = 9; $i < 71; $i++ ) {
 					if( $val == strval( $i ) ) { $active = 'selected="selected"'; } else { $active = ''; }
 					$output .= '<option value="'. $i .'" ' . $active . '>'. $i .'</option>'; }
 				$output .= '</select>';
 
-				$output .= '<select class="lok-typography lok-typography-size lok-typography-size-em" id="'. $value['id'].'_size_em" '. $name_em . $show_em.'>';
+				$output .= '<select class="woo-typography woo-typography-size woo-typography-size-em" id="'. $value['id'].'_size_em" '. $name_em . $show_em.'>';
 				$em = 0.5;
 				for ( $i = 0; $i < 39; $i++ ) {
 					if ( $i <= 24 )   // up to 2.0em in 0.1 increments
@@ -1238,7 +1238,7 @@ if ( ! function_exists( 'lokthemes_machine' ) ) {
 				$em = ''; $px = '';
 				if( $val == 'em' ) { $em = 'selected="selected"'; }
 				if( $val == 'px' ) { $px = 'selected="selected"'; }
-				$output .= '<select class="lok-typography lok-typography-unit" name="'. $value['id'].'_unit" id="'. $value['id'].'_unit">';
+				$output .= '<select class="woo-typography woo-typography-unit" name="'. $value['id'].'_unit" id="'. $value['id'].'_unit">';
 				$output .= '<option value="px" '. $px .'">px</option>';
 				$output .= '<option value="em" '. $em .'>em</option>';
 				$output .= '</select>';
@@ -1284,7 +1284,7 @@ if ( ! function_exists( 'lokthemes_machine' ) ) {
 				if ( strpos( $val, 'Courier' ) !== false ) { $font16 = 'selected="selected"'; }
 				if ( strpos( $val, 'Century Gothic' ) !== false ) { $font17 = 'selected="selected"'; }
 
-				$output .= '<select class="lok-typography lok-typography-face" name="'. $value['id'].'_face" id="'. $value['id'].'_face">';
+				$output .= '<select class="woo-typography woo-typography-face" name="'. $value['id'].'_face" id="'. $value['id'].'_face">';
 				$output .= '<option value="Arial, sans-serif" '. $font01 .'>Arial</option>';
 				$output .= '<option value="Verdana, Geneva, sans-serif" '. $font02 .'>Verdana</option>';
 				$output .= '<option value="&quot;Trebuchet MS&quot;, Tahoma, sans-serif"'. $font03 .'>Trebuchet</option>';
@@ -1316,7 +1316,7 @@ if ( ! function_exists( 'lokthemes_machine' ) ) {
 				endforeach;
 
 				// Custom Font stack
-				$new_stacks = get_option( 'framework_lok_font_stack' );
+				$new_stacks = get_option( 'framework_woo_font_stack' );
 				if( !empty( $new_stacks ) ) {
 					$output .= '<option value="">-- Custom Font Stacks --</option>';
 					foreach( $new_stacks as $name => $stack ) {
@@ -1336,7 +1336,7 @@ if ( ! function_exists( 'lokthemes_machine' ) ) {
 				if( $val == 'bold' ) { $bold = 'selected="selected"'; }
 				if( $val == 'bold italic' ) { $bolditalic = 'selected="selected"'; }
 
-				$output .= '<select class="lok-typography lok-typography-style" name="'. $value['id'].'_style" id="'. $value['id'].'_style">';
+				$output .= '<select class="woo-typography woo-typography-style" name="'. $value['id'].'_style" id="'. $value['id'].'_style">';
 				$output .= '<option value="normal" '. $normal .'>Normal</option>';
 				$output .= '<option value="italic" '. $italic .'>Italic</option>';
 				$output .= '<option value="bold" '. $bold .'>Bold</option>';
@@ -1347,7 +1347,7 @@ if ( ! function_exists( 'lokthemes_machine' ) ) {
 				$val = $default['color'];
 				if ( $typography_stored['color'] != "" ) { $val = $typography_stored['color']; }
 				$output .= '<div id="' . $value['id'] . '_color_picker" class="colorSelector"><div></div></div>';
-				$output .= '<input class="lok-color lok-typography lok-typography-color" name="'. $value['id'] .'_color" id="'. $value['id'] .'_color" type="text" value="'. esc_attr( $val ) .'" />';
+				$output .= '<input class="woo-color woo-typography woo-typography-color" name="'. $value['id'] .'_color" id="'. $value['id'] .'_color" type="text" value="'. esc_attr( $val ) .'" />';
 
 				break;
 
@@ -1358,7 +1358,7 @@ if ( ! function_exists( 'lokthemes_machine' ) ) {
 				/* Border Width */
 				$val = $default['width'];
 				if ( $border_stored['width'] != "" ) { $val = $border_stored['width']; }
-				$output .= '<select class="lok-border lok-border-width" name="'. $value['id'].'_width" id="'. $value['id'].'_width">';
+				$output .= '<select class="woo-border woo-border-width" name="'. $value['id'].'_width" id="'. $value['id'].'_width">';
 				for ( $i = 0; $i < 21; $i++ ) {
 					if( $val == $i ) { $active = 'selected="selected"'; } else { $active = ''; }
 					$output .= '<option value="'. $i .'" ' . $active . '>'. $i .'px</option>'; }
@@ -1372,7 +1372,7 @@ if ( ! function_exists( 'lokthemes_machine' ) ) {
 				if( $val == 'dashed' ) { $dashed = 'selected="selected"'; }
 				if( $val == 'dotted' ) { $dotted = 'selected="selected"'; }
 
-				$output .= '<select class="lok-border lok-border-style" name="'. $value['id'].'_style" id="'. $value['id'].'_style">';
+				$output .= '<select class="woo-border woo-border-style" name="'. $value['id'].'_style" id="'. $value['id'].'_style">';
 				$output .= '<option value="solid" '. $solid .'>Solid</option>';
 				$output .= '<option value="dashed" '. $dashed .'>Dashed</option>';
 				$output .= '<option value="dotted" '. $dotted .'>Dotted</option>';
@@ -1382,7 +1382,7 @@ if ( ! function_exists( 'lokthemes_machine' ) ) {
 				$val = $default['color'];
 				if ( $border_stored['color'] != "" ) { $val = $border_stored['color']; }
 				$output .= '<div id="' . $value['id'] . '_color_picker" class="colorSelector"><div></div></div>';
-				$output .= '<input class="lok-color lok-border lok-border-color" name="'. $value['id'] .'_color" id="'. $value['id'] .'_color" type="text" value="'. esc_attr( $val ) .'" />';
+				$output .= '<input class="woo-color woo-border woo-border-color" name="'. $value['id'] .'_color" id="'. $value['id'] .'_color" type="text" value="'. esc_attr( $val ) .'" />';
 
 				break;
 
@@ -1396,18 +1396,18 @@ if ( ! function_exists( 'lokthemes_machine' ) ) {
 					$checked = '';
 					$selected = '';
 					if( $select_value != '' ) {
-						if ( $select_value == $key ) { $checked = ' checked'; $selected = 'lok-radio-img-selected'; }
+						if ( $select_value == $key ) { $checked = ' checked'; $selected = 'woo-radio-img-selected'; }
 					} else {
-						if ( $value['std'] == $key ) { $checked = ' checked'; $selected = 'lok-radio-img-selected'; }
-						elseif ( $i == 1  && !isset( $select_value ) ) { $checked = ' checked'; $selected = 'lok-radio-img-selected'; }
-						elseif ( $i == 1  && $value['std'] == '' ) { $checked = ' checked'; $selected = 'lok-radio-img-selected'; }
+						if ( $value['std'] == $key ) { $checked = ' checked'; $selected = 'woo-radio-img-selected'; }
+						elseif ( $i == 1  && !isset( $select_value ) ) { $checked = ' checked'; $selected = 'woo-radio-img-selected'; }
+						elseif ( $i == 1  && $value['std'] == '' ) { $checked = ' checked'; $selected = 'woo-radio-img-selected'; }
 						else { $checked = ''; }
 					}
 
 					$output .= '<span>';
-					$output .= '<input type="radio" id="lok-radio-img-' . $value['id'] . $i . '" class="checkbox lok-radio-img-radio" value="'. esc_attr( $key ) .'" name="'. $value['id'].'" '.$checked.' />';
-					$output .= '<span class="lok-radio-img-label">'. esc_html( $key ) .'</span>';
-					$output .= '<img src="'.$option.'" alt="" class="lok-radio-img-img '. $selected .'" onClick="document.getElementById(\'lok-radio-img-'. $value['id'] . $i.'\').checked = true;" />';
+					$output .= '<input type="radio" id="woo-radio-img-' . $value['id'] . $i . '" class="checkbox woo-radio-img-radio" value="'. esc_attr( $key ) .'" name="'. $value['id'].'" '.$checked.' />';
+					$output .= '<span class="woo-radio-img-label">'. esc_html( $key ) .'</span>';
+					$output .= '<img src="'.$option.'" alt="" class="woo-radio-img-img '. $selected .'" onClick="document.getElementById(\'woo-radio-img-'. $value['id'] . $i.'\').checked = true;" />';
 					$output .= '</span>';
 
 				}
@@ -1430,9 +1430,9 @@ if ( ! function_exists( 'lokthemes_machine' ) ) {
 				$output .= '<input type="hidden" name="datepicker-image" value="' . admin_url( 'images/date-button.gif' ) . '" />' . "\n";
 				
 				$output .= '<span class="time-selectors">' . "\n";
-				$output .= ' <span class="lok-timestamp-at">' . __( '@', 'lokthemes' ) . '</span> ';
+				$output .= ' <span class="woo-timestamp-at">' . __( '@', 'woothemes' ) . '</span> ';
 				
-				$output .= '<select name="' . $value['id'] . '[hour]" class="lok-select-timestamp">' . "\n";
+				$output .= '<select name="' . $value['id'] . '[hour]" class="woo-select-timestamp">' . "\n";
 					for ( $i = 0; $i <= 23; $i++ ) {
 						
 						$j = $i;
@@ -1444,7 +1444,7 @@ if ( ! function_exists( 'lokthemes_machine' ) ) {
 					}
 				$output .= '</select>' . "\n";
 				
-				$output .= '<select name="' . $value['id'] . '[minute]" class="lok-select-timestamp">' . "\n";
+				$output .= '<select name="' . $value['id'] . '[minute]" class="woo-select-timestamp">' . "\n";
 					for ( $i = 0; $i <= 59; $i++ ) {
 						
 						$j = $i;
@@ -1456,7 +1456,7 @@ if ( ! function_exists( 'lokthemes_machine' ) ) {
 					}
 				$output .= '</select>' . "\n";
 				/*
-				$output .= '<select name="' . $value['id'] . '[second]" class="lok-select-timestamp">' . "\n";
+				$output .= '<select name="' . $value['id'] . '[second]" class="woo-select-timestamp">' . "\n";
 					for ( $i = 0; $i <= 59; $i++ ) {
 						
 						$j = $i;
@@ -1471,7 +1471,7 @@ if ( ! function_exists( 'lokthemes_machine' ) ) {
 				
 				$output .= '</span><!--/.time-selectors-->' . "\n";
 				
-				$output .= '<input class="lok-input-calendar" type="text" name="' . $value['id'] . '[date]" id="'.$value['id'].'" value="' . esc_attr( date( 'm/d/Y', $val ) ) . '">';
+				$output .= '<input class="woo-input-calendar" type="text" name="' . $value['id'] . '[date]" id="'.$value['id'].'" value="' . esc_attr( date( 'm/d/Y', $val ) ) . '">';
 			break;
 
 			case "heading":
@@ -1482,7 +1482,7 @@ if ( ! function_exists( 'lokthemes_machine' ) ) {
 				// $jquery_click_hook = preg_replace( '/[^\p{L}\p{N}]/u', '', strtolower( $value['name'] ) ); // Regex for UTF-8 languages.
 				$jquery_click_hook = str_replace( ' ', '', $jquery_click_hook );
 
-				$jquery_click_hook = "lok-option-" . $jquery_click_hook;
+				$jquery_click_hook = "woo-option-" . $jquery_click_hook;
 				$menu .= '<li class="'.$value['icon'].'"><a title="'.  $value['name'] .'" href="#'.  $jquery_click_hook  .'">'.  $value['name'] .'</a></li>';
 				$output .= '<div class="group" id="'. $jquery_click_hook  .'"><h1 class="subtitle">'.$value['name'].'</h1>'."\n";
 				break;
@@ -1495,7 +1495,7 @@ if ( ! function_exists( 'lokthemes_machine' ) ) {
 				// $jquery_click_hook = preg_replace( '/[^\p{L}\p{N}]/u', '', strtolower( $value['name'] ) ); // Regex for UTF-8 languages.
 				$jquery_click_hook = str_replace( ' ', '', $jquery_click_hook );
 
-				$jquery_click_hook = "lok-option-" . $jquery_click_hook;
+				$jquery_click_hook = "woo-option-" . $jquery_click_hook;
 				$menu .= '<li><a title="' . $value['name'] . '" href="#' . $jquery_click_hook . '">' . $value['name'] . '</a></li>';
 				$output .= '<div class="group" id="'. $jquery_click_hook  .'"><h1 class="subtitle">'.$value['name'].'</h1>'."\n";
 				break;
@@ -1513,7 +1513,7 @@ if ( ! function_exists( 'lokthemes_machine' ) ) {
 
 					if( $array['type'] == 'text' ) { // Only text at this point
 
-						$output .= '<input class="input-text-small lok-input" name="'. $id .'" id="'. $id .'" type="text" value="'. esc_attr( $std ) .'" />';
+						$output .= '<input class="input-text-small woo-input" name="'. $id .'" id="'. $id .'" type="text" value="'. esc_attr( $std ) .'" />';
 						$output .= '<span class="meta-two">'.$meta.'</span>';
 					}
 				}
@@ -1524,8 +1524,8 @@ if ( ! function_exists( 'lokthemes_machine' ) ) {
 					$output .= '<br/>';
 				}
 				$explain_value = ( isset( $value['desc'] ) ) ? $value['desc'] : '';
-				if ( !current_user_can( 'unfiltered_html' ) && isset( $value['id'] ) && in_array( $value['id'], lok_disabled_if_not_unfiltered_html_option_keys() ) )
-					$explain_value .= '<br /><br /><b>' . __( 'You are not able to update this option because you lack the <code>unfiltered_html</code> capability.', 'lokthemes' ) . '</b>';
+				if ( !current_user_can( 'unfiltered_html' ) && isset( $value['id'] ) && in_array( $value['id'], woo_disabled_if_not_unfiltered_html_option_keys() ) )
+					$explain_value .= '<br /><br /><b>' . __( 'You are not able to update this option because you lack the <code>unfiltered_html</code> capability.', 'woothemes' ) . '</b>';
 				$output .= '</div><div class="explain">'. $explain_value .'</div>'."\n";
 				$output .= '<div class="clear"> </div></div></div>'."\n";
 			}
@@ -1533,7 +1533,7 @@ if ( ! function_exists( 'lokthemes_machine' ) ) {
 		}
 
 		//Checks if is not the Content Builder page
-		if ( isset( $_REQUEST['page'] ) && $_REQUEST['page'] != 'lokthemes_content_builder' ) {
+		if ( isset( $_REQUEST['page'] ) && $_REQUEST['page'] != 'woothemes_content_builder' ) {
 			$output .= '</div>';
 		}
 		
@@ -1568,36 +1568,36 @@ if ( ! function_exists( 'lokthemes_machine' ) ) {
 		}
 
 		return array( $output, $menu, $menu_items );
-	} // End lokthemes_machine()
+	} // End woothemes_machine()
 }
 
 /*-----------------------------------------------------------------------------------*/
-/* lokThemes Uploader - lokthemes_uploader_function */
+/* WooThemes Uploader - woothemes_uploader_function */
 /*-----------------------------------------------------------------------------------*/
 
-if ( ! function_exists( 'lokthemes_uploader_function' ) ) {
-	function lokthemes_uploader_function( $id, $std, $mod ) {
-		return lokthemes_medialibrary_uploader( $id, $std, $mod );
-	} // End lokthemes_uploader_function()
+if ( ! function_exists( 'woothemes_uploader_function' ) ) {
+	function woothemes_uploader_function( $id, $std, $mod ) {
+		return woothemes_medialibrary_uploader( $id, $std, $mod );
+	} // End woothemes_uploader_function()
 }
 
 /*-----------------------------------------------------------------------------------*/
-/* lokthemes Theme Version Checker - lokthemes_version_checker */
+/* Woothemes Theme Version Checker - woothemes_version_checker */
 /* @local_version is the installed theme version number */
 /*-----------------------------------------------------------------------------------*/
 
-function lokthemes_do_not_cache_feeds( &$feed ) { $feed->enable_cache( false ); } // End lokthemes_do_not_cache_feeds()
-function lokthemes_http_request_args( $r ) { $r['timeout'] = 15; return $r; } // End lokthemes_http_request_args()
-function lokthemes_http_api_curl( $handle ) { curl_setopt( $handle, CURLOPT_CONNECTTIMEOUT, 15 ); curl_setopt( $handle, CURLOPT_TIMEOUT, 15 ); } // End lokthemes_http_api_curl()
+function woothemes_do_not_cache_feeds( &$feed ) { $feed->enable_cache( false ); } // End woothemes_do_not_cache_feeds()
+function woothemes_http_request_args( $r ) { $r['timeout'] = 15; return $r; } // End woothemes_http_request_args()
+function woothemes_http_api_curl( $handle ) { curl_setopt( $handle, CURLOPT_CONNECTTIMEOUT, 15 ); curl_setopt( $handle, CURLOPT_TIMEOUT, 15 ); } // End woothemes_http_api_curl()
 
-if ( ! function_exists( 'lokthemes_version_checker' ) ) {
-	function lokthemes_version_checker ( $local_version ) {
-		add_action( 'nxt_feed_options', 'lokthemes_do_not_cache_feeds' );
-		add_filter( 'http_request_args', 'lokthemes_http_request_args', 100, 1 );
-		add_action( 'http_api_curl', 'lokthemes_http_api_curl', 100, 1 );
+if ( ! function_exists( 'woothemes_version_checker' ) ) {
+	function woothemes_version_checker ( $local_version ) {
+		add_action( 'nxt_feed_options', 'woothemes_do_not_cache_feeds' );
+		add_filter( 'http_request_args', 'woothemes_http_request_args', 100, 1 );
+		add_action( 'http_api_curl', 'woothemes_http_api_curl', 100, 1 );
 
 		// Get a SimplePie feed object from the specified feed source.
-		$theme_name = str_replace( "-", "", strtolower( get_option( 'lok_themename' ) ) );
+		$theme_name = str_replace( "-", "", strtolower( get_option( 'woo_themename' ) ) );
 
 		// Use a transient to store the current theme version data for 24 hours.
 		$latest_version_via_rss = '';
@@ -1610,7 +1610,7 @@ if ( ! function_exists( 'lokthemes_version_checker' ) ) {
 
 		// If the transient has expired, run the check.
 		if ( $latest_version_via_rss == '' ) {
-			$feed_url = 'http://www.lokthemes.com/?feed=updates&theme=' . $theme_name;
+			$feed_url = 'http://www.woothemes.com/?feed=updates&theme=' . $theme_name;
 			
 			$rss = fetch_feed( $feed_url );
 
@@ -1668,9 +1668,9 @@ if ( ! function_exists( 'lokthemes_version_checker' ) ) {
 
 			// Setup update statuses
 			$statuses = array(
-				'new_version' => __( 'New Version', 'lokthemes' ),
-				'new_feature' => __( 'New Feature', 'lokthemes' ),
-				'bugfix' => __( 'Bugfix', 'lokthemes' )
+				'new_version' => __( 'New Version', 'woothemes' ),
+				'new_feature' => __( 'New Feature', 'woothemes' ),
+				'bugfix' => __( 'Bugfix', 'woothemes' )
 			);
 
 			// New version
@@ -1694,7 +1694,7 @@ if ( ! function_exists( 'lokthemes_version_checker' ) ) {
 
 			//set version checker message
 			if ( $version_sentinel == true ) {
-				$update_message = '<div class="update_available status-' . $status . '">' . __( 'Theme update is available', 'lokthemes' ) . ' (v.' . $latest_version_via_rss['version'] . ') - <a href="http://www.lokthemes.com/products/">' . __( 'Get the new version', 'lokthemes' ) . '</a>.<p>' . sprintf( __( 'Update Type: %s', 'lokthemes' ), $statuses[$status] ) . '</p></div>';
+				$update_message = '<div class="update_available status-' . $status . '">' . __( 'Theme update is available', 'woothemes' ) . ' (v.' . $latest_version_via_rss['version'] . ') - <a href="http://www.woothemes.com/products/">' . __( 'Get the new version', 'woothemes' ) . '</a>.<p>' . sprintf( __( 'Update Type: %s', 'woothemes' ), $statuses[$status] ) . '</p></div>';
 			}
 			else {
 				$update_message = '';
@@ -1705,125 +1705,125 @@ if ( ! function_exists( 'lokthemes_version_checker' ) ) {
 
 		return $update_message;
 	}
-} // End lokthemes_version_checker()
+} // End woothemes_version_checker()
 
 /*-----------------------------------------------------------------------------------*/
-/* lokthemes Thumb Detection Notice - lok_thumb_admin_notice */
+/* Woothemes Thumb Detection Notice - woo_thumb_admin_notice */
 /*-----------------------------------------------------------------------------------*/
-function lok_thumb_admin_notice() {
+function woo_thumb_admin_notice() {
 
 	global $current_user;
 	$current_user_id = $current_user->user_login;
-	$super_user = get_option( 'framework_lok_super_user' );
+	$super_user = get_option( 'framework_woo_super_user' );
 	if( $super_user == $current_user_id || empty( $super_user ) ) {
-		$timthumb_update = get_option( 'lok_timthumb_update' );
+		$timthumb_update = get_option( 'woo_timthumb_update' );
 		if ( isset( $_GET['page'] ) ) { $page = $_GET['page']; } else { $page = ''; }
-		$url = admin_url( 'admin.php?page=lokthemes_timthumb_update' );
-		if ( ( locate_template( 'thumb.php' ) != '' ) && $timthumb_update == '' && $page != 'lokthemes_timthumb_update' ) {
+		$url = admin_url( 'admin.php?page=woothemes_timthumb_update' );
+		if ( ( locate_template( 'thumb.php' ) != '' ) && $timthumb_update == '' && $page != 'woothemes_timthumb_update' ) {
 			echo '<div class="error">
     			   <p>Old version of TimThumb detected in your theme folder. <a href="'.$url.'">Click here to update</a>.</p>
     			</div>';
 
 		}
 	} // End If Statement
-} // End lok_thumb_admin_notice()
+} // End woo_thumb_admin_notice()
 
-update_option( 'lok_timthumb_update', '' );
-add_action( 'admin_notices', 'lok_thumb_admin_notice' );
+update_option( 'woo_timthumb_update', '' );
+add_action( 'admin_notices', 'woo_thumb_admin_notice' );
 
 /*-----------------------------------------------------------------------------------*/
-/* lokThemes Theme Update Admin Notice - lok_theme_update_notice */
+/* WooThemes Theme Update Admin Notice - woo_theme_update_notice */
 /*-----------------------------------------------------------------------------------*/
 
 global $pagenow;
-if ( $pagenow == 'admin.php' && isset( $_GET['page'] ) && $_GET['page'] == 'lokthemes' ) {
-	if ( get_option( 'framework_lok_theme_version_checker' ) == 'true' ) { add_action( 'admin_notices', 'lok_theme_update_notice', 10 ); }
-	if ( get_option( 'framework_lok_framework_version_checker' ) == 'true' ) { add_action( 'admin_notices', 'lok_framework_update_notice', 10 ); }
+if ( $pagenow == 'admin.php' && isset( $_GET['page'] ) && $_GET['page'] == 'woothemes' ) {
+	if ( get_option( 'framework_woo_theme_version_checker' ) == 'true' ) { add_action( 'admin_notices', 'woo_theme_update_notice', 10 ); }
+	if ( get_option( 'framework_woo_framework_version_checker' ) == 'true' ) { add_action( 'admin_notices', 'woo_framework_update_notice', 10 ); }
 
-	add_action( 'admin_notices', 'lok_framework_critical_update_notice', 8 ); // Periodically check for critical lokFramework updates.
+	add_action( 'admin_notices', 'woo_framework_critical_update_notice', 8 ); // Periodically check for critical WooFramework updates.
 }
 
 /**
- * lok_theme_update_notice()
+ * woo_theme_update_notice()
  *
  * Notify users of theme updates, if necessary.
  *
  * @since 4.7.0
  */
-if ( ! function_exists( 'lok_theme_update_notice' ) ) {
-	function lok_theme_update_notice () {
+if ( ! function_exists( 'woo_theme_update_notice' ) ) {
+	function woo_theme_update_notice () {
 		$theme_data = get_theme_data( get_template_directory() . '/style.css' );
 		$local_version = $theme_data['Version'];
 
-		$update_data = lokthemes_version_checker( $local_version );
+		$update_data = woothemes_version_checker( $local_version );
 
 		$html = '';
 
 		if ( is_array( $update_data ) && $update_data['is_update'] == true ) {
-			$html = '<div id="theme_update" class="updated fade"><p>' . sprintf( __( 'Theme update is available (v%s). %sDownload new version%s (%sSee Changelog%s)', 'lokthemes' ), $update_data['version'], '<a href="http://www.lokthemes.com/products/">', '</a>', '<a href="http://www.lokthemes.com/changelogs/' . $update_data['theme_name'] . '/changelog.txt" target="_blank" title="Changelog">', '</a>' ) . '</p></div>';
+			$html = '<div id="theme_update" class="updated fade"><p>' . sprintf( __( 'Theme update is available (v%s). %sDownload new version%s (%sSee Changelog%s)', 'woothemes' ), $update_data['version'], '<a href="http://www.woothemes.com/products/">', '</a>', '<a href="http://www.woothemes.com/changelogs/' . $update_data['theme_name'] . '/changelog.txt" target="_blank" title="Changelog">', '</a>' ) . '</p></div>';
 		}
 
 		if ( $html != '' ) { echo $html; }
-	} // End lok_theme_update_notice()
+	} // End woo_theme_update_notice()
 }
 
 /*-----------------------------------------------------------------------------------*/
-/* lokThemes Framework Update Notice - lok_framework_update_notice */
+/* WooThemes Framework Update Notice - woo_framework_update_notice */
 /*-----------------------------------------------------------------------------------*/
 /**
- * lok_framework_update_notice function.
+ * woo_framework_update_notice function.
  *
  * @description Notify users of framework updates, if necessary.
  * @since 4.8.0
  * @access public
  * @return void
  */
-if ( ! function_exists( 'lok_framework_update_notice' ) ) {
-	function lok_framework_update_notice () {
-		$local_version = get_option( 'lok_framework_version' );
+if ( ! function_exists( 'woo_framework_update_notice' ) ) {
+	function woo_framework_update_notice () {
+		$local_version = get_option( 'woo_framework_version' );
 		if ( $local_version == '' ) { return; }
 
-		$update_data = lok_framework_version_checker( $local_version );
+		$update_data = woo_framework_version_checker( $local_version );
 
 		$html = '';
 
 		if ( is_array( $update_data ) && $update_data['is_update'] == true ) {
-			$html = '<div id="lokframework_update" class="updated fade"><p>' . sprintf( __( 'lokFramework update is available (v%s). %sDownload new version%s (%sSee Changelog%s)', 'lokthemes' ), $update_data['version'], '<a href="' . admin_url( 'admin.php?page=lokthemes_framework_update' ) . '/">', '</a>', '<a href="http://www.lokthemes.com/updates/functions-changelog.txt" target="_blank" title="Changelog">', '</a>' ) . '</p></div>';
+			$html = '<div id="wooframework_update" class="updated fade"><p>' . sprintf( __( 'WooFramework update is available (v%s). %sDownload new version%s (%sSee Changelog%s)', 'woothemes' ), $update_data['version'], '<a href="' . admin_url( 'admin.php?page=woothemes_framework_update' ) . '/">', '</a>', '<a href="http://www.woothemes.com/updates/functions-changelog.txt" target="_blank" title="Changelog">', '</a>' ) . '</p></div>';
 		}
 
 		if ( $html != '' ) { echo $html; }
-	} // End lok_framework_update_notice()
+	} // End woo_framework_update_notice()
 }
 
 /*-----------------------------------------------------------------------------------*/
-/* lokThemes Framework Critical Update Notice - lok_framework_critical_update_notice */
+/* WooThemes Framework Critical Update Notice - woo_framework_critical_update_notice */
 /*-----------------------------------------------------------------------------------*/
 /**
- * lok_framework_critical_update_notice function.
+ * woo_framework_critical_update_notice function.
  *
  * @description Notify users of critical framework updates, if necessary.
  * @since 4.8.0
  * @access public
  * @return void
  */
-if ( ! function_exists( 'lok_framework_critical_update_notice' ) ) {
-	function lok_framework_critical_update_notice () {
+if ( ! function_exists( 'woo_framework_critical_update_notice' ) ) {
+	function woo_framework_critical_update_notice () {
 		// Determine if the check has happened.
-		$critical_update = get_transient( 'lok_framework_critical_update' );
-		$critical_update_data = get_transient( 'lok_framework_critical_update_data' );
+		$critical_update = get_transient( 'woo_framework_critical_update' );
+		$critical_update_data = get_transient( 'woo_framework_critical_update_data' );
 
 		if ( ! $critical_update || ! is_array( $critical_update_data ) ) {
 
-			$local_version = get_option( 'lok_framework_version' );
+			$local_version = get_option( 'woo_framework_version' );
 			if ( $local_version == '' ) { return; }
 
-			$update_data = lok_framework_version_checker( $local_version, true );
+			$update_data = woo_framework_version_checker( $local_version, true );
 
 			// Set this to "has been checked" for 2 weeks.
-			set_transient( 'lok_framework_critical_update', true, 60*60*336 );
+			set_transient( 'woo_framework_critical_update', true, 60*60*336 );
 
 			// Cache the data as well.
-			set_transient( 'lok_framework_critical_update_data', $update_data, 60*60*336 );
+			set_transient( 'woo_framework_critical_update_data', $update_data, 60*60*336 );
 		} else {
 			$update_data = $critical_update_data;
 		}
@@ -1834,12 +1834,12 @@ if ( ! function_exists( 'lok_framework_critical_update_notice' ) ) {
 		if ( is_array( $update_data ) && $update_data['is_update'] == true && $update_data['is_critical'] == true ) {
 
 			// Remove the generic update notice.
-			remove_action( 'admin_notices', 'lok_framework_update_notice', 10 );
+			remove_action( 'admin_notices', 'woo_framework_update_notice', 10 );
 
-			$html = '<div id="lokframework_important_update" class="error fade"><p>' . sprintf( __( 'An important lokFramework update is available (v%s). %sDownload new version%s (%sSee Changelog%s)', 'lokthemes' ), $update_data['version'], '<a href="' . admin_url( 'admin.php?page=lokthemes_framework_update' ) . '">', '</a>', '<a href="http://www.lokthemes.com/updates/functions-changelog.txt" target="_blank" title="Changelog">', '</a>' ) . '</p></div>';
+			$html = '<div id="wooframework_important_update" class="error fade"><p>' . sprintf( __( 'An important WooFramework update is available (v%s). %sDownload new version%s (%sSee Changelog%s)', 'woothemes' ), $update_data['version'], '<a href="' . admin_url( 'admin.php?page=woothemes_framework_update' ) . '">', '</a>', '<a href="http://www.woothemes.com/updates/functions-changelog.txt" target="_blank" title="Changelog">', '</a>' ) . '</p></div>';
 		}
 
 		if ( $html != '' ) { echo $html; }
-	} // End lok_framework_critical_update_notice()
+	} // End woo_framework_critical_update_notice()
 }
 ?>

@@ -1,5 +1,5 @@
 /**
- * lokThemes Admin Interface JavaScript
+ * WooThemes Admin Interface JavaScript
  *
  * All JavaScript logic for the theme options admin interface.
  * @since 4.8.0
@@ -8,7 +8,7 @@
 
 (function ($) {
 
-  lokthemesAdminInterface = {
+  woothemesAdminInterface = {
   
 /**
  * toggle_nav_tabs()
@@ -22,20 +22,20 @@
 		$( '#expand_options' ).click( function(){
 			if( flip == 0 ){
 				flip = 1;
-				$( '#lok_container #lok-nav' ).hide();
-				$( '#lok_container #content' ).width( 785 );
-				$( '#lok_container .group' ).add( '#lok_container .group h1' ).show();
+				$( '#woo_container #woo-nav' ).hide();
+				$( '#woo_container #content' ).width( 785 );
+				$( '#woo_container .group' ).add( '#woo_container .group h1' ).show();
 
 				$(this).text( '[-]' );
 
 			} else {
 				flip = 0;
-				$( '#lok_container #lok-nav' ).show();
-				$( '#lok_container #content' ).width( 595 );
-				$( '#lok_container .group' ).add( '#lok_container .group h1' ).hide();
-				$( '#lok_container .group:first' ).show();
-				$( '#lok_container #lok-nav li' ).removeClass( 'current' );
-				$( '#lok_container #lok-nav li:first' ).addClass( 'current' );
+				$( '#woo_container #woo-nav' ).show();
+				$( '#woo_container #content' ).width( 595 );
+				$( '#woo_container .group' ).add( '#woo_container .group h1' ).hide();
+				$( '#woo_container .group:first' ).show();
+				$( '#woo_container #woo-nav li' ).removeClass( 'current' );
+				$( '#woo_container #woo-nav li:first' ).addClass( 'current' );
 
 				$(this).text( '[+]' );
 
@@ -62,7 +62,7 @@
  */
  
  	open_first_menu: function () {
- 		$( '#lok-nav li.current.has-children:first ul.sub-menu' ).slideDown().addClass( 'open' ).children( 'li:first' ).addClass( 'active' ).parents( 'li.has-children' ).addClass( 'open' );
+ 		$( '#woo-nav li.current.has-children:first ul.sub-menu' ).slideDown().addClass( 'open' ).children( 'li:first' ).addClass( 'active' ).parents( 'li.has-children' ).addClass( 'open' );
  	}, // End open_first_menu()
  	
 /**
@@ -72,13 +72,13 @@
  */
  
  	toggle_nav_menus: function () {
- 		$( '#lok-nav li.has-children > a' ).click( function ( e ) {
+ 		$( '#woo-nav li.has-children > a' ).click( function ( e ) {
  			if ( $( this ).parent().hasClass( 'open' ) ) { return false; }
  			
- 			$( '#lok-nav li.top-level' ).removeClass( 'open' ).removeClass( 'current' );
- 			$( '#lok-nav li.active' ).removeClass( 'active' );
+ 			$( '#woo-nav li.top-level' ).removeClass( 'open' ).removeClass( 'current' );
+ 			$( '#woo-nav li.active' ).removeClass( 'active' );
  			if ( $( this ).parents( '.top-level' ).hasClass( 'open' ) ) {} else {
- 				$( '#lok-nav .sub-menu.open' ).removeClass( 'open' ).slideUp().parent().removeClass( 'current' );
+ 				$( '#woo-nav .sub-menu.open' ).removeClass( 'open' ).slideUp().parent().removeClass( 'current' );
  				$( this ).parent().addClass( 'open' ).addClass( 'current' ).find( '.sub-menu' ).slideDown().addClass( 'open' ).children( 'li:first' ).addClass( 'active' );
  			}
  			
@@ -109,7 +109,7 @@
 				$( this ).filter( '.hidden' ).removeClass( 'hidden' );
 				
 				$( '.group .collapsed input:checkbox').click(function ( e ) {
-					lokthemesAdminInterface.unhide_hidden( $( this ).attr( 'id' ) );
+					woothemesAdminInterface.unhide_hidden( $( this ).attr( 'id' ) );
 				});
 
 			});
@@ -124,18 +124,18 @@
  
  	setup_nav_highlights: function () {
 	 	// Highlight the first item by default.
-	 	$( '#lok-nav li.top-level:first' ).addClass( 'current' ).addClass( 'open' );
+	 	$( '#woo-nav li.top-level:first' ).addClass( 'current' ).addClass( 'open' );
 		
 		// Default single-level logic.
-		$( '#lok-nav li.top-level' ).not( '.has-children' ).find( 'a' ).click( function ( e ) {
+		$( '#woo-nav li.top-level' ).not( '.has-children' ).find( 'a' ).click( function ( e ) {
 			var thisObj = $( this );
 			var clickedGroup = thisObj.attr( 'href' );
 			
 			if ( clickedGroup != '' ) {
-				$( '#lok-nav .open' ).removeClass( 'open' );
+				$( '#woo-nav .open' ).removeClass( 'open' );
 				$( '.sub-menu' ).slideUp();
-				$( '#lok-nav .active' ).removeClass( 'active' );
-				$( '#lok-nav li.current' ).removeClass( 'current' );
+				$( '#woo-nav .active' ).removeClass( 'active' );
+				$( '#woo-nav li.current' ).removeClass( 'current' );
 				thisObj.parent().addClass( 'current' );
 				
 				$( '.group' ).hide();
@@ -145,15 +145,15 @@
 			}
 		});
 		
-		$( '#lok-nav li:not(".has-children") > a:first' ).click( function( evt ) {
+		$( '#woo-nav li:not(".has-children") > a:first' ).click( function( evt ) {
 			var parentObj = $( this ).parent( 'li' );
 			var thisObj = $( this );
 			
 			var clickedGroup = thisObj.attr( 'href' );
 			
 			if ( $( this ).parents( '.top-level' ).hasClass( 'open' ) ) {} else {
-				$( '#lok-nav li.top-level' ).removeClass( 'current' ).removeClass( 'open' );
-				$( '#lok-nav .sub-menu' ).removeClass( 'open' ).slideUp();
+				$( '#woo-nav li.top-level' ).removeClass( 'current' ).removeClass( 'open' );
+				$( '#woo-nav .sub-menu' ).removeClass( 'open' ).slideUp();
 				$( this ).parents( 'li.top-level' ).addClass( 'current' );
 			}
 		
@@ -193,21 +193,21 @@
  */
  
  	setup_custom_typography: function () {
-	 	$( 'select.lok-typography-unit' ).change( function(){
+	 	$( 'select.woo-typography-unit' ).change( function(){
 			var val = $( this ).val();
 			var parent = $( this ).parent();
-			var name = parent.find( '.lok-typography-size-px' ).attr( 'name' );
-			if( name == '' ) { var name = parent.find( '.lok-typography-size-em' ).attr( 'name' ); }
+			var name = parent.find( '.woo-typography-size-px' ).attr( 'name' );
+			if( name == '' ) { var name = parent.find( '.woo-typography-size-em' ).attr( 'name' ); }
 			
 			if( val == 'px' ) {
-				var name = parent.find( '.lok-typography-size-em' ).attr( 'name' );
-				parent.find( '.lok-typography-size-em' ).hide().removeAttr( 'name' );
-				parent.find( '.lok-typography-size-px' ).show().attr( 'name', name );
+				var name = parent.find( '.woo-typography-size-em' ).attr( 'name' );
+				parent.find( '.woo-typography-size-em' ).hide().removeAttr( 'name' );
+				parent.find( '.woo-typography-size-px' ).show().attr( 'name', name );
 			}
 			else if( val == 'em' ) {
-				var name = parent.find( '.lok-typography-size-px' ).attr( 'name' );
-				parent.find( '.lok-typography-size-px' ).hide().removeAttr( 'name' );
-				parent.find( '.lok-typography-size-em' ).show().attr( 'name', name );
+				var name = parent.find( '.woo-typography-size-px' ).attr( 'name' );
+				parent.find( '.woo-typography-size-px' ).hide().removeAttr( 'name' );
+				parent.find( '.woo-typography-size-em' ).show().attr( 'name', name );
 			}
 		
 		});
@@ -221,7 +221,7 @@
  
  	init_flyout_menus: function () {
  		// Only trigger flyouts on menus with closed sub-menus.
- 		$( '#lok-nav li.has-children' ).each ( function ( i ) {
+ 		$( '#woo-nav li.has-children' ).each ( function ( i ) {
  			$( this ).hover(
 	 			function () {
 	 				if ( $( this ).find( '.flyout-menu' ).length == 0 ) {
@@ -231,7 +231,7 @@
 	 				}
 	 			}, 
 	 			function () {
-	 				// $( '#lok-nav .flyout-menu' ).remove();
+	 				// $( '#woo-nav .flyout-menu' ).remove();
 	 			}
 	 		);
  		});
@@ -248,10 +248,10 @@
 	 			$( clickedGroup ).fadeIn();
 	 			
 	 			// Adjust the main navigation menu.
-	 			$( '#lok-nav li' ).removeClass( 'open' ).removeClass( 'current' ).find( '.sub-menu' ).slideUp().removeClass( 'open' );
+	 			$( '#woo-nav li' ).removeClass( 'open' ).removeClass( 'current' ).find( '.sub-menu' ).slideUp().removeClass( 'open' );
 	 			parentMenu.addClass( 'open' ).addClass( 'current' ).find( '.sub-menu' ).slideDown().addClass( 'open' );
-	 			$( '#lok-nav li.active' ).removeClass( 'active' );
-	 			$( '#lok-nav a[href="' + clickedGroup + '"]' ).parent().addClass( 'active' );
+	 			$( '#woo-nav li.active' ).removeClass( 'active' );
+	 			$( '#woo-nav a[href="' + clickedGroup + '"]' ).parent().addClass( 'active' );
  			}
  			
  			return false;
@@ -281,23 +281,23 @@
 		}
  	} // End unhide_hidden()
   
-  }; // End lokthemesAdminInterface Object // Don't remove this, or the sky will fall on your head.
+  }; // End woothemesAdminInterface Object // Don't remove this, or the sky will fall on your head.
 
 /**
- * Execute the above methods in the lokthemesAdminInterface object.
+ * Execute the above methods in the woothemesAdminInterface object.
  *
  * @since 4.8.0
  */
 	$(document).ready(function () {
 	
-		lokthemesAdminInterface.toggle_nav_tabs();
-		lokthemesAdminInterface.load_first_tab();
-		lokthemesAdminInterface.toggle_collapsed_fields();
-		lokthemesAdminInterface.setup_nav_highlights();
-		lokthemesAdminInterface.toggle_nav_menus();
-		lokthemesAdminInterface.init_flyout_menus();
-		lokthemesAdminInterface.open_first_menu();
-		lokthemesAdminInterface.setup_custom_typography();
+		woothemesAdminInterface.toggle_nav_tabs();
+		woothemesAdminInterface.load_first_tab();
+		woothemesAdminInterface.toggle_collapsed_fields();
+		woothemesAdminInterface.setup_nav_highlights();
+		woothemesAdminInterface.toggle_nav_menus();
+		woothemesAdminInterface.init_flyout_menus();
+		woothemesAdminInterface.open_first_menu();
+		woothemesAdminInterface.setup_custom_typography();
 	
 	});
   

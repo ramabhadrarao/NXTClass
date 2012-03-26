@@ -1,4 +1,4 @@
-lokShortcodeMeta={
+wooShortcodeMeta={
 	attributes:[
 		{
 			label:"Optional URL to +1",
