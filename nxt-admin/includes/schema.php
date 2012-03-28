@@ -356,16 +356,14 @@ function populate_options() {
 	'siteurl' => $guessurl,
 	'blogname' => __('My Site'),
 	/* translators: blog tagline */
-	'blogdescription' => __('Just another NXTClass site'),
-	'users_can_register' => 0,
+	'blogdescription' => __('Another NXTClass site'),
+	'users_can_register' => 1,
 	'admin_email' => 'you@example.com',
 	'start_of_week' => 1,
 	'use_balanceTags' => 0,
 	'use_smilies' => 1,
 	'require_name_email' => 1,
 	'comments_notify' => 1,
-	'posts_per_rss' => 10,
-	'rss_use_excerpt' => 0,
 	'mailserver_url' => 'mail.example.com',
 	'mailserver_login' => 'login@example.com',
 	'mailserver_pass' => 'password',
@@ -395,7 +393,6 @@ function populate_options() {
 	'active_plugins' => array(),
 	'home' => $guessurl,
 	'category_base' => '',
-	'ping_sites' => 'http://rpc.pingomatic.com/',
 	'advanced_edit' => 0,
 	'comment_max_links' => 2,
 	'gmt_offset' => date('Z') / 3600,
@@ -573,39 +570,6 @@ function populate_roles_160() {
 	add_role('contributor', 'Contributor');
 	add_role('subscriber', 'Subscriber');
 
-	// Add caps for Administrator role
-	$role =& get_role('administrator');
-	$role->add_cap('switch_themes');
-	$role->add_cap('edit_themes');
-	$role->add_cap('activate_plugins');
-	$role->add_cap('edit_plugins');
-	$role->add_cap('edit_users');
-	$role->add_cap('edit_files');
-	$role->add_cap('manage_options');
-	$role->add_cap('moderate_comments');
-	$role->add_cap('manage_categories');
-	$role->add_cap('manage_links');
-	$role->add_cap('upload_files');
-	$role->add_cap('import');
-	$role->add_cap('unfiltered_html');
-	$role->add_cap('edit_posts');
-	$role->add_cap('edit_others_posts');
-	$role->add_cap('edit_published_posts');
-	$role->add_cap('publish_posts');
-	$role->add_cap('edit_pages');
-	$role->add_cap('read');
-	$role->add_cap('level_10');
-	$role->add_cap('level_9');
-	$role->add_cap('level_8');
-	$role->add_cap('level_7');
-	$role->add_cap('level_6');
-	$role->add_cap('level_5');
-	$role->add_cap('level_4');
-	$role->add_cap('level_3');
-	$role->add_cap('level_2');
-	$role->add_cap('level_1');
-	$role->add_cap('level_0');
-
 	// Add caps for Editor role
 	$role =& get_role('editor');
 	$role->add_cap('moderate_comments');
@@ -685,6 +649,36 @@ function populate_roles_210() {
 	if ( ! empty($role) ) {
 		$role->add_cap('delete_users');
 		$role->add_cap('create_users');
+		$role->add_cap('switch_themes');
+		$role->add_cap('edit_themes');
+		$role->add_cap('activate_plugins');
+		$role->add_cap('edit_plugins');
+		$role->add_cap('edit_users');
+		$role->add_cap('edit_files');
+		$role->add_cap('manage_options');
+		$role->add_cap('moderate_comments');
+		$role->add_cap('manage_categories');
+		$role->add_cap('manage_links');
+		$role->add_cap('upload_files');
+		$role->add_cap('import');
+		$role->add_cap('unfiltered_html');
+		$role->add_cap('edit_posts');
+		$role->add_cap('edit_others_posts');
+		$role->add_cap('edit_published_posts');
+		$role->add_cap('publish_posts');
+		$role->add_cap('edit_pages');
+		$role->add_cap('read');
+		$role->add_cap('level_10');
+		$role->add_cap('level_9');
+		$role->add_cap('level_8');
+		$role->add_cap('level_7');
+		$role->add_cap('level_6');
+		$role->add_cap('level_5');
+		$role->add_cap('level_4');
+		$role->add_cap('level_3');
+		$role->add_cap('level_2');
+		$role->add_cap('level_1');
+		$role->add_cap('level_0');
 	}
 
 	$role =& get_role('author');
