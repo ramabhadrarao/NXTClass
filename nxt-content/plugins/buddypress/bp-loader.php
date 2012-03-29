@@ -4,7 +4,7 @@
  * Plugin URI:  http://buddypress.org
  * Description: Social networking in a box. Build a social network for your company, school, sports team or niche community all based on the power and flexibility of NXTClass.
  * Author:      The BuddyPress Community
- * Version:     1.5.3.1
+ * Version:     1.5.5
  * Author URI:  http://buddypress.org/community/members/
  * Network:     true
  */
@@ -17,7 +17,7 @@ global $nxtdb;
 
 // Define the BuddyPress version
 if ( !defined( 'BP_VERSION' ) )
-	define( 'BP_VERSION', '1.5.3.1' );
+	define( 'BP_VERSION', '1.5.5' );
 
 // Define the database version
 if ( !defined( 'BP_DB_VERSION' ) )

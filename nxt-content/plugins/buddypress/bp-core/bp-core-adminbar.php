@@ -65,12 +65,11 @@ add_action( 'bp_init', 'bp_admin_bar_remove_nxt_menus', 2 );
 /**
  * Add a menu for the root site of this BuddyPress network
  *
- * @global type $bp
  * @global type $nxt_admin_bar
  * @return If in ajax
  */
 function bp_admin_bar_root_site() {
-	global $bp, $nxt_admin_bar;
+	global $nxt_admin_bar;
 
 	// Create the root blog menu
 	$nxt_admin_bar->add_menu( array(
@@ -112,7 +111,7 @@ function bp_admin_bar_root_site() {
  * Add the "My Sites/[Site Name]" menu and all submenus.
  */
 function bp_admin_bar_my_sites_menu() {
-	global $nxtdb, $nxt_admin_bar;
+	global $nxt_admin_bar;
 
 	/* Add the 'My Sites' menu if the user has more than one site. */
 	if ( count( $nxt_admin_bar->user->blogs ) <= 1 )
@@ -216,7 +215,7 @@ function bp_admin_bar_updates_menu() {
 		return;
 
 	$update_title = array( );
-	if ( $nxtclass_update_count )
+	if ( !empty( $nxtclass_update_count ) )
 		$update_title[] = sprintf( __( '%d NXTClass Update' ), $nxtclass_update_count );
 	if ( $plugin_update_count )
 		$update_title[] = sprintf( _n( '%d Plugin Update', '%d Plugin Updates', $plugin_update_count ), $plugin_update_count );
@@ -236,7 +235,6 @@ function bp_admin_bar_updates_menu() {
  * Handle the Admin Bar CSS
  */
 function bp_core_load_admin_bar_css() {
-	global $nxt_version;
 
 	if ( !bp_use_nxt_admin_bar() )
 		return;

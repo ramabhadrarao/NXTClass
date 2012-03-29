@@ -554,7 +554,7 @@ function bp_blogs_validate_blog_signup() {
 	if ( is_subdomain_install() )
 		$domain = $blogname . '.' . preg_replace( '|^www\.|', '', $current_site->domain );
 
-	nxtmu_create_blog( $domain, $path, $blog_title, $current_user->id, $meta, $nxtdb->siteid );
+	nxtmu_create_blog( $domain, $path, $blog_title, $current_user->ID, $meta, $nxtdb->siteid );
 	bp_blogs_confirm_blog_signup($domain, $path, $blog_title, $current_user->user_login, $current_user->user_email, $meta);
 	return true;
 }
