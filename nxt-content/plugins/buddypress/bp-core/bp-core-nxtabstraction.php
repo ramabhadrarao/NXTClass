@@ -22,7 +22,7 @@ if ( !defined( 'ABSPATH' ) ) exit;
 function bp_get_major_nxt_version() {
 	global $nxt_version;
 	
-	return substr( $nxt_version, 0, ( strpos( $nxt_version, '.' ) + 2 ) );
+	return (float) $nxt_version;
 }
 
 /**

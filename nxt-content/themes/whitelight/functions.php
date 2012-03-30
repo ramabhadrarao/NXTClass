@@ -41,6 +41,30 @@ foreach ( $includes as $i ) {
 /* You can add custom functions below */
 /*-----------------------------------------------------------------------------------*/
 
+/**
+ * Display the Login/Logout link.
+ */ 
+add_filter('nxt_nav_menu_items', 'add_login_logout_link', 10, 2);
+function add_login_logout_link($items, $args) {
+        ob_start();
+        nxt_loginout('index.php');
+        $loginoutlink = ob_get_contents();
+        ob_end_clean();
+        $items .= '<li>'. $loginoutlink .'</li>';
+    return $items;
+	}
+/**
+ * Display the Registration or Admin link.
+ */
+add_filter('nxt_nav_menu_items', 'add_register_link', 10, 2);
+	function add_register_link($items, $args) {
+        ob_start();
+        nxt_register('');
+        $registerlink = ob_get_contents();
+        ob_end_clean();
+        $items .= '<li>'. $registerlink .'</li>';
+    return $items;
+	}
 
 
 /*-----------------------------------------------------------------------------------*/
