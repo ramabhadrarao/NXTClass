@@ -2469,6 +2469,229 @@ function woo_shortcode_stumbleupon ( $atts, $content = null ) {
 add_shortcode( 'stumbleupon', 'woo_shortcode_stumbleupon' );
 
 /*-----------------------------------------------------------------------------------*/
+/* 28. Summary
+/*-----------------------------------------------------------------------------------*/
+
+function summary( $atts, $content = null ) {
+  extract( shortcode_atts( array(
+  'text' => "", 
+  ), $atts ) );
+  $output = '<div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-parent="#accordion" href="#summary" data-toggle="collapse">Summary</a></div>
+  <div id="summary" class="accordion-body collapse">';
+  $output .= $text;
+  $output .= '</div></div>';
+  return $output;
+}
+
+add_shortcode('summary', 'summary'); 
+/*-----------------------------------------------------------------------------------*/
+/* 28. Summary
+/*-----------------------------------------------------------------------------------*/
+
+function summary( $atts, $content = null ) {
+  extract( shortcode_atts( array(
+  'text' => "", 
+  ), $atts ) );
+  $output = '<div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-parent="#accordion" href="#summary" data-toggle="collapse">Summary</a></div>
+  <div id="summary" class="accordion-body collapse">';
+  $output .= $text;
+  $output .= '</div></div>';
+  return $output;
+}
+add_shortcode('summary', 'summary'); 
+
+/*-----------------------------------------------------------------------------------*/
+/* 29. Short Answer Questions
+/*-----------------------------------------------------------------------------------*/
+
+function saq( $atts, $content = null ) {
+  extract( shortcode_atts( array(
+  'text' => "", 
+  ), $atts ) );
+  $output = '<div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-parent="#accordion" href="#saq" data-toggle="collapse">Short Answer Questions</a></div>
+  <div id="saq" class="accordion-body collapse">';
+  $output .= $text;
+  $output .= '</div></div>';
+  return $output;
+}
+add_shortcode('saq', 'saq'); 
+
+/*-----------------------------------------------------------------------------------*/
+/* 30. Long Answer Questions
+/*-----------------------------------------------------------------------------------*/
+
+function laq( $atts, $content = null ) {
+
+  extract( shortcode_atts( array(
+  'text' => "", 
+  ), $atts ) );
+  $output = '<div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-parent="#accordion" href="#laq" data-toggle="collapse">Long Answer Questions</a></div>
+  <div id="laq" class="accordion-body collapse">';
+  $output .= $text;
+  $output .= '</div></div>';
+  return $output;
+}
+add_shortcode('laq', 'laq'); 
+
+/*-----------------------------------------------------------------------------------*/
+/* 31. About the Poet
+/*-----------------------------------------------------------------------------------*/
+
+function abpoet( $atts, $content = null ) {
+ extract( shortcode_atts( array(
+ 'text' => "", 
+ ), $atts ) ); 
+ $output = '<div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-parent="#accordion" href="#abpoet" data-toggle="collapse">About the Poet</a></div>
+ <div id="abpoet" class="accordion-body collapse">';
+ $output .= $text;
+ $output .= '</div></div>';
+ return $output;
+}
+add_shortcode('abpoet', 'abpoet'); 
+
+/*-----------------------------------------------------------------------------------*/
+/* 32. About the Poem
+/*-----------------------------------------------------------------------------------*/
+
+function abpoem( $atts, $content = null ) {
+ extract( shortcode_atts( array(
+ 'text' => "", 
+ ), $atts ) );
+ $output = '<div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-parent="#accordion" href="#abpoem" data-toggle="collapse">About the Poem</a></div>
+ <div id="abpoem" class="accordion-body collapse">';
+ $output .= $text;
+ $output .= '</div></div>';
+ return $output;
+}
+add_shortcode('abpoem', 'abpoem'); 
+
+/*-----------------------------------------------------------------------------------*/
+/* 33. NCERT Solutions
+/*-----------------------------------------------------------------------------------*/
+
+function ncert( $atts, $content = null ) {
+ extract( shortcode_atts( array(
+ 'text' => "", 
+ ), $atts ) );
+ $output = '<div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-parent="#accordion" href="#ncert" data-toggle="collapse">NCERT Solutions</a></div>
+ <div id="ncert" class="accordion-body collapse">';
+ $output .= $text;
+ $output .= '</div></div>';
+ return $output;
+}
+add_shortcode('ncert', 'ncert'); 
+
+/*-----------------------------------------------------------------------------------*/
+/* 34. Collapse
+/*-----------------------------------------------------------------------------------*/
+
+function col( $atts, $content = null ) {
+ extract( shortcode_atts( array(
+ 'url' => "",
+ 'title' => "",
+ 'text' => "", 
+ ), $atts ) );
+ $output = '<div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-parent="#accordion" href="#'.$url.'" data-toggle="collapse">'.$title.'</a></div>
+ <div id="'.$url.'" class="accordion-body collapse">';
+ $output .= $text;
+ $output .= '</div></div>';
+ return $output;
+}
+add_shortcode('col', 'col'); 
+
+/*-----------------------------------------------------------------------------------*/
+/* 35. Intro
+/*-----------------------------------------------------------------------------------*/
+
+function introduction ( $atts, $content = null ) {
+ extract( shortcode_atts( array(
+ 'text' => "", 
+ ), $atts ) );
+ $output = '<div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-parent="#accordion" href="#introduction" data-toggle="collapse">Introduction</a></div>
+ <div id="introduction" class="accordion-body collapse">';
+ $output .= $text;
+ $output .= '</div></div>';
+ return $output;
+}
+add_shortcode('introduction', 'introduction'); 
+
+/*-----------------------------------------------------------------------------------*/
+/* 36. Story
+/*-----------------------------------------------------------------------------------*/
+
+function story( $atts, $content = null ) {
+ extract( shortcode_atts( array(
+ 'text' => "", 
+ ), $atts ) );
+ $output = '<div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-parent="#accordion" href="#story" data-toggle="collapse">Story</a></div>
+ <div id="story" class="accordion-body collapse">';
+ $output .= $text;
+ $output .= '</div></div>';
+ return $output;
+}
+add_shortcode('story', 'story'); 
+
+/*-----------------------------------------------------------------------------------*/
+/* 37. Characters
+/*-----------------------------------------------------------------------------------*/
+
+function character( $atts, $content = null ) {
+ extract( shortcode_atts( array(
+ 'text' => "",
+ ), $atts ) ); 
+ $output = '<div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-parent="#accordion" href="#character" data-toggle="collapse">Characters</a></div>
+ <div id="character" class="accordion-body collapse">';
+ $output .= $text;
+ $output .= '</div></div>';
+ return $output;
+}
+add_shortcode('character', 'character'); 
+
+/*-----------------------------------------------------------------------------------*/
+/* 38. Title
+/*-----------------------------------------------------------------------------------*/
+
+function title( $atts, $content = null ) {
+ extract( shortcode_atts( array(
+ 'text' => "", 
+ ), $atts ) );
+ $output = '<div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-parent="#accordion" href="#title" data-toggle="collapse">Title</a></div>
+ <div id="title" class="accordion-body collapse">';
+ $output .= $text;
+ $output .= '</div></div>';
+ return $output;
+}
+add_shortcode('title', 'title'); 
+
+/*-----------------------------------------------------------------------------------*/
+/* 39. Theme
+/*-----------------------------------------------------------------------------------*/
+
+function theme( $atts, $content = null ) {
+ extract( shortcode_atts( array(
+ 'text' => "", 
+ ), $atts ) ); 
+ $output = '<div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-parent="#accordion" href="#theme" data-toggle="collapse">Theme</a></div>
+ <div id="theme" class="accordion-body collapse">'.$text.'</div></div>';
+ return $output;
+}
+add_shortcode('theme', 'theme'); 
+
+/*-----------------------------------------------------------------------------------*/
+/* 39. Paraphrase
+/*-----------------------------------------------------------------------------------*/
+
+function pphrase( $atts, $content = null ) {
+ extract( shortcode_atts( array(
+ 'text' => "",;
+ ), $atts ) );
+ $output = '<div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-parent="#accordion" href="#pphrase" data-toggle="collapse">Paraphrase</a></div>
+ <div id="pphrase" class="accordion-body collapse">'.$text.'</div></div>';
+ return $output;
+}
+add_shortcode('pphrase', 'pphrase');
+
+/*-----------------------------------------------------------------------------------*/
 /* THE END */
 /*-----------------------------------------------------------------------------------*/
 ?>
