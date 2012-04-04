@@ -2482,22 +2482,6 @@ function summary( $atts, $content = null ) {
   $output .= '</div></div>';
   return $output;
 }
-
-add_shortcode('summary', 'summary'); 
-/*-----------------------------------------------------------------------------------*/
-/* 28. Summary
-/*-----------------------------------------------------------------------------------*/
-
-function summary( $atts, $content = null ) {
-  extract( shortcode_atts( array(
-  'text' => "", 
-  ), $atts ) );
-  $output = '<div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-parent="#accordion" href="#summary" data-toggle="collapse">Summary</a></div>
-  <div id="summary" class="accordion-body collapse">';
-  $output .= $text;
-  $output .= '</div></div>';
-  return $output;
-}
 add_shortcode('summary', 'summary'); 
 
 /*-----------------------------------------------------------------------------------*/
@@ -2683,7 +2667,7 @@ add_shortcode('theme', 'theme');
 
 function pphrase( $atts, $content = null ) {
  extract( shortcode_atts( array(
- 'text' => "",;
+ 'text' => "",
  ), $atts ) );
  $output = '<div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-parent="#accordion" href="#pphrase" data-toggle="collapse">Paraphrase</a></div>
  <div id="pphrase" class="accordion-body collapse">'.$text.'</div></div>';

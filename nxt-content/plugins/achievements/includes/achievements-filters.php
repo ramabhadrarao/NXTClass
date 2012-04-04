@@ -1,4 +1,3 @@
-
 <?php
 /**
  * Creates and applies filters for component output functions.
