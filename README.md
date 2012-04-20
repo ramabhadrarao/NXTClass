@@ -42,3 +42,12 @@ NXTClass is an unofficial extention of NXTClass. If you would like to support NX
 ## License
  
 NXTClass is free software, and is released under the terms of the GPL version 2 or (at your option) any later version. See license.txt.
+
+## Contributing
+
+* Fork it.
+* Create a branch (git checkout -b my_branch)
+* Commit your changes (git commit -am "Added Snark")
+* Push to the branch (git push origin my_branch)
+* Create an Issue with a link to your branch
+* Enjoy a Coke and wait
