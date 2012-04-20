@@ -120,7 +120,7 @@ function login_header($title = 'Log In', $message = '', $nxt_error = '') {
  */
 function login_footer($input_id = '') {
 	?>
-	<p id="backtoblog"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php esc_attr_e( 'Are you lost?' ); ?>"><?php printf( __( '&larr; Back to %s' ), get_bloginfo( 'title', 'display' ) ); ?></a></p>
+	<p id="backtoblog"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php esc_attr_e( 'You lost?' ); ?>"><?php printf( __( '&larr; Back to %s' ), get_bloginfo( 'title', 'display' ) ); ?></a></p>
 	</div>
 
 <?php if ( !empty($input_id) ) : ?>
@@ -131,7 +131,7 @@ if(typeof nxtOnload=='function')nxtOnload();
 <?php endif; ?>
 
 <?php do_action('login_footer'); ?>
-<div class="clear"></div>
+<div class="clear"><center><!--VlexoFree_AdCode_728x90--></center></div>
 </body>
 </html>
 <?php

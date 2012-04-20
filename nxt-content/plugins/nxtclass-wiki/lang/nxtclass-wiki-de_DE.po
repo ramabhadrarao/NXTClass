@@ -1,0 +1,204 @@
+# Translation of the NXTClass plugin NXTClass Wiki 0.8.1 by Instinct Entertainment.
+# Copyright (C) 2010 Instinct Entertainment
+# This file is distributed under the same license as the NXTClass Wiki package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: NXTClass Wiki 0.8.1\n"
+"Report-Msgid-Bugs-To: http://nxtclass.org/tag/nxtclass-wiki\n"
+"POT-Creation-Date: 2010-06-28 10:03+0200\n"
+"PO-Revision-Date: 2010-06-28 10:18+0100\n"
+"Last-Translator: Pascal Hofmann <mail@pascalhofmann.de>\n"
+"Language-Team: Pascal Hofmann <mail@pascalhofmann.de>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: German\n"
+"X-Poedit-Country: GERMANY\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: nxtclass-wiki.php:104
+#, php-format
+msgid "%1$s by %2$s|post revision 1:datetime, 2:name"
+msgstr "%1$s von %2$s"
+
+#: nxtclass-wiki.php:138
+msgid "Post Revisions"
+msgstr "Revisionen"
+
+#: nxtclass-wiki.php:140
+#, php-format
+msgid "<a href=\"%1$s\">Current revision</a> by %2$s - <a href=\"%3$s\">Edit this page</a>"
+msgstr "<a href=\"%1$s\">Aktuelle Revision</a> von %2$s - <a href=\"%3$s\">Diese Seite bearbeiten</a>"
+
+#: nxtclass-wiki.php:159
+msgid "j F, Y @ G:i|revision date format"
+msgstr "d.m.Y G:i"
+
+#: nxtclass-wiki.php:160
+#, php-format
+msgid "%s [Autosave]"
+msgstr "%s [Automatische Speicherung]"
+
+#: nxtclass-wiki.php:161
+#, php-format
+msgid "%s [Current Revision]"
+msgstr "%s [Aktuelle Revision]"
+
+#: nxtclass-wiki.php:242
+msgid "This page/post is a wiki friendly page and may be edited by authors and contributors."
+msgstr "Diese(r) Beitrag/Seite ist eine Wiki-freundliche Seite und kann von Anderen geändert werden."
+
+#: nxtclass-wiki.php:246
+msgid "Enable Table of Contents"
+msgstr "Aktiviere Inhaltsverzeichnis"
+
+#: nxtclass-wiki.php:259
+#: nxtclass-wiki.php:260
+msgid "Wordpress Wiki"
+msgstr "Wordpress Wiki"
+
+#: nxtclass-wiki.php:357
+msgid "Contents"
+msgstr "Inhalt"
+
+#: nxtclass-wiki.php:357
+msgid "hide"
+msgstr "verstecken"
+
+#: nxtclass-wiki.php:428
+msgid "Recently modified wiki pages for: "
+msgstr "Kürzlich geänderte Seiten für:"
+
+#: nxtclass-wiki.php:438
+msgid "Wiki URL: "
+msgstr "Wiki-URL:"
+
+#: nxtclass-wiki.php:439
+msgid "Modified By: "
+msgstr "Geändert von:"
+
+#: nxtclass-wiki.php:482
+msgid "No contributions yet."
+msgstr "Bisher keine Beteiligungen."
+
+#: nxtclass-wiki.php:526
+msgid "You have made no contributions"
+msgstr "Sie haben bisher noch keine Inhalte beigetragen."
+
+#: nxtclass-wiki.php:583
+msgid "Title:"
+msgstr "Titel:"
+
+#: nxtclass-wiki.php:588
+msgid "Number of posts to show:"
+msgstr "Anzahl an Beiträgen"
+
+#: nxtclass-wiki.php:596
+msgid "My Contributions widget for NXTClass Wiki Plugin"
+msgstr "Mein Beitrag widget für das NXTClass Wiki Plugin"
+
+#: nxtclass-wiki.php:597
+#: nxtclass-wiki.php:598
+msgid "My Contributions"
+msgstr "Von mir beigetragen"
+
+#: nxtclass-wiki.php:677
+#: nxtclass-wiki.php:837
+msgid "Wiki Change"
+msgstr "Wiki-Änderung"
+
+#: nxtclass-wiki.php:682
+#, php-format
+msgid "A Wiki Page has been modified on '%1$s'."
+msgstr "Eine Wiki-Seite wurde geändert am '%1$s'."
+
+#: nxtclass-wiki.php:683
+#, php-format
+msgid "The page title is %1$s"
+msgstr "Der Seitentitel lautet %1$s"
+
+#: nxtclass-wiki.php:684
+#, php-format
+msgid "To visit this page <a href=\"%3$s\">click here</a>."
+msgstr "Um die Seite zu besuchen <a href=\"%3$s\">klicken sie hier</a>."
+
+#: nxtclass-wiki.php:714
+#, php-format
+msgid "Sorry, the page with title %1$s is not created yet. Click <a href=\"%2$s/nxt-admin/post-new.php\">here</a> to create a new page with that title."
+msgstr "Sorry, die Seite mit dem Titel %1$s existiert noch nicht. Klicken sie <a href=\"%2$s/nxt-admin/post-new.php\">hier</a> um eine neue Seite mit diesem Titel zu erzeugen."
+
+#: nxtclass-wiki.php:816
+msgid "Once Weekly"
+msgstr "Einmal pro Woche"
+
+#: nxtclass-wiki.php:817
+msgid "Once Fortnightly"
+msgstr "Einmal alle zwei Wochen"
+
+#: nxtclass-wiki.php:840
+#, php-format
+msgid "The following Wiki Pages has been modified on '%s'"
+msgstr "Die folgenden Wiki-Seiten wurden geändert am '%s'"
+
+#: nxtclass-wiki.php:845
+#, php-format
+msgid "Page title is %1$s."
+msgstr "Der Seitentitel lautet %1$s."
+
+#: nxtclass-wiki.php:845
+#, php-format
+msgid "To visit this page <a href=\"%1$s\">click here</a>."
+msgstr "<a href=\"%1$s\">Klicken sie hier</a> um die Seite zu besuchen."
+
+#: nxtclass-wiki.php:854
+#: nxtclass-wiki.php:865
+msgid "Wiki Settings"
+msgstr "Wiki-Einstellungen"
+
+#: nxtclass-wiki.php:868
+msgid "Update Complete."
+msgstr "Änderung gespeichert."
+
+#: nxtclass-wiki.php:871
+msgid "Number of Revisions per page:"
+msgstr "Anzahl an Revisionen pro Seite:"
+
+#: nxtclass-wiki.php:873
+msgid "Notify Administrators via Email when wiki pages have been editted."
+msgstr "Benachrichtige alle Administratoren per E-Mail, wenn eine Wiki-Seite editiert wurde."
+
+#: nxtclass-wiki.php:874
+msgid "Show Table of Content on the front page posts."
+msgstr "Zeige Inhaltsverzeichnis in den Beiträgen auf der Startseite."
+
+#: nxtclass-wiki.php:875
+msgid "Notify Administrators via Email when wiki pages have been editted. (only once in a week)"
+msgstr "Benachrichtige alle Administratoren per E-Mail, wenn Wiki-Seiten editiert wurden. (Einmal pro Woche)"
+
+#: nxtclass-wiki.php:877
+msgid "Submit"
+msgstr "Absenden"
+
+#. Plugin Name of the plugin/theme
+msgid "NXTClass Wiki"
+msgstr "NXTClass Wiki"
+
+#. Plugin URI of the plugin/theme
+msgid "http://nxtclass.org/extend/plugins/nxtclass-wiki/"
+msgstr "http://nxtclass.org/extend/plugins/nxtclass-wiki/"
+
+#. Description of the plugin/theme
+msgid "Add Wiki functionality to your nxtclass site."
+msgstr "Füge deiner Wordpress-Seite Wiki-Funktionalität hinzu."
+
+#. Author of the plugin/theme
+msgid "Instinct Entertainment"
+msgstr "Instinct Entertainment"
+
+#. Author URI of the plugin/theme
+msgid "http://www.instinct.co.nz"
+msgstr "http://www.instinct.co.nz"
+

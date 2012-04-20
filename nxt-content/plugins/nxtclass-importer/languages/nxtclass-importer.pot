@@ -1,0 +1,231 @@
+# Copyright (C) 2011 NXTClass Importer
+# This file is distributed under the same license as the NXTClass Importer package.
+msgid ""
+msgstr ""
+"Project-Id-Version: NXTClass Importer 0.5\n"
+"Report-Msgid-Bugs-To: http://nxtclass.org/tag/nxtclass-importer\n"
+"POT-Creation-Date: 2011-07-16 15:45:12+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2010-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: parsers.php:42 parsers.php:63
+msgid "There was an error when reading this WXR file"
+msgstr ""
+
+#: parsers.php:43
+msgid ""
+"Details are shown above. The importer will now try again with a different "
+"parser..."
+msgstr ""
+
+#: parsers.php:67 parsers.php:72 parsers.php:262 parsers.php:451
+msgid ""
+"This does not appear to be a WXR file, missing/invalid WXR version number"
+msgstr ""
+
+#: nxtclass-importer.php:134 nxtclass-importer.php:143
+#: nxtclass-importer.php:194 nxtclass-importer.php:202
+msgid "Sorry, there has been an error."
+msgstr ""
+
+#: nxtclass-importer.php:135
+msgid "The file does not exist, please try again."
+msgstr ""
+
+#: nxtclass-importer.php:178
+msgid "All done."
+msgstr ""
+
+#: nxtclass-importer.php:178
+msgid "Have fun!"
+msgstr ""
+
+#: nxtclass-importer.php:179
+msgid "Remember to update the passwords and roles of imported users."
+msgstr ""
+
+#: nxtclass-importer.php:210
+msgid ""
+"This WXR file (version %s) may not be supported by this version of the "
+"importer. Please consider updating."
+msgstr ""
+
+#: nxtclass-importer.php:235
+msgid ""
+"Failed to import author %s. Their posts will be attributed to the current "
+"user."
+msgstr ""
+
+#: nxtclass-importer.php:261
+msgid "Assign Authors"
+msgstr ""
+
+#: nxtclass-importer.php:262
+msgid ""
+"To make it easier for you to edit and save the imported content, you may "
+"want to reassign the author of the imported item to an existing user of this "
+"site. For example, you may want to import all the entries as <code>admin</"
+"code>s entries."
+msgstr ""
+
+#: nxtclass-importer.php:264
+msgid ""
+"If a new user is created by NXTClass, a new password will be randomly "
+"generated and the new user&#8217;s role will be set as %s. Manually changing "
+"the new user&#8217;s details will be necessary."
+msgstr ""
+
+#: nxtclass-importer.php:274
+msgid "Import Attachments"
+msgstr ""
+
+#: nxtclass-importer.php:277
+msgid "Download and import file attachments"
+msgstr ""
+
+#: nxtclass-importer.php:281
+msgid "Submit"
+msgstr ""
+
+#: nxtclass-importer.php:294
+msgid "Import author:"
+msgstr ""
+
+#: nxtclass-importer.php:305
+msgid "or create new user with login name:"
+msgstr ""
+
+#: nxtclass-importer.php:308
+msgid "as a new user:"
+msgstr ""
+
+#: nxtclass-importer.php:316
+msgid "assign posts to an existing user:"
+msgstr ""
+
+#: nxtclass-importer.php:318
+msgid "or assign posts to an existing user:"
+msgstr ""
+
+#: nxtclass-importer.php:319
+msgid "- Select -"
+msgstr ""
+
+#: nxtclass-importer.php:369
+msgid ""
+"Failed to create new user for %s. Their posts will be attributed to the "
+"current user."
+msgstr ""
+
+#: nxtclass-importer.php:418
+msgid "Failed to import category %s"
+msgstr ""
+
+#: nxtclass-importer.php:456
+msgid "Failed to import post tag %s"
+msgstr ""
+
+#: nxtclass-importer.php:500 nxtclass-importer.php:626
+msgid "Failed to import %s %s"
+msgstr ""
+
+#: nxtclass-importer.php:522
+msgid "Failed to import &#8220;%s&#8221;: Invalid post type %s"
+msgstr ""
+
+#: nxtclass-importer.php:543
+msgid "%s &#8220;%s&#8221; already exists."
+msgstr ""
+
+#: nxtclass-importer.php:598
+msgid "Failed to import %s &#8220;%s&#8221;"
+msgstr ""
+
+#: nxtclass-importer.php:744
+msgid "Menu item skipped due to missing menu slug"
+msgstr ""
+
+#: nxtclass-importer.php:751
+msgid "Menu item skipped due to invalid menu slug: %s"
+msgstr ""
+
+#: nxtclass-importer.php:814
+msgid "Fetching attachments is not enabled"
+msgstr ""
+
+#: nxtclass-importer.php:827
+msgid "Invalid file type"
+msgstr ""
+
+#: nxtclass-importer.php:871
+msgid "Remote server did not respond"
+msgstr ""
+
+#: nxtclass-importer.php:877
+msgid "Remote server returned error response %1$d %2$s"
+msgstr ""
+
+#: nxtclass-importer.php:884
+msgid "Remote file is incorrect size"
+msgstr ""
+
+#: nxtclass-importer.php:889
+msgid "Zero size file downloaded"
+msgstr ""
+
+#: nxtclass-importer.php:895
+msgid "Remote file is too large, limit is %s"
+msgstr ""
+
+#: nxtclass-importer.php:994
+msgid "Import NXTClass"
+msgstr ""
+
+#: nxtclass-importer.php:1001
+msgid ""
+"A new version of this importer is available. Please update to version %s to "
+"ensure compatibility with newer export files."
+msgstr ""
+
+#: nxtclass-importer.php:1016
+msgid ""
+"Howdy! Upload your NXTClass eXtended RSS (WXR) file and we&#8217;ll import "
+"the posts, pages, comments, custom fields, categories, and tags into this "
+"site."
+msgstr ""
+
+#: nxtclass-importer.php:1017
+msgid "Choose a WXR (.xml) file to upload, then click Upload file and import."
+msgstr ""
+
+#: nxtclass-importer.php:1091
+msgid ""
+"Import <strong>posts, pages, comments, custom fields, categories, and tags</"
+"strong> from a NXTClass export file."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "NXTClass Importer"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://nxtclass.org/extend/plugins/nxtclass-importer/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Import posts, pages, comments, custom fields, categories, tags and more from "
+"a NXTClass export file."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "nxtclassdotorg"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://nxtclass.org/"
+msgstr ""

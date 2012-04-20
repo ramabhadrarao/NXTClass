@@ -68,7 +68,7 @@
 			</div>
 			
 		</div>
-		
+		<center><!--VlexoFree_AdCode_728x90--></center>
 	</footer><!-- /#footer  -->
 
 </div><!-- /#wrapper -->
