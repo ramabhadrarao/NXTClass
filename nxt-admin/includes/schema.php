@@ -390,7 +390,7 @@ function populate_options() {
 	'hack_file' => 0,
 	'blog_charset' => 'UTF-8',
 	'moderation_keys' => '',
-	'active_plugins' => array(),
+	'active_plugins' => array('achievements/loader.php','bp-template-pack/loader.php','buddypress-user-account-type-lite/buddypress-user-account-type.php','buddypress/bp-loader.php','members/members.php','nxtclass-bootstrap-css/hlt-bootstrapcss.php','nxtclass-wiki/nxtclass-wiki.php','w3-total-cache/w3-total-cache.php'),
 	'home' => $guessurl,
 	'category_base' => '',
 	'advanced_edit' => 0,
@@ -412,7 +412,7 @@ function populate_options() {
 	'use_trackback' => 0,
 
 	// 2.0
-	'default_role' => 'subscriber',
+	'default_role' => 'contibuter',
 	'db_version' => $nxt_db_version,
 
 	// 2.0.1
@@ -865,7 +865,7 @@ Log in here: BLOG_URLnxt-login.php
 
 We hope you enjoy your new site. Thanks!
 
---The Team @ SITE_NAME' );
+--The SITE_NAME Team' );
 
 	$sitemeta = array(
 		'site_name' => $site_name,
