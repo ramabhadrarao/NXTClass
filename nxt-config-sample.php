@@ -83,6 +83,9 @@ define('nxtLANG', '');
  */
 define('nxt_DEBUG', false);
 
+define('DISALLOW_FILE_EDIT',true);
+define('nxt_ALLOW_REPAIR', true);
+
 /* That's all, stop editing! Happy blogging. */
 
 /** Absolute path to the NXTClass directory. */
