@@ -1,46 +1,58 @@
 ---
-layout: page
-title: Hello World!
-tagline: Supporting tagline
+layout: default
+title: README
 ---
 {% include JB/setup %}
+# Welcome.
 
-Read [Jekyll Quick Start](http://jekyllbootstrap.com/usage/jekyll-quick-start.html)
+## Installation: Famous 5-minute install
 
-Complete usage and documentation available at: [Jekyll Bootstrap](http://jekyllbootstrap.com)
+1. Unzip the package in an empty directory and upload everything.
 
-## Update Author Attributes
+2. Open nxt-admin/install.php in your browser. It will take you through the process to set up a nxt-config.php file with your database connection details. 
+* If for some reason this doesn't work, don't worry. It doesn't work on all web hosts. Open up nxt-config-sample.php with a text editor like WordPad or similar and fill in your database connection details. 
+* Save the file as nxt-config.php and upload it.
+* Open nxt-admin/install.php in your browser.
 
-In `_config.yml` remember to specify your own data:
-    
-    title : My Blog =)
-    
-    author :
-      name : Name Lastname
-      email : blah@email.test
-      github : username
-      twitter : username
+3. Once the configuration file is set up, the installer will set up the tables needed for your blog. If there is an error, double check your nxt-config.php file, and try again. If it fails again, please go to the support forums with as much data as you can gather.
 
-The theme should reference these variables whenever needed.
-    
-## Sample Posts
+4. If you did not enter a password, note the password given to you. If you did not provide a username, it will be admin.
 
-This blog contains sample posts which help stage pages and blog data.
-When you don't need the samples anymore just delete the `_posts/core-samples` folder.
+5. The installer should then send you to the login page. Sign in with the username and password you chose during the installation. If a password was generated for you, you can then click on 'Profile' to change the password.
 
-    $ rm -rf _posts/core-samples
+### System Requirements
+* PHP version 5.2.4 or higher.
+* MySQL version 5.0 or higher.
+ 
+### System Recommendations
+* The mod_rewrite Apache module.
+* A link to http://nxtclass.cu.cc on your site.
+ 
+## Post via Email
+ 
+You can post from an email client! To set this up go to your "Writing" options screen and fill in the connection details for your secret POP3 account. Then you need to set up nxt-mail.php to execute periodically to check the mailbox for new posts. You can do it with cron-jobs, or if your host doesn't support it you can look into the various website-monitoring services, and make them check your nxt-mail.php URL.
+ 
+Posting is easy: Any email sent to the address you specify will be posted, with the subject as the title. It is best to keep the address discrete. The script will delete emails that are successfully posted.
 
-Here's a sample "posts list".
+## Final Notes
+* If you have any suggestions, ideas, or comments, or if you (gasp!) found a bug, Tell us at team@nxtclass.cu.cc
+* NXTClass has a robust plugin API that makes extending the code easy. If you are a developer interested in utilizing this, see the plugin documentation. You shouldn't modify any of the core code.
+ 
+## Share the Love
+ 
+NXTClass has no multi-million dollar marketing campaign or celebrity sponsors, but we do have something even better—you. If you enjoy NXTClass please consider telling a friend, setting it up for someone less knowledgable than yourself, or writing the author of a media article that overlooks us.
 
-<ul class="posts">
-  {% for post in site.posts %}
-    <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ BASE_PATH }}{{ post.url }}">{{ post.title }}</a></li>
-  {% endfor %}
-</ul>
+NXTClass is an unofficial extention of NXTClass. If you would like to support NXTClass, please consider donating.
 
-## To-Do
+## License
+ 
+NXTClass is free software, and is released under the terms of the GPL version 2 or (at your option) any later version. See license.txt.
 
-This theme is still unfinished. If you'd like to be added as a contributor, [please fork](http://github.com/plusjade/jekyll-bootstrap)!
-We need to clean up the themes, make theme usage guides with theme-specific markup examples.
+## Contributing
 
-
+* Fork it.
+* Create a branch (git checkout -b my_branch)
+* Commit your changes (git commit -am "Added Snark")
+* Push to the branch (git push origin my_branch)
+* Create an Issue with a link to your branch
+* Enjoy a Coke and wait

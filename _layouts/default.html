@@ -30,16 +30,18 @@
 
 	
 	<header id="header">
-	
+	<a href="http://github.com/arkoman/NXTClass">
+<img alt="Fork me on GitHub" src="https://a248.e.akamai.net/assets.github.com/img/30f550e0d38ceb6ef5b81500c64d970b7fb0f028/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" style="position: absolute; top: 40px; right: 0; border: 0;">
+</a>
 		<div class="col-full">
 	        
 			<h1><a href="{{ HOME_PATH }}">{{ site.title }}</a></h1>
 			{{ site.tagline }}
-		      	
+		      		
 				<br>
 		<nav id="navigation" role="navigation">
 		  <ul id="main-nav" class="nav fl">
-		   <li><a class="brand" href="{{ HOME_PATH }}">{{ site.title }}</a>
+		   <li><a class="brand" href="{{ HOME_PATH }}">Home</a>
             {% assign pages_list = site.pages %} {% assign group = 'navigation' %} {% include JB/pages_list %} 
           </ul><!-- /#nav -->
     	        	    		
@@ -57,7 +59,7 @@
     					{{ content }}
 		</div><!-- /.col-full -->
     </div><!-- /#content -->
-		
+	
 	<footer id="footer">
 	
 		<div class="col-full">
