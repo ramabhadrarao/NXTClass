@@ -8,7 +8,7 @@
 *.so
 nxt-config.php
 sitemap.xml
-forum/
+nxt-content/themes/huddle/
 nxt-content/uploads/
 forbidden/
 # Packages #

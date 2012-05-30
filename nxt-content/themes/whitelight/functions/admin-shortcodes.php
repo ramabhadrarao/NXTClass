@@ -2675,6 +2675,29 @@ function pphrase( $atts, $content = null ) {
 }
 add_shortcode('pphrase', 'pphrase');
 
+/*advertisement*/
+function advert( $atts, $content = null ) {
+ extract( shortcode_atts( array(
+ 'pub' => "",
+ 'ad_name' => "",
+ 'ad_slot' => "",
+ 'ad_width' => "",
+ 'ad_height' => "",
+ ), $atts ) );
+ $output = '<div style="float:none;margin:0px;">
+ <script type="text/javascript">
+ <!--google_ad_client = "ca-'. $pub .'";
+ /* '. $ad_name .' */
+ google_ad_slot = "'. $ad_slot .'";
+ google_ad_width = '. $ad_width .';
+ google_ad_height = '. $ad_height .';
+ //-->
+ </script>
+ <script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+ </script></div>';
+ return $output;
+}
+add_shortcode('advert', 'advert');
 /*-----------------------------------------------------------------------------------*/
 /* THE END */
 /*-----------------------------------------------------------------------------------*/

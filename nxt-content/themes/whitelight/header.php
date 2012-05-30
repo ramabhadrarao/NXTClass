@@ -62,19 +62,6 @@
 			<h3 class="nav-toggle"><a href="#navigation"><?php _e('Navigation', 'woothemes'); ?></a></h3>
 		      	
 		</hgroup>
-
-		<?php if ( isset( $woo_options['woo_ad_top'] ) && $woo_options['woo_ad_top'] == 'true' ) { ?>
-        <div id="topad">
-			<?php
-				if ( isset( $woo_options['woo_ad_top_adsense'] ) && $woo_options['woo_ad_top_adsense'] != '' ) {
-					echo stripslashes( $woo_options['woo_ad_top_adsense'] );
-				} else {
-					if ( isset( $woo_options['woo_ad_top_url'] ) && isset( $woo_options['woo_ad_top_image'] ) )
-			?>
-				<a href="<?php echo $woo_options['woo_ad_top_url']; ?>"><img src="<?php echo $woo_options['woo_ad_top_image']; ?>" width="468" height="60" alt="advert" /></a>
-			<?php } ?>
-		</div><!-- /#topad -->
-        <?php } ?>
 		
 		<nav id="navigation" role="navigation">
 			<?php
@@ -99,6 +86,26 @@
 		    </form>    
 		</div><!--/.search_main-->
 		<?php } ?>
+		<br>
+		<div class="login">
+						<?php if( is_user_logged_in() ) : ?>
+							<?php
+							global $current_user, $bp;
+							get_currentuserinfo();
+							?>
+							<div class="fields"><p><?php printf( __( '<br><h4>Welcome %s', 'woothemes' ), '<a href="' . $bp->loggedin_user->domain . '">' . $bp->loggedin_user->fullname . '</a>' ) ?>. <a href="<?php echo nxt_logout_url(); ?>"><?php _e( 'Logout', 'woothemes' ) ?></a></h4></p></div>
+						<?php else : ?>
+							<div class="fields">
+								<form action="<?php echo site_url() ?>/nxt-login.php" method="post">
+									<input type="text" class="user-login" name="log" placeholder="<?php _e( 'Username', 'woothemes' ) ?>" />
+									<input type="password" class="user-pass" name="pwd" placeholder="<?php _e( 'Password', 'woothemes' ) ?>" />
+									<input type="submit" class="btn-submit" value="Login" />
+									<input type="hidden" name="redirect_to" value="<?php echo substr_count( $_SERVER['REQUEST_URI'], 'activate' ) ? home_url() : $_SERVER['REQUEST_URI'] ?>" />
+								    <a class="forgot-pass" href="<?php echo site_url() ?>/nxt-login.php?action=lostpassword"><?php _e( 'Forgot Password?', 'woothemes' ) ?></a>
+								</form> 
+							</div>
+						<?php endif ?>
+					</div>
 		
 		</div><!-- /.col-full -->
 		
