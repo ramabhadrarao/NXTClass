@@ -10,7 +10,8 @@ nxt-config.php
 sitemap.xml
 nxt-content/themes/huddle/
 nxt-content/uploads/
-forbidden/
+nxt-content/w3c
+nxt-content/*.php
 # Packages #
 ############
 # it's better to unpack these files and commit the raw source
