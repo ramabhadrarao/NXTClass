@@ -104,7 +104,15 @@
 								    <a class="forgot-pass" href="<?php echo site_url() ?>/nxt-login.php?action=lostpassword"><?php _e( 'Forgot Password?', 'woothemes' ) ?></a>
 								</form> 
 							</div>
-						<?php endif ?>
+            <?php
+            global $opt_jfb_hide_button;
+            if( !get_option($opt_jfb_hide_button) )
+            {
+                jfb_output_facebook_btn();
+                //jfb_output_facebook_init(); This is output in nxt_footer as of 1.5.4
+                //jfb_output_facebook_callback(); This is output in nxt_footer as of 1.9.0
+            }
+			endif ?></form>
 					</div>
 		
 		</div><!-- /.col-full -->

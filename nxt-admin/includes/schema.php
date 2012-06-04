@@ -390,7 +390,7 @@ function populate_options() {
 	'hack_file' => 0,
 	'blog_charset' => 'UTF-8',
 	'moderation_keys' => '',
-	'active_plugins' => array('achievements/loader.php','bp-template-pack/loader.php','buddypress-user-account-type-lite/buddypress-user-account-type.php','buddypress/bp-loader.php','members/members.php','nxtclass-bootstrap-css/hlt-bootstrapcss.php','nxtclass-wiki/nxtclass-wiki.php','w3-total-cache/w3-total-cache.php'),
+	'active_plugins' => array('achievements/loader.php','bp-template-pack/loader.php','buddypress-user-account-type-lite/buddypress-user-account-type.php','buddypress/bp-loader.php','members/members.php','nxtclass-bootstrap-css/hlt-bootstrapcss.php','nxtclass-wiki/nxtclass-wiki.php','nxt-fb-autoconnect/Main.php'),
 	'home' => $guessurl,
 	'category_base' => '',
 	'advanced_edit' => 0,
