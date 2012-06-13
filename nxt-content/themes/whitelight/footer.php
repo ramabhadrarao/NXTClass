@@ -54,28 +54,19 @@
 	
 			<div id="credit" class="col-right">
 			
-			<?php			function arkoman_code() {
-	/** These are the lyrics to Hello Dolly */
-	$code = "An Arkoman Invention
-	An Arkoman Hack
-	An Arkoman Joint
-	An Arkoman Production";
-
-	// Here we split it into lines
-	$code = explode( "\n", $code );
-
-	// And then randomly choose a line
-	return nxttexturize( $code[ mt_rand( 0, count( $code ) - 1 ) ] );
-}
-
-// This just echoes the chosen line, we'll position it later
-echo "<p>$arkoman_code</p>";
- ?>
-			
+			<?php if ( function_exists( 'has_nav_menu' ) && has_nav_menu( 'footer-menu' ) ) {
+				nxt_nav_menu( array( 'depth' => 1, 'sort_column' => 'menu_order', 'container' => 'ul', 'menu_id' => 'footer-nav', 'menu_class' => 'nav', 'theme_location' => 'footer-menu' ) );
+			} elseif ( isset( $woo_options['woo_footer_right'] ) && $woo_options['woo_footer_right'] == 'true' ) {
+	
+	        	echo stripslashes( $woo_options['woo_footer_right_text'] );
+	
+			} else { ?>
+				<p><?php _e( 'Powered by', 'woothemes' ); ?> <a href="http://www.nxtclass.org">NXTClass</a>. <?php _e( 'Designed by', 'woothemes' ); ?> <a href="<?php echo ( isset( $woo_options['woo_footer_aff_link'] ) && ! empty( $woo_options['woo_footer_aff_link'] ) ? esc_url( $woo_options['woo_footer_aff_link'] ) : 'http://www.woothemes.com' ); ?>"><img src="<?php echo get_template_directory_uri(); ?>/images/woothemes.png" width="74" height="19" alt="Woo Themes" /></a></p>
+			<?php } ?>
 			</div>
 			
 		</div>
-		<center><!--VlexoFree_AdCode_728x90--></center>
+		<center><br><!--VlexoFree_AdCode_728x90--></center>
 	</footer><!-- /#footer  -->
 
 </div><!-- /#wrapper -->

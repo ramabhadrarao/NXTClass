@@ -143,6 +143,16 @@
  			});
  		}
  	}, // End setup_colourpickers()
+
+/**
+ * setup_field_tabber()
+ *
+ * @since 5.3.0
+ */
+
+  	setup_field_tabber: function () {
+  		$( '.wooframework-tabs' ).tabs();
+  	}, // End setup_field_tabber()
  	
 /**
  * setup_upload_titletest()
@@ -176,6 +186,7 @@
 		woothemesCustomFields.setup_image_selectors();
 		woothemesCustomFields.setup_colourpickers();
 		woothemesCustomFields.setup_upload_titletest();
+		woothemesCustomFields.setup_field_tabber();
 		
 	});
   

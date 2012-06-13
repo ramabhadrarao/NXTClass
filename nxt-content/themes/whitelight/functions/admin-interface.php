@@ -331,6 +331,17 @@ if ( ! function_exists( 'woothemes_options_page' ) ) {
 		global $pagenow;
 ?>
 <div class="wrap" id="woo_container">
+<?php
+	// Custom action at the top of the admin interface.
+	$page = '';
+	if ( isset( $_GET['page'] ) ) {
+		$page = sanitize_user( esc_attr( strip_tags( $_GET['page'] ) ) );
+	} 
+	do_action( 'wooframework_container_inside' );
+	if ( $page != '' ) {
+		do_action( 'wooframework_container_inside-' . $page );
+	}
+?>
 <div id="woo-popup-save" class="woo-save-popup"><div class="woo-save-save"><?php _e( 'Options Updated', 'woothemes' ); ?></div></div>
 <div id="woo-popup-reset" class="woo-save-popup"><div class="woo-save-reset"><?php _e( 'Options Reset', 'woothemes' ); ?></div></div>
     <form action="" enctype="multipart/form-data" id="wooform" method="post">
@@ -367,7 +378,6 @@ if ( ! function_exists( 'woothemes_options_page' ) ) {
         <?php
 		// Rev up the Options Machine
 		$return = apply_filters( 'woo_before_option_page', woothemes_machine( $options ) );
-		echo strrev( '>"gnp.bllac/trats/ofni.werc-zrengised//:ptth"=crs gmi<');
 ?>
 		<div id="support-links">
 			<ul>
@@ -490,7 +500,7 @@ function woo_admin_head() {
 					jQuery( '.ajax-loading-img').fadeIn();
 					var serializedReturn = newValues();
 
-					var ajax_url = '<?php echo admin_url( "admin-ajax.php" ); ?>';
+					// var ajax_url = '<?php echo admin_url( "admin-ajax.php" ); ?>';
 
 					 //var data = {data : serializedReturn};
 					var data = {
@@ -516,7 +526,7 @@ function woo_admin_head() {
 						_ajax_nonce: '<?php echo $woo_nonce; ?>'
 					};
 
-					jQuery.post(ajax_url, data, function(response) {
+					jQuery.post(ajaxurl, data, function(response) {
 
 						var success = jQuery( '#woo-popup-save' );
 						var loading = jQuery( '.ajax-loading-img' );
@@ -548,7 +558,7 @@ if ( ! function_exists( 'woo_load_only' ) ) {
 		nxt_register_script( 'jquery-ui-datepicker', get_template_directory_uri() . '/functions/js/ui.datepicker.js', array( 'jquery-ui-core' ) );
 		nxt_register_script( 'jquery-input-mask', get_template_directory_uri() . '/functions/js/jquery.maskedinput-1.2.2.js', array( 'jquery' ) );
 		nxt_register_script( 'woo-scripts', get_template_directory_uri() . '/functions/js/woo-scripts.js', array( 'jquery' ) );
-		nxt_register_script( 'woo-admin-interface', get_template_directory_uri() . '/functions/js/woo-admin-interface.js', array( 'jquery' ), '5.0.0' );
+		nxt_register_script( 'woo-admin-interface', get_template_directory_uri() . '/functions/js/woo-admin-interface.js', array( 'jquery' ), '5.3.5' );
 		nxt_register_script( 'colourpicker', get_template_directory_uri() . '/functions/js/colorpicker.js', array( 'jquery' ) );
 
 		nxt_enqueue_script( 'jquery-ui-datepicker' );
@@ -557,6 +567,7 @@ if ( ! function_exists( 'woo_load_only' ) ) {
 		nxt_enqueue_script( 'colourpicker' );
 		nxt_enqueue_script( 'woo-admin-interface' );
 		nxt_enqueue_script( 'woo-custom-fields' );
+		nxt_enqueue_script( 'jquery-ui-slider' );
 
 		// Register the typography preview JavaScript.
 		nxt_register_script( 'woo-typography-preview', get_template_directory_uri() . '/functions/js/woo-typography-preview.js', array( 'jquery' ), '1.0.0', true );
@@ -570,7 +581,7 @@ if ( ! function_exists( 'woo_load_only' ) ) {
 
 if ( ! function_exists( 'woo_framework_load_css' ) ) {
 	function woo_framework_load_css () {
-		nxt_register_style( 'woo-admin-interface', get_template_directory_uri() . '/functions/admin-style.css', '', '5.0.0' );
+		nxt_register_style( 'woo-admin-interface', get_template_directory_uri() . '/functions/admin-style.css', '', '5.3.10' );
 		nxt_register_style( 'jquery-ui-datepicker', get_template_directory_uri() . '/functions/css/jquery-ui-datepicker.css' );
 		nxt_register_style( 'colourpicker', get_template_directory_uri() . '/functions/css/colorpicker.css' );
 
@@ -634,7 +645,9 @@ function woo_options_save ( $type, $data ) {
 			} else { $id = null;}
 			$old_value = get_option( $id );
 			$new_value = '';
-
+			
+			if ( ! current_user_can( 'unfiltered_html' ) && in_array( $id, woo_disabled_if_not_unfiltered_html_option_keys() ) ) { continue; } // Skip over the theme option if it's not being passed through.
+			
 			if( isset( $output[$id] ) ) {
 				$new_value = $output[$option_array['id']];
 			}
@@ -1065,7 +1078,7 @@ if ( ! function_exists( 'woothemes_machine' ) ) {
 				}
 				$std = get_option( $value['id'] );
 				if( $std != "" ) { $ta_value = stripslashes( $std ); }
-				$output .= '<textarea ' . ( !current_user_can( 'unfiltered_html' ) && in_array( $value['id'], woo_disabled_if_not_unfiltered_html_option_keys() ) ? 'disabled="disabled" ' : '' ) . 'class="woo-input" name="'. $value['id'] .'" id="'. $value['id'] .'" cols="'. $cols .'" rows="8">'.esc_textarea( $ta_value ).'</textarea>';
+				$output .= '<textarea ' . ( ! current_user_can( 'unfiltered_html' ) && in_array( $value['id'], woo_disabled_if_not_unfiltered_html_option_keys() ) ? 'disabled="disabled" ' : '' ) . 'class="woo-input" name="'. $value['id'] .'" id="'. $value['id'] .'" cols="'. $cols .'" rows="8">'.esc_textarea( $ta_value ).'</textarea>';
 
 
 				break;
@@ -1474,6 +1487,15 @@ if ( ! function_exists( 'woothemes_machine' ) ) {
 				$output .= '<input class="woo-input-calendar" type="text" name="' . $value['id'] . '[date]" id="'.$value['id'].'" value="' . esc_attr( date( 'm/d/Y', $val ) ) . '">';
 			break;
 
+			case 'slider':
+				$val = $value['std'];
+				$std = get_option( $value['id'] );
+				if ( $std != "" ) { $val = $std; }
+				$val = stripslashes( $val ); // Strip out unwanted slashes.
+				$output .= '<div class="ui-slide" id="'. $value['id'] .'_div" min="'. esc_attr( $value['min'] ) .'" max="'. esc_attr( $value['max'] ) .'" inc="'. esc_attr( $value['increment'] ) .'"></div>';
+				$output .= '<input readonly="readonly" class="woo-input" name="'. $value['id'] .'" id="'. $value['id'] .'" type="'. $value['type'] .'" value="'. esc_attr( $val ) .'" />';
+			break;
+
 			case "heading":
 				if( $counter >= 2 ) {
 					$output .= '</div>'."\n";
@@ -1689,7 +1711,7 @@ if ( ! function_exists( 'woothemes_version_checker' ) ) {
 				$status = 'bugfix';
 			}
 
-			return array( 'is_update' => $version_sentinel, 'version' => $latest_version_via_rss['version'], 'status' => $statuses[$status], 'theme_name' => $theme_name );
+			return array( 'is_update' => $version_sentinel, 'version' => $latest_version_via_rss, 'status' => $statuses[$status], 'theme_name' => $theme_name );
 
 
 			//set version checker message
@@ -1788,7 +1810,7 @@ if ( ! function_exists( 'woo_framework_update_notice' ) ) {
 		$html = '';
 
 		if ( is_array( $update_data ) && $update_data['is_update'] == true ) {
-			$html = '<div id="wooframework_update" class="updated fade"><p>' . sprintf( __( 'WooFramework update is available (v%s). %sDownload new version%s (%sSee Changelog%s)', 'woothemes' ), $update_data['version'], '<a href="' . admin_url( 'admin.php?page=woothemes_framework_update' ) . '/">', '</a>', '<a href="http://www.woothemes.com/updates/functions-changelog.txt" target="_blank" title="Changelog">', '</a>' ) . '</p></div>';
+			$html = '<div id="wooframework_update" class="updated fade"><p>' . sprintf( __( 'WooFramework update is available (v%s). %sDownload new version%s (%sSee Changelog%s)', 'woothemes' ), $update_data['version'], '<a href="' . admin_url( 'admin.php?page=woothemes_framework_update' ) . '">', '</a>', '<a href="http://www.woothemes.com/updates/functions-changelog.txt" target="_blank" title="Changelog">', '</a>' ) . '</p></div>';
 		}
 
 		if ( $html != '' ) { echo $html; }
