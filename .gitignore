@@ -8,7 +8,9 @@
 *.so
 nxt-config.php
 sitemap.xml
-nxt-content/themes/huddle/
+assets/
+nxt-content/themes/
+nxt-content/plugins/
 nxt-content/uploads/
 nxt-content/w3c
 nxt-content/*.php

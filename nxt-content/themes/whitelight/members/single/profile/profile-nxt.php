@@ -5,14 +5,14 @@
 <?php do_action( 'bp_before_profile_field_content' ) ?>
 
 	<div class="bp-widget nxt-profile">
-		<h4><?php bp_is_my_profile() ? _e( 'My Profile', 'buddypress' ) : printf( __( "%s's Profile", 'buddypress' ), bp_get_displayed_user_fullname() ); ?></h4>
+		<h4><?php bp_is_my_profile() ? _e( 'My Profile', 'huddle' ) : printf( __( "%s's Profile", 'huddle' ), bp_get_displayed_user_fullname() ); ?></h4>
 
 		<table class="nxt-profile-fields">
 
 			<?php if ( $ud->display_name ) : ?>
 
 				<tr id="nxt_displayname">
-					<td class="label"><?php _e( 'Name', 'buddypress' ); ?></td>
+					<td class="label"><?php _e( 'Name', 'huddle' ); ?></td>
 					<td class="data"><?php echo $ud->display_name; ?></td>
 				</tr>
 
@@ -21,7 +21,7 @@
 			<?php if ( $ud->user_description ) : ?>
 
 				<tr id="nxt_desc">
-					<td class="label"><?php _e( 'About Me', 'buddypress' ); ?></td>
+					<td class="label"><?php _e( 'About Me', 'huddle' ); ?></td>
 					<td class="data"><?php echo $ud->user_description; ?></td>
 				</tr>
 
@@ -30,7 +30,7 @@
 			<?php if ( $ud->user_url ) : ?>
 
 				<tr id="nxt_website">
-					<td class="label"><?php _e( 'Website', 'buddypress' ); ?></td>
+					<td class="label"><?php _e( 'Website', 'huddle' ); ?></td>
 					<td class="data"><?php echo make_clickable( $ud->user_url ); ?></td>
 				</tr>
 
@@ -39,7 +39,7 @@
 			<?php if ( $ud->jabber ) : ?>
 
 				<tr id="nxt_jabber">
-					<td class="label"><?php _e( 'Jabber', 'buddypress' ); ?></td>
+					<td class="label"><?php _e( 'Jabber', 'huddle' ); ?></td>
 					<td class="data"><?php echo $ud->jabber; ?></td>
 				</tr>
 
@@ -48,7 +48,7 @@
 			<?php if ( $ud->aim ) : ?>
 
 				<tr id="nxt_aim">
-					<td class="label"><?php _e( 'AOL Messenger', 'buddypress' ); ?></td>
+					<td class="label"><?php _e( 'AOL Messenger', 'huddle' ); ?></td>
 					<td class="data"><?php echo $ud->aim; ?></td>
 				</tr>
 
@@ -57,7 +57,7 @@
 			<?php if ( $ud->yim ) : ?>
 
 				<tr id="nxt_yim">
-					<td class="label"><?php _e( 'Yahoo Messenger', 'buddypress' ); ?></td>
+					<td class="label"><?php _e( 'Yahoo Messenger', 'huddle' ); ?></td>
 					<td class="data"><?php echo $ud->yim; ?></td>
 				</tr>
 
