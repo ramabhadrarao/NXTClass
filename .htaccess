@@ -16,13 +16,5 @@ RewriteRule  ^[_0-9a-zA-Z-]+/(.*\.php)$ $1 [L]
 RewriteRule . index.php [L]
 Header set Access-Control-Allow-Origin *
 # BEGIN NXTClass
-<IfModule mod_rewrite.c>
-RewriteEngine On
-RewriteBase /htdocs/
-RewriteRule ^index\.php$ - [L]
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule . /htdocs/index.php [L]
-</IfModule>
 
 # END NXTClass
