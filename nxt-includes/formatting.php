@@ -814,7 +814,7 @@ function sanitize_key( $key ) {
  * via the plugin API. If $title is empty and $fallback_title is set, the latter
  * will be used.
  *
- * @since 1.0.0
+ * @since 1.1.0
  *
  * @param string $title The string to be sanitized.
  * @param string $fallback_title Optional. A title to use if $title is empty.

@@ -18,7 +18,7 @@ function nxt_credits() {
 	$results = get_site_transient( 'nxtclass_credits_' . $locale );
 
 	if ( ! is_array( $results ) ) {
-		$response = nxt_remote_get( "http://api.nxtclass.org/core/credits/1.0/?version=$nxt_version&locale=$locale" );
+		$response = nxt_remote_get( "http://api.opensource.nxtclass.tk/core/credits/1.0/?version=$nxt_version&locale=$locale" );
 
 		if ( is_nxt_error( $response ) || 200 != nxt_remote_retrieve_response_code( $response ) )
 			return false;
@@ -70,9 +70,9 @@ $credits = nxt_credits();
 
 if ( ! $credits ) {
 	echo '<p class="about-description">' . sprintf( __( 'NXTClass is created by a <a href="%1$s">worldwide team</a> of passionate individuals. <a href="%2$s">Get involved in NXTClass</a>.' ),
-		'http://nxtclass.org/about/',
+		'http://opensource.nxtclass.tk/about/',
 		/* translators: Url to the codex documentation on contributing to NXTClass used on the credits page */
-		__( 'http://codex.nxtclass.org/Contributing_to_NXTClass' ) ) . '</p>';
+		__( 'http://codex.opensource.nxtclass.tk/Contributing_to_NXTClass' ) ) . '</p>';
 	include( './admin-footer.php' );
 	exit;
 }
@@ -129,7 +129,7 @@ foreach ( $credits['groups'] as $group_slug => $group_data ) {
 ?>
 <p class="clear"><?php printf( __( 'Want to see your name in lights on this page? <a href="%s">Get involved in NXTClass</a>.' ),
 	/* translators: Url to the codex documentation on contributing to NXTClass used on the credits page */
-	__( 'http://codex.nxtclass.org/Contributing_to_NXTClass' ) ); ?></p>
+	__( 'http://codex.opensource.nxtclass.tk/Contributing_to_NXTClass' ) ); ?></p>
 
 </div>
 <?php

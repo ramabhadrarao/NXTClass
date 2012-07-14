@@ -25,7 +25,7 @@
  * $out = do_shortcode($content);
  * </code>
  *
- * @link http://codex.nxtclass.org/Shortcode_API
+ * @link http://codex.opensource.nxtclass.tk/Shortcode_API
  *
  * @package NXTClass
  * @subpackage Shortcodes

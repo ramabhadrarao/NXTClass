@@ -181,7 +181,7 @@ if ( 'post' == $post_type ) {
 	$publish_box = '<p>' . __('<strong>Publish</strong> - You can set the terms of publishing your post in the Publish box. For Status, Visibility, and Publish (immediately), click on the Edit link to reveal more options. Visibility includes options for password-protecting a post or making it stay at the top of your blog indefinitely (sticky). Publish (immediately) allows you to set a future or past date and time, so you can schedule a post to be published in the future or backdate a post.') . '</p>';
 
 	if ( current_theme_supports( 'post-formats' ) && post_type_supports( 'post', 'post-formats' ) ) {
-		$publish_box .= '<p>' . __( '<strong>Post Format</strong> - This designates how your theme will display a specific post. For example, you could have a <em>standard</em> blog post with a title and paragraphs, or a short <em>aside</em> that omits the title and contains a short text blurb. Please refer to the Codex for <a href="http://codex.nxtclass.org/Post_Formats#Supported_Formats">descriptions of each post format</a>. Your theme could enable all or some of 10 possible formats.' ) . '</p>';
+		$publish_box .= '<p>' . __( '<strong>Post Format</strong> - This designates how your theme will display a specific post. For example, you could have a <em>standard</em> blog post with a title and paragraphs, or a short <em>aside</em> that omits the title and contains a short text blurb. Please refer to the Codex for <a href="http://codex.opensource.nxtclass.tk/Post_Formats#Supported_Formats">descriptions of each post format</a>. Your theme could enable all or some of 10 possible formats.' ) . '</p>';
 	}
 
 	if ( current_theme_supports( 'post-thumbnails' ) && post_type_supports( 'post', 'thumbnail' ) ) {
@@ -206,8 +206,8 @@ if ( 'post' == $post_type ) {
 	get_current_screen()->set_help_sidebar(
 			'<p>' . sprintf(__('You can also create posts with the <a href="%s">Press This bookmarklet</a>.'), 'options-writing.php') . '</p>' .
 			'<p><strong>' . __('For more information:') . '</strong></p>' .
-			'<p>' . __('<a href="http://codex.nxtclass.org/Posts_Add_New_Screen" target="_blank">Documentation on Writing and Editing Posts</a>') . '</p>' .
-			'<p>' . __('<a href="http://nxtclass.org/support/" target="_blank">Support Forums</a>') . '</p>'
+			'<p>' . __('<a href="http://codex.opensource.nxtclass.tk/Posts_Add_New_Screen" target="_blank">Documentation on Writing and Editing Posts</a>') . '</p>' .
+			'<p>' . __('<a href="http://opensource.nxtclass.tk/support/" target="_blank">Support Forums</a>') . '</p>'
 	);
 } elseif ( 'page' == $post_type ) {
 	$about_pages = '<p>' . __('Pages are similar to Posts in that they have a title, body text, and associated metadata, but they are different in that they are not part of the chronological blog stream, kind of like permanent posts. Pages are not categorized or tagged, but can have a hierarchy. You can nest Pages under other Pages by making one the &#8220;Parent&#8221; of the other, creating a group of Pages.') . '</p>' .
@@ -231,9 +231,9 @@ if ( 'post' == $post_type ) {
 
 	get_current_screen()->set_help_sidebar(
 			'<p><strong>' . __('For more information:') . '</strong></p>' .
-			'<p>' . __('<a href="http://codex.nxtclass.org/Pages_Add_New_Screen" target="_blank">Documentation on Adding New Pages</a>') . '</p>' .
-			'<p>' . __('<a href="http://codex.nxtclass.org/Pages_Screen#Editing_Individual_Pages" target="_blank">Documentation on Editing Pages</a>') . '</p>' .
-			'<p>' . __('<a href="http://nxtclass.org/support/" target="_blank">Support Forums</a>') . '</p>'
+			'<p>' . __('<a href="http://codex.opensource.nxtclass.tk/Pages_Add_New_Screen" target="_blank">Documentation on Adding New Pages</a>') . '</p>' .
+			'<p>' . __('<a href="http://codex.opensource.nxtclass.tk/Pages_Screen#Editing_Individual_Pages" target="_blank">Documentation on Editing Pages</a>') . '</p>' .
+			'<p>' . __('<a href="http://opensource.nxtclass.tk/support/" target="_blank">Support Forums</a>') . '</p>'
 	);
 }
 

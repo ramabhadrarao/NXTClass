@@ -278,8 +278,8 @@
 			return {
 				longname : 'NXTClass Plugin',
 				author : 'NXTClass', // add Moxiecode?
-				authorurl : 'http://nxtclass.org',
-				infourl : 'http://nxtclass.org',
+				authorurl : 'http://opensource.nxtclass.tk',
+				infourl : 'http://opensource.nxtclass.tk',
 				version : '3.0'
 			};
 		},

@@ -34,14 +34,14 @@ function plugins_api($action, $args = null) {
 	if ( !isset($args->per_page) )
 		$args->per_page = 24;
 
-	// Allows a plugin to override the NXTClass.org API entirely.
+	// Allows a plugin to override the opensource.nxtclass.tk API entirely.
 	// Use the filter 'plugins_api_result' to merely add results.
 	// Please ensure that a object is returned from the following filters.
 	$args = apply_filters('plugins_api_args', $args, $action);
 	$res = apply_filters('plugins_api', false, $action, $args);
 
 	if ( false === $res ) {
-		$request = nxt_remote_post('http://api.nxtclass.org/plugins/info/1.0/', array( 'timeout' => 15, 'body' => array('action' => $action, 'request' => serialize($args))) );
+		$request = nxt_remote_post('http://api.opensource.nxtclass.tk/plugins/info/1.0/', array( 'timeout' => 15, 'body' => array('action' => $action, 'request' => serialize($args))) );
 		if ( is_nxt_error($request) ) {
 			$res = new nxt_Error('plugins_api_failed', __('An Unexpected HTTP Error occurred during the API request.'), $request->get_error_message() );
 		} else {
@@ -81,7 +81,7 @@ function install_popular_tags( $args = array() ) {
 
 function install_dashboard() {
 	?>
-	<p><?php printf( __( 'Plugins extend and expand the functionality of NXTClass. You may automatically install plugins from the <a href="http://nxtclass.org/extend/plugins/">NXTClass Plugin Directory</a> or upload a plugin in .zip format via <a href="%s">this page</a>.' ), self_admin_url( 'plugin-install.php?tab=upload' ) ); ?></p>
+	<p><?php printf( __( 'Plugins extend and expand the functionality of NXTClass. You may automatically install plugins from the <a href="http://opensource.nxtclass.tk/extend/plugins/">NXTClass Plugin Directory</a> or upload a plugin in .zip format via <a href="%s">this page</a>.' ), self_admin_url( 'plugin-install.php?tab=upload' ) ); ?></p>
 
 	<h4><?php _e('Search') ?></h4>
 	<p class="install-help"><?php _e('Search for plugins by keyword, author, or tag.') ?></p>
@@ -320,7 +320,7 @@ function install_plugin_information() {
 <?php endif; if ( ! empty($api->downloaded) ) : ?>
 			<li><strong><?php _e('Downloaded:') ?></strong> <?php printf(_n('%s time', '%s times', $api->downloaded), number_format_i18n($api->downloaded)) ?></li>
 <?php endif; if ( ! empty($api->slug) && empty($api->external) ) : ?>
-			<li><a target="_blank" href="http://nxtclass.org/extend/plugins/<?php echo $api->slug ?>/"><?php _e('NXTClass.org Plugin Page &#187;') ?></a></li>
+			<li><a target="_blank" href="http://opensource.nxtclass.tk/extend/plugins/<?php echo $api->slug ?>/"><?php _e('opensource.nxtclass.tk Plugin Page &#187;') ?></a></li>
 <?php endif; if ( ! empty($api->homepage) ) : ?>
 			<li><a target="_blank" href="<?php echo $api->homepage ?>"><?php _e('Plugin Homepage  &#187;') ?></a></li>
 <?php endif; ?>
@@ -351,7 +351,7 @@ function install_plugin_information() {
 			$title[0] = strtoupper($title[0]);
 			$title = str_replace('_', ' ', $title);
 
-			$content = links_add_base_url($content, 'http://nxtclass.org/extend/plugins/' . $api->slug . '/');
+			$content = links_add_base_url($content, 'http://opensource.nxtclass.tk/extend/plugins/' . $api->slug . '/');
 			$content = links_add_target($content, '_blank');
 
 			$san_title = esc_attr(sanitize_title_with_dashes($title));

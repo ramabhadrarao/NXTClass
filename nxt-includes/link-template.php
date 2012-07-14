@@ -71,7 +71,7 @@ function permalink_anchor($mode = 'id') {
 /**
  * Retrieve full permalink for current post or post ID.
  *
- * @since 1.0.0
+ * @since 1.1.0
  *
  * @param int $id Optional. Post ID.
  * @param bool $leavename Optional, defaults to false. Whether to keep post name or page name.
@@ -210,7 +210,7 @@ function get_post_permalink( $id = 0, $leavename = false, $sample = false ) {
 /**
  * Retrieve permalink from post ID.
  *
- * @since 1.0.0
+ * @since 1.1.0
  *
  * @param int $post_id Optional. Post ID.
  * @param mixed $deprecated Not used.
@@ -354,7 +354,7 @@ function get_year_link($year) {
 /**
  * Retrieve the permalink for the month archives with year.
  *
- * @since 1.0.0
+ * @since 1.1.0
  *
  * @param bool|int $year False for current year. Integer of year.
  * @param bool|int $month False for current month. Integer of month.
@@ -379,7 +379,7 @@ function get_month_link($year, $month) {
 /**
  * Retrieve the permalink for the day archives with year and month.
  *
- * @since 1.0.0
+ * @since 1.1.0
  *
  * @param bool|int $year False for current year. Integer of year.
  * @param bool|int $month False for current month. Integer of month.
@@ -920,7 +920,7 @@ function get_edit_post_link( $id = 0, $context = 'display' ) {
 /**
  * Display edit post link for post.
  *
- * @since 1.0.0
+ * @since 1.1.0
  *
  * @param string $link Optional. Anchor text.
  * @param string $before Optional. Display before edit link.
@@ -996,7 +996,7 @@ function get_edit_comment_link( $comment_id = 0 ) {
 /**
  * Display or retrieve edit comment link with formatting.
  *
- * @since 1.0.0
+ * @since 1.1.0
  *
  * @param string $link Optional. Anchor text.
  * @param string $before Optional. Display before edit link.

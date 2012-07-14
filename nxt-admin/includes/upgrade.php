@@ -147,37 +147,37 @@ function nxt_install_defaults($user_id) {
 
 	// Now drop in some default links
 	$default_links = array();
-	$default_links[] = array(	'link_url' => 'http://codex.nxtclass.org/',
+	$default_links[] = array(	'link_url' => 'http://codex.opensource.nxtclass.tk/',
 								'link_name' => 'Documentation',
 								'link_rss' => '',
 								'link_notes' => '');
 
-	$default_links[] = array(	'link_url' => 'http://nxtclass.org/news/',
+	$default_links[] = array(	'link_url' => 'http://opensource.nxtclass.tk/news/',
 								'link_name' => 'NXTClass Blog',
-								'link_rss' => 'http://nxtclass.org/news/feed/',
+								'link_rss' => 'http://opensource.nxtclass.tk/news/feed/',
 								'link_notes' => '');
 
-	$default_links[] = array(	'link_url' => 'http://nxtclass.org/extend/ideas/',
+	$default_links[] = array(	'link_url' => 'http://opensource.nxtclass.tk/extend/ideas/',
 								'link_name' => 'Suggest Ideas',
 								'link_rss' => '',
 								'link_notes' =>'');
 
-	$default_links[] = array(	'link_url' => 'http://nxtclass.org/support/',
+	$default_links[] = array(	'link_url' => 'http://opensource.nxtclass.tk/support/',
 								'link_name' => 'Support Forum',
 								'link_rss' => '',
 								'link_notes' =>'');
 
-	$default_links[] = array(	'link_url' => 'http://nxtclass.org/extend/plugins/',
+	$default_links[] = array(	'link_url' => 'http://opensource.nxtclass.tk/extend/plugins/',
 								'link_name' => 'Plugins',
 								'link_rss' => '',
 								'link_notes' =>'');
 
-	$default_links[] = array(	'link_url' => 'http://nxtclass.org/extend/themes/',
+	$default_links[] = array(	'link_url' => 'http://opensource.nxtclass.tk/extend/themes/',
 								'link_name' => 'Themes',
 								'link_rss' => '',
 								'link_notes' =>'');
 
-	$default_links[] = array(	'link_url' => 'http://planet.nxtclass.org/',
+	$default_links[] = array(	'link_url' => 'http://planet.opensource.nxtclass.tk/',
 								'link_name' => 'NXTClass Planet',
 								'link_rss' => '',
 								'link_notes' =>'');
@@ -225,7 +225,7 @@ function nxt_install_defaults($user_id) {
 
 	// Default comment
 	$first_comment_author = __('Mr NXTClass');
-	$first_comment_url = 'http://nxtclass.org/';
+	$first_comment_url = 'http://opensource.nxtclass.tk/';
 	$first_comment = __('Hi, this is a comment.<br />To delete a comment, just log in and view the post&#039;s comments. There you will have the option to edit or delete them.');
 	if ( is_multisite() ) {
 		$first_comment_author = get_site_option( 'first_comment_author', $first_comment_author );
@@ -336,7 +336,7 @@ Password: %3\$s
 We hope you enjoy your new site. Thanks!
 
 --The NXTClass Team
-http://nxtclass.org/
+http://opensource.nxtclass.tk/
 "), $blog_url, $name, $password);
 
 	@nxt_mail($email, __('New NXTClass Site'), $message);
@@ -468,7 +468,7 @@ function upgrade_all() {
 /**
  * Execute changes made in NXTClass 1.0.
  *
- * @since 1.0.0
+ * @since 1.1.0
  */
 function upgrade_100() {
 	global $nxtdb;
@@ -1269,7 +1269,7 @@ function upgrade_network() {
  *
  * {@internal Missing Long Description}}
  *
- * @since 1.0.0
+ * @since 1.1.0
  *
  * @param string $table_name Database table name to create.
  * @param string $create_ddl SQL statement to create table.

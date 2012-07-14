@@ -34,8 +34,8 @@ $parent_file = 'index.php';
 
 get_current_screen()->set_help_sidebar(
 	'<p><strong>' . __('For more information:') . '</strong></p>' .
-	'<p>' . __('<a href="http://codex.nxtclass.org/Network_Admin" target="_blank">Documentation on the Network Admin</a>') . '</p>' .
-	'<p>' . __('<a href="http://nxtclass.org/support/forum/multisite/" target="_blank">Support Forums</a>') . '</p>'
+	'<p>' . __('<a href="http://codex.opensource.nxtclass.tk/Network_Admin" target="_blank">Documentation on the Network Admin</a>') . '</p>' .
+	'<p>' . __('<a href="http://opensource.nxtclass.tk/support/forum/multisite/" target="_blank">Support Forums</a>') . '</p>'
 );
 
 nxt_dashboard_setup();

@@ -57,8 +57,8 @@ get_current_screen()->add_help_tab( array(
 
 get_current_screen()->set_help_sidebar(
 	'<p><strong>' . __('For more information:') . '</strong></p>' .
-	'<p>' . __('<a href="http://codex.nxtclass.org/Links_Screen" target="_blank">Documentation on Managing Links</a>') . '</p>' .
-	'<p>' . __('<a href="http://nxtclass.org/support/" target="_blank">Support Forums</a>') . '</p>'
+	'<p>' . __('<a href="http://codex.opensource.nxtclass.tk/Links_Screen" target="_blank">Documentation on Managing Links</a>') . '</p>' .
+	'<p>' . __('<a href="http://opensource.nxtclass.tk/support/" target="_blank">Support Forums</a>') . '</p>'
 );
 
 include_once ('./admin-header.php');

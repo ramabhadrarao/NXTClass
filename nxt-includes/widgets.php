@@ -6,8 +6,8 @@
  * This functionality was found in a plugin before NXTClass 2.2 release which
  * included it in the core from that point on.
  *
- * @link http://codex.nxtclass.org/Plugins/NXTClass_Widgets NXTClass Widgets
- * @link http://codex.nxtclass.org/Plugins/NXTClass_Widgets_Api Widgets API
+ * @link http://codex.opensource.nxtclass.tk/Plugins/NXTClass_Widgets NXTClass Widgets
+ * @link http://codex.opensource.nxtclass.tk/Plugins/NXTClass_Widgets_Api Widgets API
  *
  * @package NXTClass
  * @subpackage Widgets

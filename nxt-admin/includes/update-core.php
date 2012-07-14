@@ -406,7 +406,7 @@ function update_core($from, $to) {
 	$mysql_version  = $nxtdb->db_version();
 	$required_php_version = '5.2.4';
 	$required_mysql_version = '5.0';
-	$nxt_version = '3.3.1';
+	$nxt_version = '1.1.0';
 	$php_compat     = version_compare( $php_version, $required_php_version, '>=' );
 	if ( file_exists( nxt_CONTENT_DIR . '/db.php' ) && empty( $nxtdb->is_mysql ) )
 		$mysql_compat = true;

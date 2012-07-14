@@ -1458,7 +1458,7 @@ EOD;
 				explode(':', base64_decode(substr($_SERVER['HTTP_AUTHORIZATION'], 6)));
 		} else if (isset($_SERVER['REDIRECT_REMOTE_USER'])) {
 			// Workaround for setups that do not forward HTTP_AUTHORIZATION
-			// See http://trac.nxtclass.org/ticket/7361
+			// See http://trac.opensource.nxtclass.tk/ticket/7361
 			list($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']) =
 				explode(':', base64_decode(substr($_SERVER['REDIRECT_REMOTE_USER'], 6)));
 		}

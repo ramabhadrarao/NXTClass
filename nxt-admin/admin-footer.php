@@ -20,7 +20,7 @@ if ( !defined('ABSPATH') )
 <p id="footer-left" class="alignleft"><?php
 $upgrade = apply_filters( 'update_footer', '' );
 $footer_text = array(
-	'<span id="footer-thankyou">' . __( 'Thank you for creating with <a href="http://nxtclass.org/">NXTClass</a>.' ) . '</span>',
+	'<span id="footer-thankyou">' . __( 'Thank you for creating with <a href="http://opensource.nxtclass.tk/">NXTClass</a>.' ) . '</span>',
 );
 echo apply_filters( 'admin_footer_text', implode( ' &bull; ', $footer_text ) );
 unset( $footer_text );

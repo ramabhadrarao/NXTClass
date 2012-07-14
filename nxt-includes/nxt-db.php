@@ -42,7 +42,7 @@ define( 'ARRAY_N', 'ARRAY_N' );
  * file to your class. The nxtdb class will still be included,
  * so you can extend it or simply use your own.
  *
- * @link http://codex.nxtclass.org/Function_Reference/nxtdb_Class
+ * @link http://codex.opensource.nxtclass.tk/Function_Reference/nxtdb_Class
  *
  * @package NXTClass
  * @subpackage Database
@@ -124,7 +124,7 @@ class nxtdb {
 	/**
 	 * Results of the last query made
 	 *
-	 * @since 1.0.0
+	 * @since 1.1.0
 	 * @access private
 	 * @var array|null
 	 */
@@ -479,7 +479,7 @@ class nxtdb {
 	 * the actual setting up of the class properties and connection
 	 * to the database.
 	 *
-	 * @link http://core.trac.nxtclass.org/ticket/3354
+	 * @link http://core.trac.opensource.nxtclass.tk/ticket/3354
 	 * @since 2.0.8
 	 *
 	 * @param string $dbuser MySQL database user
@@ -752,7 +752,7 @@ class nxtdb {
 <li>Does the user <code>%2$s</code> have permission to use the <code>%1$s</code> database?</li>
 <li>On some systems the name of your database is prefixed with your username, so it would be like <code>username_%1$s</code>. Could that be the problem?</li>
 </ul>
-<p>If you don\'t know how to set up a database you should <strong>contact your host</strong>. If all else fails you may find help at the <a href="http://nxtclass.org/support/">NXTClass Support Forums</a>.</p>'/*/nxt_I18N_DB_SELECT_DB*/, $db, $this->dbuser ), 'db_select_fail' );
+<p>If you don\'t know how to set up a database you should <strong>contact your host</strong>. If all else fails you may find help at the <a href="http://opensource.nxtclass.tk/support/">NXTClass Support Forums</a>.</p>'/*/nxt_I18N_DB_SELECT_DB*/, $db, $this->dbuser ), 'db_select_fail' );
 			return;
 		}
 	}
@@ -1045,7 +1045,7 @@ class nxtdb {
 	<li>Are you sure that you have typed the correct hostname?</li>
 	<li>Are you sure that the database server is running?</li>
 </ul>
-<p>If you're unsure what these terms mean you should probably contact your host. If you still need help you can always visit the <a href='http://nxtclass.org/support/'>NXTClass Support Forums</a>.</p>
+<p>If you're unsure what these terms mean you should probably contact your host. If you still need help you can always visit the <a href='http://opensource.nxtclass.tk/support/'>NXTClass Support Forums</a>.</p>
 "/*/nxt_I18N_DB_CONN_ERROR*/, $this->dbhost ), 'db_connect_fail' );
 
 			return;

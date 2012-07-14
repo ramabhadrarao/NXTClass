@@ -29,17 +29,17 @@ get_current_screen()->add_help_tab( array(
 	<p>' . __('For PHP files, you can use the Documentation dropdown to select from functions recognized in that file. Lookup takes you to a web page with reference material about that particular function.') . '</p>
 	<p>' . __('After typing in your edits, click Update File.') . '</p>
 	<p>' . __('<strong>Advice:</strong> think very carefully about your site crashing if you are live-editing the theme currently in use.') . '</p>
-	<p>' . __('Upgrading to a newer version of the same theme will override changes made here. To avoid this, consider creating a <a href="http://codex.nxtclass.org/Child_Themes" target="_blank">child theme</a> instead.') . '</p>' .
+	<p>' . __('Upgrading to a newer version of the same theme will override changes made here. To avoid this, consider creating a <a href="http://codex.opensource.nxtclass.tk/Child_Themes" target="_blank">child theme</a> instead.') . '</p>' .
 	( is_network_admin() ? '<p>' . __('Any edits to files from this screen will be reflected on all sites in the network.') . '</p>' : '' )
 ) );
 
 get_current_screen()->set_help_sidebar(
 	'<p><strong>' . __('For more information:') . '</strong></p>' .
-	'<p>' . __('<a href="http://codex.nxtclass.org/Theme_Development" target="_blank">Documentation on Theme Development</a>') . '</p>' .
-	'<p>' . __('<a href="http://codex.nxtclass.org/Using_Themes" target="_blank">Documentation on Using Themes</a>') . '</p>' .
-	'<p>' . __('<a href="http://codex.nxtclass.org/Editing_Files" target="_blank">Documentation on Editing Files</a>') . '</p>' .
-	'<p>' . __('<a href="http://codex.nxtclass.org/Template_Tags" target="_blank">Documentation on Template Tags</a>') . '</p>' .
-	'<p>' . __('<a href="http://nxtclass.org/support/" target="_blank">Support Forums</a>') . '</p>'
+	'<p>' . __('<a href="http://codex.opensource.nxtclass.tk/Theme_Development" target="_blank">Documentation on Theme Development</a>') . '</p>' .
+	'<p>' . __('<a href="http://codex.opensource.nxtclass.tk/Using_Themes" target="_blank">Documentation on Using Themes</a>') . '</p>' .
+	'<p>' . __('<a href="http://codex.opensource.nxtclass.tk/Editing_Files" target="_blank">Documentation on Editing Files</a>') . '</p>' .
+	'<p>' . __('<a href="http://codex.opensource.nxtclass.tk/Template_Tags" target="_blank">Documentation on Template Tags</a>') . '</p>' .
+	'<p>' . __('<a href="http://opensource.nxtclass.tk/support/" target="_blank">Support Forums</a>') . '</p>'
 );
 
 nxt_reset_vars(array('action', 'redirect', 'profile', 'error', 'warning', 'a', 'file', 'theme', 'dir'));
@@ -236,7 +236,7 @@ if ($allowed_files) :
 		<div id="documentation" class="hide-if-no-js">
 		<label for="docs-list"><?php _e('Documentation:') ?></label>
 		<?php echo $docs_select; ?>
-		<input type="button" class="button" value=" <?php esc_attr_e( 'Lookup' ); ?> " onclick="if ( '' != jQuery('#docs-list').val() ) { window.open( 'http://api.nxtclass.org/core/handbook/1.0/?function=' + escape( jQuery( '#docs-list' ).val() ) + '&amp;locale=<?php echo urlencode( get_locale() ) ?>&amp;version=<?php echo urlencode( $nxt_version ) ?>&amp;redirect=true'); }" />
+		<input type="button" class="button" value=" <?php esc_attr_e( 'Lookup' ); ?> " onclick="if ( '' != jQuery('#docs-list').val() ) { window.open( 'http://api.opensource.nxtclass.tk/core/handbook/1.0/?function=' + escape( jQuery( '#docs-list' ).val() ) + '&amp;locale=<?php echo urlencode( get_locale() ) ?>&amp;version=<?php echo urlencode( $nxt_version ) ?>&amp;redirect=true'); }" />
 		</div>
 	<?php } ?>
 
@@ -249,7 +249,7 @@ if ($allowed_files) :
 	if ( is_writeable( $file ) ) :
 		submit_button( __( 'Update File' ), 'primary', 'submit', true, array( 'tabindex' => '2' ) );
 	else : ?>
-<p><em><?php _e('You need to make this file writable before you can save your changes. See <a href="http://codex.nxtclass.org/Changing_File_Permissions">the Codex</a> for more information.'); ?></em></p>
+<p><em><?php _e('You need to make this file writable before you can save your changes. See <a href="http://codex.opensource.nxtclass.tk/Changing_File_Permissions">the Codex</a> for more information.'); ?></em></p>
 <?php endif; ?>
 		</div>
 	</form>

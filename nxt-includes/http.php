@@ -4,7 +4,7 @@
  *
  * Will eventually replace and standardize the NXTClass HTTP requests made.
  *
- * @link http://trac.nxtclass.org/ticket/4779 HTTP API Proposal
+ * @link http://trac.opensource.nxtclass.tk/ticket/4779 HTTP API Proposal
  *
  * @package NXTClass
  * @subpackage HTTP

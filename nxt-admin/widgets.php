@@ -60,8 +60,8 @@ get_current_screen()->add_help_tab( array(
 
 get_current_screen()->set_help_sidebar(
 	'<p><strong>' . __('For more information:') . '</strong></p>' .
-	'<p>' . __('<a href="http://codex.nxtclass.org/Appearance_Widgets_Screen" target="_blank">Documentation on Widgets</a>') . '</p>' .
-	'<p>' . __('<a href="http://nxtclass.org/support/" target="_blank">Support Forums</a>') . '</p>'
+	'<p>' . __('<a href="http://codex.opensource.nxtclass.tk/Appearance_Widgets_Screen" target="_blank">Documentation on Widgets</a>') . '</p>' .
+	'<p>' . __('<a href="http://opensource.nxtclass.tk/support/" target="_blank">Support Forums</a>') . '</p>'
 );
 
 if ( empty($nxt_registered_sidebars) ) {
@@ -75,7 +75,7 @@ if ( empty($nxt_registered_sidebars) ) {
 		<div class="error">
 			<p><?php _e( 'No Sidebars Defined' ); ?></p>
 		</div>
-		<p><?php _e( 'The theme you are currently using isn&#8217;t widget-aware, meaning that it has no sidebars that you are able to change. For information on making your theme widget-aware, please <a href="http://codex.nxtclass.org/Widgetizing_Themes">follow these instructions</a>.' ); ?></p>
+		<p><?php _e( 'The theme you are currently using isn&#8217;t widget-aware, meaning that it has no sidebars that you are able to change. For information on making your theme widget-aware, please <a href="http://codex.opensource.nxtclass.tk/Widgetizing_Themes">follow these instructions</a>.' ); ?></p>
 	</div>
 
 <?php

@@ -41,9 +41,9 @@ get_current_screen()->add_help_tab( array(
 
 get_current_screen()->set_help_sidebar(
 	'<p><strong>' . __('For more information:') . '</strong></p>' .
-	'<p>' . __('<a href="http://codex.nxtclass.org/Settings_Permalinks_Screen" target="_blank">Documentation on Permalinks Settings</a>') . '</p>' .
-	'<p>' . __('<a href="http://codex.nxtclass.org/Using_Permalinks" target="_blank">Documentation on Using Permalinks</a>') . '</p>' .
-	'<p>' . __('<a href="http://nxtclass.org/support/" target="_blank">Support Forums</a>') . '</p>'
+	'<p>' . __('<a href="http://codex.opensource.nxtclass.tk/Settings_Permalinks_Screen" target="_blank">Documentation on Permalinks Settings</a>') . '</p>' .
+	'<p>' . __('<a href="http://codex.opensource.nxtclass.tk/Using_Permalinks" target="_blank">Documentation on Using Permalinks</a>') . '</p>' .
+	'<p>' . __('<a href="http://opensource.nxtclass.tk/support/" target="_blank">Support Forums</a>') . '</p>'
 );
 
 /**
@@ -173,7 +173,7 @@ if ( ! is_multisite() ) {
 <form name="form" action="options-permalink.php" method="post">
 <?php nxt_nonce_field('update-permalink') ?>
 
-  <p><?php _e('By default NXTClass uses web <abbr title="Universal Resource Locator">URL</abbr>s which have question marks and lots of numbers in them, however NXTClass offers you the ability to create a custom URL structure for your permalinks and archives. This can improve the aesthetics, usability, and forward-compatibility of your links. A <a href="http://codex.nxtclass.org/Using_Permalinks">number of tags are available</a>, and here are some examples to get you started.'); ?></p>
+  <p><?php _e('By default NXTClass uses web <abbr title="Universal Resource Locator">URL</abbr>s which have question marks and lots of numbers in them, however NXTClass offers you the ability to create a custom URL structure for your permalinks and archives. This can improve the aesthetics, usability, and forward-compatibility of your links. A <a href="http://codex.opensource.nxtclass.tk/Using_Permalinks">number of tags are available</a>, and here are some examples to get you started.'); ?></p>
 
 <?php
 if ( is_multisite() && !is_subdomain_install() && is_main_site() ) {
@@ -252,14 +252,14 @@ $structures = array(
 <?php if ( $iis7_permalinks ) :
 	if ( isset($_POST['submit']) && $permalink_structure && ! $usingpi && ! $writable ) :
 		if ( file_exists($home_path . 'web.config') ) : ?>
-<p><?php _e('If your <code>web.config</code> file were <a href="http://codex.nxtclass.org/Changing_File_Permissions">writable</a>, we could do this automatically, but it isn&#8217;t so this is the url rewrite rule you should have in your <code>web.config</code> file. Click in the field and press <kbd>CTRL + a</kbd> to select all. Then insert this rule inside of the <code>/&lt;configuration&gt;/&lt;system.webServer&gt;/&lt;rewrite&gt;/&lt;rules&gt;</code> element in <code>web.config</code> file.') ?></p>
+<p><?php _e('If your <code>web.config</code> file were <a href="http://codex.opensource.nxtclass.tk/Changing_File_Permissions">writable</a>, we could do this automatically, but it isn&#8217;t so this is the url rewrite rule you should have in your <code>web.config</code> file. Click in the field and press <kbd>CTRL + a</kbd> to select all. Then insert this rule inside of the <code>/&lt;configuration&gt;/&lt;system.webServer&gt;/&lt;rewrite&gt;/&lt;rules&gt;</code> element in <code>web.config</code> file.') ?></p>
 <form action="options-permalink.php" method="post">
 <?php nxt_nonce_field('update-permalink') ?>
 	<p><textarea rows="9" class="large-text readonly" name="rules" id="rules" readonly="readonly"><?php echo esc_textarea( $nxt_rewrite->iis7_url_rewrite_rules() ); ?></textarea></p>
 </form>
 <p><?php _e('If you temporarily make your <code>web.config</code> file writable for us to generate rewrite rules automatically, do not forget to revert the permissions after rule has been saved.')  ?></p>
 		<?php else : ?>
-<p><?php _e('If the root directory of your site were <a href="http://codex.nxtclass.org/Changing_File_Permissions">writable</a>, we could do this automatically, but it isn&#8217;t so this is the url rewrite rule you should have in your <code>web.config</code> file. Create a new file, called <code>web.config</code> in the root directory of your site. Click in the field and press <kbd>CTRL + a</kbd> to select all. Then insert this code into the <code>web.config</code> file.') ?></p>
+<p><?php _e('If the root directory of your site were <a href="http://codex.opensource.nxtclass.tk/Changing_File_Permissions">writable</a>, we could do this automatically, but it isn&#8217;t so this is the url rewrite rule you should have in your <code>web.config</code> file. Create a new file, called <code>web.config</code> in the root directory of your site. Click in the field and press <kbd>CTRL + a</kbd> to select all. Then insert this code into the <code>web.config</code> file.') ?></p>
 <form action="options-permalink.php" method="post">
 <?php nxt_nonce_field('update-permalink') ?>
 	<p><textarea rows="18" class="large-text readonly" name="rules" id="rules" readonly="readonly"><?php echo esc_textarea( $nxt_rewrite->iis7_url_rewrite_rules(true) ); ?></textarea></p>
@@ -269,7 +269,7 @@ $structures = array(
 	<?php endif; ?>
 <?php else :
 	if ( $permalink_structure && ! $usingpi && ! $writable ) : ?>
-<p><?php _e('If your <code>.htaccess</code> file were <a href="http://codex.nxtclass.org/Changing_File_Permissions">writable</a>, we could do this automatically, but it isn&#8217;t so these are the mod_rewrite rules you should have in your <code>.htaccess</code> file. Click in the field and press <kbd>CTRL + a</kbd> to select all.') ?></p>
+<p><?php _e('If your <code>.htaccess</code> file were <a href="http://codex.opensource.nxtclass.tk/Changing_File_Permissions">writable</a>, we could do this automatically, but it isn&#8217;t so these are the mod_rewrite rules you should have in your <code>.htaccess</code> file. Click in the field and press <kbd>CTRL + a</kbd> to select all.') ?></p>
 <form action="options-permalink.php" method="post">
 <?php nxt_nonce_field('update-permalink') ?>
 	<p><textarea rows="6" class="large-text readonly" name="rules" id="rules" readonly="readonly"><?php echo esc_textarea( $nxt_rewrite->mod_rewrite_rules() ); ?></textarea></p>

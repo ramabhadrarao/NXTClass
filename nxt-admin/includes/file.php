@@ -887,7 +887,7 @@ function get_filesystem_method($args = array(), $context = false) {
  * Displays a form to the user to request for their FTP/SSH details in order to  connect to the filesystem.
  * All chosen/entered details are saved, Excluding the Password.
  *
- * Hostnames may be in the form of hostname:portnumber (eg: nxtclass.org:2467) to specify an alternate FTP/SSH port.
+ * Hostnames may be in the form of hostname:portnumber (eg: opensource.nxtclass.tk:2467) to specify an alternate FTP/SSH port.
  *
  * Plugins may override this form by returning true|false via the <code>request_filesystem_credentials</code> filter.
  *

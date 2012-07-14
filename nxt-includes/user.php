@@ -297,7 +297,7 @@ function update_user_option( $user_id, $option_name, $newvalue, $global = false 
 		$option_name = $nxtdb->prefix . $option_name;
 
 	// For backward compatibility. See differences between update_user_meta() and deprecated update_usermeta().
-	// http://core.trac.nxtclass.org/ticket/13088
+	// http://core.trac.opensource.nxtclass.tk/ticket/13088
 	if ( is_null( $newvalue ) || is_scalar( $newvalue ) && empty( $newvalue ) )
 		return delete_user_meta( $user_id, $option_name );
 
@@ -753,7 +753,7 @@ function is_user_member_of_blog( $user_id = 0, $blog_id = 0 ) {
  *
  * @since 3.0.0
  * @uses add_metadata()
- * @link http://codex.nxtclass.org/Function_Reference/add_user_meta
+ * @link http://codex.opensource.nxtclass.tk/Function_Reference/add_user_meta
  *
  * @param int $user_id Post ID.
  * @param string $meta_key Metadata name.
@@ -774,7 +774,7 @@ function add_user_meta($user_id, $meta_key, $meta_value, $unique = false) {
  *
  * @since 3.0.0
  * @uses delete_metadata()
- * @link http://codex.nxtclass.org/Function_Reference/delete_user_meta
+ * @link http://codex.opensource.nxtclass.tk/Function_Reference/delete_user_meta
  *
  * @param int $user_id user ID
  * @param string $meta_key Metadata name.
@@ -790,7 +790,7 @@ function delete_user_meta($user_id, $meta_key, $meta_value = '') {
  *
  * @since 3.0.0
  * @uses get_metadata()
- * @link http://codex.nxtclass.org/Function_Reference/get_user_meta
+ * @link http://codex.opensource.nxtclass.tk/Function_Reference/get_user_meta
  *
  * @param int $user_id Post ID.
  * @param string $key The meta key to retrieve.
@@ -812,7 +812,7 @@ function get_user_meta($user_id, $key = '', $single = false) {
  *
  * @since 3.0.0
  * @uses update_metadata
- * @link http://codex.nxtclass.org/Function_Reference/update_user_meta
+ * @link http://codex.opensource.nxtclass.tk/Function_Reference/update_user_meta
  *
  * @param int $user_id Post ID.
  * @param string $meta_key Metadata key.

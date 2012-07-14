@@ -214,7 +214,7 @@ function nxtmu_current_site() {
 	if ( 1 == count( $sites ) )
 		nxt_die( sprintf( /*nxt_I18N_BLOG_DOESNT_EXIST*/'That site does not exist. Please try <a href="%s">%s</a>.'/*/nxt_I18N_BLOG_DOESNT_EXIST*/, $sites[0]->domain . $sites[0]->path ) );
 	else
-		nxt_die( /*nxt_I18N_NO_SITE_DEFINED*/'No site defined on this host. If you are the owner of this site, please check <a href="http://codex.nxtclass.org/Debugging_a_NXTClass_Network">Debugging a NXTClass Network</a> for help.'/*/nxt_I18N_NO_SITE_DEFINED*/ );
+		nxt_die( /*nxt_I18N_NO_SITE_DEFINED*/'No site defined on this host. If you are the owner of this site, please check <a href="http://codex.opensource.nxtclass.tk/Debugging_a_NXTClass_Network">Debugging a NXTClass Network</a> for help.'/*/nxt_I18N_NO_SITE_DEFINED*/ );
 }
 
 /**
@@ -239,7 +239,7 @@ function ms_not_installed() {
 	else
 		$msg .= '<p>' . sprintf( /*nxt_I18N_NO_SITE_FOUND*/'<strong>Could not find site <code>%1$s</code>.</strong> Searched for table <code>%2$s</code> in database <code>%3$s</code>. Is that right?'/*/nxt_I18N_NO_SITE_FOUND*/, rtrim( $domain . $path, '/' ), $nxtdb->blogs, DB_NAME ) . '</p>';
 	$msg .= '<p><strong>' . /*nxt_I18N_WHAT_DO_I_DO*/'What do I do now?'/*/nxt_I18N_WHAT_DO_I_DO*/ . '</strong> ';
-	$msg .= /*nxt_I18N_RTFM*/'Read the <a target="_blank" href="http://codex.nxtclass.org/Debugging_a_NXTClass_Network">bug report</a> page. Some of the guidelines there may help you figure out what went wrong.'/*/nxt_I18N_RTFM*/;
+	$msg .= /*nxt_I18N_RTFM*/'Read the <a target="_blank" href="http://codex.opensource.nxtclass.tk/Debugging_a_NXTClass_Network">bug report</a> page. Some of the guidelines there may help you figure out what went wrong.'/*/nxt_I18N_RTFM*/;
 	$msg .= ' ' . /*nxt_I18N_STUCK*/'If you&#8217;re still stuck with this message, then check that your database contains the following tables:'/*/nxt_I18N_STUCK*/ . '</p><ul>';
 	foreach ( $nxtdb->tables('global') as $t => $table ) {
 		if ( 'sitecategories' == $t )

@@ -1,7 +1,7 @@
 <?php
 
 // The JS here is purposefully obfuscated to preserve mystery and romance.
-// If you want to see behind the curtain, visit http://core.trac.nxtclass.org/ticket/15262
+// If you want to see behind the curtain, visit http://core.trac.opensource.nxtclass.tk/ticket/15262
 
 if ( !defined( 'ABSPATH' ) )
 	exit;

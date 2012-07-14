@@ -65,8 +65,8 @@ $help .= '<p>' . __('<strong>Incoming Links</strong> - Shows links to your site 
 $help .= '<p>' . __('<strong>QuickPress</strong> - Allows you to create a new post and either publish it or save it as a draft.') . '</p>';
 $help .= '<p>' . __('<strong>Recent Drafts</strong> - Displays links to the 5 most recent draft posts you&#8217;ve started.') . '</p>';
 $help .= '<p>' . __('<strong>NXTClass Blog</strong> - Latest news from the official NXTClass project.') . '</p>';
-$help .= '<p>' . __('<strong>Other NXTClass News</strong> - Shows the <a href="http://planet.nxtclass.org" target="_blank">NXTClass Planet</a> feed. You can configure it to show a different feed of your choosing.') . '</p>';
-$help .= '<p>' . __('<strong>Plugins</strong> - Features the most popular, newest, and recently updated plugins from the NXTClass.org Plugin Directory.') . '</p>';
+$help .= '<p>' . __('<strong>Other NXTClass News</strong> - Shows the <a href="http://planet.opensource.nxtclass.tk" target="_blank">NXTClass Planet</a> feed. You can configure it to show a different feed of your choosing.') . '</p>';
+$help .= '<p>' . __('<strong>Plugins</strong> - Features the most popular, newest, and recently updated plugins from the opensource.nxtclass.tk Plugin Directory.') . '</p>';
 
 get_current_screen()->add_help_tab( array(
 	'id'      => 'help-content',
@@ -78,8 +78,8 @@ unset( $help );
 
 get_current_screen()->set_help_sidebar(
 	'<p><strong>' . __( 'For more information:' ) . '</strong></p>' .
-	'<p>' . __( '<a href="http://codex.nxtclass.org/Dashboard_Screen" target="_blank">Documentation on Dashboard</a>' ) . '</p>' .
-	'<p>' . __( '<a href="http://nxtclass.org/support/" target="_blank">Support Forums</a>' ) . '</p>'
+	'<p>' . __( '<a href="http://codex.opensource.nxtclass.tk/Dashboard_Screen" target="_blank">Documentation on Dashboard</a>' ) . '</p>' .
+	'<p>' . __( '<a href="http://opensource.nxtclass.tk/support/" target="_blank">Support Forums</a>' ) . '</p>'
 );
 
 include (ABSPATH . 'nxt-admin/admin-header.php');

@@ -190,9 +190,9 @@ function display_theme($theme, $actions = null, $show_details = true) {
 	 public 'screenshot_url' => string 'http://nxt-themes.com/nxt-content/themes/magazine-basic/screenshot.png' (length=68)
 	 public 'rating' => float 80
 	 public 'num_ratings' => int 1
-	 public 'homepage' => string 'http://nxtclass.org/extend/themes/magazine-basic' (length=49)
+	 public 'homepage' => string 'http://opensource.nxtclass.tk/extend/themes/magazine-basic' (length=49)
 	 public 'description' => string 'A basic magazine style layout with a fully customizable layout through a backend interface. Designed by <a href="http://bavotasan.com">c.bavota</a> of <a href="http://tinkerpriestmedia.com">Tinker Priest Media</a>.' (length=214)
-	 public 'download_link' => string 'http://nxtclass.org/extend/themes/download/magazine-basic.1.1.zip' (length=66)
+	 public 'download_link' => string 'http://opensource.nxtclass.tk/extend/themes/download/magazine-basic.1.1.zip' (length=66)
 	 */
 }
 

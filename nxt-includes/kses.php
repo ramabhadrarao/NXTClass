@@ -398,7 +398,7 @@ if ( ! CUSTOM_TAGS ) {
 	 * Kses allowed HTML elements.
 	 *
 	 * @global array $allowedtags
-	 * @since 1.0.0
+	 * @since 1.1.0
 	 */
 	$allowedtags = array(
 		'a' => array(
@@ -492,7 +492,7 @@ if ( ! CUSTOM_TAGS ) {
  * covers all common link protocols, except for 'javascript' which should not
  * be allowed for untrusted users.
  *
- * @since 1.0.0
+ * @since 1.1.0
  *
  * @param string $string Content to filter through kses
  * @param array $allowed_html List of allowed HTML elements
@@ -516,7 +516,7 @@ function nxt_kses($string, $allowed_html, $allowed_protocols = array ()) {
  * There is currently only one kses NXTClass hook and it is called here. All
  * parameters are passed to the hooks and expected to receive a string.
  *
- * @since 1.0.0
+ * @since 1.1.0
  *
  * @param string $string Content to filter through kses
  * @param array $allowed_html List of allowed HTML elements
@@ -531,7 +531,7 @@ function nxt_kses_hook($string, $allowed_html, $allowed_protocols) {
 /**
  * This function returns kses' version number.
  *
- * @since 1.0.0
+ * @since 1.1.0
  *
  * @return string KSES Version Number
  */
@@ -544,7 +544,7 @@ function nxt_kses_version() {
  *
  * It also matches stray ">" characters.
  *
- * @since 1.0.0
+ * @since 1.1.0
  *
  * @param string $string Content to filter
  * @param array $allowed_html Allowed HTML elements
@@ -582,7 +582,7 @@ function _nxt_kses_split_callback( $match ) {
  * completed, will be returned.
  *
  * @access private
- * @since 1.0.0
+ * @since 1.1.0
  * @uses nxt_kses_attr()
  *
  * @param string $string Content to filter
@@ -639,7 +639,7 @@ function nxt_kses_split2($string, $allowed_html, $allowed_protocols) {
  * is to check if the tag has a closing XHTML slash, and if it does, it puts one
  * in the returned code as well.
  *
- * @since 1.0.0
+ * @since 1.1.0
  *
  * @param string $element HTML element/tag
  * @param string $attr HTML attributes from HTML element to closing HTML element tag
@@ -721,7 +721,7 @@ function nxt_kses_attr($element, $attr, $allowed_html, $allowed_protocols) {
  * from attribute values.  It also reduces duplicate attributes by using the
  * attribute defined first (foo='bar' foo='baz' will result in foo='bar').
  *
- * @since 1.0.0
+ * @since 1.1.0
  *
  * @param string $attr Attribute list from HTML element to closing HTML element tag
  * @param array $allowed_protocols Allowed protocols to keep
@@ -845,7 +845,7 @@ function nxt_kses_hair($attr, $allowed_protocols) {
  * The currently implemented checks are "maxlen", "minlen", "maxval", "minval"
  * and "valueless".
  *
- * @since 1.0.0
+ * @since 1.1.0
  *
  * @param string $value Attribute value
  * @param string $vless Whether the value is valueless. Use 'y' or 'n'
@@ -919,7 +919,7 @@ function nxt_kses_check_attr_val($value, $vless, $checkname, $checkvalue) {
  * understand HTML entities. It does its work in a while loop, so it won't be
  * fooled by a string like "javascript:javascript:alert(57)".
  *
- * @since 1.0.0
+ * @since 1.1.0
  *
  * @param string $string Content to filter bad protocols from
  * @param array $allowed_protocols Allowed protocols to keep
@@ -940,7 +940,7 @@ function nxt_kses_bad_protocol($string, $allowed_protocols) {
 /**
  * Removes any NULL characters in $string.
  *
- * @since 1.0.0
+ * @since 1.1.0
  *
  * @param string $string
  * @return string
@@ -959,7 +959,7 @@ function nxt_kses_no_null($string) {
  * other slashes alone. It's really weird, but the quoting from
  * preg_replace(//e) seems to require this.
  *
- * @since 1.0.0
+ * @since 1.1.0
  *
  * @param string $string String to strip slashes
  * @return string Fixed string with quoted slashes
@@ -971,7 +971,7 @@ function nxt_kses_stripslashes($string) {
 /**
  * Goes through an array and changes the keys to all lower case.
  *
- * @since 1.0.0
+ * @since 1.1.0
  *
  * @param array $inarray Unfiltered array
  * @return array Fixed array with all lowercase keys
@@ -995,7 +995,7 @@ function nxt_kses_array_lc($inarray) {
 /**
  * Removes the HTML JavaScript entities found in early versions of Netscape 4.
  *
- * @since 1.0.0
+ * @since 1.1.0
  *
  * @param string $string
  * @return string
@@ -1010,7 +1010,7 @@ function nxt_kses_js_entities($string) {
  * The general plan is to remove everything to and including some whitespace,
  * but it deals with quotes and apostrophes as well.
  *
- * @since 1.0.0
+ * @since 1.1.0
  *
  * @param string $string
  * @return string
@@ -1025,7 +1025,7 @@ function nxt_kses_html_error($string) {
  * This function searches for URL protocols at the beginning of $string, while
  * handling whitespace and HTML entities.
  *
- * @since 1.0.0
+ * @since 1.1.0
  *
  * @param string $string Content to check for bad protocols
  * @param string $allowed_protocols Allowed protocols
@@ -1046,7 +1046,7 @@ function nxt_kses_bad_protocol_once($string, $allowed_protocols) {
  * whitelist or not, and returns different data depending on the answer.
  *
  * @access private
- * @since 1.0.0
+ * @since 1.1.0
  *
  * @param string $string URI scheme to check against the whitelist
  * @param string $allowed_protocols Allowed protocols
@@ -1077,7 +1077,7 @@ function nxt_kses_bad_protocol_once2( $string, $allowed_protocols ) {
  * This function normalizes HTML entities. It will convert "AT&T" to the correct
  * "AT&amp;T", "&#00058;" to "&#58;", "&#XYZZY;" to "&amp;#XYZZY;" and so on.
  *
- * @since 1.0.0
+ * @since 1.1.0
  *
  * @param string $string Content to normalize entities
  * @return string Content with normalized entities
@@ -1124,7 +1124,7 @@ function nxt_kses_named_entities($matches) {
  * and nothing more for &#number; entities.
  *
  * @access private
- * @since 1.0.0
+ * @since 1.1.0
  *
  * @param array $matches preg_replace_callback() matches array
  * @return string Correctly encoded entity
@@ -1183,7 +1183,7 @@ function valid_unicode($i) {
  * anything with other entities like &auml;, but we don't need them in the URL
  * protocol whitelisting system anyway.
  *
- * @since 1.0.0
+ * @since 1.1.0
  *
  * @param string $string Content to change entities
  * @return string Content after decoded entities
@@ -1218,7 +1218,7 @@ function _nxt_kses_decode_entities_chr_hexdec( $match ) {
 /**
  * Sanitize content with allowed HTML Kses rules.
  *
- * @since 1.0.0
+ * @since 1.1.0
  * @uses $allowedtags
  *
  * @param string $data Content to filter, expected to be escaped with slashes

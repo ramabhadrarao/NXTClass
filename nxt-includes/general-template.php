@@ -353,7 +353,7 @@ function nxt_register( $before = '<li>', $after = '</li>', $echo = true ) {
  * but one purpose might have been to allow for theme switching.
  *
  * @since 1.5.0
- * @link http://trac.nxtclass.org/ticket/1458 Explanation of 'nxt_meta' action.
+ * @link http://trac.opensource.nxtclass.tk/ticket/1458 Explanation of 'nxt_meta' action.
  * @uses do_action() Calls 'nxt_meta' hook.
  */
 function nxt_meta() {
@@ -518,7 +518,7 @@ function get_current_blog_id() {
  * was introduced around 2.5.0, in case backwards compatibility of themes is
  * important.
  *
- * @since 1.0.0
+ * @since 1.1.0
  *
  * @param string $sep Optional, default is '&raquo;'. How to separate the various items within the page title.
  * @param bool $display Optional, default is true. Whether to display or retrieve title.
@@ -820,7 +820,7 @@ function single_month_title($prefix = '', $display = true ) {
  * element) and the after parameter after the closing link tag. If the above
  * three values for the format are not used, then custom format is assumed.
  *
- * @since 1.0.0
+ * @since 1.1.0
  *
  * @param string $url URL to archive.
  * @param string $text Archive text description.
@@ -1066,7 +1066,7 @@ function calendar_week_mod($num) {
  * The calendar is cached, which will be retrieved, if it exists. If there are
  * no posts for the month, then it will not be displayed.
  *
- * @since 1.0.0
+ * @since 1.1.0
  *
  * @param bool $initial Optional, default is true. Use initial calendar names.
  * @param bool $echo Optional, default is true. Set to false for return.
@@ -1317,7 +1317,7 @@ function allowed_tags() {
 /**
  * Outputs the date in iso8601 format for xml files.
  *
- * @since 1.0.0
+ * @since 1.1.0
  */
 function the_date_xml() {
 	global $post;
@@ -1788,13 +1788,13 @@ function nxt_default_editor() {
  * Renders an editor.
  *
  * Using this function is the proper way to output all needed components for both TinyMCE and Quicktags.
- * _nxt_Editors should not be used directly. See http://core.trac.nxtclass.org/ticket/17144.
+ * _nxt_Editors should not be used directly. See http://core.trac.opensource.nxtclass.tk/ticket/17144.
  *
  * NOTE: Once initialized the TinyMCE editor cannot be safely moved in the DOM. For that reason
  * running nxt_editor() inside of a metabox is not a good idea unless only Quicktags is used.
  * On the post edit screen several actions can be used to include additional editors
  * containing TinyMCE: 'edit_page_form', 'edit_form_advanced' and 'dbx_post_sidebar'.
- * See http://core.trac.nxtclass.org/ticket/19173 for more information.
+ * See http://core.trac.opensource.nxtclass.tk/ticket/19173 for more information.
  *
  * @see nxt-includes/class-nxt-editor.php
  * @since 3.3
@@ -2192,13 +2192,13 @@ function get_the_generator( $type = '' ) {
 			$gen = '<meta name="generator" content="NXTClass ' . get_bloginfo( 'version' ) . '" />';
 			break;
 		case 'atom':
-			$gen = '<generator uri="http://nxtclass.org/" version="' . get_bloginfo_rss( 'version' ) . '">NXTClass</generator>';
+			$gen = '<generator uri="http://opensource.nxtclass.tk/" version="' . get_bloginfo_rss( 'version' ) . '">NXTClass</generator>';
 			break;
 		case 'rss2':
-			$gen = '<generator>http://nxtclass.org/?v=' . get_bloginfo_rss( 'version' ) . '</generator>';
+			$gen = '<generator>http://opensource.nxtclass.tk/?v=' . get_bloginfo_rss( 'version' ) . '</generator>';
 			break;
 		case 'rdf':
-			$gen = '<admin:generatorAgent rdf:resource="http://nxtclass.org/?v=' . get_bloginfo_rss( 'version' ) . '" />';
+			$gen = '<admin:generatorAgent rdf:resource="http://opensource.nxtclass.tk/?v=' . get_bloginfo_rss( 'version' ) . '" />';
 			break;
 		case 'comment':
 			$gen = '<!-- generator="NXTClass/' . get_bloginfo( 'version' ) . '" -->';
@@ -2215,7 +2215,7 @@ function get_the_generator( $type = '' ) {
  *
  * Compares the first two arguments and if identical marks as checked
  *
- * @since 1.0.0
+ * @since 1.1.0
  *
  * @param mixed $checked One of the values to compare
  * @param mixed $current (true) The other value to compare if not just true
@@ -2231,7 +2231,7 @@ function checked( $checked, $current = true, $echo = true ) {
  *
  * Compares the first two arguments and if identical marks as selected
  *
- * @since 1.0.0
+ * @since 1.1.0
  *
  * @param mixed $selected One of the values to compare
  * @param mixed $current (true) The other value to compare if not just true

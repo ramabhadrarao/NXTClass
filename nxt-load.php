@@ -53,7 +53,7 @@ if ( file_exists( ABSPATH . 'nxt-config.php') ) {
 	require_once( ABSPATH . '/nxt-includes/functions.php' );
 	require_once( ABSPATH . '/nxt-includes/plugin.php' );
 	$text_direction = /*nxt_I18N_TEXT_DIRECTION*/'ltr'/*/nxt_I18N_TEXT_DIRECTION*/;
-	nxt_die(sprintf(/*nxt_I18N_NO_CONFIG*/"<p>There doesn't seem to be a <code>nxt-config.php</code> file. I need this before we can get started.</p> <p>Need more help? <a href='http://codex.nxtclass.org/Editing_nxt-config.php'>We got it</a>.</p> <p>You can create a <code>nxt-config.php</code> file through a web interface, but this doesn't work for all server setups. The safest way is to manually create the file.</p><p><a href='%ssetup-config.php' class='button'>Create a Configuration File</a></p>"/*/nxt_I18N_NO_CONFIG*/, $path), /*nxt_I18N_ERROR_TITLE*/'NXTClass &rsaquo; Error'/*/nxt_I18N_ERROR_TITLE*/, array('text_direction' => $text_direction));
+	nxt_die(sprintf(/*nxt_I18N_NO_CONFIG*/"<p>There doesn't seem to be a <code>nxt-config.php</code> file. I need this before we can get started.</p> <p>Need more help? <a href='http://codex.opensource.nxtclass.tk/Editing_nxt-config.php'>We got it</a>.</p> <p>You can create a <code>nxt-config.php</code> file through a web interface, but this doesn't work for all server setups. The safest way is to manually create the file.</p><p><a href='%ssetup-config.php' class='button'>Create a Configuration File</a></p>"/*/nxt_I18N_NO_CONFIG*/, $path), /*nxt_I18N_ERROR_TITLE*/'NXTClass &rsaquo; Error'/*/nxt_I18N_ERROR_TITLE*/, array('text_direction' => $text_direction));
 
 }
 

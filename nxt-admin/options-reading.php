@@ -52,8 +52,8 @@ get_current_screen()->add_help_tab( array(
 
 get_current_screen()->set_help_sidebar(
 	'<p><strong>' . __('For more information:') . '</strong></p>' .
-	'<p>' . __('<a href="http://codex.nxtclass.org/Settings_Reading_Screen" target="_blank">Documentation on Reading Settings</a>') . '</p>' .
-	'<p>' . __('<a href="http://nxtclass.org/support/" target="_blank">Support Forums</a>') . '</p>'
+	'<p>' . __('<a href="http://codex.opensource.nxtclass.tk/Settings_Reading_Screen" target="_blank">Documentation on Reading Settings</a>') . '</p>' .
+	'<p>' . __('<a href="http://opensource.nxtclass.tk/support/" target="_blank">Support Forums</a>') . '</p>'
 );
 
 include( './admin-header.php' );
@@ -123,7 +123,7 @@ else :
 <tr valign="top">
 <th scope="row"><label for="blog_charset"><?php _e( 'Encoding for pages and feeds' ); ?></label></th>
 <td><input name="blog_charset" type="text" id="blog_charset" value="<?php form_option( 'blog_charset' ); ?>" class="regular-text" />
-<span class="description"><?php _e( 'The <a href="http://codex.nxtclass.org/Glossary#Character_set">character encoding</a> of your site (UTF-8 is recommended, if you are adventurous there are some <a href="http://en.wikipedia.org/wiki/Character_set">other encodings</a>)' ); ?></span></td>
+<span class="description"><?php _e( 'The <a href="http://codex.opensource.nxtclass.tk/Glossary#Character_set">character encoding</a> of your site (UTF-8 is recommended, if you are adventurous there are some <a href="http://en.wikipedia.org/wiki/Character_set">other encodings</a>)' ); ?></span></td>
 </tr>
 <?php do_settings_fields( 'reading', 'default' ); ?>
 </table>

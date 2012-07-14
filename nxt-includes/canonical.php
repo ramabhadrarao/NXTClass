@@ -52,8 +52,8 @@ function redirect_canonical( $requested_url = null, $do_redirect = true ) {
 		return;
 
 	// Some PHP setups turn requests for / into /index.php in REQUEST_URI
-	// See: http://trac.nxtclass.org/ticket/5017
-	// See: http://trac.nxtclass.org/ticket/7173
+	// See: http://trac.opensource.nxtclass.tk/ticket/5017
+	// See: http://trac.opensource.nxtclass.tk/ticket/7173
 	// Disabled, for now:
 	// $original['path'] = preg_replace('|/index\.php$|', '/', $original['path']);
 

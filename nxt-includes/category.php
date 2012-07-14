@@ -9,7 +9,7 @@
  * Retrieves all category IDs.
  *
  * @since 2.0.0
- * @link http://codex.nxtclass.org/Function_Reference/get_all_category_ids
+ * @link http://codex.opensource.nxtclass.tk/Function_Reference/get_all_category_ids
  *
  * @return object List of all of the category IDs.
  */
@@ -31,7 +31,7 @@ function get_all_category_ids() {
  *
  * @since 2.1.0
  * @see get_terms() Type of arguments that can be changed.
- * @link http://codex.nxtclass.org/Function_Reference/get_categories
+ * @link http://codex.opensource.nxtclass.tk/Function_Reference/get_categories
  *
  * @param string|array $args Optional. Change the defaults retrieving categories.
  * @return array List of categories.
@@ -164,7 +164,7 @@ function get_category_by_slug( $slug  ) {
 /**
  * Retrieve the ID of a category from its name.
  *
- * @since 1.0.0
+ * @since 1.1.0
  *
  * @param string $cat_name Optional. Default is 'General' and can be any category name.
  * @return int 0, if failure and ID of category on success.
@@ -180,7 +180,7 @@ function get_cat_ID( $cat_name='General' ) {
 /**
  * Retrieve the name of a category from its ID.
  *
- * @since 1.0.0
+ * @since 1.1.0
  *
  * @param int $cat_id Category ID
  * @return string Category name, or an empty string if category doesn't exist.

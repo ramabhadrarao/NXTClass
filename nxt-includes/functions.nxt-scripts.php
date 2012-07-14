@@ -74,7 +74,7 @@ function nxt_register_script( $handle, $src, $deps = array(), $ver = false, $in_
  *   key: value,
  *   ...
  * }
- * See http://core.trac.nxtclass.org/ticket/11520 for more information.
+ * See http://core.trac.opensource.nxtclass.tk/ticket/11520 for more information.
  *
  * @since r16
  *

@@ -11,7 +11,7 @@
  * {@link http://us2.php.net/manual/en/language.pseudo-types.php#language.types.callback 'callback'}
  * type are valid.
  *
- * Also see the {@link http://codex.nxtclass.org/Plugin_API Plugin API} for
+ * Also see the {@link http://codex.opensource.nxtclass.tk/Plugin_API Plugin API} for
  * more information and examples on how to use a lot of these functions.
  *
  * @package NXTClass
@@ -739,7 +739,7 @@ function _nxt_call_all_hook($args) {
  * @subpackage Plugin
  * @access private
  * @since 2.2.3
- * @link http://trac.nxtclass.org/ticket/3875
+ * @link http://trac.opensource.nxtclass.tk/ticket/3875
  *
  * @global array $nxt_filter Storage for all of the filters and actions
  * @param string $tag Used in counting how many hooks were applied

@@ -499,7 +499,7 @@ function get_comment_count( $post_id = 0 ) {
  *
  * @since 2.9.0
  * @uses add_metadata
- * @link http://codex.nxtclass.org/Function_Reference/add_comment_meta
+ * @link http://codex.opensource.nxtclass.tk/Function_Reference/add_comment_meta
  *
  * @param int $comment_id Comment ID.
  * @param string $meta_key Metadata name.
@@ -520,7 +520,7 @@ function add_comment_meta($comment_id, $meta_key, $meta_value, $unique = false) 
  *
  * @since 2.9.0
  * @uses delete_metadata
- * @link http://codex.nxtclass.org/Function_Reference/delete_comment_meta
+ * @link http://codex.opensource.nxtclass.tk/Function_Reference/delete_comment_meta
  *
  * @param int $comment_id comment ID
  * @param string $meta_key Metadata name.
@@ -536,7 +536,7 @@ function delete_comment_meta($comment_id, $meta_key, $meta_value = '') {
  *
  * @since 2.9.0
  * @uses get_metadata
- * @link http://codex.nxtclass.org/Function_Reference/get_comment_meta
+ * @link http://codex.opensource.nxtclass.tk/Function_Reference/get_comment_meta
  *
  * @param int $comment_id Comment ID.
  * @param string $key The meta key to retrieve.
@@ -558,7 +558,7 @@ function get_comment_meta($comment_id, $key, $single = false) {
  *
  * @since 2.9.0
  * @uses update_metadata
- * @link http://codex.nxtclass.org/Function_Reference/update_comment_meta
+ * @link http://codex.opensource.nxtclass.tk/Function_Reference/update_comment_meta
  *
  * @param int $comment_id Comment ID.
  * @param string $meta_key Metadata key.
@@ -1104,7 +1104,7 @@ function nxt_unspam_comment($comment_id) {
 /**
  * The status of a comment by ID.
  *
- * @since 1.0.0
+ * @since 1.1.0
  *
  * @param int $comment_id Comment ID
  * @return string|bool Status might be 'trash', 'approved', 'unapproved', 'spam'. False on failure.
@@ -1309,7 +1309,7 @@ function nxt_throttle_comment_flood($block, $time_lastcomment, $time_newcomment)
  *
  * We use REMOTE_ADDR here directly. If you are behind a proxy, you should ensure
  * that it is properly set, such as in nxt-config.php, for your environment.
- * See {@link http://core.trac.nxtclass.org/ticket/9235}
+ * See {@link http://core.trac.opensource.nxtclass.tk/ticket/9235}
  *
  * @since 1.5.0
  * @uses apply_filters() Calls 'preprocess_comment' hook on $commentdata parameter array before processing
@@ -1370,7 +1370,7 @@ function nxt_new_comment( $commentdata ) {
  * if the status is 'delete', then the comment is deleted without calling the
  * action.
  *
- * @since 1.0.0
+ * @since 1.1.0
  * @uses nxt_transition_comment_status() Passes new and old comment status along with $comment object
  *
  * @param int $comment_id Comment ID.

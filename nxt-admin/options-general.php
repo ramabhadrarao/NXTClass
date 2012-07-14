@@ -77,8 +77,8 @@ get_current_screen()->add_help_tab( array(
 
 get_current_screen()->set_help_sidebar(
 	'<p><strong>' . __('For more information:') . '</strong></p>' .
-	'<p>' . __('<a href="http://codex.nxtclass.org/Settings_General_Screen" target="_blank">Documentation on General Settings</a>') . '</p>' .
-	'<p>' . __('<a href="http://nxtclass.org/support/" target="_blank">Support Forums</a>') . '</p>'
+	'<p>' . __('<a href="http://codex.opensource.nxtclass.tk/Settings_General_Screen" target="_blank">Documentation on General Settings</a>') . '</p>' .
+	'<p>' . __('<a href="http://opensource.nxtclass.tk/support/" target="_blank">Support Forums</a>') . '</p>'
 );
 
 include('./admin-header.php');
@@ -109,7 +109,7 @@ include('./admin-header.php');
 <tr valign="top">
 <th scope="row"><label for="home"><?php _e('Site Address (URL)') ?></label></th>
 <td><input name="home" type="text" id="home" value="<?php form_option('home'); ?>"<?php disabled( defined( 'nxt_HOME' ) ); ?> class="regular-text code<?php if ( defined( 'nxt_HOME' ) ) echo ' disabled' ?>" />
-<span class="description"><?php _e('Enter the address here if you want your site homepage <a href="http://codex.nxtclass.org/Giving_NXTClass_Its_Own_Directory">to be different from the directory</a> you installed NXTClass.'); ?></span></td>
+<span class="description"><?php _e('Enter the address here if you want your site homepage <a href="http://codex.opensource.nxtclass.tk/Giving_NXTClass_Its_Own_Directory">to be different from the directory</a> you installed NXTClass.'); ?></span></td>
 </tr>
 <tr valign="top">
 <th scope="row"><label for="admin_email"><?php _e('E-mail Address') ?> </label></th>
@@ -254,7 +254,7 @@ if ( empty($tzstring) ) { // Create a UTC+- zone if no timezone string exists
 	checked( $custom );
 	echo '/> ' . __('Custom:') . ' </label><input type="text" name="date_format_custom" value="' . esc_attr( get_option('date_format') ) . '" class="small-text" /> <span class="example"> ' . date_i18n( get_option('date_format') ) . "</span> <img class='ajax-loading' src='" . esc_url( admin_url( 'images/nxtspin_light.gif' ) ) . "' />\n";
 
-	echo "\t<p>" . __('<a href="http://codex.nxtclass.org/Formatting_Date_and_Time">Documentation on date and time formatting</a>.') . "</p>\n";
+	echo "\t<p>" . __('<a href="http://codex.opensource.nxtclass.tk/Formatting_Date_and_Time">Documentation on date and time formatting</a>.') . "</p>\n";
 ?>
 	</fieldset>
 </td>

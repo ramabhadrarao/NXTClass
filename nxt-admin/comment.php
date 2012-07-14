@@ -55,8 +55,8 @@ case 'editcomment' :
 
 	get_current_screen()->set_help_sidebar(
 	'<p><strong>' . __( 'For more information:' ) . '</strong></p>' .
-	'<p>' . __( '<a href="http://codex.nxtclass.org/Administration_Screens#Comments" target="_blank">Documentation on Comments</a>' ) . '</p>' .
-	'<p>' . __( '<a href="http://nxtclass.org/support/" target="_blank">Support Forums</a>' ) . '</p>'
+	'<p>' . __( '<a href="http://codex.opensource.nxtclass.tk/Administration_Screens#Comments" target="_blank">Documentation on Comments</a>' ) . '</p>' .
+	'<p>' . __( '<a href="http://opensource.nxtclass.tk/support/" target="_blank">Support Forums</a>' ) . '</p>'
 	);
 
 	nxt_enqueue_script('comment');

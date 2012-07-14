@@ -91,12 +91,12 @@ function nxt_admin_bar_nxt_menu( $nxt_admin_bar ) {
 		) );
 	}
 
-	// Add NXTClass.org link
+	// Add opensource.nxtclass.tk link
 	$nxt_admin_bar->add_menu( array(
 		'parent'    => 'nxt-logo-external',
 		'id'        => 'nxtorg',
-		'title'     => __('NXTClass.org'),
-		'href'      => __('http://nxtclass.org'),
+		'title'     => __('opensource.nxtclass.tk'),
+		'href'      => __('http://opensource.nxtclass.tk'),
 	) );
 
 	// Add codex link
@@ -104,7 +104,7 @@ function nxt_admin_bar_nxt_menu( $nxt_admin_bar ) {
 		'parent'    => 'nxt-logo-external',
 		'id'        => 'documentation',
 		'title'     => __('Documentation'),
-		'href'      => __('http://codex.nxtclass.org'),
+		'href'      => __('http://codex.opensource.nxtclass.tk'),
 	) );
 
 	// Add forums link
@@ -112,7 +112,7 @@ function nxt_admin_bar_nxt_menu( $nxt_admin_bar ) {
 		'parent'    => 'nxt-logo-external',
 		'id'        => 'support-forums',
 		'title'     => __('Support Forums'),
-		'href'      => __('http://nxtclass.org/support/'),
+		'href'      => __('http://opensource.nxtclass.tk/support/'),
 	) );
 
 	// Add feedback link
@@ -120,7 +120,7 @@ function nxt_admin_bar_nxt_menu( $nxt_admin_bar ) {
 		'parent'    => 'nxt-logo-external',
 		'id'        => 'feedback',
 		'title'     => __('Feedback'),
-		'href'      => __('http://nxtclass.org/support/forum/requests-and-feedback'),
+		'href'      => __('http://opensource.nxtclass.tk/support/forum/requests-and-feedback'),
 	) );
 }
 

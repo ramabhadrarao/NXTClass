@@ -13,7 +13,7 @@
 /**
  * Stores the location of the NXTClass directory of functions, classes, and core content.
  *
- * @since 1.0.0
+ * @since 1.1.0
  */
 define( 'nxtINC', 'nxt-includes' );
 
@@ -318,7 +318,7 @@ if ( is_multisite() ) {
  * AJAX requests should use nxt-admin/admin-ajax.php. admin-ajax.php can handle requests for
  * users not logged in.
  *
- * @link http://codex.nxtclass.org/AJAX_in_Plugins
+ * @link http://codex.opensource.nxtclass.tk/AJAX_in_Plugins
  *
  * @since 3.0.0
  */

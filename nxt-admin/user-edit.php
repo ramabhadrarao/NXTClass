@@ -51,8 +51,8 @@ get_current_screen()->add_help_tab( array(
 
 get_current_screen()->set_help_sidebar(
     '<p><strong>' . __('For more information:') . '</strong></p>' .
-    '<p>' . __('<a href="http://codex.nxtclass.org/Users_Your_Profile_Screen" target="_blank">Documentation on User Profiles</a>') . '</p>' .
-    '<p>' . __('<a href="http://nxtclass.org/support/" target="_blank">Support Forums</a>') . '</p>'
+    '<p>' . __('<a href="http://codex.opensource.nxtclass.tk/Users_Your_Profile_Screen" target="_blank">Documentation on User Profiles</a>') . '</p>' .
+    '<p>' . __('<a href="http://opensource.nxtclass.tk/support/" target="_blank">Support Forums</a>') . '</p>'
 );
 
 $nxt_http_referer = remove_query_arg(array('update', 'delete_count'), stripslashes($nxt_http_referer));
@@ -219,7 +219,7 @@ endif; // $_nxt_admin_css_colors
 if ( !( IS_PROFILE_PAGE && !$user_can_edit ) ) : ?>
 <tr>
 <th scope="row"><?php _e( 'Keyboard Shortcuts' ); ?></th>
-<td><label for="comment_shortcuts"><input type="checkbox" name="comment_shortcuts" id="comment_shortcuts" value="true" <?php if ( !empty($profileuser->comment_shortcuts) ) checked('true', $profileuser->comment_shortcuts); ?> /> <?php _e('Enable keyboard shortcuts for comment moderation.'); ?></label> <?php _e('<a href="http://codex.nxtclass.org/Keyboard_Shortcuts" target="_blank">More information</a>'); ?></td>
+<td><label for="comment_shortcuts"><input type="checkbox" name="comment_shortcuts" id="comment_shortcuts" value="true" <?php if ( !empty($profileuser->comment_shortcuts) ) checked('true', $profileuser->comment_shortcuts); ?> /> <?php _e('Enable keyboard shortcuts for comment moderation.'); ?></label> <?php _e('<a href="http://codex.opensource.nxtclass.tk/Keyboard_Shortcuts" target="_blank">More information</a>'); ?></td>
 </tr>
 <?php endif; ?>
 <tr class="show-admin-bar">

@@ -5,7 +5,7 @@
  * Standardizes the HTTP requests for NXTClass. Handles cookies, gzip encoding and decoding, chunk
  * decoding, if HTTP 1.1 and various other difficult HTTP protocol implementations.
  *
- * @link http://trac.nxtclass.org/ticket/4779 HTTP API Proposal
+ * @link http://trac.opensource.nxtclass.tk/ticket/4779 HTTP API Proposal
  *
  * @package NXTClass
  * @subpackage HTTP
@@ -474,17 +474,17 @@ class nxt_Http {
 	 * Block requests through the proxy.
 	 *
 	 * Those who are behind a proxy and want to prevent access to certain hosts may do so. This will
-	 * prevent plugins from working and core functionality, if you don't include api.nxtclass.org.
+	 * prevent plugins from working and core functionality, if you don't include api.opensource.nxtclass.tk.
 	 *
 	 * You block external URL requests by defining nxt_HTTP_BLOCK_EXTERNAL as true in your nxt-config.php
 	 * file and this will only allow localhost and your blog to make requests. The constant
 	 * nxt_ACCESSIBLE_HOSTS will allow additional hosts to go through for requests. The format of the
 	 * nxt_ACCESSIBLE_HOSTS constant is a comma separated list of hostnames to allow, wildcard domains
-	 * are supported, eg *.nxtclass.org will allow for all subdomains of nxtclass.org to be contacted.
+	 * are supported, eg *.opensource.nxtclass.tk will allow for all subdomains of opensource.nxtclass.tk to be contacted.
 	 *
 	 * @since 2.8.0
-	 * @link http://core.trac.nxtclass.org/ticket/8927 Allow preventing external requests.
-	 * @link http://core.trac.nxtclass.org/ticket/14636 Allow wildcard domains in nxt_ACCESSIBLE_HOSTS
+	 * @link http://core.trac.opensource.nxtclass.tk/ticket/8927 Allow preventing external requests.
+	 * @link http://core.trac.opensource.nxtclass.tk/ticket/14636 Allow wildcard domains in nxt_ACCESSIBLE_HOSTS
 	 *
 	 * @param string $uri URI of url.
 	 * @return bool True to block, false to allow.
@@ -1200,18 +1200,18 @@ class nxt_Http_Curl {
  * <li>nxt_PROXY_PASSWORD - Proxy password, if it requires authentication.</li>
  * <li>nxt_PROXY_BYPASS_HOSTS - Will prevent the hosts in this list from going through the proxy.
  * You do not need to have localhost and the blog host in this list, because they will not be passed
- * through the proxy. The list should be presented in a comma separated list, wildcards using * are supported, eg. *.nxtclass.org</li>
+ * through the proxy. The list should be presented in a comma separated list, wildcards using * are supported, eg. *.opensource.nxtclass.tk</li>
  * </ol>
  *
  * An example can be as seen below.
  * <code>
  * define('nxt_PROXY_HOST', '192.168.84.101');
  * define('nxt_PROXY_PORT', '8080');
- * define('nxt_PROXY_BYPASS_HOSTS', 'localhost, www.example.com, *.nxtclass.org');
+ * define('nxt_PROXY_BYPASS_HOSTS', 'localhost, www.example.com, *.opensource.nxtclass.tk');
  * </code>
  *
- * @link http://core.trac.nxtclass.org/ticket/4011 Proxy support ticket in NXTClass.
- * @link http://core.trac.nxtclass.org/ticket/14636 Allow wildcard domains in nxt_PROXY_BYPASS_HOSTS
+ * @link http://core.trac.opensource.nxtclass.tk/ticket/4011 Proxy support ticket in NXTClass.
+ * @link http://core.trac.opensource.nxtclass.tk/ticket/14636 Allow wildcard domains in nxt_PROXY_BYPASS_HOSTS
  * @since 2.8
  */
 class nxt_HTTP_Proxy {
@@ -1632,10 +1632,10 @@ class nxt_Http_Encoding {
 	 * Warning: Magic numbers within. Due to the potential different formats that the compressed
 	 * data may be returned in, some "magic offsets" are needed to ensure proper decompression
 	 * takes place. For a simple progmatic way to determine the magic offset in use, see:
-	 * http://core.trac.nxtclass.org/ticket/18273
+	 * http://core.trac.opensource.nxtclass.tk/ticket/18273
 	 *
 	 * @since 2.8.1
-	 * @link http://core.trac.nxtclass.org/ticket/18273
+	 * @link http://core.trac.opensource.nxtclass.tk/ticket/18273
 	 * @link http://au2.php.net/manual/en/function.gzinflate.php#70875
 	 * @link http://au2.php.net/manual/en/function.gzinflate.php#77336
 	 *

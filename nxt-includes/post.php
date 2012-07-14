@@ -332,7 +332,7 @@ function get_children($args = '', $output = OBJECT) {
  * the <code><!--more--></code>. The 'extended' key has the content after the
  * <code><!--more--></code> comment.
  *
- * @since 1.0.0
+ * @since 1.1.0
  *
  * @param string $post Post content.
  * @return array Post before ('main') and after ('extended').
@@ -361,7 +361,7 @@ function get_extended($post) {
  *
  * @since 1.5.1
  * @uses $nxtdb
- * @link http://codex.nxtclass.org/Function_Reference/get_post
+ * @link http://codex.opensource.nxtclass.tk/Function_Reference/get_post
  *
  * @param int|object $post Post ID or post object.
  * @param string $output Optional, default is Object. Either OBJECT, ARRAY_A, or ARRAY_N.
@@ -1161,7 +1161,7 @@ function _post_type_meta_capabilities( $capabilities = null ) {
  * Accepted keys of the label array in the post type object:
  * - name - general name for the post type, usually plural. The same and overridden by $post_type_object->label. Default is Posts/Pages
  * - singular_name - name for one object of this post type. Default is Post/Page
- * - add_new - Default is Add New for both hierarchical and non-hierarchical types. When internationalizing this string, please use a {@link http://codex.nxtclass.org/I18n_for_NXTClass_Developers#Disambiguation_by_context gettext context} matching your post type. Example: <code>_x('Add New', 'product');</code>
+ * - add_new - Default is Add New for both hierarchical and non-hierarchical types. When internationalizing this string, please use a {@link http://codex.opensource.nxtclass.tk/I18n_for_NXTClass_Developers#Disambiguation_by_context gettext context} matching your post type. Example: <code>_x('Add New', 'product');</code>
  * - add_new_item - Default is Add New Post/Add New Page
  * - edit_item - Default is Edit Post/Edit Page
  * - new_item - Default is New Post/New Page
@@ -1361,7 +1361,7 @@ function set_post_type( $post_id = 0, $post_type = 'post' ) {
  * @since 1.2.0
  * @uses $nxtdb
  * @uses nxt_Query::query() See for more default arguments and information.
- * @link http://codex.nxtclass.org/Template_Tags/get_posts
+ * @link http://codex.opensource.nxtclass.tk/Template_Tags/get_posts
  *
  * @param array $args Optional. Overrides defaults.
  * @return array List of posts.
@@ -1409,7 +1409,7 @@ function get_posts($args = null) {
  *
  * @since 1.5.0
  * @uses $nxtdb
- * @link http://codex.nxtclass.org/Function_Reference/add_post_meta
+ * @link http://codex.opensource.nxtclass.tk/Function_Reference/add_post_meta
  *
  * @param int $post_id Post ID.
  * @param string $meta_key Metadata name.
@@ -1434,7 +1434,7 @@ function add_post_meta($post_id, $meta_key, $meta_value, $unique = false) {
  *
  * @since 1.5.0
  * @uses $nxtdb
- * @link http://codex.nxtclass.org/Function_Reference/delete_post_meta
+ * @link http://codex.opensource.nxtclass.tk/Function_Reference/delete_post_meta
  *
  * @param int $post_id post ID
  * @param string $meta_key Metadata name.
@@ -1454,7 +1454,7 @@ function delete_post_meta($post_id, $meta_key, $meta_value = '') {
  *
  * @since 1.5.0
  * @uses $nxtdb
- * @link http://codex.nxtclass.org/Function_Reference/get_post_meta
+ * @link http://codex.opensource.nxtclass.tk/Function_Reference/get_post_meta
  *
  * @param int $post_id Post ID.
  * @param string $key The meta key to retrieve.
@@ -1476,7 +1476,7 @@ function get_post_meta($post_id, $key, $single = false) {
  *
  * @since 1.5.0
  * @uses $nxtdb
- * @link http://codex.nxtclass.org/Function_Reference/update_post_meta
+ * @link http://codex.opensource.nxtclass.tk/Function_Reference/update_post_meta
  *
  * @param int $post_id Post ID.
  * @param string $meta_key Metadata key.
@@ -1513,7 +1513,7 @@ function delete_post_meta_by_key($post_meta_key) {
  * use this function.
  *
  * @since 1.2.0
- * @link http://codex.nxtclass.org/Function_Reference/get_post_custom
+ * @link http://codex.opensource.nxtclass.tk/Function_Reference/get_post_custom
  *
  * @uses $id Current Loop Post ID
  *
@@ -1538,7 +1538,7 @@ function get_post_custom( $post_id = 0 ) {
  * If there are no meta fields, then nothing (null) will be returned.
  *
  * @since 1.2.0
- * @link http://codex.nxtclass.org/Function_Reference/get_post_custom_keys
+ * @link http://codex.opensource.nxtclass.tk/Function_Reference/get_post_custom_keys
  *
  * @param int $post_id post ID
  * @return array|null Either array of the keys, or null if keys could not be retrieved.
@@ -1560,7 +1560,7 @@ function get_post_custom_keys( $post_id = 0 ) {
  * will be retrieved and only the meta field key values returned.
  *
  * @since 1.2.0
- * @link http://codex.nxtclass.org/Function_Reference/get_post_custom_values
+ * @link http://codex.opensource.nxtclass.tk/Function_Reference/get_post_custom_values
  *
  * @param string $key Meta field key.
  * @param int $post_id Post ID
@@ -1789,7 +1789,7 @@ function unstick_post($post_id) {
  * private posts, it will display that for the user that is signed in.
  *
  * @since 2.5.0
- * @link http://codex.nxtclass.org/Template_Tags/nxt_count_posts
+ * @link http://codex.opensource.nxtclass.tk/Template_Tags/nxt_count_posts
  *
  * @param string $type Optional. Post type to retrieve count
  * @param string $perm Optional. 'readable' or empty.
@@ -1953,7 +1953,7 @@ function nxt_post_mime_type_where($post_mime_types, $table_alias = '') {
  * The post or page is moved to trash instead of permanently deleted unless trash is
  * disabled, item is already in the trash, or $force_delete is true.
  *
- * @since 1.0.0
+ * @since 1.1.0
  * @uses do_action() on 'delete_post' before deletion unless post type is 'attachment'.
  * @uses do_action() on 'deleted_post' after deletion unless post type is 'attachment'.
  * @uses nxt_delete_attachment() if post type is 'attachment'.
@@ -2289,7 +2289,7 @@ function nxt_get_post_terms( $post_id = 0, $taxonomy = 'post_tag', $args = array
 /**
  * Retrieve number of recent posts.
  *
- * @since 1.0.0
+ * @since 1.1.0
  * @uses nxt_parse_args()
  * @uses get_posts()
  *
@@ -2337,7 +2337,7 @@ function nxt_get_recent_posts( $args = array(), $output = ARRAY_A ) {
  * Has categories in 'post_category' property or key. Has tags in 'tags_input'
  * property or key.
  *
- * @since 1.0.0
+ * @since 1.1.0
  *
  * @param int $postid Post ID.
  * @param string $mode How to return result, either OBJECT, ARRAY_N, or ARRAY_A.
@@ -2398,7 +2398,7 @@ function nxt_get_single_post($postid = 0, $mode = OBJECT) {
  *     'post_content_filtered' - Post content filtered.
  *     'post_excerpt'  - Post excerpt.
  *
- * @since 1.0.0
+ * @since 1.1.0
  * @uses $nxtdb
  * @uses $nxt_rewrite
  * @uses $user_ID
@@ -2665,7 +2665,7 @@ function nxt_insert_post($postarr, $nxt_error = false) {
  * The date does not have to be set for drafts. You can set the date and it will
  * not be overridden.
  *
- * @since 1.0.0
+ * @since 1.1.0
  *
  * @param array|object $postarr Post data. Arrays are expected to be escaped, objects are not.
  * @return int 0 on failure, Post ID on success.
@@ -2963,7 +2963,7 @@ function nxt_set_post_categories($post_ID = 0, $post_categories = array()) {
  * parameter and POSTTYPE is post_type post data.
  *
  * @since 2.3.0
- * @link http://codex.nxtclass.org/Post_Status_Transitions
+ * @link http://codex.opensource.nxtclass.tk/Post_Status_Transitions
  *
  * @uses do_action() Calls 'transition_post_status' on $new_status, $old_status and
  *  $post if there is a status change.
@@ -3073,7 +3073,7 @@ function get_to_ping($post_id) {
 /**
  * Do trackbacks for a list of URLs.
  *
- * @since 1.0.0
+ * @since 1.1.0
  *
  * @param string $tb_list Comma separated list of URLs
  * @param int $post_id Post ID

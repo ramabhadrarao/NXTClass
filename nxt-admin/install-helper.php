@@ -46,7 +46,7 @@ require_once(dirname(dirname(__FILE__)).'/nxt-load.php');
  * @global bool|int $debug
  * @name $debug
  * @var bool|int
- * @since 1.0.0
+ * @since 1.1.0
  */
 $debug = 0;
 
@@ -54,7 +54,7 @@ if ( ! function_exists('maybe_create_table') ) :
 /**
  * Create database table, if it doesn't already exist.
  *
- * @since 1.0.0
+ * @since 1.1.0
  * @package NXTClass
  * @subpackage Plugin
  * @uses $nxtdb
@@ -86,7 +86,7 @@ if ( ! function_exists('maybe_add_column') ) :
 /**
  * Add column to database table, if column doesn't already exist in table.
  *
- * @since 1.0.0
+ * @since 1.1.0
  * @package NXTClass
  * @subpackage Plugin
  * @uses $nxtdb
@@ -121,7 +121,7 @@ endif;
 /**
  * Drop column from database table, if it exists.
  *
- * @since 1.0.0
+ * @since 1.1.0
  * @package NXTClass
  * @subpackage Plugin
  * @uses $nxtdb
@@ -165,7 +165,7 @@ function maybe_drop_column($table_name, $column_name, $drop_ddl) {
  *      Default
  *      Extra
  *
- * @since 1.0.0
+ * @since 1.1.0
  * @package NXTClass
  * @subpackage Plugin
  *

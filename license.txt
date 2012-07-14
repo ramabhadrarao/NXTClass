@@ -324,4 +324,4 @@ WRITTEN OFFER
 The source code for any program binaries or compressed scripts that are
 included with NXTClass can be freely obtained at the following URL:
 
-	http://NXTClass.org/download/source/
+	http://opensource.nxtclass.tk/download/source/

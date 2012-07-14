@@ -186,7 +186,7 @@ function _walk_bookmarks($bookmarks, $args = '' ) {
  *		and passed to _walk_bookmarks().
  * @see get_bookmarks() For other arguments that can be set in this function and
  *		passed to get_bookmarks().
- * @link http://codex.nxtclass.org/Template_Tags/nxt_list_bookmarks
+ * @link http://codex.opensource.nxtclass.tk/Template_Tags/nxt_list_bookmarks
  *
  * @since 2.1.0
  * @uses _list_bookmarks() Used to iterate over all of the bookmarks and return

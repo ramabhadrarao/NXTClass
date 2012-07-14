@@ -110,8 +110,8 @@ $network_help = '<p>' . __('This screen allows you to configure a network as hav
 	'<p>' . __('Once you add this code and refresh your browser, multisite should be enabled. This screen, now in the Network Admin navigation menu, will keep an archive of the added code. You can toggle between Network Admin and Site Admin by clicking on the Network Admin or an individual site name under the My Sites dropdown in the Toolbar.') . '</p>' .
 	'<p>' . __('The choice of subdirectory sites is disabled if this setup is more than a month old because of permalink problems with &#8220;/blog/&#8221; from the main site. This disabling will be addressed in a future version.') . '</p>' .
 	'<p><strong>' . __('For more information:') . '</strong></p>' .
-	'<p>' . __('<a href="http://codex.nxtclass.org/Create_A_Network" target="_blank">Documentation on Creating a Network</a>') . '</p>' .
-	'<p>' . __('<a href="http://codex.nxtclass.org/Tools_Network_Screen" target="_blank">Documentation on the Network Screen</a>') . '</p>';
+	'<p>' . __('<a href="http://codex.opensource.nxtclass.tk/Create_A_Network" target="_blank">Documentation on Creating a Network</a>') . '</p>' .
+	'<p>' . __('<a href="http://codex.opensource.nxtclass.tk/Tools_Network_Screen" target="_blank">Documentation on the Network Screen</a>') . '</p>';
 
 get_current_screen()->add_help_tab( array(
 	'id'      => 'network',
@@ -121,9 +121,9 @@ get_current_screen()->add_help_tab( array(
 
 get_current_screen()->set_help_sidebar(
 	'<p><strong>' . __('For more information:') . '</strong></p>' .
-	'<p>' . __('<a href="http://codex.nxtclass.org/Create_A_Network" target="_blank">Documentation on Creating a Network</a>') . '</p>' .
-	'<p>' . __('<a href="http://codex.nxtclass.org/Tools_Network_Screen" target="_blank">Documentation on the Network Screen</a>') . '</p>' .
-	'<p>' . __('<a href="http://nxtclass.org/support/" target="_blank">Support Forums</a>') . '</p>'
+	'<p>' . __('<a href="http://codex.opensource.nxtclass.tk/Create_A_Network" target="_blank">Documentation on Creating a Network</a>') . '</p>' .
+	'<p>' . __('<a href="http://codex.opensource.nxtclass.tk/Tools_Network_Screen" target="_blank">Documentation on the Network Screen</a>') . '</p>' .
+	'<p>' . __('<a href="http://opensource.nxtclass.tk/support/" target="_blank">Support Forums</a>') . '</p>'
 );
 
 include( ABSPATH . 'nxt-admin/admin-header.php' );
@@ -382,7 +382,7 @@ define( 'BLOG_ID_CURRENT_SITE', 1 );</textarea>
 	}
 	if ( ! empty( $keys_salts ) ) {
 		$keys_salts_str = '';
-		$from_api = nxt_remote_get( 'https://api.nxtclass.org/secret-key/1.1/salt/' );
+		$from_api = nxt_remote_get( 'https://api.opensource.nxtclass.tk/secret-key/1.1/salt/' );
 		if ( is_nxt_error( $from_api ) ) {
 			foreach ( $keys_salts as $c => $v ) {
 				$keys_salts_str .= "\ndefine( '$c', '" . nxt_generate_password( 64, true, true ) . "' );";

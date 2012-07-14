@@ -34,7 +34,7 @@ define( 'BBDB_COLLATE', '' );
  * Authentication Unique Keys.
  *
  * Change these to different unique phrases!
- * You can generate these using the {@link https://api.nxtclass.org/secret-key/1.1/bbpress/ NXTClass.org secret-key service}
+ * You can generate these using the {@link https://api.opensource.nxtclass.tk/secret-key/1.1/bbpress/ opensource.nxtclass.tk secret-key service}
  *
  * @since 1.0
  */

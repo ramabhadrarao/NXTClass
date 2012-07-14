@@ -4,7 +4,7 @@
  *
  * This file has the following configurations: MySQL settings, Table Prefix,
  * Secret Keys, NXTClass Language, and ABSPATH. You can find more information
- * by visiting {@link http://codex.nxtclass.org/Editing_nxt-config.php Editing
+ * by visiting {@link http://codex.opensource.nxtclass.tk/Editing_nxt-config.php Editing
  * nxt-config.php} Codex page. You can get the MySQL settings from your web host.
  *
  * This file is used by the nxt-config.php creation script during the
@@ -37,7 +37,7 @@ define('DB_COLLATE', '');
  * Authentication Unique Keys and Salts.
  *
  * Change these to different unique phrases!
- * You can generate these using the {@link https://api.nxtclass.org/secret-key/1.1/salt/ NXTClass.org secret-key service}
+ * You can generate these using the {@link https://api.opensource.nxtclass.tk/secret-key/1.1/salt/ opensource.nxtclass.tk secret-key service}
  * You can change these at any point in time to invalidate all existing cookies. This will force all users to have to log in again.
  *
  * @since 2.6.0

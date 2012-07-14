@@ -3,7 +3,7 @@
  * API for fetching the HTML to embed remote content based on a provided URL.
  * Used internally by the {@link nxt_Embed} class, but is designed to be generic.
  *
- * @link http://codex.nxtclass.org/oEmbed oEmbed Codex Article
+ * @link http://codex.opensource.nxtclass.tk/oEmbed oEmbed Codex Article
  * @link http://oembed.com/ oEmbed Homepage
  *
  * @package NXTClass

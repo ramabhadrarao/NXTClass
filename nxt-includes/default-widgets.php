@@ -296,7 +296,7 @@ class nxt_Widget_Meta extends nxt_Widget {
 			<li><?php nxt_loginout(); ?></li>
 			<li><a href="<?php bloginfo('rss2_url'); ?>" title="<?php echo esc_attr(__('Syndicate this site using RSS 2.0')); ?>"><?php _e('Entries <abbr title="Really Simple Syndication">RSS</abbr>'); ?></a></li>
 			<li><a href="<?php bloginfo('comments_rss2_url'); ?>" title="<?php echo esc_attr(__('The latest comments to all posts in RSS')); ?>"><?php _e('Comments <abbr title="Really Simple Syndication">RSS</abbr>'); ?></a></li>
-			<li><a href="http://nxtclass.org/" title="<?php echo esc_attr(__('Powered by NXTClass, state-of-the-art semantic personal publishing platform.')); ?>">NXTClass.org</a></li>
+			<li><a href="http://opensource.nxtclass.tk/" title="<?php echo esc_attr(__('Powered by NXTClass, state-of-the-art semantic personal publishing platform.')); ?>">opensource.nxtclass.tk</a></li>
 			<?php nxt_meta(); ?>
 			</ul>
 <?php

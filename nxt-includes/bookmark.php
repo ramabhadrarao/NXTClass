@@ -108,7 +108,7 @@ function get_bookmark_field( $field, $bookmark, $context = 'display' ) {
  *
  * @since 2.1.0
  * @uses $nxtdb Database Object
- * @link http://codex.nxtclass.org/Template_Tags/get_bookmarks
+ * @link http://codex.opensource.nxtclass.tk/Template_Tags/get_bookmarks
  *
  * @param string|array $args List of arguments to overwrite the defaults
  * @return array List of bookmark row objects

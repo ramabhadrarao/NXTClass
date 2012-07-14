@@ -4,7 +4,7 @@
  *
  * This set of classes are designed to be used to upgrade/install a local set of files on the filesystem via the Filesystem Abstraction classes.
  *
- * @link http://trac.nxtclass.org/ticket/7875 consolidate plugin/theme/core upgrade/install functions
+ * @link http://trac.opensource.nxtclass.tk/ticket/7875 consolidate plugin/theme/core upgrade/install functions
  *
  * @package NXTClass
  * @subpackage Upgrader

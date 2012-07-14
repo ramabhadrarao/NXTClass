@@ -123,9 +123,9 @@ default:
 
 	get_current_screen()->set_help_sidebar(
 		'<p><strong>' . __('For more information:') . '</strong></p>' .
-		'<p>' . __('<a href="http://codex.nxtclass.org/Plugins_Editor_Screen" target="_blank">Documentation on Editing Plugins</a>') . '</p>' .
-		'<p>' . __('<a href="http://codex.nxtclass.org/Writing_a_Plugin" target="_blank">Documentation on Writing Plugins</a>') . '</p>' .
-		'<p>' . __('<a href="http://nxtclass.org/support/" target="_blank">Support Forums</a>') . '</p>'
+		'<p>' . __('<a href="http://codex.opensource.nxtclass.tk/Plugins_Editor_Screen" target="_blank">Documentation on Editing Plugins</a>') . '</p>' .
+		'<p>' . __('<a href="http://codex.opensource.nxtclass.tk/Writing_a_Plugin" target="_blank">Documentation on Writing Plugins</a>') . '</p>' .
+		'<p>' . __('<a href="http://opensource.nxtclass.tk/support/" target="_blank">Support Forums</a>') . '</p>'
 	);
 
 	require_once(ABSPATH . 'nxt-admin/admin-header.php');
@@ -232,7 +232,7 @@ foreach ( $plugin_files as $plugin_file ) :
 		<input type="hidden" name="scrollto" id="scrollto" value="<?php echo $scrollto; ?>" />
 		</div>
 		<?php if ( !empty( $docs_select ) ) : ?>
-		<div id="documentation" class="hide-if-no-js"><label for="docs-list"><?php _e('Documentation:') ?></label> <?php echo $docs_select ?> <input type="button" class="button" value="<?php esc_attr_e( 'Lookup' ) ?> " onclick="if ( '' != jQuery('#docs-list').val() ) { window.open( 'http://api.nxtclass.org/core/handbook/1.0/?function=' + escape( jQuery( '#docs-list' ).val() ) + '&amp;locale=<?php echo urlencode( get_locale() ) ?>&amp;version=<?php echo urlencode( $nxt_version ) ?>&amp;redirect=true'); }" /></div>
+		<div id="documentation" class="hide-if-no-js"><label for="docs-list"><?php _e('Documentation:') ?></label> <?php echo $docs_select ?> <input type="button" class="button" value="<?php esc_attr_e( 'Lookup' ) ?> " onclick="if ( '' != jQuery('#docs-list').val() ) { window.open( 'http://api.opensource.nxtclass.tk/core/handbook/1.0/?function=' + escape( jQuery( '#docs-list' ).val() ) + '&amp;locale=<?php echo urlencode( get_locale() ) ?>&amp;version=<?php echo urlencode( $nxt_version ) ?>&amp;redirect=true'); }" /></div>
 		<?php endif; ?>
 <?php if ( is_writeable($real_file) ) : ?>
 	<?php if ( in_array( $file, (array) get_option( 'active_plugins', array() ) ) ) { ?>
@@ -249,7 +249,7 @@ foreach ( $plugin_files as $plugin_file ) :
 	?>
 	</p>
 <?php else : ?>
-	<p><em><?php _e('You need to make this file writable before you can save your changes. See <a href="http://codex.nxtclass.org/Changing_File_Permissions">the Codex</a> for more information.'); ?></em></p>
+	<p><em><?php _e('You need to make this file writable before you can save your changes. See <a href="http://codex.opensource.nxtclass.tk/Changing_File_Permissions">the Codex</a> for more information.'); ?></em></p>
 <?php endif; ?>
 </form>
 <br class="clear" />

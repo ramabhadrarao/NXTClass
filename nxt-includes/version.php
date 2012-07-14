@@ -4,7 +4,7 @@
  *
  * @global string $nxt_version
  */
-$nxt_version = '3.3.1';
+$nxt_version = '1.1.0';
 
 /**
  * Holds the NXTClass DB revision, increments when changes are made to the NXTClass DB schema.

@@ -50,7 +50,7 @@ function mysql2date( $dateformatstring, $mysqlstring, $translate = true ) {
  * If $gmt is set to either '1' or 'true', then both types will use GMT time.
  * if $gmt is false, the output is adjusted with the GMT offset in the NXTClass option.
  *
- * @since 1.0.0
+ * @since 1.1.0
  *
  * @param string $type Either 'mysql' or 'timestamp'.
  * @param int|bool $gmt Optional. Whether to use GMT timezone. Default is false.
@@ -96,7 +96,7 @@ function date_i18n( $dateformatstring, $unixtimestamp = false, $gmt = false ) {
 	}
 
 	// store original value for language with untypical grammars
-	// see http://core.trac.nxtclass.org/ticket/9396
+	// see http://core.trac.opensource.nxtclass.tk/ticket/9396
 	$req_format = $dateformatstring;
 
 	$datefunc = $gmt? 'gmdate' : 'date';
@@ -497,7 +497,7 @@ function nxt_load_core_site_options( $site_id = null ) {
  * value, but you will not be able to set whether it is autoloaded. If you want
  * to set whether an option is autoloaded, then you need to use the add_option().
  *
- * @since 1.0.0
+ * @since 1.1.0
  * @package NXTClass
  * @subpackage Option
  *
@@ -577,7 +577,7 @@ function update_option( $option, $newvalue ) {
  *
  * @package NXTClass
  * @subpackage Option
- * @since 1.0.0
+ * @since 1.1.0
  *
  * @uses do_action() Calls 'add_option' hook before adding the option.
  * @uses do_action() Calls 'add_option_$option' and 'added_option' hooks on success.
@@ -1038,7 +1038,7 @@ function maybe_serialize( $data ) {
 		return serialize( $data );
 
 	// Double serialization is required for backward compatibility.
-	// See http://core.trac.nxtclass.org/ticket/12930
+	// See http://core.trac.opensource.nxtclass.tk/ticket/12930
 	if ( is_serialized( $data ) )
 		return serialize( $data );
 
@@ -1746,7 +1746,7 @@ function get_num_queries() {
 /**
  * Whether input is yes or no. Must be 'y' to be true.
  *
- * @since 1.0.0
+ * @since 1.1.0
  *
  * @param string $yn Character string containing either 'y' or 'n'
  * @return bool True if yes, false on anything else
@@ -3583,7 +3583,7 @@ function _doing_it_wrong( $function, $message, $version ) {
 	// Allow plugin to filter the output error trigger
 	if ( nxt_DEBUG && apply_filters( 'doing_it_wrong_trigger_error', true ) ) {
 		$version = is_null( $version ) ? '' : sprintf( __( '(This message was added in version %s.)' ), $version );
-		$message .= ' ' . __( 'Please see <a href="http://codex.nxtclass.org/Debugging_in_NXTClass">Debugging in NXTClass</a> for more information.' );
+		$message .= ' ' . __( 'Please see <a href="http://codex.opensource.nxtclass.tk/Debugging_in_NXTClass">Debugging in NXTClass</a> for more information.' );
 		trigger_error( sprintf( __( '%1$s was called <strong>incorrectly</strong>. %2$s %3$s' ), $function, $message, $version ) );
 	}
 }
@@ -4374,7 +4374,7 @@ function nxt_timezone_choice( $selected_zone ) {
 
 /**
  * Strip close comment and close php tags from file headers used by nxt.
- * See http://core.trac.nxtclass.org/ticket/8497
+ * See http://core.trac.opensource.nxtclass.tk/ticket/8497
  *
  * @since 2.8.0
  *
@@ -4440,7 +4440,7 @@ function nxt_scheduled_delete() {
  * If the file data is not within that first 8kiB, then the author should correct
  * their plugin file and move the data headers to the top.
  *
- * @see http://codex.nxtclass.org/File_Header
+ * @see http://codex.opensource.nxtclass.tk/File_Header
  *
  * @since 2.9.0
  * @param string $file Path to the file

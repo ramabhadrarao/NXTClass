@@ -1208,7 +1208,7 @@ function prepend_attachment($content) {
 /**
  * Retrieve protected post password form content.
  *
- * @since 1.0.0
+ * @since 1.1.0
  * @uses apply_filters() Calls 'the_password_form' filter on output.
  *
  * @return string HTML content for password form for password protected post.

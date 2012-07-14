@@ -244,7 +244,7 @@ function _nxt_filter_taxonomy_base( $base ) {
  *
  * Checks are supposedly from the hosted site blog.
  *
- * @since 1.0.0
+ * @since 1.1.0
  *
  * @param string $url Permalink to check.
  * @return int Post ID, or 0 on failure.

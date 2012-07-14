@@ -5,7 +5,7 @@
  * The query API attempts to get which part of NXTClass to the user is on. It
  * also provides functionality to getting URL query information.
  *
- * @link http://codex.nxtclass.org/The_Loop More information on The Loop.
+ * @link http://codex.opensource.nxtclass.tk/The_Loop More information on The Loop.
  *
  * @package NXTClass
  * @subpackage Query
@@ -827,7 +827,7 @@ function the_comment() {
 /**
  * The NXTClass Query class.
  *
- * @link http://codex.nxtclass.org/Function_Reference/nxt_Query Codex page.
+ * @link http://codex.opensource.nxtclass.tk/Function_Reference/nxt_Query Codex page.
  *
  * @since 1.5.0
  */

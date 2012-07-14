@@ -48,7 +48,7 @@
 			return {
 				longname : 'NXTClass Link Dialog',
 				author : 'NXTClass',
-				authorurl : 'http://nxtclass.org',
+				authorurl : 'http://opensource.nxtclass.tk',
 				infourl : '',
 				version : "1.0"
 			};

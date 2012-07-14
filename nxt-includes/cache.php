@@ -2,7 +2,7 @@
 /**
  * Object Cache API
  *
- * @link http://codex.nxtclass.org/Function_Reference/nxt_Cache
+ * @link http://codex.opensource.nxtclass.tk/Function_Reference/nxt_Cache
  *
  * @package NXTClass
  * @subpackage Cache

@@ -35,7 +35,7 @@ header('Content-Type: text/xml; charset=' . get_option('blog_charset'), true);
 <rsd version="1.0" xmlns="http://archipelago.phrasewise.com/rsd">
   <service>
     <engineName>NXTClass</engineName>
-    <engineLink>http://nxtclass.org/</engineLink>
+    <engineLink>http://opensource.nxtclass.tk/</engineLink>
     <homePageLink><?php bloginfo_rss('url') ?></homePageLink>
     <apis>
       <api name="NXTClass" blogID="1" preferred="true" apiLink="<?php echo site_url('xmlrpc.php', 'rpc') ?>" />

@@ -50,7 +50,7 @@ if ( current_user_can( 'install_themes' ) ) {
 	if ( is_multisite() ) {
 		$help_install = '<p>' . __('Installing themes on Multisite can only be done from the Network Admin section.') . '</p>';
 	} else {
-		$help_install = '<p>' . sprintf( __('If you would like to see more themes to choose from, click on the &#8220;Install Themes&#8221; tab and you will be able to browse or search for additional themes from the <a href="%s" target="_blank">NXTClass.org Theme Directory</a>. Themes in the NXTClass.org Theme Directory are designed and developed by third parties, and are compatible with the license NXTClass uses. Oh, and they&#8217;re free!'), 'http://nxtclass.org/extend/themes/' ) . '</p>';
+		$help_install = '<p>' . sprintf( __('If you would like to see more themes to choose from, click on the &#8220;Install Themes&#8221; tab and you will be able to browse or search for additional themes from the <a href="%s" target="_blank">opensource.nxtclass.tk Theme Directory</a>. Themes in the opensource.nxtclass.tk Theme Directory are designed and developed by third parties, and are compatible with the license NXTClass uses. Oh, and they&#8217;re free!'), 'http://opensource.nxtclass.tk/extend/themes/' ) . '</p>';
 	}
 
 	get_current_screen()->add_help_tab( array(
@@ -62,8 +62,8 @@ if ( current_user_can( 'install_themes' ) ) {
 
 get_current_screen()->set_help_sidebar(
 	'<p><strong>' . __('For more information:') . '</strong></p>' .
-	'<p>' . __('<a href="http://codex.nxtclass.org/Using_Themes" target="_blank">Documentation on Using Themes</a>') . '</p>' .
-	'<p>' . __('<a href="http://nxtclass.org/support/" target="_blank">Support Forums</a>') . '</p>'
+	'<p>' . __('<a href="http://codex.opensource.nxtclass.tk/Using_Themes" target="_blank">Documentation on Using Themes</a>') . '</p>' .
+	'<p>' . __('<a href="http://opensource.nxtclass.tk/support/" target="_blank">Support Forums</a>') . '</p>'
 );
 
 add_thickbox();

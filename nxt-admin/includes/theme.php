@@ -403,10 +403,10 @@ function themes_api($action, $args = null) {
 		$args->per_page = 24;
 
 	$args = apply_filters('themes_api_args', $args, $action); //NOTE: Ensure that an object is returned via this filter.
-	$res = apply_filters('themes_api', false, $action, $args); //NOTE: Allows a theme to completely override the builtin NXTClass.org API.
+	$res = apply_filters('themes_api', false, $action, $args); //NOTE: Allows a theme to completely override the builtin opensource.nxtclass.tk API.
 
 	if ( ! $res ) {
-		$request = nxt_remote_post('http://api.nxtclass.org/themes/info/1.0/', array( 'body' => array('action' => $action, 'request' => serialize($args))) );
+		$request = nxt_remote_post('http://api.opensource.nxtclass.tk/themes/info/1.0/', array( 'body' => array('action' => $action, 'request' => serialize($args))) );
 		if ( is_nxt_error($request) ) {
 			$res = new nxt_Error('themes_api_failed', __('An Unexpected HTTP Error occurred during the API request.'), $request->get_error_message() );
 		} else {

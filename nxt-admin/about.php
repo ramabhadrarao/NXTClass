@@ -36,8 +36,8 @@ include( './admin-header.php' );
 <div class="changelog point-releases">
 	<h3><?php echo _n( 'Maintenance and Security Release', 'Maintenance and Security Releases', 1 ); ?></h3>
 	<p><?php printf( _n( '<strong>Version %1$s</strong> addressed a security issue and fixed %2$s bug.',
-         '<strong>Version %1$s</strong> addressed a security issue and fixed %2$s bugs.', 15 ), '3.3.1', number_format_i18n( 15 ) ); ?>
-		<?php printf( __( 'For more information, see <a href="%s">the release notes</a>.' ), 'http://codex.nxtclass.org/Version_3.3.1' ); ?>
+         '<strong>Version %1$s</strong> addressed a security issue and fixed %2$s bugs.', 15 ), '1.1.0', number_format_i18n( 15 ) ); ?>
+		<?php printf( __( 'For more information, see <a href="%s">the release notes</a>.' ), 'http://codex.opensource.nxtclass.tk/Version_1.1.0' ); ?>
  	</p>
 </div>
 

@@ -50,8 +50,8 @@ get_current_screen()->add_help_tab( array(
 
 get_current_screen()->set_help_sidebar(
 	'<p><strong>' . __( 'For more information:' ) . '</strong></p>' .
-	'<p>' . __( '<a href="http://codex.nxtclass.org/Links_Add_New_Screen" target="_blank">Documentation on Creating Links</a>' ) . '</p>' .
-	'<p>' . __( '<a href="http://nxtclass.org/support/" target="_blank">Support Forums</a>' ) . '</p>'
+	'<p>' . __( '<a href="http://codex.opensource.nxtclass.tk/Links_Add_New_Screen" target="_blank">Documentation on Creating Links</a>' ) . '</p>' .
+	'<p>' . __( '<a href="http://opensource.nxtclass.tk/support/" target="_blank">Support Forums</a>' ) . '</p>'
 );
 
 require_once ('admin-header.php');
@@ -99,7 +99,7 @@ if ( 1 != $screen_layout_columns ) {
 <h3><label for="link_url"><?php _e('Web Address') ?></label></h3>
 <div class="inside">
 	<input type="text" name="link_url" size="30" class="code" tabindex="1" value="<?php echo esc_attr($link->link_url); ?>" id="link_url" />
-    <p><?php _e('Example: <code>http://nxtclass.org/</code> &#8212; don&#8217;t forget the <code>http://</code>'); ?></p>
+    <p><?php _e('Example: <code>http://opensource.nxtclass.tk/</code> &#8212; don&#8217;t forget the <code>http://</code>'); ?></p>
 </div>
 </div>
 

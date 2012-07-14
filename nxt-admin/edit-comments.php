@@ -132,10 +132,10 @@ get_current_screen()->add_help_tab( array(
 
 get_current_screen()->set_help_sidebar(
 	'<p><strong>' . __( 'For more information:' ) . '</strong></p>' .
-	'<p>' . __( '<a href="http://codex.nxtclass.org/Administration_Screens#Comments" target="_blank">Documentation on Comments</a>' ) . '</p>' .
-	'<p>' . __( '<a href="http://codex.nxtclass.org/Comment_Spam" target="_blank">Documentation on Comment Spam</a>' ) . '</p>' .
-	'<p>' . __( '<a href="http://codex.nxtclass.org/Keyboard_Shortcuts" target="_blank">Documentation on Keyboard Shortcuts</a>' ) . '</p>' .
-	'<p>' . __( '<a href="http://nxtclass.org/support/" target="_blank">Support Forums</a>' ) . '</p>'
+	'<p>' . __( '<a href="http://codex.opensource.nxtclass.tk/Administration_Screens#Comments" target="_blank">Documentation on Comments</a>' ) . '</p>' .
+	'<p>' . __( '<a href="http://codex.opensource.nxtclass.tk/Comment_Spam" target="_blank">Documentation on Comment Spam</a>' ) . '</p>' .
+	'<p>' . __( '<a href="http://codex.opensource.nxtclass.tk/Keyboard_Shortcuts" target="_blank">Documentation on Keyboard Shortcuts</a>' ) . '</p>' .
+	'<p>' . __( '<a href="http://opensource.nxtclass.tk/support/" target="_blank">Support Forums</a>' ) . '</p>'
 );
 
 require_once('./admin-header.php');

@@ -54,7 +54,7 @@ function get_postdata($postid) {
  *
  * @since 1.0.1
  * @deprecated 1.5
- * @deprecated Use The Loop - {@link http://codex.nxtclass.org/The_Loop Use new NXTClass Loop}
+ * @deprecated Use The Loop - {@link http://codex.opensource.nxtclass.tk/The_Loop Use new NXTClass Loop}
  */
 function start_nxt() {
 	global $nxt_query, $post;
@@ -1336,7 +1336,7 @@ function get_the_author_description() {
 /**
  * Display the description of the author of the current post.
  *
- * @since 1.0.0
+ * @since 1.1.0
  * @deprecated 2.8
  * @deprecated Use the_author_meta('description')
  * @see the_author_meta()
@@ -1601,7 +1601,7 @@ function the_author_aim() {
 /**
  * Retrieve the specified author's preferred display name.
  *
- * @since 1.0.0
+ * @since 1.1.0
  * @deprecated 2.8
  * @deprecated Use get_the_author_meta('display_name')
  * @see get_the_author_meta()
@@ -1863,7 +1863,7 @@ function __ngettext_noop() {
 /**
  * Retrieve all autoload options, or all options if no autoloaded ones exist.
  *
- * @since 1.0.0
+ * @since 1.1.0
  * @deprecated 3.0.0
  * @deprecated Use nxt_load_alloptions())
  * @see nxt_load_alloptions()

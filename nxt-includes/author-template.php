@@ -4,7 +4,7 @@
  *
  * These functions must be used within the NXTClass Loop.
  *
- * @link http://codex.nxtclass.org/Author_Templates
+ * @link http://codex.opensource.nxtclass.tk/Author_Templates
  *
  * @package NXTClass
  * @subpackage Template
@@ -42,7 +42,7 @@ function get_the_author($deprecated = '') {
  *
  * @since 0.71
  * @see get_the_author()
- * @link http://codex.nxtclass.org/Template_Tags/the_author
+ * @link http://codex.opensource.nxtclass.tk/Template_Tags/the_author
  *
  * @param string $deprecated Deprecated.
  * @param string $deprecated_echo Deprecated. Use get_the_author(). Echo the string or return it.
@@ -89,7 +89,7 @@ function the_modified_author() {
 
 /**
  * Retrieve the requested data of the author of the current post.
- * @link http://codex.nxtclass.org/Template_Tags/the_author_meta
+ * @link http://codex.opensource.nxtclass.tk/Template_Tags/the_author_meta
  * @since 2.8.0
  * @uses $authordata The current author's DB object (if $user_id not specified).
  * @param string $field selects the field of the users record.
@@ -119,7 +119,7 @@ function get_the_author_meta($field = '', $user_id = false) {
 
 /**
  * Retrieve the requested data of the author of the current post.
- * @link http://codex.nxtclass.org/Template_Tags/the_author_meta
+ * @link http://codex.opensource.nxtclass.tk/Template_Tags/the_author_meta
  * @since 2.8.0
  * @param string $field selects the field of the users record.
  * @param int $user_id Optional. User ID.
@@ -152,7 +152,7 @@ function get_the_author_link() {
  * If the author has a home page set, echo an HTML link, otherwise just echo the
  * author's name.
  *
- * @link http://codex.nxtclass.org/Template_Tags/the_author_link
+ * @link http://codex.opensource.nxtclass.tk/Template_Tags/the_author_link
  * @since 2.1
  * @uses get_the_author_link()
  */
@@ -176,7 +176,7 @@ function get_the_author_posts() {
 /**
  * Display the number of posts by the author of the current post.
  *
- * @link http://codex.nxtclass.org/Template_Tags/the_author_posts
+ * @link http://codex.opensource.nxtclass.tk/Template_Tags/the_author_posts
  * @since 0.71
  * @uses get_the_author_posts() Echoes returned value from function.
  */
@@ -191,7 +191,7 @@ function the_author_posts() {
  * reason for this, is that another function is used to help in printing the
  * link to the author's posts.
  *
- * @link http://codex.nxtclass.org/Template_Tags/the_author_posts_link
+ * @link http://codex.opensource.nxtclass.tk/Template_Tags/the_author_posts_link
  * @since 1.2.0
  * @uses $authordata The current author's DB object.
  * @uses get_author_posts_url()
@@ -265,7 +265,7 @@ function get_author_posts_url($author_id, $author_nicename = '') {
  * </li>
  * </ul>
  *
- * @link http://codex.nxtclass.org/Template_Tags/nxt_list_authors
+ * @link http://codex.opensource.nxtclass.tk/Template_Tags/nxt_list_authors
  * @since 1.2.0
  * @param array $args The argument array.
  * @return null|string The output, if echo is set to false.

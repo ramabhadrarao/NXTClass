@@ -115,7 +115,7 @@ else: // have_posts()
 <?php endif; ?>
 <!-- // this is just the end of the motor - don't touch that line either :) -->
 <?php //} ?>
-<p class="credit"><?php timer_stop(1); ?> <cite><?php printf(__('Powered by <a href="%s" title="Powered by NXTClass, state-of-the-art semantic personal publishing platform"><strong>NXTClass</strong></a>'), 'http://nxtclass.org/'); ?></cite></p>
+<p class="credit"><?php timer_stop(1); ?> <cite><?php printf(__('Powered by <a href="%s" title="Powered by NXTClass, state-of-the-art semantic personal publishing platform"><strong>NXTClass</strong></a>'), 'http://opensource.nxtclass.tk/'); ?></cite></p>
 <?php // Seen at http://www.mijnkopthee.nl/log2/archive/2003/05/28/esc(18) ?>
 <script type="text/javascript">
 <!--

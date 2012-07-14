@@ -1161,7 +1161,7 @@ class nxt_Embed {
 		$attr = nxt_parse_args( $attr, nxt_embed_defaults() );
 
 		// kses converts & into &amp; and we need to undo this
-		// See http://core.trac.nxtclass.org/ticket/11311
+		// See http://core.trac.opensource.nxtclass.tk/ticket/11311
 		$url = str_replace( '&amp;', '&', $url );
 
 		// Look for known internal handlers

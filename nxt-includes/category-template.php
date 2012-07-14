@@ -9,7 +9,7 @@
 /**
  * Retrieve category link URL.
  *
- * @since 1.0.0
+ * @since 1.1.0
  * @see get_term_link()
  *
  * @param int|object $category Category ID or object.
@@ -254,7 +254,7 @@ function the_category( $separator = '', $parents='', $post_id = false ) {
 /**
  * Retrieve category description.
  *
- * @since 1.0.0
+ * @since 1.1.0
  *
  * @param int $category Optional. Category ID. Will use global category ID by default.
  * @return string Category description, available.

@@ -195,7 +195,7 @@ switch($step) {
 			return ( ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . str_replace( $_SERVER['PHP_SELF'], '/nxt-admin/setup-config.php', '' ) );
 		}
 		/**#@-*/
-		$secret_keys = nxt_remote_get( 'https://api.nxtclass.org/secret-key/1.1/salt/' );
+		$secret_keys = nxt_remote_get( 'https://api.opensource.nxtclass.tk/secret-key/1.1/salt/' );
 	}
 
 	if ( $no_api || is_nxt_error( $secret_keys ) ) {

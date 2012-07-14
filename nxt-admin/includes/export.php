@@ -319,11 +319,11 @@ function export_nxt( $args = array() ) {
 
 <?php the_generator( 'export' ); ?>
 <rss version="2.0"
-	xmlns:excerpt="http://nxtclass.org/export/<?php echo WXR_VERSION; ?>/excerpt/"
+	xmlns:excerpt="http://opensource.nxtclass.tk/export/<?php echo WXR_VERSION; ?>/excerpt/"
 	xmlns:content="http://purl.org/rss/1.0/modules/content/"
 	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
 	xmlns:dc="http://purl.org/dc/elements/1.1/"
-	xmlns:nxt="http://nxtclass.org/export/<?php echo WXR_VERSION; ?>/"
+	xmlns:nxt="http://opensource.nxtclass.tk/export/<?php echo WXR_VERSION; ?>/"
 >
 
 <channel>

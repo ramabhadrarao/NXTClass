@@ -86,8 +86,8 @@ function nxt_dashboard_setup() {
 	if ( !isset( $widget_options['dashboard_primary'] ) ) {
 		$update = true;
 		$widget_options['dashboard_primary'] = array(
-			'link' => apply_filters( 'dashboard_primary_link',  __( 'http://nxtclass.org/news/' ) ),
-			'url' => apply_filters( 'dashboard_primary_feed',  __( 'http://nxtclass.org/news/feed/' ) ),
+			'link' => apply_filters( 'dashboard_primary_link',  __( 'http://opensource.nxtclass.tk/news/' ) ),
+			'url' => apply_filters( 'dashboard_primary_feed',  __( 'http://opensource.nxtclass.tk/news/feed/' ) ),
 			'title' => apply_filters( 'dashboard_primary_title', __( 'NXTClass Blog' ) ),
 			'items' => 2,
 			'show_summary' => 1,
@@ -101,8 +101,8 @@ function nxt_dashboard_setup() {
 	if ( !isset( $widget_options['dashboard_secondary'] ) ) {
 		$update = true;
 		$widget_options['dashboard_secondary'] = array(
-			'link' => apply_filters( 'dashboard_secondary_link',  __( 'http://planet.nxtclass.org/' ) ),
-			'url' => apply_filters( 'dashboard_secondary_feed',  __( 'http://planet.nxtclass.org/feed/' ) ),
+			'link' => apply_filters( 'dashboard_secondary_link',  __( 'http://planet.opensource.nxtclass.tk/' ) ),
+			'url' => apply_filters( 'dashboard_secondary_feed',  __( 'http://planet.opensource.nxtclass.tk/feed/' ) ),
 			'title' => apply_filters( 'dashboard_secondary_title', __( 'Other NXTClass News' ) ),
 			'items' => 5,
 			'show_summary' => 0,
@@ -936,9 +936,9 @@ function nxt_dashboard_secondary_output() {
 
 function nxt_dashboard_plugins() {
 	nxt_dashboard_cached_rss_widget( 'dashboard_plugins', 'nxt_dashboard_plugins_output', array(
-		'http://nxtclass.org/extend/plugins/rss/browse/popular/',
-		'http://nxtclass.org/extend/plugins/rss/browse/new/',
-		'http://nxtclass.org/extend/plugins/rss/browse/updated/'
+		'http://opensource.nxtclass.tk/extend/plugins/rss/browse/popular/',
+		'http://opensource.nxtclass.tk/extend/plugins/rss/browse/new/',
+		'http://opensource.nxtclass.tk/extend/plugins/rss/browse/updated/'
 	) );
 }
 
@@ -948,9 +948,9 @@ function nxt_dashboard_plugins() {
  * @since 2.5.0
  */
 function nxt_dashboard_plugins_output() {
-	$popular = fetch_feed( 'http://nxtclass.org/extend/plugins/rss/browse/popular/' );
-	$new     = fetch_feed( 'http://nxtclass.org/extend/plugins/rss/browse/new/' );
-	$updated = fetch_feed( 'http://nxtclass.org/extend/plugins/rss/browse/updated/' );
+	$popular = fetch_feed( 'http://opensource.nxtclass.tk/extend/plugins/rss/browse/popular/' );
+	$new     = fetch_feed( 'http://opensource.nxtclass.tk/extend/plugins/rss/browse/new/' );
+	$updated = fetch_feed( 'http://opensource.nxtclass.tk/extend/plugins/rss/browse/updated/' );
 
 	if ( false === $plugin_slugs = get_transient( 'plugin_slugs' ) ) {
 		$plugin_slugs = array_keys( get_plugins() );
@@ -1231,7 +1231,7 @@ function nxt_check_browser_version() {
 			'user-agent'	=> 'NXTClass/' . $nxt_version . '; ' . get_bloginfo( 'url' )
 		);
 
-		$response = nxt_remote_post( 'http://api.nxtclass.org/core/browse-happy/1.0/', $options );
+		$response = nxt_remote_post( 'http://api.opensource.nxtclass.tk/core/browse-happy/1.0/', $options );
 
 		if ( is_nxt_error( $response ) || 200 != nxt_remote_retrieve_response_code( $response ) )
 			return false;
@@ -1291,7 +1291,7 @@ function nxt_welcome_panel() {
 
 	<div class="welcome-panel-content">
 	<h3><?php _e( 'Welcome to your new NXTClass site! ' ); ?></h3>
-	<p class="about-description"><?php _e( 'If you need help getting started, check out our documentation on <a href="http://codex.nxtclass.org/First_Steps_With_NXTClass">First Steps with NXTClass</a>. If you&#8217;d rather dive right in, here are a few things most people do first when they set up a new NXTClass site. If you need help, use the Help tabs in the upper right corner to get information on how to use your current screen and where to go for more assistance.' ); ?></p>
+	<p class="about-description"><?php _e( 'If you need help getting started, check out our documentation on <a href="http://codex.opensource.nxtclass.tk/First_Steps_With_NXTClass">First Steps with NXTClass</a>. If you&#8217;d rather dive right in, here are a few things most people do first when they set up a new NXTClass site. If you need help, use the Help tabs in the upper right corner to get information on how to use your current screen and where to go for more assistance.' ); ?></p>
 	<div class="welcome-panel-column-container">
 	<div class="welcome-panel-column">
 		<h4><span class="icon16 icon-settings"></span> <?php _e( 'Basic Settings' ); ?></h4>

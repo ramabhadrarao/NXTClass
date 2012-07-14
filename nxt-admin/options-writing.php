@@ -55,8 +55,8 @@ get_current_screen()->add_help_tab( array(
 
 get_current_screen()->set_help_sidebar(
 	'<p><strong>' . __('For more information:') . '</strong></p>' .
-	'<p>' . __('<a href="http://codex.nxtclass.org/Settings_Writing_Screen" target="_blank">Documentation on Writing Settings</a>') . '</p>' .
-	'<p>' . __('<a href="http://nxtclass.org/support/" target="_blank">Support Forums</a>') . '</p>'
+	'<p>' . __('<a href="http://codex.opensource.nxtclass.tk/Settings_Writing_Screen" target="_blank">Documentation on Writing Settings</a>') . '</p>' .
+	'<p>' . __('<a href="http://opensource.nxtclass.tk/support/" target="_blank">Support Forums</a>') . '</p>'
 );
 
 include('./admin-header.php');
@@ -192,13 +192,13 @@ nxt_dropdown_categories(array('hide_empty' => 0, 'name' => 'default_email_catego
 
 <?php if ( 1 == get_option('blog_public') ) : ?>
 
-<p><label for="ping_sites"><?php _e('When you publish a new post, NXTClass automatically notifies the following site update services. For more about this, see <a href="http://codex.nxtclass.org/Update_Services">Update Services</a> on the Codex. Separate multiple service <abbr title="Universal Resource Locator">URL</abbr>s with line breaks.') ?></label></p>
+<p><label for="ping_sites"><?php _e('When you publish a new post, NXTClass automatically notifies the following site update services. For more about this, see <a href="http://codex.opensource.nxtclass.tk/Update_Services">Update Services</a> on the Codex. Separate multiple service <abbr title="Universal Resource Locator">URL</abbr>s with line breaks.') ?></label></p>
 
 <textarea name="ping_sites" id="ping_sites" class="large-text code" rows="3"><?php echo esc_textarea( get_option('ping_sites') ); ?></textarea>
 
 <?php else : ?>
 
-	<p><?php printf(__('NXTClass is not notifying any <a href="http://codex.nxtclass.org/Update_Services">Update Services</a> because of your site&#8217;s <a href="%s">privacy settings</a>.'), 'options-privacy.php'); ?></p>
+	<p><?php printf(__('NXTClass is not notifying any <a href="http://codex.opensource.nxtclass.tk/Update_Services">Update Services</a> because of your site&#8217;s <a href="%s">privacy settings</a>.'), 'options-privacy.php'); ?></p>
 
 <?php endif; ?>
 <?php } // multisite ?>

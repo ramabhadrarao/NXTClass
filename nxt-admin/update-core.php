@@ -51,13 +51,13 @@ function list_core_update( $update ) {
 				$mysql_compat = version_compare( $mysql_version, $update->mysql_version, '>=' );
 
 			if ( !$mysql_compat && !$php_compat )
-				$message = sprintf( __('You cannot update because <a href="http://codex.nxtclass.org/Version_%1$s">NXTClass %1$s</a> requires PHP version %2$s or higher and MySQL version %3$s or higher. You are running PHP version %4$s and MySQL version %5$s.'), $update->current, $update->php_version, $update->mysql_version, $php_version, $mysql_version );
+				$message = sprintf( __('You cannot update because <a href="http://codex.opensource.nxtclass.tk/Version_%1$s">NXTClass %1$s</a> requires PHP version %2$s or higher and MySQL version %3$s or higher. You are running PHP version %4$s and MySQL version %5$s.'), $update->current, $update->php_version, $update->mysql_version, $php_version, $mysql_version );
 			elseif ( !$php_compat )
-				$message = sprintf( __('You cannot update because <a href="http://codex.nxtclass.org/Version_%1$s">NXTClass %1$s</a> requires PHP version %2$s or higher. You are running version %3$s.'), $update->current, $update->php_version, $php_version );
+				$message = sprintf( __('You cannot update because <a href="http://codex.opensource.nxtclass.tk/Version_%1$s">NXTClass %1$s</a> requires PHP version %2$s or higher. You are running version %3$s.'), $update->current, $update->php_version, $php_version );
 			elseif ( !$mysql_compat )
-				$message = sprintf( __('You cannot update because <a href="http://codex.nxtclass.org/Version_%1$s">NXTClass %1$s</a> requires MySQL version %2$s or higher. You are running version %3$s.'), $update->current, $update->mysql_version, $mysql_version );
+				$message = sprintf( __('You cannot update because <a href="http://codex.opensource.nxtclass.tk/Version_%1$s">NXTClass %1$s</a> requires MySQL version %2$s or higher. You are running version %3$s.'), $update->current, $update->mysql_version, $mysql_version );
 			else
-				$message = 	sprintf(__('You can update to <a href="http://codex.nxtclass.org/Version_%1$s">NXTClass %2$s</a> automatically or download the package and install it manually:'), $update->current, $version_string);
+				$message = 	sprintf(__('You can update to <a href="http://codex.opensource.nxtclass.tk/Version_%1$s">NXTClass %2$s</a> automatically or download the package and install it manually:'), $update->current, $version_string);
 			if ( !$mysql_compat || !$php_compat )
 				$show_buttons = false;
 		}
@@ -160,7 +160,7 @@ function core_upgrade_preamble() {
 		echo '</h3>';
 	} else {
 		echo '<div class="updated inline"><p>';
-		_e('<strong>Important:</strong> before updating, please <a href="http://codex.nxtclass.org/NXTClass_Backups">back up your database and files</a>. For help with updates, visit the <a href="http://codex.nxtclass.org/Updating_NXTClass">Updating NXTClass</a> Codex page.');
+		_e('<strong>Important:</strong> before updating, please <a href="http://codex.opensource.nxtclass.tk/NXTClass_Backups">back up your database and files</a>. For help with updates, visit the <a href="http://codex.opensource.nxtclass.tk/Updating_NXTClass">Updating NXTClass</a> Codex page.');
 		echo '</p></div>';
 
 		echo '<h3 class="response">';
@@ -291,7 +291,7 @@ function list_theme_updates() {
 ?>
 <h3><?php _e( 'Themes' ); ?></h3>
 <p><?php _e( 'The following themes have new versions available. Check the ones you want to update and then click &#8220;Update Themes&#8221;.' ); ?></p>
-<p><?php printf( __('<strong>Please Note:</strong> Any customizations you have made to theme files will be lost. Please consider using <a href="%s">child themes</a> for modifications.'), _x('http://codex.nxtclass.org/Child_Themes', 'Link used in suggestion to use child themes in GUU') ); ?></p>
+<p><?php printf( __('<strong>Please Note:</strong> Any customizations you have made to theme files will be lost. Please consider using <a href="%s">child themes</a> for modifications.'), _x('http://codex.opensource.nxtclass.tk/Child_Themes', 'Link used in suggestion to use child themes in GUU') ); ?></p>
 <form method="post" action="<?php echo $form_action; ?>" name="upgrade-themes" class="upgrade">
 <?php nxt_nonce_field('upgrade-core'); ?>
 <p><input id="upgrade-themes" class="button" type="submit" value="<?php esc_attr_e('Update Themes'); ?>" name="upgrade" /></p>
@@ -435,7 +435,7 @@ get_current_screen()->add_help_tab( array(
 'id'		=> 'overview',
 'title'		=> __('Overview'),
 'content'	=>
-	'<p>' . __('This screen lets you update to the latest version of NXTClass as well as update your themes and plugins from the NXTClass.org repository. When updates are available, the number of available updates will appear in a bubble on the left hand menu as a notification.') . '</p>' .
+	'<p>' . __('This screen lets you update to the latest version of NXTClass as well as update your themes and plugins from the opensource.nxtclass.tk repository. When updates are available, the number of available updates will appear in a bubble on the left hand menu as a notification.') . '</p>' .
 	'<p>' . __('It is very important to keep your NXTClass installation up to date for security reasons, so when you see a number appear, make sure you take the time to update, which is an easy process.') . '</p>'
 ) );
 
@@ -450,8 +450,8 @@ get_current_screen()->add_help_tab( array(
 
 get_current_screen()->set_help_sidebar(
 	'<p><strong>' . __('For more information:') . '</strong></p>' .
-	'<p>' . __('<a href="http://codex.nxtclass.org/Dashboard_Updates_Screen" target="_blank">Documentation on Updating NXTClass</a>') . '</p>' .
-	'<p>' . __('<a href="http://nxtclass.org/support/" target="_blank">Support Forums</a>') . '</p>'
+	'<p>' . __('<a href="http://codex.opensource.nxtclass.tk/Dashboard_Updates_Screen" target="_blank">Documentation on Updating NXTClass</a>') . '</p>' .
+	'<p>' . __('<a href="http://opensource.nxtclass.tk/support/" target="_blank">Support Forums</a>') . '</p>'
 );
 
 if ( 'upgrade-core' == $action ) {

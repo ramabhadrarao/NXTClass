@@ -68,8 +68,8 @@
 			return {
 				longname : 'nxtDialogs',
 				author : 'NXTClass',
-				authorurl : 'http://nxtclass.org',
-				infourl : 'http://nxtclass.org',
+				authorurl : 'http://opensource.nxtclass.tk',
+				infourl : 'http://opensource.nxtclass.tk',
 				version : '0.1'
 			};
 		}

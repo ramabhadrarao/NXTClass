@@ -89,7 +89,7 @@ if ( !defined('nxt_ALLOW_REPAIR') ) {
 	}
 
 	if ( !empty($problems) ) {
-		printf('<p>'.__('Some database problems could not be repaired. Please copy-and-paste the following list of errors to the <a href="%s">NXTClass support forums</a> to get additional assistance.').'</p>', 'http://nxtclass.org/support/forum/3');
+		printf('<p>'.__('Some database problems could not be repaired. Please copy-and-paste the following list of errors to the <a href="%s">NXTClass support forums</a> to get additional assistance.').'</p>', 'http://opensource.nxtclass.tk/support/forum/3');
 		$problem_output = array();
 		foreach ( $problems as $table => $problem )
 			$problem_output[] = "$table: $problem";

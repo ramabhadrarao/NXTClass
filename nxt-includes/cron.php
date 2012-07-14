@@ -13,7 +13,7 @@
  * NXTClass site, if the schedule time has passed.
  *
  * @since 2.1.0
- * @link http://codex.nxtclass.org/Function_Reference/nxt_schedule_single_event
+ * @link http://codex.opensource.nxtclass.tk/Function_Reference/nxt_schedule_single_event
  *
  * @param int $timestamp Timestamp for when to run the event.
  * @param string $hook Action hook to execute when cron is run.

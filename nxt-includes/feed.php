@@ -261,7 +261,7 @@ function get_comment_author_rss() {
  *
  * @package NXTClass
  * @subpackage Feed
- * @since 1.0.0
+ * @since 1.1.0
  */
 function comment_author_rss() {
 	echo get_comment_author_rss();
@@ -272,7 +272,7 @@ function comment_author_rss() {
  *
  * @package NXTClass
  * @subpackage Feed
- * @since 1.0.0
+ * @since 1.1.0
  * @uses apply_filters() Calls 'comment_text_rss' filter on comment content.
  * @uses get_comment_text()
  */

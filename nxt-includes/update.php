@@ -10,7 +10,7 @@
  * Check NXTClass version against the newest version.
  *
  * The NXTClass version, PHP version, and Locale is sent. Checks against the
- * NXTClass server at api.nxtclass.org server. Will only check if NXTClass
+ * NXTClass server at api.opensource.nxtclass.tk server. Will only check if NXTClass
  * isn't installing.
  *
  * @package NXTClass
@@ -68,7 +68,7 @@ function nxt_version_check() {
 		'multisite_enabled' => $multisite_enabled
 	);
 
-	$url = 'http://api.nxtclass.org/core/version-check/1.6/?' . http_build_query( $query, null, '&' );
+	$url = 'http://api.opensource.nxtclass.tk/core/version-check/1.6/?' . http_build_query( $query, null, '&' );
 
 	$options = array(
 		'timeout' => ( ( defined('DOING_CRON') && DOING_CRON ) ? 30 : 3 ),
@@ -113,11 +113,11 @@ function nxt_version_check() {
 }
 
 /**
- * Check plugin versions against the latest versions hosted on NXTClass.org.
+ * Check plugin versions against the latest versions hosted on opensource.nxtclass.tk.
  *
  * The NXTClass version, PHP version, and Locale is sent along with a list of
  * all plugins installed. Checks against the NXTClass server at
- * api.nxtclass.org. Will only check if NXTClass isn't installing.
+ * api.opensource.nxtclass.tk. Will only check if NXTClass isn't installing.
  *
  * @package NXTClass
  * @since 2.3.0
@@ -180,7 +180,7 @@ function nxt_update_plugins() {
 		'user-agent' => 'NXTClass/' . $nxt_version . '; ' . get_bloginfo( 'url' )
 	);
 
-	$raw_response = nxt_remote_post('http://api.nxtclass.org/plugins/update-check/1.0/', $options);
+	$raw_response = nxt_remote_post('http://api.opensource.nxtclass.tk/plugins/update-check/1.0/', $options);
 
 	if ( is_nxt_error( $raw_response ) || 200 != nxt_remote_retrieve_response_code( $raw_response ) )
 		return false;
@@ -196,10 +196,10 @@ function nxt_update_plugins() {
 }
 
 /**
- * Check theme versions against the latest versions hosted on NXTClass.org.
+ * Check theme versions against the latest versions hosted on opensource.nxtclass.tk.
  *
  * A list of all themes installed in sent to nxt. Checks against the
- * NXTClass server at api.nxtclass.org. Will only check if NXTClass isn't
+ * NXTClass server at api.opensource.nxtclass.tk. Will only check if NXTClass isn't
  * installing.
  *
  * @package NXTClass
@@ -276,7 +276,7 @@ function nxt_update_themes() {
 		'user-agent'	=> 'NXTClass/' . $nxt_version . '; ' . get_bloginfo( 'url' )
 	);
 
-	$raw_response = nxt_remote_post( 'http://api.nxtclass.org/themes/update-check/1.0/', $options );
+	$raw_response = nxt_remote_post( 'http://api.opensource.nxtclass.tk/themes/update-check/1.0/', $options );
 
 	if ( is_nxt_error( $raw_response ) || 200 != nxt_remote_retrieve_response_code( $raw_response ) )
 		return false;

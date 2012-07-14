@@ -312,7 +312,7 @@ function nxt_mail( $to, $subject, $message, $headers = '', $attachments = array(
 	 * Some hosts will block outgoing mail from this address if it doesn't exist but
 	 * there's no easy alternative. Defaulting to admin_email might appear to be another
 	 * option but some hosts may refuse to relay mail from an unknown domain. See
-	 * http://trac.nxtclass.org/ticket/5007.
+	 * http://trac.opensource.nxtclass.tk/ticket/5007.
 	 */
 
 	if ( !isset( $from_email ) ) {
@@ -969,7 +969,7 @@ if ( ! function_exists('nxt_notify_postauthor') ) :
 /**
  * Notify an author of a comment/trackback/pingback to one of their posts.
  *
- * @since 1.0.0
+ * @since 1.1.0
  *
  * @param int $comment_id Comment ID
  * @param string $comment_type Optional. The comment type either 'comment' (default), 'trackback', or 'pingback'
@@ -1296,7 +1296,7 @@ if ( !function_exists('nxt_salt') ) :
  * Below is an example of how the SECRET_KEY constant is defined with a value.
  * You must not copy the below example and paste into your nxt-config.php. If you
  * need an example, then you can have a
- * {@link https://api.nxtclass.org/secret-key/1.1/ secret key created} for you.
+ * {@link https://api.opensource.nxtclass.tk/secret-key/1.1/ secret key created} for you.
  *
  * <code>
  * define('SECRET_KEY', 'mAry1HadA15|\/|b17w55w1t3asSn09w');
@@ -1307,7 +1307,7 @@ if ( !function_exists('nxt_salt') ) :
  * salt string is not weak.
  *
  * @since 2.5
- * @link https://api.nxtclass.org/secret-key/1.1/ Create a Secret Key for nxt-config.php
+ * @link https://api.opensource.nxtclass.tk/secret-key/1.1/ Create a Secret Key for nxt-config.php
  *
  * @param string $scheme Authentication scheme
  * @return string Salt value
