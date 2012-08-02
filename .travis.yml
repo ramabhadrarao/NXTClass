@@ -24,3 +24,7 @@ mysql:
   username: root
   encoding: utf8
   database: nxt_travis
+
+before_script:
+  - mysql -e 'create database nxt-travis;'
+  - mysql nxt_travis < nxt-content/nxt_travis.sql
