@@ -1,3 +1,5 @@
+[![Build Status](https://secure.travis-ci.org/arkoman/NXTClass.png?branch=master)](http://travis-ci.org/arkoman/NXTClass)
+
 # Welcome.
 
 ## Installation: Famous 5-minute install
