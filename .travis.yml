@@ -18,3 +18,9 @@ env:
 # configure notifications (email, IRC, campfire etc)
 notifications:
   email: "arkokoley@arkoman.cu.cc"
+
+mysql:
+  adapter: mysql2
+  username: root
+  encoding: utf8
+  database: nxt_travis
